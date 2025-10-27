@@ -3,60 +3,63 @@ import { nanoid } from 'nanoid';
 import { dbOperations } from '@/lib/db';
 import { storageOperations } from '@/lib/storage';
 
+const SERVER_INFO = {
+  name: 'md-share',
+  version: '1.0.0',
+};
+
+const PROTOCOL_VERSION = '2024-11-05';
+
+const TOOL_DEFINITION = {
+  name: 'share_markdown',
+  description: 'Share a markdown file and get a public URL that expires in 30 days',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      content: {
+        type: 'string',
+        description: 'The markdown content to share',
+      },
+      filename: {
+        type: 'string',
+        description: 'Optional filename for the markdown file',
+      },
+    },
+    required: ['content'],
+  },
+};
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { method, params, id } = body;
+    const { method, params, id } = await request.json();
 
-    // Handle initialize request
+    // Handle initialize
     if (method === 'initialize') {
       return NextResponse.json({
         jsonrpc: '2.0',
         id,
         result: {
-          protocolVersion: '2024-11-05',
+          protocolVersion: PROTOCOL_VERSION,
           capabilities: {
             tools: {},
           },
-          serverInfo: {
-            name: 'md-share',
-            version: '1.0.0',
-          },
+          serverInfo: SERVER_INFO,
         },
       });
     }
 
-    // Handle tools/list request
+    // Handle tools/list
     if (method === 'tools/list') {
       return NextResponse.json({
         jsonrpc: '2.0',
         id,
         result: {
-          tools: [
-            {
-              name: 'share_markdown',
-              description: 'Share a markdown file and get a public URL that expires in 30 days',
-              inputSchema: {
-                type: 'object',
-                properties: {
-                  content: {
-                    type: 'string',
-                    description: 'The markdown content to share',
-                  },
-                  filename: {
-                    type: 'string',
-                    description: 'Optional filename for the markdown file',
-                  },
-                },
-                required: ['content'],
-              },
-            },
-          ],
+          tools: [TOOL_DEFINITION],
         },
       });
     }
 
-    // Handle tools/call request
+    // Handle tools/call
     if (method === 'tools/call') {
       const { name, arguments: args } = params;
 
@@ -83,7 +86,7 @@ export async function POST(request: NextRequest) {
         // Save metadata to database
         const share = dbOperations.createShare(shareId, filename || 'untitled.md');
 
-        // Get base URL from environment or request
+        // Get base URL
         const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
         const shareUrl = `${baseUrl}/${shareId}`;
 
@@ -127,7 +130,7 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('MCP Server Error:', error);
+    console.error('MCP Error:', error);
     return NextResponse.json(
       {
         jsonrpc: '2.0',
@@ -142,25 +145,14 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Handle GET for SSE-based connections
-export async function GET(request: NextRequest) {
-  return new NextResponse('MCP server requires POST requests', {
-    status: 405,
-    headers: {
-      'Content-Type': 'text/plain',
-    },
-  });
-}
-
-// OPTIONS handler for CORS preflight
+// CORS
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   });
 }
-

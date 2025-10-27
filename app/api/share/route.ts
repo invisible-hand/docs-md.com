@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { nanoid } from 'nanoid';
 import { dbOperations } from '@/lib/db';
 import { storageOperations } from '@/lib/storage';
+import { generateSlug } from '@/lib/slug-generator';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,8 +15,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate unique ID
-    const id = nanoid(10);
+    // Generate unique friendly slug
+    let id = generateSlug();
+    
+    // Ensure uniqueness (unlikely collision, but check anyway)
+    let attempts = 0;
+    while (await dbOperations.getShare(id) && attempts < 5) {
+      id = generateSlug();
+      attempts++;
+    }
     
     // Save markdown file and get blob URL
     const blobUrl = await storageOperations.saveMarkdown(id, content);
@@ -28,10 +35,8 @@ export async function POST(request: NextRequest) {
       blobUrl
     );
 
-    // Get base URL
-    const baseUrl = process.env.BASE_URL || 
-      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-      `${request.nextUrl.protocol}//${request.nextUrl.host}`);
+    // Get base URL - always use custom domain
+    const baseUrl = 'https://docs-md.com';
     const shareUrl = `${baseUrl}/${id}`;
 
     return NextResponse.json({

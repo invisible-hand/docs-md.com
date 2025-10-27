@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { nanoid } from 'nanoid';
 import { dbOperations } from '@/lib/db';
 import { storageOperations } from '@/lib/storage';
+import { generateSlug } from '@/lib/slug-generator';
 
 const SERVER_INFO = {
   name: 'md-share',
@@ -77,8 +77,15 @@ export async function POST(request: NextRequest) {
       try {
         const { content, filename } = args as { content: string; filename?: string };
 
-        // Generate unique ID
-        const shareId = nanoid(10);
+        // Generate unique friendly slug
+        let shareId = generateSlug();
+        
+        // Ensure uniqueness
+        let attempts = 0;
+        while (await dbOperations.getShare(shareId) && attempts < 5) {
+          shareId = generateSlug();
+          attempts++;
+        }
 
         // Save markdown file and get blob URL
         const blobUrl = await storageOperations.saveMarkdown(shareId, content);
@@ -86,9 +93,9 @@ export async function POST(request: NextRequest) {
         // Save metadata to database
         const share = await dbOperations.createShare(shareId, filename || 'untitled.md', blobUrl);
 
-        // Get base URL
-        const baseUrl = process.env.BASE_URL || process.env.VERCEL_URL 
-          ? `https://${process.env.VERCEL_URL}` 
+        // Get base URL - always use custom domain in production
+        const baseUrl = process.env.VERCEL_ENV === 'production' 
+          ? 'https://docs-md.com' 
           : 'http://localhost:3000';
         const shareUrl = `${baseUrl}/${shareId}`;
 

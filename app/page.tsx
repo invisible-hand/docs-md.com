@@ -55,7 +55,6 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-semibold tracking-tight text-gray-950">DOCS-MD.COM</h1>
-              <p className="text-xs text-gray-500 mt-1">Temporary markdown sharing</p>
             </div>
             <a
               href="/api/mcp"
@@ -72,8 +71,6 @@ export default function Home() {
         <div className="mb-16 max-w-2xl">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-950 mb-4 tracking-tight leading-tight">
             Share Markdown Files
-            <br />
-            <span className="text-gray-500">No Sign-Up Required</span>
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
             Paste your markdown content, get a shareable link. All links automatically expire after 30 days.

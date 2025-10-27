@@ -5,13 +5,13 @@ import { storageOperations } from '@/lib/storage';
 export async function DELETE() {
   try {
     // Get all expired shares
-    const expiredShares = dbOperations.getExpiredShares();
+    const expiredShares = await dbOperations.getExpiredShares();
     
     // Delete files and database entries
     let deletedCount = 0;
     for (const share of expiredShares) {
-      storageOperations.deleteMarkdown(share.id);
-      dbOperations.deleteShare(share.id);
+      await storageOperations.deleteMarkdown(share.id);
+      await dbOperations.deleteShare(share.id);
       deletedCount++;
     }
 

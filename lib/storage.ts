@@ -1,50 +1,44 @@
-import fs from 'fs';
-import path from 'path';
-
-const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
-
-// Ensure uploads directory exists
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
+import { put, del, head } from '@vercel/blob';
 
 export const storageOperations = {
-  saveMarkdown: (id: string, content: string): string => {
-    const filePath = path.join(uploadsDir, `${id}.md`);
-    fs.writeFileSync(filePath, content, 'utf-8');
-    return filePath;
+  saveMarkdown: async (id: string, content: string): Promise<string> => {
+    const blob = await put(`${id}.md`, content, {
+      access: 'public',
+      contentType: 'text/markdown',
+    });
+    return blob.url;
   },
 
-  readMarkdown: (id: string): string | null => {
-    const filePath = path.join(uploadsDir, `${id}.md`);
+  readMarkdown: async (id: string): Promise<string | null> => {
     try {
-      if (fs.existsSync(filePath)) {
-        return fs.readFileSync(filePath, 'utf-8');
+      // Fetch the blob content directly
+      const response = await fetch(`https://docs-md-com-blob.public.blob.vercel-storage.com/${id}.md`);
+      if (!response.ok) {
+        return null;
       }
-      return null;
+      return await response.text();
     } catch (error) {
       console.error(`Error reading markdown file ${id}:`, error);
       return null;
     }
   },
 
-  deleteMarkdown: (id: string): boolean => {
-    const filePath = path.join(uploadsDir, `${id}.md`);
+  deleteMarkdown: async (id: string): Promise<boolean> => {
     try {
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-        return true;
-      }
-      return false;
+      await del(`https://docs-md-com-blob.public.blob.vercel-storage.com/${id}.md`);
+      return true;
     } catch (error) {
       console.error(`Error deleting markdown file ${id}:`, error);
       return false;
     }
   },
 
-  fileExists: (id: string): boolean => {
-    const filePath = path.join(uploadsDir, `${id}.md`);
-    return fs.existsSync(filePath);
+  fileExists: async (id: string): Promise<boolean> => {
+    try {
+      await head(`https://docs-md-com-blob.public.blob.vercel-storage.com/${id}.md`);
+      return true;
+    } catch (error) {
+      return false;
+    }
   },
 };
-

@@ -19,10 +19,10 @@ export async function POST(request: NextRequest) {
     const id = nanoid(10);
     
     // Save markdown file
-    storageOperations.saveMarkdown(id, content);
+    await storageOperations.saveMarkdown(id, content);
     
     // Save metadata to database
-    const share = dbOperations.createShare(
+    const share = await dbOperations.createShare(
       id,
       filename || 'untitled.md'
     );

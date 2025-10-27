@@ -14,7 +14,7 @@ export default async function SharePage({ params }: PageProps) {
   const { id } = await params;
 
   // Get share metadata from database
-  const share = dbOperations.getShare(id);
+  const share = await dbOperations.getShare(id);
 
   if (!share) {
     notFound();
@@ -23,13 +23,13 @@ export default async function SharePage({ params }: PageProps) {
   // Check if share has expired
   if (share.expires_at < Date.now()) {
     // Delete expired share
-    storageOperations.deleteMarkdown(id);
-    dbOperations.deleteShare(id);
+    await storageOperations.deleteMarkdown(id);
+    await dbOperations.deleteShare(id);
     notFound();
   }
 
   // Read markdown content
-  const content = storageOperations.readMarkdown(id);
+  const content = await storageOperations.readMarkdown(id);
 
   if (!content) {
     notFound();
@@ -87,7 +87,7 @@ export default async function SharePage({ params }: PageProps) {
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const share = dbOperations.getShare(id);
+  const share = await dbOperations.getShare(id);
 
   if (!share) {
     return {

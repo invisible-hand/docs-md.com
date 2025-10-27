@@ -81,10 +81,10 @@ export async function POST(request: NextRequest) {
         const shareId = nanoid(10);
 
         // Save markdown file
-        storageOperations.saveMarkdown(shareId, content);
+        await storageOperations.saveMarkdown(shareId, content);
 
         // Save metadata to database
-        const share = dbOperations.createShare(shareId, filename || 'untitled.md');
+        const share = await dbOperations.createShare(shareId, filename || 'untitled.md');
 
         // Get base URL
         const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
@@ -145,13 +145,43 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// Handle GET for SSE connections
+export async function GET(request: NextRequest) {
+  const encoder = new TextEncoder();
+  
+  const stream = new ReadableStream({
+    start(controller) {
+      // Send server info as SSE
+      const data = JSON.stringify({
+        jsonrpc: '2.0',
+        method: 'server/info',
+        params: {
+          protocolVersion: PROTOCOL_VERSION,
+          capabilities: { tools: {} },
+          serverInfo: SERVER_INFO,
+        },
+      });
+      
+      controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+    },
+  });
+
+  return new NextResponse(stream, {
+    headers: {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+    },
+  });
+}
+
 // CORS
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 200,
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   });

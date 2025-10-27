@@ -1,27 +1,4 @@
-import Database from 'better-sqlite3';
-import path from 'path';
-import fs from 'fs';
-
-const dbDir = path.join(process.cwd(), 'data');
-const dbPath = path.join(dbDir, 'shares.db');
-
-// Ensure data directory exists
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
-}
-
-const db = new Database(dbPath);
-
-// Initialize database schema
-db.exec(`
-  CREATE TABLE IF NOT EXISTS shares (
-    id TEXT PRIMARY KEY,
-    filename TEXT,
-    created_at INTEGER NOT NULL,
-    expires_at INTEGER NOT NULL
-  );
-  CREATE INDEX IF NOT EXISTS idx_expires_at ON shares(expires_at);
-`);
+import { sql } from '@vercel/postgres';
 
 export interface Share {
   id: string;
@@ -30,15 +7,34 @@ export interface Share {
   expires_at: number;
 }
 
+// Initialize database schema (run this once)
+export async function initDatabase() {
+  try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS shares (
+        id TEXT PRIMARY KEY,
+        filename TEXT,
+        created_at BIGINT NOT NULL,
+        expires_at BIGINT NOT NULL
+      );
+    `;
+    await sql`
+      CREATE INDEX IF NOT EXISTS idx_expires_at ON shares(expires_at);
+    `;
+  } catch (error) {
+    console.error('Error initializing database:', error);
+  }
+}
+
 export const dbOperations = {
-  createShare: (id: string, filename: string): Share => {
+  createShare: async (id: string, filename: string): Promise<Share> => {
     const now = Date.now();
     const expiresAt = now + 30 * 24 * 60 * 60 * 1000; // 30 days from now
     
-    const stmt = db.prepare(
-      'INSERT INTO shares (id, filename, created_at, expires_at) VALUES (?, ?, ?, ?)'
-    );
-    stmt.run(id, filename, now, expiresAt);
+    await sql`
+      INSERT INTO shares (id, filename, created_at, expires_at) 
+      VALUES (${id}, ${filename}, ${now}, ${expiresAt})
+    `;
     
     return {
       id,
@@ -48,29 +44,32 @@ export const dbOperations = {
     };
   },
 
-  getShare: (id: string): Share | undefined => {
-    const stmt = db.prepare('SELECT * FROM shares WHERE id = ?');
-    return stmt.get(id) as Share | undefined;
+  getShare: async (id: string): Promise<Share | undefined> => {
+    const result = await sql`
+      SELECT * FROM shares WHERE id = ${id}
+    `;
+    return result.rows[0] as Share | undefined;
   },
 
-  deleteShare: (id: string): void => {
-    const stmt = db.prepare('DELETE FROM shares WHERE id = ?');
-    stmt.run(id);
+  deleteShare: async (id: string): Promise<void> => {
+    await sql`
+      DELETE FROM shares WHERE id = ${id}
+    `;
   },
 
-  getExpiredShares: (): Share[] => {
+  getExpiredShares: async (): Promise<Share[]> => {
     const now = Date.now();
-    const stmt = db.prepare('SELECT * FROM shares WHERE expires_at < ?');
-    return stmt.all(now) as Share[];
+    const result = await sql`
+      SELECT * FROM shares WHERE expires_at < ${now}
+    `;
+    return result.rows as Share[];
   },
 
-  deleteExpiredShares: (): number => {
+  deleteExpiredShares: async (): Promise<number> => {
     const now = Date.now();
-    const stmt = db.prepare('DELETE FROM shares WHERE expires_at < ?');
-    const result = stmt.run(now);
-    return result.changes;
+    const result = await sql`
+      DELETE FROM shares WHERE expires_at < ${now}
+    `;
+    return result.rowCount || 0;
   },
 };
-
-export default db;
-

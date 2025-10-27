@@ -21,7 +21,7 @@ export default async function SharePage({ params }: PageProps) {
   }
 
   // Check if share has expired
-  if (share.expires_at < Date.now()) {
+  if (expiresAt < Date.now()) {
     // Delete expired share
     await storageOperations.deleteMarkdown(share.blob_url);
     await dbOperations.deleteShare(id);
@@ -35,8 +35,13 @@ export default async function SharePage({ params }: PageProps) {
     notFound();
   }
 
-  const expiresDate = new Date(share.expires_at);
-  const daysUntilExpiry = Math.ceil((share.expires_at - Date.now()) / (1000 * 60 * 60 * 24));
+  // Convert BIGINT strings from Postgres to numbers
+  const createdAt = typeof share.created_at === 'string' ? parseInt(share.created_at) : share.created_at;
+  const expiresAt = typeof share.expires_at === 'string' ? parseInt(share.expires_at) : share.expires_at;
+  
+  const expiresDate = new Date(expiresAt);
+  const createdDate = new Date(createdAt);
+  const daysUntilExpiry = Math.ceil((expiresAt - Date.now()) / (1000 * 60 * 60 * 24));
 
   return (
     <div className="min-h-screen p-4 md:p-8">
@@ -61,7 +66,7 @@ export default async function SharePage({ params }: PageProps) {
             <div>
               <h1 className="text-xl font-semibold text-gray-950">{share.filename}</h1>
               <p className="text-xs text-gray-500 mt-1">
-                Shared {new Date(share.created_at).toLocaleDateString()} • 
+                Shared {createdDate.toLocaleDateString()} • 
                 Expires {expiresDate.toLocaleDateString()}
               </p>
             </div>

@@ -20,6 +20,10 @@ export default async function SharePage({ params }: PageProps) {
     notFound();
   }
 
+  // Convert BIGINT strings from Postgres to numbers
+  const createdAt = typeof share.created_at === 'string' ? parseInt(share.created_at) : share.created_at;
+  const expiresAt = typeof share.expires_at === 'string' ? parseInt(share.expires_at) : share.expires_at;
+
   // Check if share has expired
   if (expiresAt < Date.now()) {
     // Delete expired share
@@ -34,10 +38,6 @@ export default async function SharePage({ params }: PageProps) {
   if (!content) {
     notFound();
   }
-
-  // Convert BIGINT strings from Postgres to numbers
-  const createdAt = typeof share.created_at === 'string' ? parseInt(share.created_at) : share.created_at;
-  const expiresAt = typeof share.expires_at === 'string' ? parseInt(share.expires_at) : share.expires_at;
   
   const expiresDate = new Date(expiresAt);
   const createdDate = new Date(createdAt);

@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
             content: [
               {
                 type: 'text',
-                text: `✓ Markdown shared successfully!\n\nURL: ${shareUrl}\nExpires: ${new Date(share.expires_at).toLocaleString()}\n\nShare this link with others.`,
+                text: `✓ Markdown shared successfully!\n\n**URL:** ${shareUrl}\n**Expires:** ${new Date(share.expires_at).toLocaleDateString()}\n\nShare this link with others.`,
               },
             ],
           },

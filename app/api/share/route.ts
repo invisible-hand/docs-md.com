@@ -28,7 +28,9 @@ export async function POST(request: NextRequest) {
     );
 
     // Get base URL
-    const baseUrl = process.env.BASE_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`;
+    const baseUrl = process.env.BASE_URL || 
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+      `${request.nextUrl.protocol}//${request.nextUrl.host}`);
     const shareUrl = `${baseUrl}/${id}`;
 
     return NextResponse.json({

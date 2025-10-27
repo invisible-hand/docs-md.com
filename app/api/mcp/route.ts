@@ -87,7 +87,9 @@ export async function POST(request: NextRequest) {
         const share = await dbOperations.createShare(shareId, filename || 'untitled.md');
 
         // Get base URL
-        const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+        const baseUrl = process.env.BASE_URL || process.env.VERCEL_URL 
+          ? `https://${process.env.VERCEL_URL}` 
+          : 'http://localhost:3000';
         const shareUrl = `${baseUrl}/${shareId}`;
 
         return NextResponse.json({

@@ -18,13 +18,14 @@ export async function POST(request: NextRequest) {
     // Generate unique ID
     const id = nanoid(10);
     
-    // Save markdown file
-    await storageOperations.saveMarkdown(id, content);
+    // Save markdown file and get blob URL
+    const blobUrl = await storageOperations.saveMarkdown(id, content);
     
     // Save metadata to database
     const share = await dbOperations.createShare(
       id,
-      filename || 'untitled.md'
+      filename || 'untitled.md',
+      blobUrl
     );
 
     // Get base URL

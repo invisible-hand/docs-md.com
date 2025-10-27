@@ -23,13 +23,13 @@ export default async function SharePage({ params }: PageProps) {
   // Check if share has expired
   if (share.expires_at < Date.now()) {
     // Delete expired share
-    await storageOperations.deleteMarkdown(id);
+    await storageOperations.deleteMarkdown(share.blob_url);
     await dbOperations.deleteShare(id);
     notFound();
   }
 
   // Read markdown content
-  const content = await storageOperations.readMarkdown(id);
+  const content = await storageOperations.readMarkdown(share.blob_url);
 
   if (!content) {
     notFound();

@@ -10,7 +10,7 @@ export async function DELETE() {
     // Delete files and database entries
     let deletedCount = 0;
     for (const share of expiredShares) {
-      await storageOperations.deleteMarkdown(share.id);
+      await storageOperations.deleteMarkdown(share.blob_url);
       await dbOperations.deleteShare(share.id);
       deletedCount++;
     }

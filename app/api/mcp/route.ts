@@ -80,11 +80,11 @@ export async function POST(request: NextRequest) {
         // Generate unique ID
         const shareId = nanoid(10);
 
-        // Save markdown file
-        await storageOperations.saveMarkdown(shareId, content);
+        // Save markdown file and get blob URL
+        const blobUrl = await storageOperations.saveMarkdown(shareId, content);
 
         // Save metadata to database
-        const share = await dbOperations.createShare(shareId, filename || 'untitled.md');
+        const share = await dbOperations.createShare(shareId, filename || 'untitled.md', blobUrl);
 
         // Get base URL
         const baseUrl = process.env.BASE_URL || process.env.VERCEL_URL 

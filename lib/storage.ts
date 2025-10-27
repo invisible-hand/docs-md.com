@@ -1,4 +1,4 @@
-import { put, del, head } from '@vercel/blob';
+import { put, del } from '@vercel/blob';
 
 export const storageOperations = {
   saveMarkdown: async (id: string, content: string): Promise<string> => {
@@ -9,35 +9,25 @@ export const storageOperations = {
     return blob.url;
   },
 
-  readMarkdown: async (id: string): Promise<string | null> => {
+  readMarkdown: async (blobUrl: string): Promise<string | null> => {
     try {
-      // Fetch the blob content directly
-      const response = await fetch(`https://docs-md-com-blob.public.blob.vercel-storage.com/${id}.md`);
+      const response = await fetch(blobUrl);
       if (!response.ok) {
         return null;
       }
       return await response.text();
     } catch (error) {
-      console.error(`Error reading markdown file ${id}:`, error);
+      console.error(`Error reading markdown file from ${blobUrl}:`, error);
       return null;
     }
   },
 
-  deleteMarkdown: async (id: string): Promise<boolean> => {
+  deleteMarkdown: async (blobUrl: string): Promise<boolean> => {
     try {
-      await del(`https://docs-md-com-blob.public.blob.vercel-storage.com/${id}.md`);
+      await del(blobUrl);
       return true;
     } catch (error) {
-      console.error(`Error deleting markdown file ${id}:`, error);
-      return false;
-    }
-  },
-
-  fileExists: async (id: string): Promise<boolean> => {
-    try {
-      await head(`https://docs-md-com-blob.public.blob.vercel-storage.com/${id}.md`);
-      return true;
-    } catch (error) {
+      console.error(`Error deleting markdown file ${blobUrl}:`, error);
       return false;
     }
   },

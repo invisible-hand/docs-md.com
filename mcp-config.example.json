@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "md-share": {
+      "command": "node",
+      "args": [],
+      "env": {},
+      "url": "http://localhost:3000/api/mcp",
+      "transport": "http",
+      "description": "Share markdown files with auto-expiring links"
+    }
+  }
+}
+

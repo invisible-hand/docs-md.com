@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #fafafa;
   --foreground: #171717;
+  --card-bg: #ffffff;
+  --accent: #000000;
+  --border: #e5e5e5;
+  --muted: #737373;
 }
 
 @theme inline {
@@ -12,15 +16,136 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+/* Markdown Styles */
+.markdown-content {
+  line-height: 1.7;
+  color: var(--foreground);
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.3;
+}
+
+.markdown-content h1 {
+  font-size: 2em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3em;
+}
+
+.markdown-content h2 {
+  font-size: 1.5em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3em;
+}
+
+.markdown-content p {
+  margin-bottom: 1.25em;
+}
+
+.markdown-content code {
+  background: #f4f4f5;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: var(--font-geist-mono), 'Monaco', 'Courier New', monospace;
+  font-size: 0.875em;
+  color: #171717;
+  border: 1px solid #e5e5e5;
+}
+
+.markdown-content pre {
+  background: #18181b;
+  color: #fafafa;
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  border: 1px solid #27272a;
+}
+
+.markdown-content pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  border: none;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin-bottom: 1.25em;
+  padding-left: 1.75em;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+}
+
+.markdown-content li {
+  margin-bottom: 0.5em;
+  padding-left: 0.25em;
+}
+
+.markdown-content li > p {
+  margin-bottom: 0.5em;
+}
+
+.markdown-content blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1em;
+  margin: 1.5em 0;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.markdown-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.markdown-content a:hover {
+  opacity: 0.7;
+}
+
+.markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5em 0;
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid var(--border);
+  padding: 0.75em 1em;
+  text-align: left;
+}
+
+.markdown-content th {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+.markdown-content hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2em 0;
 }

@@ -145,16 +145,19 @@ export default function Home() {
                 </li>
               </ul>
             </div>
+          </div>
+        </div>
 
-            {/* MCP Integration */}
-            <div id="mcp-setup" className="bg-gray-950 rounded-2xl p-6 text-white">
-              <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide">MCP Integration</h3>
-              <p className="text-sm text-gray-300 mb-4">
-                Share markdown directly from Cursor using our MCP server.
-              </p>
-              <div className="bg-gray-900 rounded-lg p-4 mb-4 border border-gray-800">
-                <p className="text-xs text-gray-400 mb-2 font-mono">Add to MCP settings:</p>
-                <pre className="text-xs text-gray-300 font-mono overflow-x-auto">
+        {/* MCP Integration - Full Width at Bottom */}
+        <div id="mcp-setup" className="mt-16 max-w-3xl mx-auto">
+          <div className="bg-gray-950 rounded-2xl p-8 text-white">
+            <h3 className="font-semibold mb-3 text-base uppercase tracking-wide">MCP Integration</h3>
+            <p className="text-sm text-gray-300 mb-6">
+              Share markdown directly from Cursor using our MCP server.
+            </p>
+            <div className="bg-gray-900 rounded-lg p-5 mb-5 border border-gray-800">
+              <p className="text-xs text-gray-400 mb-3 font-mono">Add to MCP settings:</p>
+              <pre className="text-sm text-gray-300 font-mono whitespace-pre">
 {`{
   "mcpServers": {
     "md-share": {
@@ -163,12 +166,11 @@ export default function Home() {
     }
   }
 }`}
-                </pre>
-              </div>
-              <p className="text-xs text-gray-400">
-                Then restart Cursor and ask: <span className="text-gray-300">&quot;Share this markdown file&quot;</span>
-              </p>
+              </pre>
             </div>
+            <p className="text-sm text-gray-400">
+              Then restart Cursor and ask: <span className="text-gray-300 font-medium">&quot;Share this markdown file&quot;</span>
+            </p>
           </div>
         </div>
       </main>

@@ -4,7 +4,7 @@ export const storageOperations = {
   saveMarkdown: async (id: string, content: string): Promise<string> => {
     const blob = await put(`${id}.md`, content, {
       access: 'public',
-      contentType: 'text/markdown',
+      contentType: 'text/markdown; charset=utf-8',
     });
     return blob.url;
   },

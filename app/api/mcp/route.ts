@@ -8,10 +8,11 @@ const SERVER_INFO = {
   version: '1.0.0',
 };
 
-const PROTOCOL_VERSION = '2024-11-05';
+const PROTOCOL_VERSION = '2025-06-18';
 
 const TOOL_DEFINITION = {
   name: 'share_markdown',
+  title: 'Markdown File Sharing',
   description: 'Share a markdown file and get a public URL that expires in 30 days',
   inputSchema: {
     type: 'object',

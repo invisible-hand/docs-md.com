@@ -70,11 +70,11 @@ export default async function SharePage({ params }: PageProps) {
                 Expires {expiresDate.toLocaleDateString()}
               </p>
             </div>
-            <ShareActions content={content} />
+            <ShareActions content={content} filename={share.filename} />
           </div>
 
           {/* Markdown Content */}
-          <div className="p-8 md:p-12 bg-white">
+          <div id="markdown-content" className="p-8 md:p-12 bg-white">
             <MarkdownRenderer content={content} />
           </div>
         </div>

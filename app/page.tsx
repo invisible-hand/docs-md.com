@@ -169,15 +169,15 @@ export default function Home() {
               </pre>
             </div>
             <p className="text-sm text-gray-400">
-              Then restart Cursor and ask: <span className="text-gray-300 font-medium">&quot;Share this markdown file&quot;</span>
+              Then attach a file to Cursor chat and simply ask: <span className="text-gray-300 font-medium">&quot;Share this file&quot;</span>
             </p>
           </div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 mt-24">
-        <div className="max-w-6xl mx-auto px-4 py-8">
+      <footer className="border-t border-gray-100 mt-12">
+        <div className="max-w-6xl mx-auto px-4 py-6">
           <p className="text-center text-xs text-gray-500">
             Built with Next.js, Vercel Blob, and Neon Postgres
           </p>

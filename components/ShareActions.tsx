@@ -38,18 +38,77 @@ export default function ShareActions({ content, filename }: ShareActionsProps) {
         }
       };
 
-      // Helper function to add text with word wrapping
-      const addText = (text: string, fontSize: number, fontStyle: string, lineSpacing = 1.5) => {
+      // Helper function to add text with markdown rendering
+      const addText = (text: string, fontSize: number, baseStyle: string, lineSpacing = 1.5) => {
         pdf.setFontSize(fontSize);
-        pdf.setFont('helvetica', fontStyle);
-        
-        const lines = pdf.splitTextToSize(text, contentWidth);
         const lineHeight = fontSize * 0.5 * lineSpacing;
+        
+        // Parse inline markdown and render with proper styling
+        const renderInlineMarkdown = (line: string, x: number, y: number) => {
+          let currentX = x;
+          const parts: Array<{text: string, style: string, isCode: boolean}> = [];
+          
+          // Regex to match markdown patterns
+          const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`|[^*`]+)/g;
+          const matches = line.match(regex) || [line];
+          
+          for (const match of matches) {
+            if (match.startsWith('**') && match.endsWith('**')) {
+              // Bold
+              parts.push({text: match.slice(2, -2), style: 'bold', isCode: false});
+            } else if (match.startsWith('*') && match.endsWith('*') && !match.startsWith('**')) {
+              // Italic
+              parts.push({text: match.slice(1, -1), style: 'italic', isCode: false});
+            } else if (match.startsWith('`') && match.endsWith('`')) {
+              // Code
+              parts.push({text: match.slice(1, -1), style: 'normal', isCode: true});
+            } else {
+              // Normal text
+              parts.push({text: match, style: baseStyle, isCode: false});
+            }
+          }
+          
+          // Render each part with appropriate styling
+          for (const part of parts) {
+            if (part.isCode) {
+              // Code block styling
+              pdf.setFont('courier', 'normal');
+              pdf.setFillColor(245, 245, 245);
+              const textWidth = pdf.getTextWidth(part.text);
+              pdf.rect(currentX - 1, y - fontSize * 0.35, textWidth + 2, fontSize * 0.5, 'F');
+              pdf.setTextColor(60, 60, 60);
+              pdf.text(part.text, currentX, y);
+              currentX += textWidth + 1;
+              pdf.setTextColor(0, 0, 0);
+            } else {
+              pdf.setFont('helvetica', part.style);
+              pdf.text(part.text, currentX, y);
+              currentX += pdf.getTextWidth(part.text);
+            }
+          }
+        };
+        
+        // Word wrap and render
+        const words = text.split(' ');
+        let currentLine = '';
+        const lines: string[] = [];
+        
+        for (const word of words) {
+          const testLine = currentLine + (currentLine ? ' ' : '') + word;
+          // Approximate width check (rough estimation)
+          if (pdf.getTextWidth(testLine) > contentWidth - 5) {
+            if (currentLine) lines.push(currentLine);
+            currentLine = word;
+          } else {
+            currentLine = testLine;
+          }
+        }
+        if (currentLine) lines.push(currentLine);
         
         checkPageBreak(lineHeight * lines.length);
         
         for (const line of lines) {
-          pdf.text(line, margin, yPosition);
+          renderInlineMarkdown(line, margin, yPosition);
           yPosition += lineHeight;
         }
       };
@@ -82,16 +141,33 @@ export default function ShareActions({ content, filename }: ShareActionsProps) {
           addText('• ' + line.substring(2), 11, 'normal', 1.4);
         } else if (line.match(/^\d+\. /)) {
           addText(line, 11, 'normal', 1.4);
+        } else if (line.startsWith('```')) {
+          // Code block
+          yPosition += 2;
+          pdf.setFillColor(250, 250, 250);
+          const codeLines: string[] = [];
+          i++;
+          while (i < lines.length && !lines[i].startsWith('```')) {
+            codeLines.push(lines[i]);
+            i++;
+          }
+          const codeHeight = codeLines.length * 5 + 6;
+          checkPageBreak(codeHeight);
+          pdf.rect(margin, yPosition - 3, contentWidth, codeHeight, 'F');
+          pdf.setFont('courier', 'normal');
+          pdf.setFontSize(9);
+          pdf.setTextColor(60, 60, 60);
+          for (const codeLine of codeLines) {
+            pdf.text(codeLine, margin + 3, yPosition);
+            yPosition += 5;
+          }
+          pdf.setTextColor(0, 0, 0);
+          yPosition += 5;
         } else if (line.trim() === '' || line.trim() === '---') {
           yPosition += 4;
         } else if (line.trim()) {
-          // Clean markdown formatting
-          const cleanLine = line
-            .replace(/\*\*(.*?)\*\*/g, '$1')
-            .replace(/\*(.*?)\*/g, '$1')
-            .replace(/`(.*?)`/g, '$1')
-            .replace(/\[(.*?)\]\(.*?\)/g, '$1');
-          addText(cleanLine, 11, 'normal', 1.5);
+          // Regular text with inline markdown
+          addText(line, 11, 'normal', 1.5);
         }
       }
 

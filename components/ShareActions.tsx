@@ -15,166 +15,211 @@ export default function ShareActions({ content, filename }: ShareActionsProps) {
   const handleExportPDF = async () => {
     setIsExporting(true);
     try {
-      // Create PDF with A4 size
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: 'a4',
-        compress: true, // Enable compression
       });
 
-      // Page settings
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
       const margin = 20;
       const contentWidth = pageWidth - (2 * margin);
       let yPosition = margin;
 
-      // Helper function to check if we need a new page
       const checkPageBreak = (neededHeight: number) => {
         if (yPosition + neededHeight > pageHeight - margin) {
           pdf.addPage();
           yPosition = margin;
+          return true;
         }
+        return false;
       };
 
-      // Helper function to add text with markdown rendering
-      const addText = (text: string, fontSize: number, baseStyle: string, lineSpacing = 1.5) => {
+      // Simple text renderer with word wrapping
+      const addText = (text: string, fontSize: number, fontStyle: 'normal' | 'bold' | 'italic' = 'normal') => {
         pdf.setFontSize(fontSize);
-        const lineHeight = fontSize * 0.5 * lineSpacing;
+        pdf.setFont('helvetica', fontStyle);
         
-        // Parse inline markdown and render with proper styling
-        const renderInlineMarkdown = (line: string, x: number, y: number) => {
-          let currentX = x;
-          const parts: Array<{text: string, style: string, isCode: boolean}> = [];
-          
-          // Regex to match markdown patterns
-          const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`|[^*`]+)/g;
-          const matches = line.match(regex) || [line];
-          
-          for (const match of matches) {
-            if (match.startsWith('**') && match.endsWith('**')) {
-              // Bold
-              parts.push({text: match.slice(2, -2), style: 'bold', isCode: false});
-            } else if (match.startsWith('*') && match.endsWith('*') && !match.startsWith('**')) {
-              // Italic
-              parts.push({text: match.slice(1, -1), style: 'italic', isCode: false});
-            } else if (match.startsWith('`') && match.endsWith('`')) {
-              // Code
-              parts.push({text: match.slice(1, -1), style: 'normal', isCode: true});
-            } else {
-              // Normal text
-              parts.push({text: match, style: baseStyle, isCode: false});
-            }
-          }
-          
-          // Render each part with appropriate styling
-          for (const part of parts) {
-            if (part.isCode) {
-              // Code block styling
-              pdf.setFont('courier', 'normal');
-              pdf.setFillColor(245, 245, 245);
-              const textWidth = pdf.getTextWidth(part.text);
-              pdf.rect(currentX - 1, y - fontSize * 0.35, textWidth + 2, fontSize * 0.5, 'F');
-              pdf.setTextColor(60, 60, 60);
-              pdf.text(part.text, currentX, y);
-              currentX += textWidth + 1;
-              pdf.setTextColor(0, 0, 0);
-            } else {
-              pdf.setFont('helvetica', part.style);
-              pdf.text(part.text, currentX, y);
-              currentX += pdf.getTextWidth(part.text);
-            }
-          }
-        };
+        const lineHeight = fontSize * 0.4;
+        const lines = pdf.splitTextToSize(text, contentWidth);
         
-        // Word wrap and render
-        const words = text.split(' ');
-        let currentLine = '';
-        const lines: string[] = [];
-        
-        for (const word of words) {
-          const testLine = currentLine + (currentLine ? ' ' : '') + word;
-          // Approximate width check (rough estimation)
-          if (pdf.getTextWidth(testLine) > contentWidth - 5) {
-            if (currentLine) lines.push(currentLine);
-            currentLine = word;
-          } else {
-            currentLine = testLine;
-          }
-        }
-        if (currentLine) lines.push(currentLine);
-        
-        checkPageBreak(lineHeight * lines.length);
+        checkPageBreak(lineHeight * lines.length + 2);
         
         for (const line of lines) {
-          renderInlineMarkdown(line, margin, yPosition);
+          pdf.text(line, margin, yPosition);
           yPosition += lineHeight;
         }
       };
 
-      // Parse and render markdown content
+      // Parse markdown content
       const lines = content.split('\n');
       
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         
         if (line.startsWith('# ')) {
+          // H1
+          yPosition += 5;
+          pdf.setFontSize(20);
+          pdf.setFont('helvetica', 'bold');
+          const h1Lines = pdf.splitTextToSize(line.substring(2), contentWidth);
+          checkPageBreak(h1Lines.length * 8 + 8);
+          for (const h1Line of h1Lines) {
+            pdf.text(h1Line, margin, yPosition);
+            yPosition += 8;
+          }
           yPosition += 3;
-          addText(line.substring(2), 18, 'bold', 1.3);
-          yPosition += 2;
         } else if (line.startsWith('## ')) {
+          // H2
+          yPosition += 4;
+          pdf.setFontSize(16);
+          pdf.setFont('helvetica', 'bold');
+          const h2Lines = pdf.splitTextToSize(line.substring(3), contentWidth);
+          checkPageBreak(h2Lines.length * 6.5 + 6);
+          for (const h2Line of h2Lines) {
+            pdf.text(h2Line, margin, yPosition);
+            yPosition += 6.5;
+          }
           yPosition += 2;
-          addText(line.substring(3), 14, 'bold', 1.3);
-          yPosition += 1;
         } else if (line.startsWith('### ')) {
+          // H3
+          yPosition += 3;
+          pdf.setFontSize(13);
+          pdf.setFont('helvetica', 'bold');
+          const h3Lines = pdf.splitTextToSize(line.substring(4), contentWidth);
+          checkPageBreak(h3Lines.length * 5.5 + 4);
+          for (const h3Line of h3Lines) {
+            pdf.text(h3Line, margin, yPosition);
+            yPosition += 5.5;
+          }
           yPosition += 1;
-          addText(line.substring(4), 12, 'bold', 1.3);
         } else if (line.startsWith('> ')) {
+          // Blockquote
+          pdf.setFontSize(11);
+          pdf.setFont('helvetica', 'italic');
+          pdf.setTextColor(80, 80, 80);
           pdf.setDrawColor(200, 200, 200);
-          pdf.setLineWidth(0.5);
-          checkPageBreak(10);
+          pdf.setLineWidth(1);
+          
+          const quoteText = line.substring(2);
+          const quoteLines = pdf.splitTextToSize(quoteText, contentWidth - 10);
+          const quoteHeight = quoteLines.length * 4.5;
+          
+          checkPageBreak(quoteHeight + 4);
           const startY = yPosition;
-          addText(line.substring(2), 10, 'italic', 1.4);
-          pdf.line(margin, startY - 2, margin, yPosition - 2);
-        } else if (line.match(/^[-*] /)) {
-          addText('• ' + line.substring(2), 11, 'normal', 1.4);
+          
+          for (const quoteLine of quoteLines) {
+            pdf.text(quoteLine, margin + 5, yPosition);
+            yPosition += 4.5;
+          }
+          
+          pdf.line(margin, startY - 2, margin, yPosition - 1);
+          pdf.setTextColor(0, 0, 0);
+          yPosition += 2;
+        } else if (line.match(/^[-*+] /)) {
+          // Bullet list
+          pdf.setFontSize(11);
+          pdf.setFont('helvetica', 'normal');
+          const bulletText = line.substring(2);
+          const bulletLines = pdf.splitTextToSize(bulletText, contentWidth - 8);
+          
+          checkPageBreak(bulletLines.length * 4.5 + 2);
+          
+          pdf.text('•', margin, yPosition);
+          for (let j = 0; j < bulletLines.length; j++) {
+            pdf.text(bulletLines[j], margin + 5, yPosition);
+            yPosition += 4.5;
+          }
         } else if (line.match(/^\d+\. /)) {
-          addText(line, 11, 'normal', 1.4);
+          // Numbered list
+          pdf.setFontSize(11);
+          pdf.setFont('helvetica', 'normal');
+          const numMatch = line.match(/^(\d+)\. /);
+          const num = numMatch ? numMatch[1] + '.' : '1.';
+          const listText = line.substring(line.indexOf(' ') + 1);
+          const listLines = pdf.splitTextToSize(listText, contentWidth - 10);
+          
+          checkPageBreak(listLines.length * 4.5 + 2);
+          
+          pdf.text(num, margin, yPosition);
+          for (let j = 0; j < listLines.length; j++) {
+            pdf.text(listLines[j], margin + 7, yPosition);
+            yPosition += 4.5;
+          }
         } else if (line.startsWith('```')) {
           // Code block
-          yPosition += 2;
-          pdf.setFillColor(250, 250, 250);
+          const language = line.substring(3).trim();
           const codeLines: string[] = [];
           i++;
+          
           while (i < lines.length && !lines[i].startsWith('```')) {
             codeLines.push(lines[i]);
             i++;
           }
-          const codeHeight = codeLines.length * 5 + 6;
-          checkPageBreak(codeHeight);
-          pdf.rect(margin, yPosition - 3, contentWidth, codeHeight, 'F');
-          pdf.setFont('courier', 'normal');
-          pdf.setFontSize(9);
-          pdf.setTextColor(60, 60, 60);
-          for (const codeLine of codeLines) {
-            pdf.text(codeLine, margin + 3, yPosition);
-            yPosition += 5;
+          
+          if (codeLines.length > 0) {
+            yPosition += 3;
+            pdf.setFillColor(248, 248, 248);
+            pdf.setDrawColor(220, 220, 220);
+            
+            const codeLineHeight = 4.5;
+            const codePadding = 4;
+            const codeBlockHeight = codeLines.length * codeLineHeight + codePadding * 2;
+            
+            checkPageBreak(codeBlockHeight + 4);
+            
+            pdf.roundedRect(margin, yPosition - 3, contentWidth, codeBlockHeight, 1, 1, 'FD');
+            
+            pdf.setFontSize(9);
+            pdf.setFont('courier', 'normal');
+            pdf.setTextColor(50, 50, 50);
+            
+            yPosition += codePadding - 1;
+            for (const codeLine of codeLines) {
+              pdf.text(codeLine, margin + 3, yPosition);
+              yPosition += codeLineHeight;
+            }
+            
+            pdf.setTextColor(0, 0, 0);
+            pdf.setFont('helvetica', 'normal');
+            yPosition += codePadding + 2;
           }
-          pdf.setTextColor(0, 0, 0);
-          yPosition += 5;
-        } else if (line.trim() === '' || line.trim() === '---') {
+        } else if (line.trim() === '---') {
+          // Horizontal rule
           yPosition += 4;
-        } else if (line.trim()) {
-          // Regular text with inline markdown
-          addText(line, 11, 'normal', 1.5);
+          checkPageBreak(6);
+          pdf.setDrawColor(200, 200, 200);
+          pdf.setLineWidth(0.3);
+          pdf.line(margin, yPosition, pageWidth - margin, yPosition);
+          yPosition += 4;
+        } else if (line.trim() === '') {
+          // Empty line
+          yPosition += 4;
+        } else {
+          // Regular paragraph
+          pdf.setFontSize(11);
+          pdf.setFont('helvetica', 'normal');
+          
+          // Strip inline markdown for cleaner output
+          let cleanText = line
+            .replace(/\*\*(.+?)\*\*/g, '$1')  // bold
+            .replace(/\*(.+?)\*/g, '$1')       // italic
+            .replace(/`(.+?)`/g, '$1')         // inline code
+            .replace(/\[(.+?)\]\(.+?\)/g, '$1'); // links
+          
+          const paraLines = pdf.splitTextToSize(cleanText, contentWidth);
+          checkPageBreak(paraLines.length * 4.5 + 2);
+          
+          for (const paraLine of paraLines) {
+            pdf.text(paraLine, margin, yPosition);
+            yPosition += 4.5;
+          }
+          yPosition += 1;
         }
       }
 
-      // Generate filename
       const pdfFilename = filename.replace(/\.md$/, '') + '.pdf';
-      
-      // Save the PDF
       pdf.save(pdfFilename);
     } catch (error) {
       console.error('Error generating PDF:', error);

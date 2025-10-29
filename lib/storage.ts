@@ -2,7 +2,9 @@ import { put, del } from '@vercel/blob';
 
 export const storageOperations = {
   saveMarkdown: async (id: string, content: string): Promise<string> => {
-    const blob = await put(`${id}.md`, content, {
+    const utf8Content = Buffer.from(content, 'utf-8');
+
+    const blob = await put(`${id}.md`, utf8Content, {
       access: 'public',
       contentType: 'text/markdown; charset=utf-8',
     });
@@ -15,7 +17,9 @@ export const storageOperations = {
       if (!response.ok) {
         return null;
       }
-      return await response.text();
+      const arrayBuffer = await response.arrayBuffer();
+      const decoder = new TextDecoder('utf-8', { fatal: true });
+      return decoder.decode(arrayBuffer);
     } catch (error) {
       console.error(`Error reading markdown file from ${blobUrl}:`, error);
       return null;

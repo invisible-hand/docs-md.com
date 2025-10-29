@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import CopyButton from './CopyButton';
 
 interface ShareActionsProps {
@@ -16,44 +15,87 @@ export default function ShareActions({ content, filename }: ShareActionsProps) {
   const handleExportPDF = async () => {
     setIsExporting(true);
     try {
-      // Get the markdown content element
-      const element = document.getElementById('markdown-content');
-      if (!element) {
-        console.error('Markdown content element not found');
-        return;
-      }
-
-      // Capture the element as canvas with higher quality
-      const canvas = await html2canvas(element, {
-        scale: 2, // Higher resolution
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
+      // Create PDF with A4 size
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+        compress: true, // Enable compression
       });
 
-      // Calculate PDF dimensions
-      const imgWidth = 210; // A4 width in mm
-      const pageHeight = 297; // A4 height in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
+      // Page settings
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 20;
+      const contentWidth = pageWidth - (2 * margin);
+      let yPosition = margin;
 
-      // Create PDF
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      let position = 0;
+      // Helper function to check if we need a new page
+      const checkPageBreak = (neededHeight: number) => {
+        if (yPosition + neededHeight > pageHeight - margin) {
+          pdf.addPage();
+          yPosition = margin;
+        }
+      };
 
-      // Add image to PDF (handle multi-page)
-      const imgData = canvas.toDataURL('image/png');
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
+      // Helper function to add text with word wrapping
+      const addText = (text: string, fontSize: number, fontStyle: string, lineSpacing = 1.5) => {
+        pdf.setFontSize(fontSize);
+        pdf.setFont('helvetica', fontStyle);
+        
+        const lines = pdf.splitTextToSize(text, contentWidth);
+        const lineHeight = fontSize * 0.5 * lineSpacing;
+        
+        checkPageBreak(lineHeight * lines.length);
+        
+        for (const line of lines) {
+          pdf.text(line, margin, yPosition);
+          yPosition += lineHeight;
+        }
+      };
 
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
+      // Parse and render markdown content
+      const lines = content.split('\n');
+      
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        
+        if (line.startsWith('# ')) {
+          yPosition += 3;
+          addText(line.substring(2), 18, 'bold', 1.3);
+          yPosition += 2;
+        } else if (line.startsWith('## ')) {
+          yPosition += 2;
+          addText(line.substring(3), 14, 'bold', 1.3);
+          yPosition += 1;
+        } else if (line.startsWith('### ')) {
+          yPosition += 1;
+          addText(line.substring(4), 12, 'bold', 1.3);
+        } else if (line.startsWith('> ')) {
+          pdf.setDrawColor(200, 200, 200);
+          pdf.setLineWidth(0.5);
+          checkPageBreak(10);
+          const startY = yPosition;
+          addText(line.substring(2), 10, 'italic', 1.4);
+          pdf.line(margin, startY - 2, margin, yPosition - 2);
+        } else if (line.match(/^[-*] /)) {
+          addText('• ' + line.substring(2), 11, 'normal', 1.4);
+        } else if (line.match(/^\d+\. /)) {
+          addText(line, 11, 'normal', 1.4);
+        } else if (line.trim() === '' || line.trim() === '---') {
+          yPosition += 4;
+        } else if (line.trim()) {
+          // Clean markdown formatting
+          const cleanLine = line
+            .replace(/\*\*(.*?)\*\*/g, '$1')
+            .replace(/\*(.*?)\*/g, '$1')
+            .replace(/`(.*?)`/g, '$1')
+            .replace(/\[(.*?)\]\(.*?\)/g, '$1');
+          addText(cleanLine, 11, 'normal', 1.5);
+        }
       }
 
-      // Generate filename without .md extension if present
+      // Generate filename
       const pdfFilename = filename.replace(/\.md$/, '') + '.pdf';
       
       // Save the PDF

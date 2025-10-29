@@ -149,3 +149,32 @@ body {
   border-top: 1px solid var(--border);
   margin: 2em 0;
 }
+
+/* Print styles for PDF export */
+@media print {
+  body {
+    background: white;
+  }
+  
+  header,
+  footer,
+  button,
+  .no-print {
+    display: none !important;
+  }
+  
+  .markdown-content {
+    max-width: 100%;
+  }
+  
+  .markdown-content pre {
+    page-break-inside: avoid;
+    border: 1px solid #ddd;
+  }
+  
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3 {
+    page-break-after: avoid;
+  }
+}

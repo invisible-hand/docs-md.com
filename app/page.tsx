@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [content, setContent] = useState('');
-  const [filename, setFilename] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -29,7 +28,7 @@ export default function Home() {
         },
         body: JSON.stringify({
           content,
-          filename: filename || 'untitled.md',
+          filename: 'untitled.md',
         }),
       });
 
@@ -55,9 +54,10 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-semibold tracking-tight text-gray-950">DOCS-MD.COM</h1>
+              <p className="text-xs text-gray-600 mt-1">Share Markdown Files</p>
             </div>
             <a
-              href="/api/mcp"
+              href="#mcp-setup"
               className="text-xs text-gray-600 hover:text-gray-950 transition-colors"
             >
               MCP Server
@@ -67,36 +67,13 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-4 py-16 md:py-24">
-        <div className="mb-16 max-w-2xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-950 mb-4 tracking-tight leading-tight">
-            Share Markdown Files
-          </h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            Paste your markdown content, get a shareable link. All links automatically expire after 30 days.
-            Perfect for documentation, code snippets, and temporary notes.
-          </p>
-        </div>
+      <main className="max-w-5xl mx-auto px-4 py-12 md:py-16">
 
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Form - Takes 2 columns */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
               <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                <div>
-                  <label htmlFor="filename" className="block text-sm font-medium mb-2 text-gray-700">
-                    Filename
-                  </label>
-                  <input
-                    type="text"
-                    id="filename"
-                    value={filename}
-                    onChange={(e) => setFilename(e.target.value)}
-                    placeholder="untitled.md"
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent bg-gray-50 text-gray-950 placeholder:text-gray-400 transition-colors"
-                  />
-                </div>
-
                 <div>
                   <label htmlFor="content" className="block text-sm font-medium mb-2 text-gray-700">
                     Markdown Content
@@ -106,7 +83,7 @@ export default function Home() {
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="# Hello World&#10;&#10;Start writing your markdown here..."
-                    rows={16}
+                    rows={18}
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent font-mono text-sm bg-gray-50 text-gray-950 resize-none placeholder:text-gray-400 transition-colors"
                   />
                 </div>
@@ -170,22 +147,27 @@ export default function Home() {
             </div>
 
             {/* MCP Integration */}
-            <div className="bg-gray-950 rounded-2xl p-6 text-white">
-              <h3 className="font-semibold mb-2 text-sm uppercase tracking-wide">For Developers</h3>
+            <div id="mcp-setup" className="bg-gray-950 rounded-2xl p-6 text-white">
+              <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide">MCP Integration</h3>
               <p className="text-sm text-gray-300 mb-4">
-                Share markdown directly from Cursor AI using our MCP server integration.
+                Share markdown directly from Cursor using our MCP server.
               </p>
-              <a
-                href="https://github.com/invisible-hand/docs-md.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                View documentation
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
+              <div className="bg-gray-900 rounded-lg p-4 mb-4 border border-gray-800">
+                <p className="text-xs text-gray-400 mb-2 font-mono">Add to MCP settings:</p>
+                <pre className="text-xs text-gray-300 font-mono overflow-x-auto">
+{`{
+  "mcpServers": {
+    "md-share": {
+      "url": "https://docs-md.com/api/mcp",
+      "transport": "http"
+    }
+  }
+}`}
+                </pre>
+              </div>
+              <p className="text-xs text-gray-400">
+                Then restart Cursor and ask: <span className="text-gray-300">&quot;Share this markdown file&quot;</span>
+              </p>
             </div>
           </div>
         </div>

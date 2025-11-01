@@ -179,7 +179,15 @@ export default function Home() {
       <footer className="border-t border-gray-100 mt-12">
         <div className="max-w-6xl mx-auto px-4 py-6">
           <p className="text-center text-xs text-gray-500">
-            Built with Next.js, Vercel Blob, and Neon Postgres
+            Built with Next.js, Vercel Blob, and Neon Postgres ·{' '}
+            <a
+              href="https://github.com/invisible-hand/docs-md.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-gray-700"
+            >
+              Source on GitHub
+            </a>
           </p>
         </div>
       </footer>

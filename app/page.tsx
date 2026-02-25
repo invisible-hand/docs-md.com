@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import MarkdownEditor from '@/components/MarkdownEditor';
 
 export default function Home() {
   const [content, setContent] = useState('');
@@ -47,14 +48,14 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col">
       {/* Header */}
       <header className="border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-6">
+        <div className="max-w-[1400px] mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-xl font-semibold tracking-tight text-gray-950">DOCS-MD.COM</h1>
-              <p className="text-xs text-gray-600 mt-1">Share Markdown Files</p>
+              <p className="text-xs text-gray-600 mt-0.5">Share Markdown Files</p>
             </div>
             <a
               href="#mcp-setup"
@@ -66,90 +67,50 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-4 py-12 md:py-16">
-
-        <div className="grid gap-8 lg:grid-cols-3">
-          {/* Main Form - Takes 2 columns */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-              <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                <div>
-                  <label htmlFor="content" className="block text-sm font-medium mb-2 text-gray-700">
-                    Markdown Content
-                  </label>
-                  <textarea
-                    id="content"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="# Hello World&#10;&#10;Start writing your markdown here..."
-                    rows={18}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent font-mono text-sm bg-gray-50 text-gray-950 resize-none placeholder:text-gray-400 transition-colors"
-                  />
-                </div>
-
-                {error && (
-                  <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-red-800 text-sm">
-                    {error}
-                  </div>
-                )}
-
-                <div className="flex justify-end pt-2">
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="px-8 py-3 bg-gray-950 text-white rounded-xl hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium text-sm shadow-sm hover:shadow-md"
-                  >
-                    {isLoading ? 'Creating Link...' : 'Share'}
-                  </button>
-                </div>
-              </form>
-            </div>
+      {/* Main Content - Editor takes full width */}
+      <main className="flex-1 flex flex-col max-w-[1400px] w-full mx-auto px-4 py-6">
+        <form onSubmit={handleSubmit} className="flex-1 flex flex-col min-h-0">
+          {/* Editor fills available space */}
+          <div className="flex-1 min-h-[500px]">
+            <MarkdownEditor value={content} onChange={setContent} />
           </div>
 
-          {/* Sidebar - Takes 1 column */}
-          <div className="space-y-6">
-            {/* Features */}
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-              <h3 className="font-semibold text-gray-950 mb-4 text-sm uppercase tracking-wide">Features</h3>
-              <ul className="space-y-3 text-sm text-gray-600">
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Instant sharing with unique URLs</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Auto-expires after 30 days</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>No registration or login required</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Full markdown rendering support</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Syntax highlighting for code blocks</span>
-                </li>
-              </ul>
+          {/* Error + Submit */}
+          <div className="flex items-center justify-between mt-4 gap-4">
+            <div className="flex-1">
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-100 rounded-xl text-red-800 text-sm">
+                  {error}
+                </div>
+              )}
             </div>
+            <button
+              type="submit"
+              disabled={isLoading || !content.trim()}
+              className="px-8 py-3 bg-gray-950 text-white rounded-xl hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-all font-medium text-sm shadow-sm hover:shadow-md flex items-center gap-2 shrink-0"
+            >
+              {isLoading ? (
+                <>
+                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Creating Link...
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                  Share
+                </>
+              )}
+            </button>
           </div>
-        </div>
+        </form>
 
-        {/* MCP Integration - Full Width at Bottom */}
-        <div id="mcp-setup" className="mt-16 max-w-3xl mx-auto">
+        {/* MCP Integration */}
+        <div id="mcp-setup" className="mt-12 max-w-3xl mx-auto w-full">
           <div className="bg-gray-950 rounded-2xl p-8 text-white">
             <h3 className="font-semibold mb-3 text-base uppercase tracking-wide">MCP Integration</h3>
             <p className="text-sm text-gray-300 mb-6">
@@ -176,8 +137,8 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 mt-12">
-        <div className="max-w-6xl mx-auto px-4 py-6">
+      <footer className="border-t border-gray-100 mt-8">
+        <div className="max-w-[1400px] mx-auto px-4 py-6">
           <p className="text-center text-xs text-gray-500">
             Built with Next.js, Vercel Blob, and Neon Postgres ·{' '}
             <a

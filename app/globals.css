@@ -230,6 +230,46 @@ body {
   font-weight: bold;
 }
 
+/* Editor Styles */
+.editor-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.editor-panes {
+  position: relative;
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.editor-write-pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.editor-write-pane textarea {
+  flex: 1;
+  min-height: 400px;
+  tab-size: 2;
+}
+
+.editor-preview-pane {
+  background: #fff;
+  min-height: 400px;
+}
+
+.editor-panes.drag-over {
+  opacity: 0.7;
+}
+
+.editor-toolbar button:active {
+  transform: scale(0.95);
+}
+
 /* Print styles for PDF export */
 @media print {
   body {

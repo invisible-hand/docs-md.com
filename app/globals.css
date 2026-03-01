@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafafa;
-  --foreground: #171717;
+  --background: #ffffff;
+  --foreground: #111827;
   --card-bg: #ffffff;
-  --accent: #000000;
-  --border: #e5e5e5;
-  --muted: #737373;
+  --accent: #4f46e5;
+  --border: #e5e7eb;
+  --muted: #6b7280;
 }
 
 @theme inline {
@@ -23,6 +23,17 @@ body {
   min-height: 100vh;
 }
 
+::selection {
+  background: #c7d2fe;
+  color: #312e81;
+}
+
+.marketing-shell {
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(99, 102, 241, 0.15), transparent 35%),
+    radial-gradient(circle at 100% 20%, rgba(129, 140, 248, 0.14), transparent 30%);
+}
+
 /* Markdown Styles */
 .markdown-content {
   line-height: 1.7;
@@ -37,9 +48,14 @@ body {
 .markdown-content h6 {
   margin-top: 1.5em;
   margin-bottom: 0.75em;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--foreground);
   line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.markdown-content > :first-child {
+  margin-top: 0;
 }
 
 .markdown-content h1 {
@@ -59,13 +75,13 @@ body {
 }
 
 .markdown-content code {
-  background: #f4f4f5;
+  background: #eef2ff;
   padding: 0.2em 0.4em;
   border-radius: 4px;
   font-family: var(--font-geist-mono), 'Monaco', 'Courier New', monospace;
   font-size: 0.875em;
-  color: #171717;
-  border: 1px solid #e5e5e5;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
 }
 
 .markdown-content pre {

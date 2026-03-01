@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -7,16 +9,16 @@ export default function NotFound() {
           Not Found
         </h2>
         <p className="text-gray-600 mb-6">
-          This markdown file doesn't exist or has expired.
+          This markdown file does not exist or has expired.
           <br />
           <span className="text-sm text-gray-500">Links expire after 30 days.</span>
         </p>
-        <a
+        <Link
           href="/"
           className="inline-block px-6 py-3 bg-gray-950 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
         >
           Share New Markdown
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -1,12 +1,41 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
+
+const STARTER_CONTENT = `# Ship better docs faster
+
+Use **Docs MD** to share markdown with your team and AI workflows.
+
+## Why it works
+- Fast share links
+- Auto-expiration in 30 days
+- Great rendering with code highlighting
+
+\`\`\`ts
+export function greet(name: string) {
+  return \`Hello, \${name}\`;
+}
+\`\`\`
+`;
+
+const FORMAT_SNIPPETS: Array<{ label: string; snippet: string }> = [
+  { label: 'H1', snippet: '# Heading\n' },
+  { label: 'Bold', snippet: '**bold text**' },
+  { label: 'Link', snippet: '[title](https://example.com)' },
+  { label: 'List', snippet: '- First item\n- Second item\n' },
+  { label: 'Code', snippet: '```\nconst x = 1;\n```' },
+  { label: 'Table', snippet: '| Col A | Col B |\n| --- | --- |\n| One | Two |\n' },
+];
 
 export default function Home() {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(STARTER_CONTENT);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [mobileTab, setMobileTab] = useState<'write' | 'preview'>('write');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -33,131 +62,180 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create share');
+        const payload = await response.json().catch(() => null);
+        throw new Error(payload?.error || 'Failed to create share');
       }
 
       const data = await response.json();
       router.push(`/${data.id}`);
     } catch (err) {
-      setError('Failed to share markdown file. Please try again.');
+      const message = err instanceof Error ? err.message : 'Failed to share markdown file. Please try again.';
+      setError(message);
       console.error(err);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const insertSnippet = (snippet: string) => {
+    const textarea = textareaRef.current;
+
+    if (!textarea) {
+      setContent((prev) => `${prev}${prev.endsWith('\n') ? '' : '\n'}${snippet}`);
+      return;
+    }
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const nextValue = `${content.slice(0, start)}${snippet}${content.slice(end)}`;
+
+    setContent(nextValue);
+
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const cursor = start + snippet.length;
+      textarea.setSelectionRange(cursor, cursor);
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Header */}
-      <header className="border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-xl font-semibold tracking-tight text-gray-950">DOCS-MD.COM</h1>
-              <p className="text-xs text-gray-600 mt-1">Share Markdown Files</p>
-            </div>
-            <a
-              href="#mcp-setup"
-              className="text-xs text-gray-600 hover:text-gray-950 transition-colors"
-            >
-              MCP Server
-            </a>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-4 py-12 md:py-16">
-
+    <div>
+      <section className="mx-auto w-full max-w-6xl px-4 pb-8 pt-12 md:pt-16">
         <div className="grid gap-8 lg:grid-cols-3">
-          {/* Main Form - Takes 2 columns */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-              <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                <div>
-                  <label htmlFor="content" className="block text-sm font-medium mb-2 text-gray-700">
-                    Markdown Content
-                  </label>
-                  <textarea
-                    id="content"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder="# Hello World&#10;&#10;Start writing your markdown here..."
-                    rows={18}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent font-mono text-sm bg-gray-50 text-gray-950 resize-none placeholder:text-gray-400 transition-colors"
-                  />
-                </div>
-
-                {error && (
-                  <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-red-800 text-sm">
-                    {error}
-                  </div>
-                )}
-
-                <div className="flex justify-end pt-2">
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="px-8 py-3 bg-gray-950 text-white rounded-xl hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-medium text-sm shadow-sm hover:shadow-md"
-                  >
-                    {isLoading ? 'Creating Link...' : 'Share'}
-                  </button>
-                </div>
-              </form>
+            <p className="mb-4 inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-indigo-700">
+              Built for AI-powered teams
+            </p>
+            <h1 className="text-4xl font-semibold tracking-tight text-gray-950 md:text-5xl">
+              Share markdown with a bold, developer-first workflow.
+            </h1>
+            <p className="mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
+              Paste markdown, preview instantly, and publish an expiring URL. Connect through MCP
+              to share directly from Cursor and other AI-native tools.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3 text-sm">
+              <a
+                href="#editor"
+                className="rounded-full bg-indigo-600 px-5 py-2.5 font-medium text-white shadow-sm transition hover:bg-indigo-500"
+              >
+                Start Sharing
+              </a>
+              <Link
+                href="/what-is-mcp"
+                className="rounded-full border border-gray-300 px-5 py-2.5 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
+              >
+                Learn MCP
+              </Link>
             </div>
           </div>
-
-          {/* Sidebar - Takes 1 column */}
-          <div className="space-y-6">
-            {/* Features */}
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
-              <h3 className="font-semibold text-gray-950 mb-4 text-sm uppercase tracking-wide">Features</h3>
-              <ul className="space-y-3 text-sm text-gray-600">
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Instant sharing with unique URLs</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Auto-expires after 30 days</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>No registration or login required</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Full markdown rendering support</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>Syntax highlighting for code blocks</span>
-                </li>
-              </ul>
-            </div>
+          <div className="rounded-2xl border border-indigo-100 bg-white p-6 shadow-sm">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-900">Why Docs MD</h2>
+            <ul className="mt-4 space-y-3 text-sm text-gray-600">
+              <li>Instant share links with memorable IDs</li>
+              <li>30-day auto-expiration out of the box</li>
+              <li>MCP endpoint for IDE automation</li>
+              <li>Syntax highlighting and GitHub-flavored markdown</li>
+              <li>No account required to start</li>
+            </ul>
           </div>
         </div>
+      </section>
 
-        {/* MCP Integration - Full Width at Bottom */}
-        <div id="mcp-setup" className="mt-16 max-w-3xl mx-auto">
-          <div className="bg-gray-950 rounded-2xl p-8 text-white">
-            <h3 className="font-semibold mb-3 text-base uppercase tracking-wide">MCP Integration</h3>
-            <p className="text-sm text-gray-300 mb-6">
-              Share markdown directly from Cursor using our MCP server.
-            </p>
-            <div className="bg-gray-900 rounded-lg p-5 mb-5 border border-gray-800">
-              <p className="text-xs text-gray-400 mb-3 font-mono">Add to MCP settings:</p>
-              <pre className="text-sm text-gray-300 font-mono whitespace-pre">
+      <section id="editor" className="mx-auto w-full max-w-6xl px-4 pb-16">
+        <div className="rounded-3xl border border-gray-200 bg-white p-4 shadow-xl md:p-6">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-semibold tracking-tight text-gray-950">Write and preview</h2>
+            <div className="inline-flex rounded-full border border-gray-200 p-1 md:hidden">
+              <button
+                type="button"
+                onClick={() => setMobileTab('write')}
+                className={`rounded-full px-3 py-1 text-xs font-medium ${
+                  mobileTab === 'write' ? 'bg-indigo-600 text-white' : 'text-gray-600'
+                }`}
+              >
+                Write
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileTab('preview')}
+                className={`rounded-full px-3 py-1 text-xs font-medium ${
+                  mobileTab === 'preview' ? 'bg-indigo-600 text-white' : 'text-gray-600'
+                }`}
+              >
+                Preview
+              </button>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              {FORMAT_SNIPPETS.map((item) => (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => insertSnippet(item.snippet)}
+                  className="rounded-full border border-gray-200 px-3 py-1 text-xs font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-2">
+              <div className={mobileTab === 'preview' ? 'hidden md:block' : 'block'}>
+                <label htmlFor="content" className="mb-2 block text-sm font-medium text-gray-700">
+                  Markdown Content
+                </label>
+                <textarea
+                  ref={textareaRef}
+                  id="content"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  rows={22}
+                  className="h-[560px] w-full resize-none overflow-y-auto rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 font-mono text-sm text-gray-950 placeholder:text-gray-400 focus:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                  placeholder="# Start writing your markdown..."
+                />
+              </div>
+
+              <div className={mobileTab === 'write' ? 'hidden md:block' : 'block'}>
+                <p className="mb-2 block text-sm font-medium text-gray-700">Live Preview</p>
+                <div className="h-[560px] overflow-y-auto rounded-2xl border border-gray-200 bg-white px-5 py-4">
+                  <MarkdownRenderer content={content || '_Your preview appears here..._'} />
+                </div>
+              </div>
+            </div>
+
+            {error ? (
+              <div className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {error}
+              </div>
+            ) : null}
+
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm text-gray-600">
+                Links expire automatically after <span className="font-semibold text-gray-900">30 days</span>.
+              </p>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="rounded-full bg-indigo-600 px-7 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {isLoading ? 'Creating link...' : 'Share Markdown'}
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="mcp-setup" className="mx-auto w-full max-w-5xl px-4 pb-20">
+        <div className="rounded-3xl bg-gray-950 p-8 text-white">
+          <h3 className="mb-3 text-base font-semibold uppercase tracking-wide">MCP Integration</h3>
+          <p className="mb-6 text-sm text-gray-300">
+            Share markdown directly from Cursor and other AI-powered IDE workflows.
+          </p>
+          <div className="mb-5 rounded-lg border border-gray-800 bg-gray-900 p-5">
+            <p className="mb-3 font-mono text-xs text-gray-400">Add to MCP settings:</p>
+            <pre className="overflow-x-auto whitespace-pre text-sm text-gray-300">
 {`{
   "mcpServers": {
     "md-share": {
@@ -166,31 +244,13 @@ export default function Home() {
     }
   }
 }`}
-              </pre>
-            </div>
-            <p className="text-sm text-gray-400">
-              Then attach a file to Cursor chat and simply ask: <span className="text-gray-300 font-medium">&quot;Share this file&quot;</span>
-            </p>
+            </pre>
           </div>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-100 mt-12">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <p className="text-center text-xs text-gray-500">
-            Built with Next.js, Vercel Blob, and Neon Postgres ·{' '}
-            <a
-              href="https://github.com/invisible-hand/docs-md.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 hover:text-gray-700"
-            >
-              Source on GitHub
-            </a>
+          <p className="text-sm text-gray-400">
+            Then ask your assistant: <span className="font-medium text-gray-200">&quot;Share this markdown file&quot;</span>
           </p>
         </div>
-      </footer>
+      </section>
     </div>
   );
 }

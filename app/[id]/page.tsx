@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { dbOperations } from '@/lib/db';
 import { storageOperations } from '@/lib/storage';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
@@ -23,9 +24,10 @@ export default async function SharePage({ params }: PageProps) {
   // Convert BIGINT strings from Postgres to numbers
   const createdAt = typeof share.created_at === 'string' ? parseInt(share.created_at) : share.created_at;
   const expiresAt = typeof share.expires_at === 'string' ? parseInt(share.expires_at) : share.expires_at;
+  const nowTimestamp = new Date().getTime();
 
   // Check if share has expired
-  if (expiresAt < Date.now()) {
+  if (expiresAt < nowTimestamp) {
     // Delete expired share
     await storageOperations.deleteMarkdown(share.blob_url);
     await dbOperations.deleteShare(id);
@@ -41,31 +43,31 @@ export default async function SharePage({ params }: PageProps) {
   
   const expiresDate = new Date(expiresAt);
   const createdDate = new Date(createdAt);
-  const daysUntilExpiry = Math.ceil((expiresAt - Date.now()) / (1000 * 60 * 60 * 24));
+  const daysUntilExpiry = Math.ceil((expiresAt - nowTimestamp) / (1000 * 60 * 60 * 24));
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="px-4 py-8 md:py-12">
+      <div className="mx-auto max-w-5xl">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
-          <a
+          <Link
             href="/"
-            className="text-sm text-gray-600 hover:text-gray-950 hover:underline transition-colors"
+            className="rounded-full border border-gray-200 px-4 py-2 text-sm text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
           >
             ← Share New
-          </a>
-          <div className="text-sm text-gray-500">
+          </Link>
+          <div className="rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800">
             Expires in {daysUntilExpiry} day{daysUntilExpiry !== 1 ? 's' : ''}
           </div>
         </div>
 
         {/* Main Card */}
-        <div className="bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xl">
           {/* File Info Bar */}
-          <div className="bg-gradient-to-r from-gray-50 to-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-indigo-50 via-white to-white px-6 py-4">
             <div>
-              <h1 className="text-xl font-semibold text-gray-950">{share.filename}</h1>
-              <p className="text-xs text-gray-500 mt-1">
+              <h1 className="text-xl font-semibold tracking-tight text-gray-950">{share.filename}</h1>
+              <p className="mt-1 text-xs text-gray-500">
                 Shared {createdDate.toLocaleDateString()} • 
                 Expires {expiresDate.toLocaleDateString()}
               </p>
@@ -74,7 +76,7 @@ export default async function SharePage({ params }: PageProps) {
           </div>
 
           {/* Markdown Content */}
-          <div id="markdown-content" className="p-8 md:p-12 bg-white">
+          <div id="markdown-content" className="bg-white p-8 md:p-12">
             <MarkdownRenderer content={content} />
           </div>
         </div>

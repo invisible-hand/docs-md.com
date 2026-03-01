@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import SiteFooter from "@/components/SiteFooter";
+import SiteHeader from "@/components/SiteHeader";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,8 +16,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MD Share - Share Markdown Files",
-  description: "Share markdown files securely with auto-expiring links",
+  metadataBase: new URL("https://docs-md.com"),
+  title: {
+    default: "Docs MD | Share Markdown for AI workflows",
+    template: "%s | Docs MD",
+  },
+  description:
+    "Share markdown files with expiring links and connect your AI-powered IDE through MCP.",
+  openGraph: {
+    title: "Docs MD",
+    description:
+      "Markdown sharing with expiring links, live preview, and MCP integration for AI-native workflows.",
+    url: "https://docs-md.com",
+    siteName: "Docs MD",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Docs MD",
+    description:
+      "Markdown sharing with expiring links and MCP integration for AI-powered IDEs.",
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +49,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="marketing-shell flex min-h-screen flex-col bg-gradient-to-b from-indigo-50/40 via-white to-white text-gray-950">
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </div>
         <Analytics />
       </body>
     </html>

@@ -1,8 +1,28 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { dbOperations } from '@/lib/db';
+import { isAuthorizedByEnvSecret } from '@/lib/security';
 import { storageOperations } from '@/lib/storage';
 
-export async function DELETE() {
+function ensureCleanupAuthorized(request: NextRequest): NextResponse | null {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const secretConfigured = Boolean(process.env.CRON_SECRET);
+
+  if ((isProduction || secretConfigured) && !isAuthorizedByEnvSecret(request, 'CRON_SECRET')) {
+    return NextResponse.json(
+      { error: 'Unauthorized cleanup request' },
+      { status: 401 }
+    );
+  }
+
+  return null;
+}
+
+async function runCleanup(request: NextRequest) {
+  const unauthorized = ensureCleanupAuthorized(request);
+  if (unauthorized) {
+    return unauthorized;
+  }
+
   try {
     // Get all expired shares
     const expiredShares = await dbOperations.getExpiredShares();
@@ -29,8 +49,11 @@ export async function DELETE() {
   }
 }
 
-// Allow GET for easy manual triggering
-export async function GET() {
-  return DELETE();
+export async function DELETE(request: NextRequest) {
+  return runCleanup(request);
+}
+
+export async function GET(request: NextRequest) {
+  return runCleanup(request);
 }
 

@@ -23,6 +23,9 @@ export const metadata: Metadata = {
   },
   description:
     "Share markdown files with expiring links and connect your AI-powered IDE through MCP.",
+  alternates: {
+    canonical: "./",
+  },
   openGraph: {
     title: "Docs MD",
     description:

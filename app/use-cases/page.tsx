@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ContentPage from '@/components/ContentPage';
 
 export const metadata: Metadata = {
-  title: 'Use Cases',
+  title: 'Markdown Sharing Use Cases',
   description:
     'Explore practical use cases for Docs MD across engineering, AI operations, support, and product teams.',
 };

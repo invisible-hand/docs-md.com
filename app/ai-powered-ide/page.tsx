@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ContentPage from '@/components/ContentPage';
 
 export const metadata: Metadata = {
-  title: 'AI-powered IDE Guide',
+  title: 'AI-Powered IDE Workflows with Markdown and MCP',
   description:
     'How AI-powered IDE workflows benefit from fast markdown sharing and MCP-based tool integrations.',
 };

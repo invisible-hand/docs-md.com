@@ -3,7 +3,7 @@ import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 
 export const metadata: Metadata = {
-  title: 'About Docs MD',
+  title: { absolute: 'About Docs MD — Markdown Sharing with Expiring Links' },
   description:
     'Learn what Docs MD is, why it exists, and how it helps developers share markdown in AI-native workflows.',
 };

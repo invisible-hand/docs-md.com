@@ -3,7 +3,7 @@ import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 
 export const metadata: Metadata = {
-  title: 'What is MCP',
+  title: 'What is MCP? Model Context Protocol Explained',
   description:
     'Model Context Protocol (MCP) explained for developers: how tools work, why it matters, and how Docs MD uses it.',
 };

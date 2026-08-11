@@ -103,7 +103,7 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   return {
-    title: `${share.filename} - MD Share`,
+    title: share.filename,
     description: `Shared markdown file: ${share.filename}`,
   };
 }

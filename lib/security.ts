@@ -1,4 +1,21 @@
+import { randomBytes, timingSafeEqual } from 'crypto';
 import { NextRequest } from 'next/server';
+
+export function generateEditToken(): string {
+  return randomBytes(24).toString('base64url');
+}
+
+export function isValidEditToken(provided: string, expected: string | null): boolean {
+  if (!expected || !provided) {
+    return false;
+  }
+  const providedBuf = Buffer.from(provided);
+  const expectedBuf = Buffer.from(expected);
+  if (providedBuf.length !== expectedBuf.length) {
+    return false;
+  }
+  return timingSafeEqual(providedBuf, expectedBuf);
+}
 
 export class RequestBodyError extends Error {
   status: number;

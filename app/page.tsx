@@ -2,8 +2,24 @@
 
 import { useRef, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+
+type ExpiryOption = '1d' | '7d' | '30d' | 'never';
+
+const EXPIRY_CHOICES: Array<{ value: ExpiryOption; label: string }> = [
+  { value: '1d', label: '1 day' },
+  { value: '7d', label: '7 days' },
+  { value: '30d', label: '30 days' },
+  { value: 'never', label: 'Never expires' },
+];
+
+interface ShareResult {
+  id: string;
+  url: string;
+  rawUrl: string;
+  editToken: string;
+  expiresAt: number;
+}
 
 const STARTER_CONTENT = `# Ship better docs faster
 
@@ -34,9 +50,21 @@ export default function Home() {
   const [content, setContent] = useState(STARTER_CONTENT);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [expiry, setExpiry] = useState<ExpiryOption>('30d');
+  const [result, setResult] = useState<ShareResult | null>(null);
+  const [copiedField, setCopiedField] = useState<'url' | 'token' | null>(null);
   const [mobileTab, setMobileTab] = useState<'write' | 'preview'>('write');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const router = useRouter();
+
+  const copyValue = async (field: 'url' | 'token', value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +86,7 @@ export default function Home() {
         body: JSON.stringify({
           content,
           filename: 'untitled.md',
+          expiry,
         }),
       });
 
@@ -67,7 +96,13 @@ export default function Home() {
       }
 
       const data = await response.json();
-      router.push(`/${data.id}`);
+      setResult({
+        id: data.id,
+        url: data.url,
+        rawUrl: data.rawUrl,
+        editToken: data.editToken,
+        expiresAt: data.expiresAt,
+      });
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to share markdown file. Please try again.';
       setError(message);
@@ -132,8 +167,10 @@ export default function Home() {
             <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-900">Why Docs MD</h2>
             <ul className="mt-4 space-y-3 text-sm text-gray-600">
               <li>Instant share links with memorable IDs</li>
-              <li>30-day auto-expiration out of the box</li>
+              <li>Flexible expiry — 1 day, 7 days, 30 days, or never</li>
+              <li>Edit and delete your shares with a private token</li>
               <li>MCP endpoint for IDE automation</li>
+              <li>Mermaid diagrams rendered automatically</li>
               <li>Syntax highlighting and GitHub-flavored markdown</li>
               <li>No account required to start</li>
             </ul>
@@ -212,9 +249,23 @@ export default function Home() {
             ) : null}
 
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-gray-600">
-                Links expire automatically after <span className="font-semibold text-gray-900">30 days</span>.
-              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-sm text-gray-600">Link expiry:</span>
+                {EXPIRY_CHOICES.map((choice) => (
+                  <button
+                    key={choice.value}
+                    type="button"
+                    onClick={() => setExpiry(choice.value)}
+                    className={`rounded-full px-3 py-1.5 text-xs font-medium transition ${
+                      expiry === choice.value
+                        ? 'bg-indigo-600 text-white'
+                        : 'border border-gray-200 text-gray-700 hover:border-indigo-300 hover:text-indigo-700'
+                    }`}
+                  >
+                    {choice.label}
+                  </button>
+                ))}
+              </div>
               <button
                 type="submit"
                 disabled={isLoading}
@@ -224,6 +275,52 @@ export default function Home() {
               </button>
             </div>
           </form>
+
+          {result ? (
+            <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-emerald-900">
+                  ✓ Your markdown is live{result.expiresAt === 0 ? ' — permanently' : ''}
+                </h3>
+                <Link
+                  href={`/${result.id}`}
+                  className="rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-emerald-500"
+                >
+                  View share →
+                </Link>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center gap-2">
+                  <code className="min-w-0 flex-1 truncate rounded-lg border border-emerald-200 bg-white px-3 py-2 text-gray-800">
+                    {result.url}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={() => copyValue('url', result.url)}
+                    className="rounded-lg bg-gray-950 px-4 py-2 text-xs font-medium text-white transition hover:bg-gray-800"
+                  >
+                    {copiedField === 'url' ? '✓ Copied' : 'Copy link'}
+                  </button>
+                </div>
+                <div className="flex items-center gap-2">
+                  <code className="min-w-0 flex-1 truncate rounded-lg border border-emerald-200 bg-white px-3 py-2 text-gray-800">
+                    {result.editToken}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={() => copyValue('token', result.editToken)}
+                    className="rounded-lg bg-gray-950 px-4 py-2 text-xs font-medium text-white transition hover:bg-gray-800"
+                  >
+                    {copiedField === 'token' ? '✓ Copied' : 'Copy token'}
+                  </button>
+                </div>
+                <p className="text-xs text-emerald-800">
+                  Save the edit token — it&apos;s the only way to update or delete this share later, and it
+                  won&apos;t be shown again.
+                </p>
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 

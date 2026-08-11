@@ -7,6 +7,7 @@ export const storageOperations = {
     const blob = await put(`${id}.md`, utf8Content, {
       access: 'public',
       contentType: 'text/markdown; charset=utf-8',
+      addRandomSuffix: true,
     });
     return blob.url;
   },

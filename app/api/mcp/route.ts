@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { dbOperations } from '@/lib/db';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { getClientIp, normalizeFilename, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
-import { storageOperations } from '@/lib/storage';
-import { generateSlug } from '@/lib/slug-generator';
+import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
+import { createShare, deleteShare, ShareServiceError, updateShare } from '@/lib/share-service';
 
 const SERVER_INFO = {
   name: 'md-share',
-  version: '1.0.0',
+  version: '1.1.0',
 };
 
 const PROTOCOL_VERSION = '2025-06-18';
@@ -17,13 +15,28 @@ const MAX_CONTENT_CHARS = Number(process.env.MAX_MARKDOWN_CHARS ?? 120_000);
 const RATE_LIMIT_WINDOW_MS = Number(process.env.RATE_LIMIT_WINDOW_MS ?? 60_000);
 const RATE_LIMIT_MCP_PER_WINDOW = Number(process.env.RATE_LIMIT_MCP_PER_WINDOW ?? 30);
 
-const toolCallSchema = z.object({
-  content: z
-    .string()
-    .trim()
-    .min(1, 'content is required')
-    .max(MAX_CONTENT_CHARS, `content exceeds ${MAX_CONTENT_CHARS} characters`),
+const contentSchema = z
+  .string()
+  .trim()
+  .min(1, 'content is required')
+  .max(MAX_CONTENT_CHARS, `content exceeds ${MAX_CONTENT_CHARS} characters`);
+
+const shareArgsSchema = z.object({
+  content: contentSchema,
   filename: z.string().trim().max(120).optional(),
+  expiry: z.enum(['1d', '7d', '30d', 'never']).optional().default('30d'),
+});
+
+const updateArgsSchema = z.object({
+  id: z.string().trim().min(1, 'id is required'),
+  edit_token: z.string().trim().min(1, 'edit_token is required'),
+  content: contentSchema,
+  filename: z.string().trim().max(120).optional(),
+});
+
+const deleteArgsSchema = z.object({
+  id: z.string().trim().min(1, 'id is required'),
+  edit_token: z.string().trim().min(1, 'edit_token is required'),
 });
 
 const rpcRequestSchema = z.object({
@@ -32,25 +45,80 @@ const rpcRequestSchema = z.object({
   id: z.unknown().optional(),
 });
 
-const TOOL_DEFINITION = {
-  name: 'share_markdown',
-  title: 'Markdown File Sharing',
-  description: 'Share a markdown file and get a public URL that expires in 30 days',
-  inputSchema: {
-    type: 'object',
-    properties: {
-      content: {
-        type: 'string',
-        description: 'The markdown content to share',
+const TOOL_DEFINITIONS = [
+  {
+    name: 'share_markdown',
+    title: 'Share Markdown',
+    description:
+      'Share a markdown file and get a public URL. Returns an edit token that can be used later to update or delete the share.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        content: {
+          type: 'string',
+          description: 'The markdown content to share',
+        },
+        filename: {
+          type: 'string',
+          description: 'Optional filename for the markdown file',
+        },
+        expiry: {
+          type: 'string',
+          enum: ['1d', '7d', '30d', 'never'],
+          description: 'How long the link stays live (default 30d; "never" keeps it forever)',
+        },
       },
-      filename: {
-        type: 'string',
-        description: 'Optional filename for the markdown file',
-      },
+      required: ['content'],
     },
-    required: ['content'],
   },
-};
+  {
+    name: 'update_share',
+    title: 'Update Shared Markdown',
+    description: 'Replace the content of an existing share using its id and edit token.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'The share id (the URL path segment)' },
+        edit_token: { type: 'string', description: 'Edit token returned when the share was created' },
+        content: { type: 'string', description: 'The new markdown content' },
+        filename: { type: 'string', description: 'Optional new filename' },
+      },
+      required: ['id', 'edit_token', 'content'],
+    },
+  },
+  {
+    name: 'delete_share',
+    title: 'Delete Shared Markdown',
+    description: 'Permanently delete a share using its id and edit token.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'The share id (the URL path segment)' },
+        edit_token: { type: 'string', description: 'Edit token returned when the share was created' },
+      },
+      required: ['id', 'edit_token'],
+    },
+  },
+];
+
+function toolTextResult(id: unknown, text: string, isError = false) {
+  return NextResponse.json({
+    jsonrpc: '2.0',
+    id,
+    result: {
+      content: [{ type: 'text', text }],
+      ...(isError ? { isError: true } : {}),
+    },
+  });
+}
+
+function invalidParamsError(id: unknown, message: string) {
+  return NextResponse.json({
+    jsonrpc: '2.0',
+    id,
+    error: { code: -32602, message },
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -120,7 +188,7 @@ export async function POST(request: NextRequest) {
         jsonrpc: '2.0',
         id,
         result: {
-          tools: [TOOL_DEFINITION],
+          tools: TOOL_DEFINITIONS,
         },
       });
     }
@@ -147,7 +215,48 @@ export async function POST(request: NextRequest) {
 
       const { name, arguments: args } = callParams.data;
 
-      if (name !== 'share_markdown') {
+      try {
+        if (name === 'share_markdown') {
+          const parsedArgs = shareArgsSchema.safeParse(args);
+          if (!parsedArgs.success) {
+            return invalidParamsError(id, parsedArgs.error.issues[0]?.message ?? 'Invalid tool arguments');
+          }
+
+          const { content, filename, expiry } = parsedArgs.data;
+          const share = await createShare(content, filename, expiry);
+          const expiresLine =
+            share.expiresAt === 0
+              ? 'Expires: never'
+              : `Expires: ${new Date(share.expiresAt).toLocaleDateString()}`;
+
+          return toolTextResult(
+            id,
+            `✓ Markdown shared successfully!\n\n${share.url}\n\nRaw: ${share.rawUrl}\n${expiresLine}\n\nEdit token (keep it to update or delete this share later): ${share.editToken}`
+          );
+        }
+
+        if (name === 'update_share') {
+          const parsedArgs = updateArgsSchema.safeParse(args);
+          if (!parsedArgs.success) {
+            return invalidParamsError(id, parsedArgs.error.issues[0]?.message ?? 'Invalid tool arguments');
+          }
+
+          const { id: shareId, edit_token, content, filename } = parsedArgs.data;
+          const { url } = await updateShare(shareId, edit_token, content, filename);
+          return toolTextResult(id, `✓ Share updated.\n\n${url}`);
+        }
+
+        if (name === 'delete_share') {
+          const parsedArgs = deleteArgsSchema.safeParse(args);
+          if (!parsedArgs.success) {
+            return invalidParamsError(id, parsedArgs.error.issues[0]?.message ?? 'Invalid tool arguments');
+          }
+
+          const { id: shareId, edit_token } = parsedArgs.data;
+          await deleteShare(shareId, edit_token);
+          return toolTextResult(id, `✓ Share ${shareId} deleted.`);
+        }
+
         return NextResponse.json({
           jsonrpc: '2.0',
           id,
@@ -156,72 +265,12 @@ export async function POST(request: NextRequest) {
             message: `Unknown tool: ${name}`,
           },
         });
-      }
-
-      try {
-        const parsedArgs = toolCallSchema.safeParse(args);
-        if (!parsedArgs.success) {
-          return NextResponse.json({
-            jsonrpc: '2.0',
-            id,
-            error: {
-              code: -32602,
-              message: parsedArgs.error.issues[0]?.message ?? 'Invalid tool arguments',
-            },
-          });
-        }
-
-        const { content, filename } = parsedArgs.data;
-
-        // Generate unique friendly slug
-        let shareId = generateSlug();
-        
-        // Ensure uniqueness
-        let attempts = 0;
-        while (await dbOperations.getShare(shareId) && attempts < 5) {
-          shareId = generateSlug();
-          attempts++;
-        }
-
-        // Save markdown file and get blob URL
-        const blobUrl = await storageOperations.saveMarkdown(shareId, content);
-
-        // Save metadata to database
-        const share = await dbOperations.createShare(shareId, normalizeFilename(filename), blobUrl);
-
-        // Get base URL - always use custom domain in production
-        const baseUrl = process.env.VERCEL_ENV === 'production' 
-          ? 'https://docs-md.com' 
-          : 'http://localhost:3000';
-        const shareUrl = `${baseUrl}/${shareId}`;
-
-        return NextResponse.json({
-          jsonrpc: '2.0',
-          id,
-          result: {
-            content: [
-              {
-                type: 'text',
-                text: `✓ Markdown shared successfully!\n\n${shareUrl}\n\nExpires: ${new Date(share.expires_at).toLocaleDateString()}\n\nCopy the link above to share with others.`,
-              },
-            ],
-          },
-        });
       } catch (error) {
+        if (error instanceof ShareServiceError) {
+          return toolTextResult(id, `✗ ${error.message}`, true);
+        }
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        return NextResponse.json({
-          jsonrpc: '2.0',
-          id,
-          result: {
-            content: [
-              {
-                type: 'text',
-                text: `✗ Failed to share: ${errorMessage}`,
-              },
-            ],
-            isError: true,
-          },
-        });
+        return toolTextResult(id, `✗ Failed: ${errorMessage}`, true);
       }
     }
 

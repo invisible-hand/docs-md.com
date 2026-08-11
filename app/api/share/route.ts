@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { dbOperations } from '@/lib/db';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { getClientIp, normalizeFilename, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
-import { storageOperations } from '@/lib/storage';
-import { generateSlug } from '@/lib/slug-generator';
+import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
+import { createShare } from '@/lib/share-service';
 
 const MAX_SHARE_REQUEST_BYTES = Number(process.env.MAX_SHARE_REQUEST_BYTES ?? 200_000);
 const MAX_CONTENT_CHARS = Number(process.env.MAX_MARKDOWN_CHARS ?? 120_000);
@@ -18,6 +16,7 @@ const shareRequestSchema = z.object({
     .min(1, 'Content is required')
     .max(MAX_CONTENT_CHARS, `Content exceeds ${MAX_CONTENT_CHARS} characters`),
   filename: z.string().trim().max(120).optional(),
+  expiry: z.enum(['1d', '7d', '30d', 'never']).optional().default('30d'),
 });
 
 export async function POST(request: NextRequest) {
@@ -50,37 +49,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { content, filename } = parsed.data;
-
-    // Generate unique friendly slug
-    let id = generateSlug();
-    
-    // Ensure uniqueness (unlikely collision, but check anyway)
-    let attempts = 0;
-    while (await dbOperations.getShare(id) && attempts < 5) {
-      id = generateSlug();
-      attempts++;
-    }
-    
-    // Save markdown file and get blob URL
-    const blobUrl = await storageOperations.saveMarkdown(id, content);
-    
-    // Save metadata to database
-    const share = await dbOperations.createShare(
-      id,
-      normalizeFilename(filename),
-      blobUrl
-    );
-
-    // Get base URL - always use custom domain
-    const baseUrl = 'https://docs-md.com';
-    const shareUrl = `${baseUrl}/${id}`;
+    const { content, filename, expiry } = parsed.data;
+    const share = await createShare(content, filename, expiry);
 
     return NextResponse.json({
       success: true,
       id: share.id,
-      url: shareUrl,
-      expiresAt: share.expires_at,
+      url: share.url,
+      rawUrl: share.rawUrl,
+      editToken: share.editToken,
+      expiresAt: share.expiresAt,
       rateLimit: {
         remaining: rateResult.remaining,
       },
@@ -100,4 +78,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

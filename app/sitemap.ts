@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next';
 const BASE_URL = 'https://docs-md.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ['', '/about', '/what-is-mcp', '/ai-powered-ide', '/use-cases'];
+  const routes = ['', '/about', '/what-is-mcp', '/ai-powered-ide', '/use-cases', '/api-docs'];
 
   return routes.map((route) => ({
     url: `${BASE_URL}${route}`,

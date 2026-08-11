@@ -1,14 +1,18 @@
 # MD Share
 
-Share markdown files with auto-expiring links and MCP support for AI-powered IDE workflows.
+Share markdown files with flexible expiry (including permanent links), a public API, and MCP support for AI-powered IDE workflows.
 
 ## Features
 
 - 📝 **Instant Sharing** - Paste markdown, get a shareable link
 - 👀 **Live Preview** - Write and preview side-by-side before publishing
-- ⏰ **Auto-Expiring** - All links expire after 30 days
-- 🔌 **MCP Integration** - Share directly from Cursor AI
-- 📚 **SEO Pages** - About, What is MCP, AI IDE guide, and use cases
+- ⏰ **Flexible Expiry** - 1 day, 7 days, 30 days, or never
+- ✏️ **Edit & Delete** - Every share returns a private edit token
+- 🧜 **Mermaid Diagrams** - ` ```mermaid ` code blocks render as diagrams
+- 📑 **Table of Contents** - Auto-generated sidebar for long documents
+- 🔗 **Raw Endpoint + API** - `GET /raw/:id`, full REST API at `/api-docs`
+- 🔌 **MCP Integration** - `share_markdown`, `update_share`, `delete_share` tools
+- 📚 **SEO Pages** - About, What is MCP, AI IDE guide, use cases, API docs
 - 🔐 **Security Defaults** - Validation, payload limits, rate limiting, and protected ops endpoints
 
 ## Public Pages
@@ -18,7 +22,19 @@ Share markdown files with auto-expiring links and MCP support for AI-powered IDE
 - `/what-is-mcp` - MCP explainer
 - `/ai-powered-ide` - AI IDE workflow guide
 - `/use-cases` - Common usage patterns
+- `/api-docs` - REST API documentation
 - `/sitemap.xml` and `/robots.txt`
+
+## API
+
+See [docs-md.com/api-docs](https://docs-md.com/api-docs). Summary:
+
+- `POST /api/share` — body `{content, filename?, expiry?}` where expiry ∈ `1d|7d|30d|never`; returns `{id, url, rawUrl, editToken, expiresAt}` (expiresAt `0` = permanent)
+- `PATCH /api/share/:id` — header `x-edit-token`, body `{content, filename?}`
+- `DELETE /api/share/:id` — header `x-edit-token`
+- `GET /raw/:id` — raw `text/markdown`
+
+Indexing policy: only permanent shares are indexable; expiring shares are served with `noindex`.
 
 ## MCP Setup for Cursor
 

@@ -36,6 +36,10 @@ See [docs-md.com/api-docs](https://docs-md.com/api-docs). Summary:
 
 Indexing policy: only permanent shares are indexable; expiring shares are served with `noindex`.
 
+## MCP Registry
+
+Published in the [official MCP Registry](https://registry.modelcontextprotocol.io) as `com.docs-md/markdown-share` — remote streamable-HTTP server at `https://docs-md.com/api/mcp` with tools `share_markdown`, `update_share`, and `delete_share`.
+
 ## MCP Setup for Cursor
 
 Share markdown files directly from Cursor using our MCP server.

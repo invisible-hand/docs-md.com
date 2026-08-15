@@ -12,6 +12,15 @@ export default function SiteFooter() {
           <Link href="/what-is-mcp" className="hover:text-indigo-700">
             What is MCP
           </Link>
+          <Link href="/markdown-table-generator" className="hover:text-indigo-700">
+            Table Generator
+          </Link>
+          <Link href="/markdown-to-pdf" className="hover:text-indigo-700">
+            MD to PDF
+          </Link>
+          <Link href="/markdown-cheat-sheet" className="hover:text-indigo-700">
+            Cheat Sheet
+          </Link>
           <a
             href="https://github.com/invisible-hand/docs-md.com"
             target="_blank"

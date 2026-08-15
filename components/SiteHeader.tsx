@@ -5,6 +5,7 @@ const navLinks = [
   { href: '/what-is-mcp', label: 'What is MCP' },
   { href: '/ai-powered-ide', label: 'AI IDE Guide' },
   { href: '/use-cases', label: 'Use Cases' },
+  { href: '/tools', label: 'Tools' },
   { href: '/api-docs', label: 'API' },
 ];
 

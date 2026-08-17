@@ -18,6 +18,15 @@ export default function SiteFooter() {
           <Link href="/markdown-to-pdf" className="hover:text-indigo-700">
             MD to PDF
           </Link>
+          <Link href="/markdown-to-html" className="hover:text-indigo-700">
+            MD to HTML
+          </Link>
+          <Link href="/readme-generator" className="hover:text-indigo-700">
+            README Generator
+          </Link>
+          <Link href="/markdown-formatter" className="hover:text-indigo-700">
+            Formatter
+          </Link>
           <Link href="/markdown-cheat-sheet" className="hover:text-indigo-700">
             Cheat Sheet
           </Link>

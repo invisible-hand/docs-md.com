@@ -26,6 +26,7 @@ export default async function SharePage({ params }: PageProps) {
   // Convert BIGINT strings from Postgres to numbers
   const createdAt = typeof share.created_at === 'string' ? parseInt(share.created_at) : share.created_at;
   const expiresAt = typeof share.expires_at === 'string' ? parseInt(share.expires_at) : share.expires_at;
+  // eslint-disable-next-line react-hooks/purity -- dynamic server route; expiry must be checked against request time
   const nowTimestamp = Date.now();
   const neverExpires = expiresAt === 0;
 

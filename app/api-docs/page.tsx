@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 
 export const metadata: Metadata = {
@@ -98,9 +99,9 @@ export default function ApiDocsPage() {
           with tools <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">share_markdown</code>,{' '}
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">update_share</code>, and{' '}
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">delete_share</code>. See{' '}
-          <a href="/what-is-mcp" className="text-indigo-700 underline">
+          <Link href="/what-is-mcp" className="text-indigo-700 underline">
             What is MCP
-          </a>{' '}
+          </Link>{' '}
           for setup instructions.
         </p>
       </section>

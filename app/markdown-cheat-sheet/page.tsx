@@ -269,6 +269,18 @@ export default function MarkdownCheatSheetPage() {
             , turn a document into a file with the{' '}
             <Link href="/markdown-to-pdf" className="text-indigo-700 underline">
               PDF converter
+            </Link>{' '}
+            or{' '}
+            <Link href="/markdown-to-html" className="text-indigo-700 underline">
+              HTML converter
+            </Link>
+            , clean it up with the{' '}
+            <Link href="/markdown-formatter" className="text-indigo-700 underline">
+              formatter
+            </Link>
+            , scaffold a README with the{' '}
+            <Link href="/readme-generator" className="text-indigo-700 underline">
+              README generator
             </Link>
             , or{' '}
             <Link href="/" className="text-indigo-700 underline">

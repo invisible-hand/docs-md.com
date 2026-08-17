@@ -96,6 +96,8 @@ export default function MarkdownToPdfPage() {
           <h2 className="text-xl font-semibold text-gray-950">More markdown tools</h2>
           <p>
             <Link href="/markdown-table-generator" className="text-indigo-700 underline">Markdown table generator</Link>{' · '}
+            <Link href="/markdown-to-html" className="text-indigo-700 underline">Markdown to HTML</Link>{' · '}
+            <Link href="/readme-generator" className="text-indigo-700 underline">README generator</Link>{' · '}
             <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">Markdown cheat sheet</Link>{' · '}
             <Link href="/" className="text-indigo-700 underline">Share markdown as a link</Link>
           </p>

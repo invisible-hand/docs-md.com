@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import Link from 'next/link';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { BTN_DARK, BTN_GHOST, BTN_PILL, downloadFile, useCopy } from '@/components/tools/toolkit';
 
 type Alignment = 'left' | 'center' | 'right';
 
@@ -58,6 +59,29 @@ function buildMarkdown(header: string[], body: string[][], alignments: Alignment
   return [headerRow, separator, ...bodyRows].join('\n');
 }
 
+interface BodyRowProps {
+  row: string[];
+  rowIndex: number;
+  onCell: (row: number, col: number, value: string) => void;
+}
+
+// Memoized so typing in one cell doesn't re-render every other row of the grid.
+const BodyRow = memo(function BodyRow({ row, rowIndex, onCell }: BodyRowProps) {
+  return (
+    <tr>
+      {row.map((cell, ci) => (
+        <td key={ci} className="p-0">
+          <input
+            value={cell}
+            onChange={(e) => onCell(rowIndex, ci, e.target.value)}
+            className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 focus:border-indigo-400 focus:outline-none"
+          />
+        </td>
+      ))}
+    </tr>
+  );
+});
+
 function parseDelimited(text: string): string[][] | null {
   const lines = text.replace(/\r/g, '').split('\n').filter((line) => line.trim() !== '');
   if (lines.length === 0) return null;
@@ -72,7 +96,7 @@ export default function TableGenerator() {
   const [header, setHeader] = useState<string[]>(['Name', 'Role', 'Location']);
   const [body, setBody] = useState<string[][]>(makeGrid(3, 3));
   const [alignments, setAlignments] = useState<Alignment[]>(['left', 'left', 'left']);
-  const [copied, setCopied] = useState(false);
+  const [copied, copy] = useCopy();
   const [importOpen, setImportOpen] = useState(false);
   const [importText, setImportText] = useState('');
   const [shareState, setShareState] = useState<'idle' | 'loading' | 'done'>('idle');
@@ -81,9 +105,9 @@ export default function TableGenerator() {
   const columns = header.length;
   const markdown = useMemo(() => buildMarkdown(header, body, alignments), [header, body, alignments]);
 
-  const setCell = (row: number, col: number, value: string) => {
+  const setCell = useCallback((row: number, col: number, value: string) => {
     setBody((prev) => prev.map((r, ri) => (ri === row ? r.map((c, ci) => (ci === col ? value : c)) : r)));
-  };
+  }, []);
 
   const setHeaderCell = (col: number, value: string) => {
     setHeader((prev) => prev.map((c, ci) => (ci === col ? value : c)));
@@ -120,16 +144,6 @@ export default function TableGenerator() {
     setImportText('');
   };
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(markdown);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
-    }
-  };
-
   const handleShare = async () => {
     setShareState('loading');
     try {
@@ -152,11 +166,11 @@ export default function TableGenerator() {
     <div className="space-y-6">
       <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
         <div className="mb-4 flex flex-wrap items-center gap-2 text-xs">
-          <button onClick={addRow} className="rounded-full border border-gray-200 px-3 py-1.5 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700">+ Row</button>
-          <button onClick={removeRow} className="rounded-full border border-gray-200 px-3 py-1.5 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700">− Row</button>
-          <button onClick={addColumn} className="rounded-full border border-gray-200 px-3 py-1.5 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700">+ Column</button>
-          <button onClick={removeColumn} className="rounded-full border border-gray-200 px-3 py-1.5 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700">− Column</button>
-          <button onClick={() => setImportOpen((v) => !v)} className="rounded-full border border-gray-200 px-3 py-1.5 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700">
+          <button onClick={addRow} className={BTN_PILL}>+ Row</button>
+          <button onClick={removeRow} className={BTN_PILL}>− Row</button>
+          <button onClick={addColumn} className={BTN_PILL}>+ Column</button>
+          <button onClick={removeColumn} className={BTN_PILL}>− Column</button>
+          <button onClick={() => setImportOpen((v) => !v)} className={BTN_PILL}>
             Paste CSV / TSV
           </button>
           <span className="ml-auto text-gray-500">Click ⇤ ↔ ⇥ above a column to change its alignment</span>
@@ -207,17 +221,7 @@ export default function TableGenerator() {
             </thead>
             <tbody>
               {body.map((row, ri) => (
-                <tr key={ri}>
-                  {row.map((cell, ci) => (
-                    <td key={ci} className="p-0">
-                      <input
-                        value={cell}
-                        onChange={(e) => setCell(ri, ci, e.target.value)}
-                        className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-800 focus:border-indigo-400 focus:outline-none"
-                      />
-                    </td>
-                  ))}
-                </tr>
+                <BodyRow key={ri} row={row} rowIndex={ri} onCell={setCell} />
               ))}
             </tbody>
           </table>
@@ -229,14 +233,13 @@ export default function TableGenerator() {
           <div className="mb-2 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-gray-900">Markdown</h3>
             <div className="flex gap-2">
-              <button onClick={handleCopy} className="rounded-lg bg-gray-950 px-4 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800">
+              <button onClick={() => copy(markdown)} className={BTN_DARK}>
                 {copied ? '✓ Copied' : 'Copy markdown'}
               </button>
-              <button
-                onClick={handleShare}
-                disabled={shareState === 'loading'}
-                className="rounded-lg border border-gray-300 px-4 py-1.5 text-xs font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700 disabled:opacity-50"
-              >
+              <button onClick={() => downloadFile('table.md', markdown, 'text/markdown')} className={BTN_GHOST}>
+                Download .md
+              </button>
+              <button onClick={handleShare} disabled={shareState === 'loading'} className={BTN_GHOST}>
                 {shareState === 'loading' ? 'Sharing…' : 'Share as link'}
               </button>
             </div>

@@ -14,6 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/markdown-table-generator',
     '/markdown-to-pdf',
     '/markdown-cheat-sheet',
+    '/markdown-to-html',
+    '/readme-generator',
+    '/markdown-formatter',
   ];
 
   return routes.map((route) => ({

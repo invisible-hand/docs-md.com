@@ -115,6 +115,8 @@ export default function MarkdownTableGeneratorPage() {
           <h2 className="text-xl font-semibold text-gray-950">More markdown tools</h2>
           <p>
             <Link href="/markdown-to-pdf" className="text-indigo-700 underline">Markdown to PDF converter</Link>{' · '}
+            <Link href="/markdown-formatter" className="text-indigo-700 underline">Markdown formatter</Link>{' · '}
+            <Link href="/markdown-to-html" className="text-indigo-700 underline">Markdown to HTML</Link>{' · '}
             <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">Markdown cheat sheet</Link>{' · '}
             <Link href="/" className="text-indigo-700 underline">Share markdown as a link</Link>
           </p>

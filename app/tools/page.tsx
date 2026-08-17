@@ -25,6 +25,21 @@ const TOOLS = [
     body: 'Every element of markdown and GFM with side-by-side syntax and rendered output — headings to footnotes to mermaid diagrams.',
   },
   {
+    href: '/markdown-to-html',
+    title: 'Markdown to HTML converter',
+    body: 'Turn markdown into clean semantic HTML as you type — copy the fragment, or download a complete styled document. GFM supported.',
+  },
+  {
+    href: '/readme-generator',
+    title: 'README generator',
+    body: 'Fill in a form, get a professional README.md with live badges, install and usage sections, and a live preview.',
+  },
+  {
+    href: '/markdown-formatter',
+    title: 'Markdown formatter',
+    body: 'Prettify messy markdown: uniform list markers, one emphasis style, aligned tables. Semantic — rendered output never changes.',
+  },
+  {
     href: '/',
     title: 'Markdown sharing',
     body: 'The core product: paste markdown, get a link. Flexible expiry from 1 day to forever, edit tokens, raw endpoints, and an MCP server for AI IDEs.',

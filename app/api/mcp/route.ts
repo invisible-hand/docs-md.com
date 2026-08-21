@@ -331,6 +331,9 @@ export async function GET() {
       });
       
       controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+      // Close immediately: we never push server-initiated messages, and an
+      // open stream would be held by clients until the function max duration.
+      controller.close();
     },
   });
 

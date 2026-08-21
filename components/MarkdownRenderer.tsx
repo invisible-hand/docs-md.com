@@ -31,6 +31,18 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeSlug, rehypeHighlight]}
         components={{
+          // User-generated links must not pass SEO value (anti link-spam).
+          a: ({ children, href, ...props }) => (
+            <a
+              href={href}
+              {...(/^https?:\/\//i.test(href ?? '')
+                ? { rel: 'nofollow ugc noopener noreferrer' }
+                : {})}
+              {...props}
+            >
+              {children}
+            </a>
+          ),
           pre: ({ children, ...props }) => {
             const child = Array.isArray(children) ? children[0] : children;
             if (

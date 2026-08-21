@@ -32,7 +32,8 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
         rehypePlugins={[rehypeSlug, rehypeHighlight]}
         components={{
           // User-generated links must not pass SEO value (anti link-spam).
-          a: ({ children, href, ...props }) => (
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `node` must not reach the DOM
+          a: ({ children, href, node: _node, ...props }) => (
             <a
               href={href}
               {...(/^https?:\/\//i.test(href ?? '')

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { listGuideSlugs } from '@/lib/guides';
 
 const BASE_URL = 'https://docs-md.com';
 
@@ -16,10 +17,12 @@ export const STATIC_ROUTES = [
   '/markdown-to-html',
   '/readme-generator',
   '/markdown-formatter',
+  '/guides',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return STATIC_ROUTES.map((route) => ({
+  const routes = [...STATIC_ROUTES, ...listGuideSlugs().map((s) => `/guides/${s}`)];
+  return routes.map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: route === '' ? 'daily' : 'weekly',

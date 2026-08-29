@@ -25,6 +25,7 @@ export const STATIC_ROUTES = [
   '/slack-markdown',
   '/mermaid-timeline-examples',
   '/markdown-toc-generator',
+  '/readme-templates',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

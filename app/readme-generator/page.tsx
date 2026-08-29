@@ -122,6 +122,7 @@ export default function ReadmeGeneratorPage() {
         <section className="space-y-3 rounded-2xl bg-indigo-50 p-6">
           <h2 className="text-xl font-semibold text-gray-950">More markdown tools</h2>
           <p>
+            <Link href="/readme-templates" className="text-indigo-700 underline">README templates</Link>{' · '}
             <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">Markdown cheat sheet</Link>{' · '}
             <Link href="/markdown-table-generator" className="text-indigo-700 underline">Table generator</Link>{' · '}
             <Link href="/markdown-formatter" className="text-indigo-700 underline">Markdown formatter</Link>{' · '}

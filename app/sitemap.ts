@@ -18,6 +18,7 @@ export const STATIC_ROUTES = [
   '/readme-generator',
   '/markdown-formatter',
   '/guides',
+  '/pdf-to-markdown',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

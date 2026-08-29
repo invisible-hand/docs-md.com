@@ -20,6 +20,11 @@ const TOOLS = [
     body: 'Paste or open a .md file and download a PDF with real selectable text, highlighted code, and rendered tables. Fully client-side.',
   },
   {
+    href: '/pdf-to-markdown',
+    title: 'PDF to markdown converter',
+    body: 'Drop a PDF, get editable markdown — headings, lists, and paragraphs inferred from the layout. Nothing is uploaded.',
+  },
+  {
     href: '/markdown-cheat-sheet',
     title: 'Markdown cheat sheet',
     body: 'Every element of markdown and GFM with side-by-side syntax and rendered output — headings to footnotes to mermaid diagrams.',
@@ -67,6 +72,13 @@ export default function ToolsPage() {
         ))}
       </section>
       <section className="space-y-3">
+        <p className="text-sm text-gray-600">
+          Looking for syntax answers instead? The{' '}
+          <Link href="/guides" className="text-indigo-700 underline">
+            markdown guides
+          </Link>{' '}
+          cover checkboxes, strikethrough, line breaks, comments, and more.
+        </p>
         <p className="text-sm text-gray-600">
           Working from an AI IDE? The same sharing works over MCP — see the{' '}
           <Link href="/ai-powered-ide" className="text-indigo-700 underline">

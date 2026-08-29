@@ -21,6 +21,8 @@ export const STATIC_ROUTES = [
   '/pdf-to-markdown',
   '/what-is-an-mcp-server',
   '/mcp-servers',
+  '/discord-markdown',
+  '/slack-markdown',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

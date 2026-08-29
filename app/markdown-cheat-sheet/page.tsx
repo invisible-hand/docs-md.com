@@ -255,7 +255,19 @@ export default function MarkdownCheatSheetPage() {
             task lists, strikethrough, autolinks, and footnotes. Everything on this page renders on
             GitHub, GitLab, and on Docs MD share pages. The formal spec behind it is CommonMark;
             when two renderers disagree about an edge case, CommonMark&apos;s answer is the one to
-            bet on.
+            bet on. Chat apps are the exception — see the dedicated{' '}
+            <Link href="/discord-markdown" className="text-indigo-700 underline">
+              Discord
+            </Link>{' '}
+            and{' '}
+            <Link href="/slack-markdown" className="text-indigo-700 underline">
+              Slack
+            </Link>{' '}
+            formatting sheets, and the{' '}
+            <Link href="/guides" className="text-indigo-700 underline">
+              markdown guides
+            </Link>{' '}
+            for deep dives on single features.
           </p>
         </section>
 

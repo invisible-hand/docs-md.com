@@ -30,6 +30,15 @@ export default function SiteFooter() {
           <Link href="/markdown-cheat-sheet" className="hover:text-indigo-700">
             Cheat Sheet
           </Link>
+          <Link href="/guides" className="hover:text-indigo-700">
+            Guides
+          </Link>
+          <Link href="/tools" className="hover:text-indigo-700">
+            All Tools
+          </Link>
+          <Link href="/mcp-servers" className="hover:text-indigo-700">
+            MCP Servers
+          </Link>
           <a
             href="https://github.com/invisible-hand/docs-md.com"
             target="_blank"

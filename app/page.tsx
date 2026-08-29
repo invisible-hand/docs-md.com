@@ -197,6 +197,16 @@ export default function Home() {
                 </Link>
               </li>
               <li>
+                <Link href="/pdf-to-markdown" className="text-indigo-700 underline">
+                  PDF to markdown
+                </Link>
+              </li>
+              <li>
+                <Link href="/guides" className="text-indigo-700 underline">
+                  Markdown guides
+                </Link>
+              </li>
+              <li>
                 <Link href="/tools" className="text-indigo-700 underline">
                   All tools →
                 </Link>

@@ -40,6 +40,11 @@ const TOOLS = [
     body: 'Fill in a form, get a professional README.md with live badges, install and usage sections, and a live preview.',
   },
   {
+    href: '/markdown-toc-generator',
+    title: 'Table of contents generator',
+    body: 'Paste a document, get a linked TOC with GitHub-exact anchor slugs — choose depth, insert it under your title.',
+  },
+  {
     href: '/markdown-formatter',
     title: 'Markdown formatter',
     body: 'Prettify messy markdown: uniform list markers, one emphasis style, aligned tables. Semantic — rendered output never changes.',

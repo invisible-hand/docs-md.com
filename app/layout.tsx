@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   },
   description:
     "Share markdown files with expiring links and connect your AI-powered IDE through MCP.",
+  verification: {
+    other: { "msvalidate.01": "EF33FF9A96023EF6C70454CCE7FD6507" },
+  },
   alternates: {
     canonical: "./",
   },

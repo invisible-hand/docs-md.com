@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
 import { createShare } from '@/lib/share-service';
+import { pingIndexNow } from '@/lib/indexnow';
 
 const MAX_SHARE_REQUEST_BYTES = Number(process.env.MAX_SHARE_REQUEST_BYTES ?? 200_000);
 const MAX_CONTENT_CHARS = Number(process.env.MAX_MARKDOWN_CHARS ?? 120_000);
@@ -51,6 +52,8 @@ export async function POST(request: NextRequest) {
 
     const { content, filename, expiry } = parsed.data;
     const share = await createShare(content, filename, expiry);
+    // Only never-expiring shares are indexable (others are noindex), so only those get pinged.
+    if (expiry === 'never') await pingIndexNow(`/${share.id}`);
 
     return NextResponse.json({
       success: true,

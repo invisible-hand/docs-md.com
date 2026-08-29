@@ -174,6 +174,34 @@ export default function Home() {
               <li>Syntax highlighting and GitHub-flavored markdown</li>
               <li>No account required to start</li>
             </ul>
+            <h2 className="mt-6 text-sm font-semibold uppercase tracking-wide text-gray-900">Free markdown tools</h2>
+            <ul className="mt-3 space-y-2 text-sm">
+              <li>
+                <Link href="/markdown-table-generator" className="text-indigo-700 underline">
+                  Markdown table generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">
+                  Markdown cheat sheet
+                </Link>
+              </li>
+              <li>
+                <Link href="/readme-generator" className="text-indigo-700 underline">
+                  README generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/markdown-to-pdf" className="text-indigo-700 underline">
+                  Markdown to PDF
+                </Link>
+              </li>
+              <li>
+                <Link href="/tools" className="text-indigo-700 underline">
+                  All tools →
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
       </section>

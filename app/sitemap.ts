@@ -27,6 +27,8 @@ export const STATIC_ROUTES = [
   '/markdown-toc-generator',
   '/readme-templates',
   '/what-is-markdown',
+  '/markdown-link-generator',
+  '/markdown-to-word',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

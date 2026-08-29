@@ -25,6 +25,11 @@ const TOOLS = [
     body: 'Drop a PDF, get editable markdown — headings, lists, and paragraphs inferred from the layout. Nothing is uploaded.',
   },
   {
+    href: '/markdown-to-word',
+    title: 'Markdown to Word converter',
+    body: 'Markdown to a .doc that opens in Word — or paste from Word and get clean markdown back. Both directions, in-browser.',
+  },
+  {
     href: '/markdown-cheat-sheet',
     title: 'Markdown cheat sheet',
     body: 'Every element of markdown and GFM with side-by-side syntax and rendered output — headings to footnotes to mermaid diagrams.',
@@ -48,6 +53,11 @@ const TOOLS = [
     href: '/markdown-formatter',
     title: 'Markdown formatter',
     body: 'Prettify messy markdown: uniform list markers, one emphasis style, aligned tables. Semantic — rendered output never changes.',
+  },
+  {
+    href: '/markdown-link-generator',
+    title: 'Link, image & code block generator',
+    body: 'Fill in a form, get correct markdown for links (with tooltips and reference style), sized images, and fenced code.',
   },
   {
     href: '/',

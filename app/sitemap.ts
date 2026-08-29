@@ -23,6 +23,7 @@ export const STATIC_ROUTES = [
   '/mcp-servers',
   '/discord-markdown',
   '/slack-markdown',
+  '/mermaid-timeline-examples',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

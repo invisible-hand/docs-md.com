@@ -19,6 +19,8 @@ export const STATIC_ROUTES = [
   '/markdown-formatter',
   '/guides',
   '/pdf-to-markdown',
+  '/what-is-an-mcp-server',
+  '/mcp-servers',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

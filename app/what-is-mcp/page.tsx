@@ -131,6 +131,14 @@ claude mcp add --transport http md-share https://docs-md.com/api/mcp
           <Link href="/api-docs" className="text-indigo-700 underline">
             REST API
           </Link>
+          . For a deeper dive on the server side, read{' '}
+          <Link href="/what-is-an-mcp-server" className="text-indigo-700 underline">
+            what an MCP server is
+          </Link>{' '}
+          and browse the{' '}
+          <Link href="/mcp-servers" className="text-indigo-700 underline">
+            curated MCP server list
+          </Link>
           .
         </p>
         <Link

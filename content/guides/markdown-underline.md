@@ -1,7 +1,7 @@
 ---
 title: Markdown Underline — What Actually Works
 h1: How to underline text in markdown
-description: Markdown has no underline syntax — underscores make italics, not underlines. Use HTML <u> or <ins> tags where allowed, and see what works on GitHub, Discord, and Slack.
+description: Markdown has no underline syntax; underscores make italics. Use HTML <u> or <ins> tags where allowed, and see what works on GitHub, Discord, and Slack.
 updated: 2026-08-29
 related: markdown-strikethrough, markdown-center-text
 ---

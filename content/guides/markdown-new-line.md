@@ -1,7 +1,7 @@
 ---
 title: Markdown Line Breaks — New Line Syntax
 h1: How to make a new line in markdown
-description: Single newlines collapse in markdown. Force a line break with two trailing spaces or a backslash, or leave a blank line for a new paragraph. Renderer differences explained.
+description: Single newlines collapse in markdown. Force a line break with two trailing spaces or a backslash, or leave a blank line for a new paragraph. Renderer tips.
 updated: 2026-08-29
 related: markdown-indent, markdown-comment
 ---

@@ -5,7 +5,7 @@ import MarkdownFormatter from '@/components/tools/MarkdownFormatter';
 export const metadata: Metadata = {
   title: 'Markdown Formatter — Free Online Beautifier',
   description:
-    'Format and prettify markdown online: normalize list markers, emphasis style, table alignment, and spacing. Semantic formatting that never changes rendered output.',
+    'Format and prettify markdown online: normalize list markers, emphasis style, table alignment, and spacing. Semantic formatting that never changes output.',
 };
 
 function InlineCode({ children }: { children: string }) {

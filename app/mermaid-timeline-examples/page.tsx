@@ -6,7 +6,7 @@ import MermaidDiagram from '@/components/MermaidDiagram';
 export const metadata: Metadata = {
   title: 'Mermaid Timeline Examples — Syntax and Copyable Code',
   description:
-    'Mermaid timeline syntax with five copyable examples rendered live: basic timeline, multiple events per period, sections/eras, a project roadmap, and styling. Plus how to embed one in markdown.',
+    'Mermaid timeline syntax with five copyable examples rendered live: basic, multiple events, sections, a project roadmap, styling, and embedding in markdown.',
 };
 
 const EXAMPLES: Array<{ id: string; title: string; intro: string; code: string; after?: string }> = [

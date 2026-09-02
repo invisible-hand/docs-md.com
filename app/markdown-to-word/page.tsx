@@ -5,7 +5,7 @@ import MarkdownWord from '@/components/tools/MarkdownWord';
 export const metadata: Metadata = {
   title: 'Markdown to Word Converter (and Word to Markdown)',
   description:
-    'Convert markdown to a Word document — headings, tables, and code preserved — or paste from Word and get clean markdown back. Free, both directions, entirely in your browser.',
+    'Convert markdown to a Word document with headings, tables, and code preserved, or paste from Word and get clean markdown back. Free, both ways, in-browser.',
 };
 
 export default function MarkdownToWordPage() {

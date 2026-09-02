@@ -2,11 +2,41 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import CopyButton from '@/components/CopyButton';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import UpdatedLine from '@/components/UpdatedLine';
+
+const UPDATED = '2026-09-01';
+
+const FAQ = [
+  {
+    q: 'What is a markdown cheat sheet?',
+    a: 'A one-page reference of every markdown element with the syntax and the rendered result side by side, so you can copy the exact characters instead of guessing. This one covers core markdown, GitHub Flavored Markdown (tables, task lists, strikethrough, footnotes), and mermaid diagrams.',
+  },
+  {
+    q: 'How do I make text bold or italic in markdown?',
+    a: 'Wrap text in double asterisks for bold (**bold**) and single asterisks or underscores for italic (*italic* or _italic_). Triple asterisks give bold italic. Underscores inside a word do not trigger emphasis on GitHub, so asterisks are the safer default.',
+  },
+  {
+    q: 'How do I add a link or an image?',
+    a: 'A link is [text](https://example.com) and an image is the same with a leading exclamation mark: ![alt text](image.png). Add a tooltip with a quoted title after the URL. Reference-style links ([text][id] plus [id]: url on its own line) keep long documents readable.',
+  },
+  {
+    q: 'How do I write a code block?',
+    a: 'Put the code between two lines of three backticks. Add a language name right after the opening backticks (```js) to get syntax highlighting. Use single backticks for inline code.',
+  },
+  {
+    q: 'How do I make a table in markdown?',
+    a: 'Separate columns with pipes and add a line of dashes under the header row. Colons in that separator line set alignment: :--- left, :---: center, ---: right. Tables are a GFM extension supported by GitHub, GitLab, and most renderers.',
+  },
+  {
+    q: 'What is the difference between markdown and GitHub Flavored Markdown?',
+    a: 'GitHub Flavored Markdown (GFM) is the original markdown plus tables, task lists, strikethrough, autolinks, and footnotes. Nearly every modern renderer supports GFM, so it is what people usually mean by "markdown". The formal spec underneath both is CommonMark.',
+  },
+];
 
 export const metadata: Metadata = {
   title: 'Markdown Cheat Sheet — Complete Syntax Reference',
   description:
-    'Every markdown element with live rendered examples: headings, emphasis, lists, links, images, code blocks, tables, task lists, footnotes, and mermaid diagrams. Copy any snippet.',
+    'Every markdown element with live rendered examples: headings, emphasis, lists, links, images, code, tables, task lists, footnotes, mermaid. Copy a snippet.',
 };
 
 interface Snippet {
@@ -211,12 +241,35 @@ function SnippetBlock({ snippet }: { snippet: Snippet }) {
 }
 
 export default function MarkdownCheatSheetPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: 'Markdown cheat sheet: complete syntax reference with examples',
+        description: metadata.description,
+        dateModified: UPDATED,
+        author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
+        mainEntityOfPage: 'https://docs-md.com/markdown-cheat-sheet',
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: FAQ.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      },
+    ],
+  };
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-12 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="mb-10 max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
           Markdown cheat sheet
         </h1>
+        <UpdatedLine date={UPDATED} />
         <p className="mt-4 text-base text-gray-600">
           Every markdown element with the syntax on the left and the rendered result on the right.
           Covers core markdown, GitHub Flavored Markdown (GFM), and mermaid diagrams. Click{' '}
@@ -270,6 +323,13 @@ export default function MarkdownCheatSheetPage() {
             for deep dives on single features.
           </p>
         </section>
+
+        {FAQ.map((f) => (
+          <section key={f.q} className="space-y-2">
+            <h2 className="text-xl font-semibold text-gray-950">{f.q}</h2>
+            <p>{f.a}</p>
+          </section>
+        ))}
 
         <section className="space-y-3 rounded-2xl bg-indigo-50 p-6">
           <h2 className="text-xl font-semibold text-gray-950">Put it to work</h2>

@@ -5,7 +5,7 @@ import ContentPage from '@/components/ContentPage';
 export const metadata: Metadata = {
   title: 'What Is an MCP Server? Explained Simply',
   description:
-    'An MCP server is a small program that gives AI assistants like Claude or Cursor a set of tools — read files, query a database, share a doc. How servers work, examples, and how to run one.',
+    'An MCP server is a small program that gives AI assistants like Claude or Cursor tools: read files, query a database, share a doc. How it works and runs.',
 };
 
 const FAQ = [

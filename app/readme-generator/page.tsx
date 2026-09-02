@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import UpdatedLine from '@/components/UpdatedLine';
+
+const UPDATED = '2026-09-01';
 import ReadmeGenerator from '@/components/tools/ReadmeGenerator';
 
 export const metadata: Metadata = {
@@ -9,12 +12,39 @@ export const metadata: Metadata = {
 };
 
 export default function ReadmeGeneratorPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebApplication',
+        name: 'README Generator',
+        applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Any',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        description: metadata.description,
+        dateModified: UPDATED,
+        url: 'https://docs-md.com/readme-generator',
+        author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          { '@type': 'Question', name: 'Is anything uploaded while I type?', acceptedAnswer: { '@type': 'Answer', text: 'No — the README is assembled in your browser. The only network request happens if you explicitly click Share as link, which publishes the markdown to a URL (with an edit token, expiring in 30 days) so you can send a draft to a teammate before committing it.' } },
+          { '@type': 'Question', name: 'Can I edit the result afterwards?', acceptedAnswer: { '@type': 'Answer', text: 'Absolutely — the output is plain markdown, meant as a strong starting point. Download it, drop it in your repo, and extend it with project-specific sections (architecture, benchmarks, screenshots) as the project grows.' } },
+          { '@type': 'Question', name: 'Which license should I pick?', acceptedAnswer: { '@type': 'Answer', text: 'Not legal advice, but as a rough map of common practice: MIT is the most common choice for libraries (short and permissive), Apache-2.0 adds an explicit patent grant, and GPL-3.0 requires derivative works to stay open source. See choosealicense.com for a fuller comparison.' } },
+          { '@type': 'Question', name: 'Does this work for non-code projects?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — skip the npm field, put whatever setup steps you have in the install box, and the structure works for datasets, courses, design systems, or documentation repos just as well.' } },
+        ],
+      },
+    ],
+  };
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="mb-8 max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
           README generator
         </h1>
+        <UpdatedLine date={UPDATED} />
         <p className="mt-4 text-base text-gray-600">
           Fill in the form and watch a complete, professionally structured README.md build itself
           in the live preview — badges, features, installation, usage, contributing guidelines, and
@@ -27,7 +57,7 @@ export default function ReadmeGeneratorPage() {
       <div className="mx-auto mt-16 max-w-3xl space-y-10 text-gray-700">
         <section className="space-y-4">
           <h2 className="text-xl font-semibold text-gray-950">
-            What makes a good README
+            What makes a good README?
           </h2>
           <p>
             A README has one job: get a stranger from &quot;what is this?&quot; to &quot;it&apos;s
@@ -61,7 +91,7 @@ export default function ReadmeGeneratorPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-950">About the badges</h2>
+          <h2 className="text-xl font-semibold text-gray-950">Where do the badges come from?</h2>
           <p>
             Badges are generated from{' '}
             <a href="https://shields.io" target="_blank" rel="noopener noreferrer" className="text-indigo-700 underline">
@@ -77,10 +107,10 @@ export default function ReadmeGeneratorPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-950">FAQ</h2>
+          <h2 className="text-xl font-semibold text-gray-950">Frequently asked questions</h2>
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold text-gray-900">Is anything uploaded while I type?</h3>
+              <h2 className="text-lg font-semibold text-gray-950">Is anything uploaded while I type?</h2>
               <p>
                 No — the README is assembled in your browser. The only network request happens if
                 you explicitly click <em>Share as link</em>, which publishes the markdown to a URL
@@ -89,7 +119,7 @@ export default function ReadmeGeneratorPage() {
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Can I edit the result afterwards?</h3>
+              <h2 className="text-lg font-semibold text-gray-950">Can I edit the result afterwards?</h2>
               <p>
                 Absolutely — the output is plain markdown, meant as a strong starting point.
                 Download it, drop it in your repo, and extend it with project-specific sections
@@ -97,7 +127,7 @@ export default function ReadmeGeneratorPage() {
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Which license should I pick?</h3>
+              <h2 className="text-lg font-semibold text-gray-950">Which license should I pick?</h2>
               <p>
                 Not legal advice, but as a rough map of common practice: MIT is the most common
                 choice for libraries (short and permissive), Apache-2.0 adds an explicit patent
@@ -109,7 +139,7 @@ export default function ReadmeGeneratorPage() {
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Does this work for non-code projects?</h3>
+              <h2 className="text-lg font-semibold text-gray-950">Does this work for non-code projects?</h2>
               <p>
                 Yes — skip the npm field, put whatever setup steps you have in the install box,
                 and the structure works for datasets, courses, design systems, or documentation

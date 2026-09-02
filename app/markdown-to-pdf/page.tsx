@@ -5,7 +5,7 @@ import MarkdownToPdf from '@/components/tools/MarkdownToPdf';
 export const metadata: Metadata = {
   title: 'Markdown to PDF Converter — Free, No Signup',
   description:
-    'Convert markdown to PDF in your browser: paste or open a .md file, preview with syntax highlighting and tables, download as PDF with selectable text. Free and private.',
+    'Convert markdown to PDF in your browser: paste or open a .md file, preview with syntax highlighting and tables, download a PDF with selectable text. Free.',
 };
 
 export default function MarkdownToPdfPage() {

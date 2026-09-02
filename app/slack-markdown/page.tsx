@@ -5,7 +5,7 @@ import ContentPage from '@/components/ContentPage';
 export const metadata: Metadata = {
   title: 'Slack Markdown — Message Formatting Cheat Sheet',
   description:
-    "Slack formatting is not real markdown: *single asterisks* bold, _underscores_ italicize, ~tildes~ strike through. The full mrkdwn syntax, what's missing, and API differences.",
+    'Slack formatting is not real markdown: *asterisks* bold, _underscores_ italicize, ~tildes~ strike through. Full mrkdwn syntax, gaps, and API differences.',
 };
 
 const ROWS: Array<{ effect: string; syntax: string; note?: string }> = [

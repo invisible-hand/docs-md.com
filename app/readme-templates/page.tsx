@@ -5,7 +5,7 @@ import CopyButton from '@/components/CopyButton';
 export const metadata: Metadata = {
   title: 'README Templates — Copy-Paste Examples That Work',
   description:
-    'Four proven README templates to copy: a general project, an open-source library, a CLI tool, and a GitHub profile README — each annotated with why the sections are ordered that way.',
+    'Four README templates to copy: a general project, an open-source library, a CLI tool, and a GitHub profile README.',
 };
 
 const TEMPLATES: Array<{ id: string; title: string; when: string; body: string }> = [

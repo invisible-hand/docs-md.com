@@ -5,7 +5,7 @@ import ContentPage from '@/components/ContentPage';
 export const metadata: Metadata = {
   title: 'MCP Server List — Best Servers Worth Installing (2026)',
   description:
-    'A curated MCP server list: official servers for GitHub, Playwright, Sentry, Stripe, Figma, and databases, plus utilities for search, memory, and markdown sharing — with what each one is for.',
+    'A curated MCP server list: official servers for GitHub, Playwright, Sentry, Stripe, Figma, and databases, plus search, memory, and markdown-sharing tools.',
 };
 
 interface Server {

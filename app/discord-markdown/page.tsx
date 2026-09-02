@@ -5,7 +5,7 @@ import ContentPage from '@/components/ContentPage';
 export const metadata: Metadata = {
   title: 'Discord Markdown — Text Formatting Cheat Sheet',
   description:
-    'Every Discord text format: bold, italic, underline, strikethrough, spoilers, headers, lists, quotes, code blocks with syntax highlighting, and masked links — with the exact syntax.',
+    'Every Discord text format: bold, italic, underline, strikethrough, spoilers, headers, lists, quotes, highlighted code blocks, and masked links.',
 };
 
 const ROWS: Array<{ effect: string; syntax: string; note?: string }> = [

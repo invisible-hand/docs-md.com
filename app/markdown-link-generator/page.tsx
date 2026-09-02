@@ -5,7 +5,7 @@ import LinkGenerator from '@/components/tools/LinkGenerator';
 export const metadata: Metadata = {
   title: 'Markdown Link, Image & Code Block Generator',
   description:
-    'Generate correct markdown for links, images, and fenced code blocks: fill in the fields, see a live preview, copy the snippet. Handles tooltips, reference links, image sizing, and fence escaping.',
+    'Generate correct markdown for links, images, and fenced code blocks: fill in the fields, preview live, copy the snippet. Tooltips and reference links too.',
 };
 
 export default function LinkGeneratorPage() {

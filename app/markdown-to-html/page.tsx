@@ -5,7 +5,7 @@ import MarkdownToHtml from '@/components/tools/MarkdownToHtml';
 export const metadata: Metadata = {
   title: 'Markdown to HTML Converter — Free Online Tool',
   description:
-    'Convert markdown to clean HTML in your browser: GFM tables, task lists, and code blocks supported. Copy the HTML or download a complete styled document. No signup.',
+    'Convert markdown to clean HTML in your browser: GFM tables, task lists, and code blocks supported. Copy the HTML or download a complete styled document.',
 };
 
 function InlineCode({ children }: { children: string }) {

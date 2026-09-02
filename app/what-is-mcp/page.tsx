@@ -5,7 +5,7 @@ import ContentPage from '@/components/ContentPage';
 export const metadata: Metadata = {
   title: 'What is MCP? Model Context Protocol Explained',
   description:
-    'Model Context Protocol (MCP) explained: how servers, tools, and transports work, what problems MCP solves, and how to try a real remote MCP server in one minute.',
+    'Model Context Protocol (MCP) explained: how servers, tools, and transports work, what problems MCP solves, and how to try a real remote MCP server fast.',
 };
 
 function CodeBlock({ children }: { children: string }) {

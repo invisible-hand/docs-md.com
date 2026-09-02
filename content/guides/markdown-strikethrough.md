@@ -1,7 +1,7 @@
 ---
 title: Markdown Strikethrough — Cross Out Text
 h1: How to strikethrough text in markdown
-description: Cross out text in markdown by wrapping it in double tildes, like ~~this~~. Where strikethrough works (GitHub, Discord, Slack), single vs double tilde, and HTML fallbacks.
+description: Cross out text in markdown by wrapping it in double tildes, like ~~this~~. Where it works (GitHub, Discord, Slack), single vs double tilde, HTML fallbacks.
 updated: 2026-08-29
 related: markdown-underline, markdown-checkbox
 ---

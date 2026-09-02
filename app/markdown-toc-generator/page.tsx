@@ -5,7 +5,7 @@ import TocGenerator from '@/components/tools/TocGenerator';
 export const metadata: Metadata = {
   title: 'Markdown Table of Contents Generator — Free TOC Tool',
   description:
-    'Generate a markdown table of contents from your headings with correct GitHub anchor links. Choose depth, numbered or bulleted, and insert it into the document — all in your browser.',
+    'Generate a markdown table of contents from your headings with correct GitHub anchor links. Choose depth, numbered or bulleted, and insert it in the doc.',
 };
 
 export default function TocGeneratorPage() {

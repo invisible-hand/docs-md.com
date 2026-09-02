@@ -5,7 +5,7 @@ import PdfToMarkdown from '@/components/tools/PdfToMarkdown';
 export const metadata: Metadata = {
   title: 'PDF to Markdown Converter — Free, Private, In-Browser',
   description:
-    'Convert a PDF to markdown free in your browser: drop the file, get editable markdown with headings, lists, and paragraphs inferred from the layout. Nothing is uploaded.',
+    'Convert a PDF to markdown free in your browser: drop the file, get editable markdown with headings, lists, and paragraphs inferred from layout. No upload.',
 };
 
 export default function PdfToMarkdownPage() {

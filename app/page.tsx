@@ -178,9 +178,11 @@ export default function Home() {
                 ['/markdown-cheat-sheet', 'Cheat sheet'],
                 ['/readme-generator', 'README generator'],
                 ['/markdown-to-pdf', 'Markdown to PDF'],
-                ['/pdf-to-markdown', 'PDF to markdown'],
+                ['/html-to-markdown', 'HTML to markdown'],
+                ['/markdown-lint', 'Linter'],
+                ['/markdown-viewer', 'Viewer'],
                 ['/guides', 'Syntax guides'],
-                ['/tools', 'All tools →'],
+                ['/tools', 'All 21 tools →'],
               ].map(([href, label]) => (
                 <Link
                   key={href}

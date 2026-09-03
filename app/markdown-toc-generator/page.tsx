@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ToolIconTile } from '@/components/tools/ToolIcon';
 import TocGenerator from '@/components/tools/TocGenerator';
 
 export const metadata: Metadata = {
@@ -12,9 +13,14 @@ export default function TocGeneratorPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
       <div className="mb-8 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          Markdown table of contents generator
-        </h1>
+        <div className="flex items-start gap-4">
+          <ToolIconTile slug="markdown-toc-generator" size="lg" />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
+              Markdown table of contents generator
+            </h1>
+          </div>
+        </div>
         <p className="mt-4 text-base text-gray-600">
           Paste a markdown document and get a linked table of contents built from its headings —
           with anchor slugs generated exactly the way GitHub does it, so every link works in your

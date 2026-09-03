@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ToolIconTile } from '@/components/tools/ToolIcon';
 import MarkdownToHtml from '@/components/tools/MarkdownToHtml';
 
 export const metadata: Metadata = {
@@ -16,9 +17,14 @@ export default function MarkdownToHtmlPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
       <div className="mb-8 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          Markdown to HTML converter
-        </h1>
+        <div className="flex items-start gap-4">
+          <ToolIconTile slug="markdown-to-html" size="lg" />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
+              Markdown to HTML converter
+            </h1>
+          </div>
+        </div>
         <p className="mt-4 text-base text-gray-600">
           Paste markdown on the left and get clean, semantic HTML on the right — updated as you
           type. Supports the full GitHub Flavored Markdown spec: tables, task lists, strikethrough,

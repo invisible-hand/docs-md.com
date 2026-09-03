@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ToolIconTile } from '@/components/tools/ToolIcon';
 import PdfToMarkdown from '@/components/tools/PdfToMarkdown';
 
 export const metadata: Metadata = {
@@ -12,9 +13,14 @@ export default function PdfToMarkdownPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
       <div className="mb-8 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          PDF to markdown converter
-        </h1>
+        <div className="flex items-start gap-4">
+          <ToolIconTile slug="pdf-to-markdown" size="lg" />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
+              PDF to markdown converter
+            </h1>
+          </div>
+        </div>
         <p className="mt-4 text-base text-gray-600">
           Drop a PDF and get clean, editable markdown. The converter reads the text layer directly
           in your browser — nothing is uploaded anywhere — and infers structure from the layout:

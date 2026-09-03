@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ToolIconTile } from '@/components/tools/ToolIcon';
 import UpdatedLine from '@/components/UpdatedLine';
 
 const UPDATED = '2026-09-01';
@@ -41,10 +42,15 @@ export default function ReadmeGeneratorPage() {
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="mb-8 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          README generator
-        </h1>
-        <UpdatedLine date={UPDATED} />
+        <div className="flex items-start gap-4">
+          <ToolIconTile slug="readme-generator" size="lg" />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
+              README generator
+            </h1>
+            <UpdatedLine date={UPDATED} />
+          </div>
+        </div>
         <p className="mt-4 text-base text-gray-600">
           Fill in the form and watch a complete, professionally structured README.md build itself
           in the live preview — badges, features, installation, usage, contributing guidelines, and

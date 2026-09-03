@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ToolIconTile } from '@/components/tools/ToolIcon';
 import LinkGenerator from '@/components/tools/LinkGenerator';
 
 export const metadata: Metadata = {
@@ -12,9 +13,14 @@ export default function LinkGeneratorPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
       <div className="mb-8 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          Markdown link &amp; image generator
-        </h1>
+        <div className="flex items-start gap-4">
+          <ToolIconTile slug="markdown-link-generator" size="lg" />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
+              Markdown link &amp; image generator
+            </h1>
+          </div>
+        </div>
         <p className="mt-4 text-base text-gray-600">
           The three snippets people most often get slightly wrong — links, images, and fenced code
           blocks — generated correctly from a form, with a live preview. It handles the edge cases

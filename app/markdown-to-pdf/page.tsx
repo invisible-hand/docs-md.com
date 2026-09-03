@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ToolIconTile } from '@/components/tools/ToolIcon';
 import MarkdownToPdf from '@/components/tools/MarkdownToPdf';
 
 export const metadata: Metadata = {
@@ -12,9 +13,14 @@ export default function MarkdownToPdfPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
       <div className="no-print mb-8 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          Markdown to PDF converter
-        </h1>
+        <div className="flex items-start gap-4">
+          <ToolIconTile slug="markdown-to-pdf" size="lg" />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
+              Markdown to PDF converter
+            </h1>
+          </div>
+        </div>
         <p className="mt-4 text-base text-gray-600">
           Paste markdown or open a <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.md</code>{' '}
           file, check the preview, and download a PDF. Everything runs in your browser — your

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ToolIconTile } from '@/components/tools/ToolIcon';
 import CopyButton from '@/components/CopyButton';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import UpdatedLine from '@/components/UpdatedLine';
@@ -266,10 +267,15 @@ export default function MarkdownCheatSheetPage() {
     <div className="mx-auto w-full max-w-5xl px-4 py-12 md:py-16">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="mb-10 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          Markdown cheat sheet
-        </h1>
-        <UpdatedLine date={UPDATED} />
+        <div className="flex items-start gap-4">
+          <ToolIconTile slug="markdown-cheat-sheet" size="lg" />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
+              Markdown cheat sheet
+            </h1>
+            <UpdatedLine date={UPDATED} />
+          </div>
+        </div>
         <p className="mt-4 text-base text-gray-600">
           Every markdown element with the syntax on the left and the rendered result on the right.
           Covers core markdown, GitHub Flavored Markdown (GFM), and mermaid diagrams. Click{' '}

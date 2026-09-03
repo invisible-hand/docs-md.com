@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ToolIconTile } from '@/components/tools/ToolIcon';
 import MarkdownFormatter from '@/components/tools/MarkdownFormatter';
 
 export const metadata: Metadata = {
@@ -16,9 +17,14 @@ export default function MarkdownFormatterPage() {
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
       <div className="mb-8 max-w-3xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          Markdown formatter
-        </h1>
+        <div className="flex items-start gap-4">
+          <ToolIconTile slug="markdown-formatter" size="lg" />
+          <div>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
+              Markdown formatter
+            </h1>
+          </div>
+        </div>
         <p className="mt-4 text-base text-gray-600">
           Paste messy markdown and get a consistently formatted version back: uniform list markers,
           one emphasis style, aligned tables, and normalized spacing. The formatter parses your

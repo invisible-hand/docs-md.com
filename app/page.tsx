@@ -135,7 +135,7 @@ export default function Home() {
 
   return (
     <div>
-      <section className="mx-auto w-full max-w-6xl px-4 pb-8 pt-12 md:pt-16">
+      <section className="mx-auto w-full max-w-6xl px-4 pb-6 pt-10 md:pt-12">
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <p className="mb-4 inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-indigo-700">
@@ -163,55 +163,34 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="rounded-2xl border border-indigo-100 bg-white p-6 shadow-sm">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-900">Why Docs MD</h2>
-            <ul className="mt-4 space-y-3 text-sm text-gray-600">
-              <li>Instant share links with memorable IDs</li>
-              <li>Flexible expiry — 1 day, 7 days, 30 days, or never</li>
-              <li>Edit and delete your shares with a private token</li>
-              <li>MCP endpoint for IDE automation</li>
-              <li>Mermaid diagrams rendered automatically</li>
-              <li>Syntax highlighting and GitHub-flavored markdown</li>
-              <li>No account required to start</li>
+          <div className="self-start rounded-2xl border border-indigo-100 bg-white p-5 shadow-sm">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-900">Why Docs MD</h2>
+            <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
+              <li>Share links that expire in 1, 7, or 30 days, or never</li>
+              <li>Edit or delete later with a private token</li>
+              <li>MCP endpoint for Cursor, Claude, and other IDEs</li>
+              <li>Mermaid, GFM, and syntax highlighting. No account needed</li>
             </ul>
-            <h2 className="mt-6 text-sm font-semibold uppercase tracking-wide text-gray-900">Free markdown tools</h2>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li>
-                <Link href="/markdown-table-generator" className="text-indigo-700 underline">
-                  Markdown table generator
+            <h2 className="mt-4 text-xs font-semibold uppercase tracking-wide text-gray-900">Free markdown tools</h2>
+            <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
+              {[
+                ['/markdown-table-generator', 'Table generator'],
+                ['/markdown-cheat-sheet', 'Cheat sheet'],
+                ['/readme-generator', 'README generator'],
+                ['/markdown-to-pdf', 'Markdown to PDF'],
+                ['/pdf-to-markdown', 'PDF to markdown'],
+                ['/guides', 'Syntax guides'],
+                ['/tools', 'All tools →'],
+              ].map(([href, label]) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="rounded-full border border-gray-200 px-2.5 py-1 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
+                >
+                  {label}
                 </Link>
-              </li>
-              <li>
-                <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">
-                  Markdown cheat sheet
-                </Link>
-              </li>
-              <li>
-                <Link href="/readme-generator" className="text-indigo-700 underline">
-                  README generator
-                </Link>
-              </li>
-              <li>
-                <Link href="/markdown-to-pdf" className="text-indigo-700 underline">
-                  Markdown to PDF
-                </Link>
-              </li>
-              <li>
-                <Link href="/pdf-to-markdown" className="text-indigo-700 underline">
-                  PDF to markdown
-                </Link>
-              </li>
-              <li>
-                <Link href="/guides" className="text-indigo-700 underline">
-                  Markdown guides
-                </Link>
-              </li>
-              <li>
-                <Link href="/tools" className="text-indigo-700 underline">
-                  All tools →
-                </Link>
-              </li>
-            </ul>
+              ))}
+            </div>
           </div>
         </div>
       </section>

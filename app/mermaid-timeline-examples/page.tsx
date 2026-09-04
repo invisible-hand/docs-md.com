@@ -103,15 +103,15 @@ export default function MermaidTimelineExamplesPage() {
           <section key={ex.id} id={ex.id} className="scroll-mt-8 space-y-4">
             <h2 className="text-2xl font-semibold tracking-tight text-gray-950">{ex.title}</h2>
             <p className="max-w-3xl text-gray-600">{ex.intro}</p>
-            <div className="grid gap-4 lg:grid-cols-2">
+            <div className="space-y-4">
               <div className="relative rounded-2xl border border-gray-200 bg-gray-50">
                 <div className="absolute right-3 top-3">
                   <CopyButton content={'```mermaid\n' + ex.code + '\n```'} />
                 </div>
                 <pre className="overflow-x-auto p-4 text-sm leading-relaxed text-gray-800">{ex.code}</pre>
               </div>
-              <div className="overflow-x-auto rounded-2xl border border-gray-200 p-3">
-                <MermaidDiagram chart={ex.code} />
+              <div className="rounded-2xl border border-gray-200 bg-white p-4 md:p-6">
+                <MermaidDiagram chart={ex.code} fill />
               </div>
             </div>
           </section>

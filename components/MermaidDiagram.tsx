@@ -4,9 +4,11 @@ import { useEffect, useId, useState } from 'react';
 
 interface MermaidDiagramProps {
   chart: string;
+  /** Stretch the SVG to the container width (mermaid otherwise caps it at its natural size). */
+  fill?: boolean;
 }
 
-export default function MermaidDiagram({ chart }: MermaidDiagramProps) {
+export default function MermaidDiagram({ chart, fill = false }: MermaidDiagramProps) {
   const [svg, setSvg] = useState<string | null>(null);
   const [error, setError] = useState(false);
   const reactId = useId();
@@ -50,7 +52,11 @@ export default function MermaidDiagram({ chart }: MermaidDiagramProps) {
 
   return (
     <div
-      className="my-4 flex justify-center overflow-x-auto [&_svg]:h-auto [&_svg]:max-w-full"
+      className={
+        fill
+          ? 'my-2 w-full [&_svg]:!h-auto [&_svg]:!w-full [&_svg]:!max-w-none'
+          : 'my-4 flex justify-center overflow-x-auto [&_svg]:h-auto [&_svg]:max-w-full'
+      }
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   );

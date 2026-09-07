@@ -11,6 +11,8 @@ const PRODUCT = [
   { href: '/agent-handoff-document', label: 'Agent handoff template' },
   { href: '/share-architecture-diagram', label: 'Share an architecture diagram' },
   { href: '/share-markdown-without-account', label: 'No-account sharing compared' },
+  { href: '/bug-report-template', label: 'Bug report template' },
+  { href: '/github-action', label: 'GitHub Action' },
   { href: '/about', label: 'About' },
 ];
 

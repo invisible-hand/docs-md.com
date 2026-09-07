@@ -1,0 +1,93 @@
+name: 'Share Markdown with Docs MD'
+description: 'Publish a markdown file as a rendered, expiring link on docs-md.com and get the URL as a step output. No account or token needed.'
+author: 'Docs MD'
+branding:
+  icon: 'share-2'
+  color: 'purple'
+
+inputs:
+  file:
+    description: 'Path to the markdown file to publish.'
+    required: true
+  expiry:
+    description: 'How long the link lives: 1d, 7d, 30d or never.'
+    required: false
+    default: '7d'
+  filename:
+    description: 'Filename shown on the page and used for downloads. Defaults to the basename of `file`.'
+    required: false
+    default: ''
+  share-id:
+    description: 'Id of an existing share to update in place instead of creating a new one. Requires `edit-token`.'
+    required: false
+    default: ''
+  edit-token:
+    description: 'Edit token of the share named by `share-id`. Pass it from a repository secret.'
+    required: false
+    default: ''
+  api-url:
+    description: 'Base URL of the Docs MD instance.'
+    required: false
+    default: 'https://docs-md.com'
+
+outputs:
+  url:
+    description: 'Rendered page URL for people.'
+    value: ${{ steps.publish.outputs.url }}
+  raw-url:
+    description: 'Raw markdown URL (text/markdown) for scripts and assistants.'
+    value: ${{ steps.publish.outputs.raw-url }}
+  id:
+    description: 'Share id.'
+    value: ${{ steps.publish.outputs.id }}
+  edit-token:
+    description: 'Edit token for updating or deleting the share later. Masked in logs; store it as a secret if you keep it.'
+    value: ${{ steps.publish.outputs.edit-token }}
+  expires-at:
+    description: 'ISO timestamp of expiry, or empty for never.'
+    value: ${{ steps.publish.outputs.expires-at }}
+
+runs:
+  using: 'composite'
+  steps:
+    - id: publish
+      shell: bash
+      env:
+        IN_FILE: ${{ inputs.file }}
+        IN_EXPIRY: ${{ inputs.expiry }}
+        IN_FILENAME: ${{ inputs.filename }}
+        IN_SHARE_ID: ${{ inputs.share-id }}
+        IN_EDIT_TOKEN: ${{ inputs.edit-token }}
+        IN_API_URL: ${{ inputs.api-url }}
+      run: |
+        set -euo pipefail
+        [ -f "$IN_FILE" ] || { echo "::error::file not found: $IN_FILE"; exit 1; }
+        case "$IN_EXPIRY" in 1d|7d|30d|never) ;; *) echo "::error::expiry must be 1d, 7d, 30d or never (got '$IN_EXPIRY')"; exit 1;; esac
+        name="${IN_FILENAME:-$(basename "$IN_FILE")}"
+        api="${IN_API_URL%/}"
+
+        if [ -n "$IN_SHARE_ID" ]; then
+          [ -n "$IN_EDIT_TOKEN" ] || { echo "::error::share-id given without edit-token"; exit 1; }
+          echo "::add-mask::$IN_EDIT_TOKEN"
+          payload=$(jq -Rs --arg f "$name" '{content: ., filename: $f}' "$IN_FILE")
+          resp=$(curl -sS --fail-with-body -X PATCH "$api/api/share/$IN_SHARE_ID" \
+            -H "Content-Type: application/json" -H "x-edit-token: $IN_EDIT_TOKEN" \
+            --data "$payload") || { echo "::error::update failed: $resp"; exit 1; }
+          id="$IN_SHARE_ID"; token="$IN_EDIT_TOKEN"
+          url=$(jq -r --arg d "$api/$id" '.url // $d' <<<"$resp")
+          raw="$api/raw/$id"; expires=$(jq -r '.expiresAt // ""' <<<"$resp")
+        else
+          payload=$(jq -Rs --arg f "$name" --arg e "$IN_EXPIRY" '{content: ., filename: $f, expiry: $e}' "$IN_FILE")
+          resp=$(curl -sS --fail-with-body -X POST "$api/api/share" \
+            -H "Content-Type: application/json" --data "$payload") || { echo "::error::publish failed: $resp"; exit 1; }
+          token=$(jq -r '.editToken' <<<"$resp")
+          echo "::add-mask::$token"
+          id=$(jq -r '.id' <<<"$resp"); url=$(jq -r '.url' <<<"$resp")
+          raw=$(jq -r '.rawUrl' <<<"$resp"); expires=$(jq -r '.expiresAt // ""' <<<"$resp")
+        fi
+
+        echo "Published $name → $url"
+        {
+          echo "url=$url"; echo "raw-url=$raw"; echo "id=$id"
+          echo "edit-token=$token"; echo "expires-at=$expires"
+        } >> "$GITHUB_OUTPUT"

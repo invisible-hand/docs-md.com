@@ -91,6 +91,16 @@ export default function ApiDocsPage() {
           generated markdown file with a 7-day expiry, prints the reading URL, fails the step on an
           API error, and keeps the edit token out of the log.
         </p>
+        <p>
+          If you would rather not maintain the script, the same steps are packaged as a{' '}
+          <Link href="/github-action" className="text-indigo-700 underline">
+            reusable GitHub Action
+          </Link>
+          : <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">uses: invisible-hand/docs-md.com/action@v1</code>{' '}
+          with <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">file</code> and{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">expiry</code> inputs and a{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">url</code> output.
+        </p>
         <CodeBlock>{`#!/usr/bin/env bash
 # scripts/publish-report.sh — usage: publish-report.sh report.md [expiry]
 set -euo pipefail

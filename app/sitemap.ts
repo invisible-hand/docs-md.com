@@ -44,6 +44,8 @@ export const STATIC_ROUTES = [
   '/agent-handoff-document',
   '/share-architecture-diagram',
   '/share-markdown-without-account',
+  '/bug-report-template',
+  '/github-action',
 ];
 
 // The IndexNow post-build script parses STATIC_ROUTES textually, so tool routes

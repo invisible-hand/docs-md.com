@@ -9,7 +9,7 @@ import TableGenerator from '@/components/tools/TableGenerator';
 export const metadata: Metadata = {
   title: 'Markdown Table Generator — Free Online Tool',
   description:
-    'Build markdown tables visually: edit cells, set column alignment, paste CSV or TSV data, and copy clean padded markdown. Free, no signup, works in your browser.',
+    'Build markdown tables visually: edit cells, set column alignment, paste CSV or TSV data, and copy clean padded markdown. Free, no signup, in your browser.',
 };
 
 function InlineCode({ children }: { children: string }) {

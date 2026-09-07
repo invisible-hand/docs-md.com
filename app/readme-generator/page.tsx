@@ -9,7 +9,7 @@ import ReadmeGenerator from '@/components/tools/ReadmeGenerator';
 export const metadata: Metadata = {
   title: 'README Generator — Free Online Tool',
   description:
-    'Generate a professional README.md: fill in a form, get badges, install instructions, usage examples, and license sections with a live preview. Free, no signup.',
+    'Generate a professional README.md: fill in a form, get badges, install instructions, usage examples, and license sections with a live preview. Free.',
 };
 
 export default function ReadmeGeneratorPage() {

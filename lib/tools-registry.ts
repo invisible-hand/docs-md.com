@@ -100,7 +100,7 @@ export const TOOLS: Tool[] = [
       'Paste CSV, TSV, or a spreadsheet range and get an aligned markdown table — or paste a markdown table and get CSV back.',
     metaTitle: 'CSV to Markdown Table Converter — Free Online Tool',
     metaDescription:
-      'Convert CSV or TSV to a markdown table, or a markdown table back to CSV. Delimiter auto-detect, header row, column alignment, padding. Runs in your browser.',
+      'Convert CSV or TSV to a markdown table, or a markdown table back to CSV. Delimiter auto-detect, header row, column alignment, padding. In your browser.',
     category: 'convert',
     updated: '2026-09-03',
   },
@@ -114,7 +114,7 @@ export const TOOLS: Tool[] = [
       'Build tables in a visual grid — set column alignment, paste CSV/TSV from a spreadsheet, and copy clean padded markdown.',
     metaTitle: 'Markdown Table Generator — Free Online Tool',
     metaDescription:
-      'Build markdown tables visually: edit cells, set column alignment, paste CSV or TSV data, and copy clean padded markdown. Free, no signup, works in your browser.',
+      'Build markdown tables visually: edit cells, set column alignment, paste CSV or TSV data, and copy clean padded markdown. Free, no signup, in your browser.',
     category: 'generate',
     updated: '2026-09-01',
   },
@@ -126,7 +126,7 @@ export const TOOLS: Tool[] = [
       'Fill in a form, get a professional README.md with live badges, install and usage sections, and a live preview.',
     metaTitle: 'README Generator — Free Online Tool',
     metaDescription:
-      'Generate a professional README.md: fill in a form, get badges, install instructions, usage examples, and license sections with a live preview. Free, no signup.',
+      'Generate a professional README.md: fill in a form, get badges, install instructions, usage examples, and license sections with a live preview. Free.',
     category: 'generate',
     updated: '2026-09-01',
   },
@@ -162,7 +162,7 @@ export const TOOLS: Tool[] = [
       'Design shields.io badges with a live preview — label, message, color, style, logo — and copy them as markdown, HTML, or reStructuredText.',
     metaTitle: 'Markdown Badge Generator — shields.io Badges for READMEs',
     metaDescription:
-      'Generate README badges with a live preview: static or dynamic shields.io badges for version, license, CI, downloads, and stars. Copy as markdown, HTML, or RST.',
+      'Generate README badges with a live preview: static or dynamic shields.io badges for version, license, CI, downloads, and stars. Copy as markdown or HTML.',
     category: 'generate',
     updated: '2026-09-03',
   },
@@ -174,7 +174,7 @@ export const TOOLS: Tool[] = [
       'Build a CHANGELOG.md in Keep a Changelog format — or paste your git log and let conventional commits sort themselves into Added, Fixed, and Changed.',
     metaTitle: 'Changelog Generator — Keep a Changelog Markdown, Free',
     metaDescription:
-      'Generate a CHANGELOG.md in Keep a Changelog format: versions, dates, Added/Changed/Fixed sections, compare links. Paste a git log to group conventional commits.',
+      'Generate a CHANGELOG.md in Keep a Changelog format: versions, dates, Added/Changed/Fixed sections, compare links. Paste a git log to group commits.',
     category: 'generate',
     updated: '2026-09-03',
   },
@@ -186,7 +186,7 @@ export const TOOLS: Tool[] = [
       'Generate valid YAML, TOML, or JSON front matter for Jekyll, Hugo, Astro, Docusaurus, or Obsidian — dates, tags, slugs, and custom fields, escaped correctly.',
     metaTitle: 'Front Matter Generator — YAML for Jekyll, Hugo, Astro',
     metaDescription:
-      'Generate YAML, TOML, or JSON front matter for Jekyll, Hugo, Astro, Docusaurus, and Obsidian notes: title, date, slug, tags, draft, and custom fields, quoted right.',
+      'Generate YAML, TOML, or JSON front matter for Jekyll, Hugo, Astro, Docusaurus, and Obsidian: title, date, slug, tags, draft, custom fields, quoted right.',
     category: 'generate',
     updated: '2026-09-03',
   },

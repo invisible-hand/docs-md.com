@@ -1,7 +1,7 @@
 ---
 title: Markdown Images — Embed and Size Pictures
 h1: How to add an image in markdown
-description: Embed images in markdown with ![alt text](url). Local paths vs URLs, image links, sizing with HTML width attributes, and captions - with GitHub-specific tips.
+description: Embed images in markdown with ![alt text](url). Local paths vs URLs, image links, sizing with HTML width attributes, captions, and GitHub-specific tips.
 updated: 2026-08-29
 related: markdown-link, markdown-center-text
 ---

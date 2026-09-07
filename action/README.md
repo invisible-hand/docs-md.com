@@ -32,7 +32,7 @@ Publish a markdown file from a workflow as a rendered link on [docs-md.com](http
 | `raw-url` | `text/markdown` for scripts and AI assistants |
 | `id` | Share id |
 | `edit-token` | Masked in logs. Store it as a secret if you want to update or delete the share later |
-| `expires-at` | ISO timestamp, empty for `never` |
+| `expires-at` | Unix epoch in milliseconds, empty for `never` |
 
 ## Update the same link on every run
 

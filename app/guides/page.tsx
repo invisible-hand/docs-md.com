@@ -6,7 +6,7 @@ import { listGuides } from '@/lib/guides';
 export const metadata: Metadata = {
   title: 'Markdown Guides — Syntax Questions Answered',
   description:
-    'Short, answer-first guides to markdown syntax: checkboxes, strikethrough, underline, quotes, line breaks, comments, indentation, images, links, and code blocks.',
+    'Short, answer-first markdown syntax guides: checkboxes, strikethrough, underline, quotes, line breaks, comments, indentation, images, links, code blocks.',
 };
 
 export default function GuidesPage() {

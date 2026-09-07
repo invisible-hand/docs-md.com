@@ -135,7 +135,7 @@ export default function GitHubActionPage() {
               <tr><td className="py-2 pr-4 font-mono">raw-url</td><td className="py-2">text/markdown for scripts and AI assistants</td></tr>
               <tr><td className="py-2 pr-4 font-mono">id</td><td className="py-2">Share id</td></tr>
               <tr><td className="py-2 pr-4 font-mono">edit-token</td><td className="py-2">Masked in logs; store as a secret to update or delete later</td></tr>
-              <tr><td className="py-2 pr-4 font-mono">expires-at</td><td className="py-2">ISO timestamp, empty for never</td></tr>
+              <tr><td className="py-2 pr-4 font-mono">expires-at</td><td className="py-2">Unix epoch in milliseconds, empty for never</td></tr>
             </tbody>
           </table>
         </div>

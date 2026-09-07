@@ -1,7 +1,7 @@
 ---
 title: Markdown Code Blocks — Fenced Syntax Highlighting
 h1: How to write a code block in markdown
-description: Make code blocks with triple-backtick fences and a language tag for syntax highlighting. Inline code, escaping backticks, nesting fences, and diff highlighting.
+description: Make code blocks with triple-backtick fences and a language tag for syntax highlighting. Inline code, escaping backticks, nested fences, diff highlighting.
 updated: 2026-08-29
 related: markdown-quote, markdown-comment
 ---

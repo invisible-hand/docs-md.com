@@ -44,7 +44,7 @@ outputs:
     description: 'Edit token for updating or deleting the share later. Masked in logs; store it as a secret if you keep it.'
     value: ${{ steps.publish.outputs.edit-token }}
   expires-at:
-    description: 'ISO timestamp of expiry, or empty for never.'
+    description: 'Expiry as a Unix epoch in milliseconds, or empty for never.'
     value: ${{ steps.publish.outputs.expires-at }}
 
 runs:

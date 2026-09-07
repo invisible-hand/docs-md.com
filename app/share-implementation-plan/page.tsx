@@ -9,7 +9,7 @@ const UPDATED = '2026-09-06';
 export const metadata: Metadata = {
   title: 'Share an Implementation Plan from Cursor or Claude Code as a Link',
   description:
-    'Turn an AI-generated implementation plan into a rendered link a teammate can review, from Cursor or Claude Code via MCP or with curl. Full example included.',
+    'Turn an AI-generated implementation plan into a rendered link a teammate can review, from Cursor or Claude Code via MCP or with curl. Example included.',
   alternates: { canonical: '/share-implementation-plan' },
 };
 

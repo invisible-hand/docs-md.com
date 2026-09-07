@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const BASIC = `- name: Publish report
   id: report
-  uses: invisible-hand/docs-md.com/action@v1
+  uses: invisible-hand/share-markdown-action@v1
   with:
     file: bundle-report.md
     expiry: 7d            # 1d | 7d | 30d | never
@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm ci && npm test -- --reporter=markdown > test-report.md || true
       - id: share
-        uses: invisible-hand/docs-md.com/action@v1
+        uses: invisible-hand/share-markdown-action@v1
         with:
           file: test-report.md
           expiry: 7d
@@ -45,7 +45,7 @@ jobs:
               body: \`Test report for \${context.sha.slice(0,7)}: \${{ steps.share.outputs.url }}\`
             })`;
 
-const UPDATE = `- uses: invisible-hand/docs-md.com/action@v1
+const UPDATE = `- uses: invisible-hand/share-markdown-action@v1
   with:
     file: STATUS.md
     share-id: \${{ secrets.STATUS_SHARE_ID }}
@@ -54,7 +54,7 @@ const UPDATE = `- uses: invisible-hand/docs-md.com/action@v1
 const FAQ = [
   {
     q: 'How do I publish a markdown file from GitHub Actions as a link?',
-    a: 'Add one step: uses: invisible-hand/docs-md.com/action@v1 with file: path/to/report.md. The step outputs url (a rendered page), raw-url (the markdown as text/markdown), id, edit-token and expires-at. No account, secret or token is needed to create a share.',
+    a: 'Add one step: uses: invisible-hand/share-markdown-action@v1 with file: path/to/report.md. The step outputs url (a rendered page), raw-url (the markdown as text/markdown), id, edit-token and expires-at. No account, secret or token is needed to create a share.',
   },
   {
     q: 'Why not just use the GitHub job summary?',
@@ -171,9 +171,9 @@ export default function GitHubActionPage() {
           <li>120,000 characters per file; 20 shares per minute per IP (a busy monorepo with many parallel jobs should stagger publishes).</li>
           <li>Shares are public to anyone with the link. Never publish secrets, private hostnames or customer data.</li>
           <li>Expiry deletes the page at its URL; it does not recall copies already fetched.</li>
-          <li>Pin to <code className={CODE}>@v1</code> for stability or to a commit SHA for reproducibility. Source: <code className={CODE}>action/</code> in the{' '}
-            <a href="https://github.com/invisible-hand/docs-md.com/tree/main/action" className={LINK} rel="noopener">
-              docs-md.com repository
+          <li>Pin to <code className={CODE}>@v1</code> for stability or to a commit SHA for reproducibility. Source and issues:{' '}
+            <a href="https://github.com/invisible-hand/share-markdown-action" className={LINK} rel="noopener">
+              share-markdown-action repository
             </a>
             .
           </li>

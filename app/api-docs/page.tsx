@@ -96,7 +96,7 @@ export default function ApiDocsPage() {
           <Link href="/github-action" className="text-indigo-700 underline">
             reusable GitHub Action
           </Link>
-          : <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">uses: invisible-hand/docs-md.com/action@v1</code>{' '}
+          : <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">uses: invisible-hand/share-markdown-action@v1</code>{' '}
           with <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">file</code> and{' '}
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">expiry</code> inputs and a{' '}
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">url</code> output.

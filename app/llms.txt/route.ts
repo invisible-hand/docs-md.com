@@ -13,7 +13,7 @@ const PRODUCT: [string, string, string][] = [
   ['/', 'Share Markdown online', 'Paste markdown, get a rendered link with Mermaid diagrams and an expiry (1, 7, 30 days or never). No signup.'],
   ['/about', 'About Docs MD', 'What the service is, who runs it, what it stores.'],
   ['/api-docs', 'REST API', 'POST /api/share to publish, PATCH/DELETE with an edit token, GET /raw/<id> for the markdown. Includes a GitHub Actions recipe.'],
-  ['/github-action', 'GitHub Action', 'uses: invisible-hand/docs-md.com/action@v1 — publish a markdown file from a workflow and get the URL as a step output.'],
+  ['/github-action', 'GitHub Action', 'uses: invisible-hand/share-markdown-action@v1 — publish a markdown file from a workflow and get the URL as a step output.'],
   ['/what-is-mcp', 'MCP server', 'share_markdown, update_share and delete_share tools at https://docs-md.com/api/mcp for Claude Code, Cursor and other MCP clients.'],
   ['/ai-powered-ide', 'Share Markdown from Cursor and Claude with MCP', 'Per-editor setup for the MCP server.'],
   ['/use-cases', 'Use cases', 'When a shared markdown link beats a repo, a gist or a chat paste.'],
@@ -80,7 +80,7 @@ export function GET() {
     '## Optional',
     '',
     `- [Sitemap](${BASE}/sitemap.xml): every indexable URL`,
-    `- [Source](https://github.com/invisible-hand/docs-md.com): public repository with the site and the GitHub Action`,
+    `- [Source](https://github.com/invisible-hand/docs-md.com): public repository with the site; the GitHub Action lives at https://github.com/invisible-hand/share-markdown-action`,
     '',
   ].join('\n');
 

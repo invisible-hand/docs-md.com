@@ -37,7 +37,7 @@ The assistant calls `share_markdown` and returns the rendered URL, the raw URL, 
 - `/ai-powered-ide` - AI IDE workflow guide
 - `/use-cases` - Common usage patterns
 - `/api-docs` - REST API documentation (includes a GitHub Actions publishing recipe)
-- `/github-action` - the reusable GitHub Action (`uses: invisible-hand/docs-md.com/action@v1`, source in `action/`)
+- `/github-action` - the reusable GitHub Action (`uses: invisible-hand/share-markdown-action@v1`, source at github.com/invisible-hand/share-markdown-action)
 - `/llms.txt` - machine-readable index of the public pages for AI crawlers
 - `/share-implementation-plan`, `/agent-handoff-document`, `/share-architecture-diagram`, `/bug-report-template` - walkthroughs with example documents (`content/examples/*.md`, served at `/examples/<slug>/raw`)
 - `/share-markdown-without-account` - comparison of no-signup markdown sharing services

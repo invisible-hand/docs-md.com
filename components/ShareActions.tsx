@@ -12,7 +12,7 @@ export default function ShareActions({ content, filename }: ShareActionsProps) {
     if (typeof window !== 'undefined') {
       const originalTitle = document.title;
       const printableTitle = filename.replace(/\.md$/, '') || 'Shared Markdown';
-      document.title = `${printableTitle} - MD Share`;
+      document.title = `${printableTitle} - Docs MD`;
       window.print();
       document.title = originalTitle;
     }

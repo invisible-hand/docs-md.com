@@ -26,9 +26,9 @@ export default function AboutPage() {
         <h2 className="text-xl font-semibold text-gray-950">What you get</h2>
         <ul className="list-disc space-y-2 pl-5">
           <li>Fast link creation with memorable share IDs.</li>
-          <li>Automatic 30-day expiration to reduce stale content risk.</li>
+          <li>Links expire in 30 days by default; choose 1 day, 7 days, or a permanent link.</li>
           <li>High-fidelity markdown rendering with code highlighting.</li>
-          <li>MCP support to share directly from AI-powered IDEs.</li>
+          <li>MCP server and REST API to share from Cursor, Claude Code, or scripts. No account.</li>
         </ul>
       </section>
       <section className="space-y-4">

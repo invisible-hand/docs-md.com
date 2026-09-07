@@ -94,7 +94,7 @@ export default function MarkdownToHtmlPage() {
             <li>
               <strong>Static pages</strong> — the full-document mode produces a self-contained
               page you can host anywhere, including on{' '}
-              <Link href="/" className="text-indigo-700 underline">MD Share</Link> if you keep it
+              <Link href="/" className="text-indigo-700 underline">Docs MD</Link> if you keep it
               as markdown instead.
             </li>
             <li>

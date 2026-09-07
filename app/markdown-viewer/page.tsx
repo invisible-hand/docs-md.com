@@ -52,13 +52,17 @@ export default function MarkdownViewerPage() {
         <h2 className={H2}>How do I share a rendered markdown file?</h2>
         <p>
           Click <em>Share as link</em>. The document is published to a short URL that renders exactly
-          as it does here — diagrams included — and expires after 30 days. For permanent links,
-          edit tokens, raw endpoints, and an MCP server that shares from Cursor or Claude Code, use
-          the{' '}
+          as it does here — diagrams included — and expires after 30 days. The link is public to
+          anyone who has it. For other expiry options, edit tokens, raw endpoints, and an MCP server
+          that shares from Cursor or Claude Code, use the{' '}
           <Link href="/" className="text-indigo-700 underline">
             main sharing page
           </Link>
-          .
+          . For a worked example of a diagram-heavy document, see{' '}
+          <Link href="/share-architecture-diagram" className="text-indigo-700 underline">
+            sharing an architecture diagram with notes
+          </Link>
+          — <em>Load example</em> above opens the same file.
         </p>
       </section>
       <section className="space-y-3">

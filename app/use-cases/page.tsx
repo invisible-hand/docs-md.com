@@ -26,7 +26,7 @@ const useCases = [
   {
     title: 'AI agent → human handoffs',
     expiry: '1–7 days',
-    body: 'Agents produce state that someone else has to pick up: what was tried, what failed, what remains. Publishing a status document via MCP and posting one URL beats dumping context into a channel. The next agent reads /raw/:id to resume with exact state; humans get the rendered version with a table of contents.',
+    body: 'Agents produce state that someone else has to pick up: what was tried, what failed, what remains. Publishing a status document via MCP and posting one URL beats dumping context into a channel. The next agent reads /raw/:id to resume from the written summary; humans get the rendered version with a table of contents. See the agent handoff template for what to put in it.',
   },
   {
     title: 'Client and stakeholder deliverables',
@@ -36,7 +36,7 @@ const useCases = [
   {
     title: 'Docs linked from READMEs',
     expiry: 'never',
-    body: 'Setup guides, internal API references, onboarding checklists — documents that outlive any sprint. Permanent shares keep a stable URL you can safely put in a README, and mermaid code fences render as real diagrams, which is more than GitHub gives you in most contexts.',
+    body: 'Setup guides, internal API references, onboarding checklists — documents that outlive any sprint. Permanent shares keep a stable URL you can safely put in a README, and readers who are not in the repository — a client, another team, someone without a GitHub account — get a standalone reading page with mermaid diagrams and a table of contents.',
   },
   {
     title: 'CI and automation reports',
@@ -87,7 +87,25 @@ export default function UseCasesPage() {
           <Link href="/api-docs" className="text-indigo-700 underline">
             REST API
           </Link>
-          . Every share can be updated or deleted later with its edit token.
+          . Every share can be updated or deleted later with its edit token. Shares are public
+          URLs: anyone with the link can read one, and the token only controls who can change it.
+          Expiry deletes the page at its address on schedule; it does not recall copies already
+          downloaded.
+        </p>
+        <p>
+          Worked examples with downloadable documents:{' '}
+          <Link href="/share-implementation-plan" className="text-indigo-700 underline">
+            share an implementation plan
+          </Link>
+          ,{' '}
+          <Link href="/agent-handoff-document" className="text-indigo-700 underline">
+            agent handoff document
+          </Link>
+          ,{' '}
+          <Link href="/share-architecture-diagram" className="text-indigo-700 underline">
+            architecture diagram with notes
+          </Link>
+          .
         </p>
       </section>
     </ContentPage>

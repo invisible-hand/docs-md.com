@@ -179,6 +179,7 @@ export default function ChangelogGenerator() {
   const [copied, copy] = useCopy();
   const [shareState, setShareState] = useState<'idle' | 'loading' | 'done'>('idle');
   const [shareUrl, setShareUrl] = useState('');
+  const [shareExpiry, setShareExpiry] = useState<'7d' | '30d' | 'never'>('30d');
 
   const markdown = useMemo(
     () => buildChangelog(releases, repoUrl, unreleased, unreleasedNotes),
@@ -216,7 +217,7 @@ export default function ChangelogGenerator() {
       const response = await fetch('/api/share', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: markdown, filename: 'CHANGELOG.md', expiry: '30d' }),
+        body: JSON.stringify({ content: markdown, filename: 'CHANGELOG.md', expiry: shareExpiry }),
       });
       if (!response.ok) throw new Error('share failed');
       const data = await response.json();
@@ -371,6 +372,16 @@ export default function ChangelogGenerator() {
           <div className="flex gap-2">
             <button onClick={() => copy(markdown)} className={BTN_DARK}>{copied ? '✓ Copied' : 'Copy'}</button>
             <button onClick={() => downloadFile('CHANGELOG.md', markdown, 'text/markdown')} className={BTN_GHOST}>Download CHANGELOG.md</button>
+            <select
+              value={shareExpiry}
+              onChange={(e) => setShareExpiry(e.target.value as '7d' | '30d' | 'never')}
+              aria-label="Share link expiry"
+              className="rounded-lg border border-gray-300 px-2 py-1.5 text-xs text-gray-700"
+            >
+              <option value="7d">Expires in 7 days</option>
+              <option value="30d">Expires in 30 days</option>
+              <option value="never">Permanent link</option>
+            </select>
             <button onClick={handleShare} disabled={shareState === 'loading'} className={BTN_GHOST}>
               {shareState === 'loading' ? 'Sharing…' : 'Share as link'}
             </button>
@@ -387,7 +398,8 @@ export default function ChangelogGenerator() {
         )}
         {shareState === 'done' ? (
           <p className="mt-2 text-sm text-gray-600">
-            Live at <Link href={shareUrl} className="text-indigo-700 underline">{shareUrl}</Link> (expires in 30 days)
+            Live at <Link href={shareUrl} className="text-indigo-700 underline">{shareUrl}</Link>{' '}
+            {shareExpiry === 'never' ? '(permanent link)' : shareExpiry === '7d' ? '(expires in 7 days)' : '(expires in 30 days)'}
           </p>
         ) : null}
         <p className="mt-2 text-xs text-gray-500">{name ? `${name} · ` : ''}{releases.length} release{releases.length === 1 ? '' : 's'} · Keep a Changelog 1.1.0</p>

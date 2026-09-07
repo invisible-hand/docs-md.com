@@ -3,7 +3,7 @@ import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 
 export const metadata: Metadata = {
-  title: 'AI-Powered IDE Workflows with Markdown and MCP',
+  title: 'Share Markdown from Cursor and Claude with MCP',
   description:
     'Set up markdown sharing from Cursor, Claude Code, Windsurf, VS Code, and Zed via MCP — with real configs, workflows, and prompt examples.',
 };
@@ -23,8 +23,8 @@ function InlineCode({ children }: { children: string }) {
 export default function AiPoweredIdePage() {
   return (
     <ContentPage
-      title="AI-powered IDE workflows with markdown"
-      description="How to publish markdown from Cursor, Claude Code, Windsurf, VS Code, and Zed with one prompt — setup configs, real workflows, and the practices that make shared docs actually get read."
+      title="Share markdown from Cursor and Claude with MCP"
+      description="The Docs MD MCP server publishes rendered markdown at a public link, with an expiry you choose and update/delete through an edit token. Setup for Cursor, Claude Code, Windsurf, VS Code, and Zed, plus the workflows it is for."
     >
       <section className="space-y-4">
         <h2 className="text-xl font-semibold text-gray-950">Why markdown is the output format of AI coding</h2>
@@ -74,7 +74,8 @@ export default function AiPoweredIdePage() {
         </ul>
         <p>
           No account, no API key. The edit token returned at creation is the only credential, and it
-          scopes to that single document.
+          scopes to that single document. Shares are public: anyone with the link can read them, and
+          the token only controls changes.
         </p>
       </section>
 
@@ -153,7 +154,12 @@ export default function AiPoweredIdePage() {
         <p>
           Reviewers get a rendered document with a table of contents and highlighted code. When the
           review lands changes, ask the assistant to <InlineCode>update_share</InlineCode> — the
-          same link now shows v2, so the Slack thread never points at a stale doc.
+          same link now shows v2, so the Slack thread never points at a stale doc. A complete
+          example plan, the exact prompt, and the update step are on{' '}
+          <Link href="/share-implementation-plan" className="text-indigo-700 underline">
+            share an implementation plan
+          </Link>
+          .
         </p>
 
         <h3 className="text-lg font-semibold text-gray-900">2. Incident postmortems on a deadline</h3>
@@ -169,15 +175,23 @@ export default function AiPoweredIdePage() {
           Long-running agents produce state: what was tried, what failed, what is left. A share link
           is the cheapest durable handoff — the agent publishes its status document and posts one
           URL, instead of dumping its context into a channel. The next agent (or human) reads the
-          raw endpoint (<InlineCode>/raw/id</InlineCode>) to pick up exactly where things stood.
+          raw endpoint (<InlineCode>/raw/id</InlineCode>) to pick up from the written summary. The
+          nine-section template and a filled-in example are on{' '}
+          <Link href="/agent-handoff-document" className="text-indigo-700 underline">
+            agent handoff document
+          </Link>
+          .
         </p>
 
         <h3 className="text-lg font-semibold text-gray-900">4. Permanent docs linked from READMEs</h3>
         <p>
           Some documents deserve to live forever: setup guides, API references for internal tools,
           onboarding checklists. Share with <InlineCode>expiry: never</InlineCode> and link them
-          from your README. Permanent shares keep a stable URL and render mermaid diagrams — useful
-          for architecture docs that outgrow ASCII art.
+          from your README. Permanent shares keep a stable URL and render mermaid diagrams — see{' '}
+          <Link href="/share-architecture-diagram" className="text-indigo-700 underline">
+            sharing an architecture diagram with notes
+          </Link>
+          .
         </p>
       </section>
 
@@ -234,8 +248,9 @@ export default function AiPoweredIdePage() {
             <h3 className="font-semibold text-gray-900">What happens when a link expires?</h3>
             <p>
               The document and its stored file are deleted automatically and the URL returns 404.
-              Expiring shares are also marked <InlineCode>noindex</InlineCode> so they never end up
-              in search results.
+              Expiry removes access at that address; it cannot recall copies readers downloaded.
+              Expiring shares also carry a <InlineCode>noindex</InlineCode> directive, which asks
+              search engines not to list them.
             </p>
           </div>
         </div>

@@ -7,6 +7,10 @@ const PRODUCT = [
   { href: '/ai-powered-ide', label: 'AI IDE setup' },
   { href: '/api-docs', label: 'REST API' },
   { href: '/use-cases', label: 'Use cases' },
+  { href: '/share-implementation-plan', label: 'Share a plan for review' },
+  { href: '/agent-handoff-document', label: 'Agent handoff template' },
+  { href: '/share-architecture-diagram', label: 'Share an architecture diagram' },
+  { href: '/share-markdown-without-account', label: 'No-account sharing compared' },
   { href: '/about', label: 'About' },
 ];
 

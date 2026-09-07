@@ -40,6 +40,10 @@ export const STATIC_ROUTES = [
   '/front-matter-generator',
   '/markdown-link-checker',
   '/markdown-word-counter',
+  '/share-implementation-plan',
+  '/agent-handoff-document',
+  '/share-architecture-diagram',
+  '/share-markdown-without-account',
 ];
 
 // The IndexNow post-build script parses STATIC_ROUTES textually, so tool routes

@@ -83,11 +83,59 @@ export default function ApiDocsPage() {
       </section>
 
       <section className="space-y-4">
+        <h2 className="text-xl font-semibold text-gray-950">Publish a markdown report from GitHub Actions</h2>
+        <p>
+          GitHub already renders a job summary inside the Actions run. Use Docs MD when the report
+          needs its own reading link for someone outside the run — a collaborator without repo
+          access, a release thread, a Slack channel — or its own lifetime. This recipe publishes a
+          generated markdown file with a 7-day expiry, prints the reading URL, fails the step on an
+          API error, and keeps the edit token out of the log.
+        </p>
+        <CodeBlock>{`#!/usr/bin/env bash
+# scripts/publish-report.sh — usage: publish-report.sh report.md [expiry]
+set -euo pipefail
+file="\${1:?markdown file}"; expiry="\${2:-7d}"
+payload=$(jq -Rs --arg f "$(basename "$file")" --arg e "$expiry" \
+  '{content: ., filename: $f, expiry: $e}' "$file")
+resp=$(curl -sS --fail-with-body -X POST https://docs-md.com/api/share \
+  -H "Content-Type: application/json" --data "$payload") || { echo "::error::publish failed: $resp"; exit 1; }
+token=$(jq -r .editToken <<<"$resp")
+[ -n "\${GITHUB_ACTIONS:-}" ] && echo "::add-mask::$token"   # never print the token in CI logs
+url=$(jq -r .url <<<"$resp")
+echo "Report: $url"
+[ -n "\${GITHUB_OUTPUT:-}" ] && echo "url=$url" >> "$GITHUB_OUTPUT"`}</CodeBlock>
+        <p>And the workflow step that uses it after a bundle-size comparison has written its table:</p>
+        <CodeBlock>{`# .github/workflows/bundle-report.yml (excerpt)
+- name: Write bundle-size report
+  run: |
+    {
+      echo "# Bundle size — PR #\${{ github.event.number }}"
+      echo
+      echo "| Chunk | main | this PR | Δ |"
+      echo "| --- | ---: | ---: | ---: |"
+      echo "| app.js | 412.3 KB | 398.1 KB | −14.2 KB |"
+      echo "| vendor.js | 1.02 MB | 1.02 MB | 0 |"
+    } > bundle-report.md
+- name: Publish report
+  id: publish
+  run: bash scripts/publish-report.sh bundle-report.md 7d
+- name: Link it from the job summary
+  run: echo "Readable report: \${{ steps.publish.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"`}</CodeBlock>
+        <p className="text-sm text-gray-600">
+          The published page is public to anyone with the link, so keep secrets and private
+          hostnames out of the report. If you want to update the same URL on every run instead of
+          creating a new one, store the id and edit token as repository secrets and call{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">PATCH</code> as shown above.
+        </p>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="text-xl font-semibold text-gray-950">Limits</h2>
         <ul className="list-disc space-y-2 pl-6">
           <li>Markdown content up to 120,000 characters per share.</li>
           <li>Rate limit: 20 share operations per minute per IP (30/min for MCP).</li>
-          <li>Expired shares and their files are deleted automatically.</li>
+          <li>Expired shares and their files are deleted automatically; the URL then returns 404. Expiry does not recall copies already downloaded.</li>
+          <li>Shares are public URLs. The edit token controls changes, not reading.</li>
         </ul>
       </section>
 
@@ -99,10 +147,14 @@ export default function ApiDocsPage() {
           with tools <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">share_markdown</code>,{' '}
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">update_share</code>, and{' '}
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">delete_share</code>. See{' '}
-          <Link href="/what-is-mcp" className="text-indigo-700 underline">
-            What is MCP
+          <Link href="/ai-powered-ide" className="text-indigo-700 underline">
+            the setup guide
           </Link>{' '}
-          for setup instructions.
+          for per-editor configuration, and{' '}
+          <Link href="/agent-handoff-document" className="text-indigo-700 underline">
+            the agent handoff walkthrough
+          </Link>{' '}
+          for a script-and-MCP example end to end.
         </p>
       </section>
     </ContentPage>

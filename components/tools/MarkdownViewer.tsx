@@ -84,13 +84,31 @@ export default function MarkdownViewer() {
     }
   }, []);
 
+  const loadExample = useCallback((slug: string) => {
+    setLoading(true);
+    setError('');
+    fetch(`/examples/${slug}/raw`)
+      .then((res) => (res.ok ? res.text() : Promise.reject(new Error(String(res.status)))))
+      .then((text) => {
+        setContent(text);
+        setFileName(`${slug}.md`);
+        setEditing(false);
+      })
+      .catch(() => setError('Could not load that example.'))
+      .finally(() => setLoading(false));
+  }, []);
+
   useEffect(() => {
-    const param = new URLSearchParams(window.location.search).get('url');
+    const params = new URLSearchParams(window.location.search);
+    const param = params.get('url');
+    const example = params.get('example');
     if (param) {
       setUrl(param);
       loadFromUrl(param);
+    } else if (example && /^[a-z0-9-]+$/.test(example)) {
+      loadExample(example);
     }
-  }, [loadFromUrl]);
+  }, [loadFromUrl, loadExample]);
 
   const loadFile = useCallback((file: File | undefined) => {
     if (!file) return;
@@ -168,10 +186,22 @@ export default function MarkdownViewer() {
             {loading ? 'Loading…' : 'Load from URL'}
           </button>
         </form>
+        <button type="button" className={BTN_GHOST} onClick={() => loadExample('architecture-webhook-flow')} disabled={loading}>
+          Load example
+        </button>
         <button type="button" className={BTN_GHOST} onClick={() => setEditing((v) => !v)}>
           {editing ? 'Hide source' : 'Edit source'}
         </button>
       </div>
+      <p className="mb-4 text-xs text-gray-500 print:hidden">
+        Files open in your browser with the File API and are not uploaded. The only network
+        requests are the optional <em>Load from URL</em> fetch and, if you click it, <em>Share as
+        link</em>. The viewer is{' '}
+        <a href="https://github.com/invisible-hand/docs-md.com/blob/main/components/tools/MarkdownViewer.tsx" className="text-indigo-700 underline" target="_blank" rel="noopener noreferrer">
+          open source
+        </a>
+        .
+      </p>
 
       <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-gray-700 print:hidden">
         <div className="flex items-center gap-1.5">

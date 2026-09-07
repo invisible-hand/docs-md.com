@@ -124,7 +124,7 @@ export default function MermaidTimelineExamplesPage() {
           <p>
             Put the code in a fenced block tagged <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">mermaid</code>{' '}
             (the copy buttons above include the fence). GitHub, GitLab, Obsidian, Notion, and Docs
-            MD share pages render it as a diagram automatically —{' '}
+            Docs MD share pages render it as a diagram automatically —{' '}
             <Link href="/" className="text-indigo-700 underline">
               paste one into the editor here
             </Link>{' '}

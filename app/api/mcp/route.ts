@@ -6,6 +6,7 @@ import { createShare, deleteShare, ShareServiceError, updateShare } from '@/lib/
 
 const SERVER_INFO = {
   name: 'md-share',
+  title: 'Docs MD',
   version: '1.1.0',
 };
 

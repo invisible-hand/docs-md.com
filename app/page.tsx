@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
@@ -55,6 +55,21 @@ export default function Home() {
   const [copiedField, setCopiedField] = useState<'url' | 'token' | null>(null);
   const [mobileTab, setMobileTab] = useState<'write' | 'preview'>('write');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // `/?example=<slug>` pre-fills the editor with a worked example from
+  // content/examples. It only fills the textarea — nothing is published until
+  // the user clicks Share Markdown.
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get('example');
+    if (!slug || !/^[a-z0-9-]+$/.test(slug)) return;
+    fetch(`/examples/${slug}/raw`)
+      .then((res) => (res.ok ? res.text() : Promise.reject(new Error(String(res.status)))))
+      .then((text) => {
+        setContent(text);
+        document.getElementById('editor')?.scrollIntoView({ behavior: 'smooth' });
+      })
+      .catch(() => setError('Could not load that example.'));
+  }, []);
 
   const copyValue = async (field: 'url' | 'token', value: string) => {
     try {
@@ -142,11 +157,12 @@ export default function Home() {
               Built for AI-powered teams
             </p>
             <h1 className="text-4xl font-semibold tracking-tight text-gray-950 md:text-5xl">
-              Share markdown with a bold, developer-first workflow.
+              Share Markdown online for free — no signup.
             </h1>
             <p className="mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
-              Paste markdown, preview instantly, and publish an expiring URL. Connect through MCP
-              to share directly from Cursor and other AI-native tools.
+              Paste a Markdown file and get a rendered link with Mermaid diagrams, highlighted
+              code, and an expiry you choose. Share from your browser, from Cursor or Claude Code
+              through MCP, or from scripts with the REST API.
             </p>
             <div className="mt-6 flex flex-wrap gap-3 text-sm">
               <a
@@ -156,20 +172,26 @@ export default function Home() {
                 Start Sharing
               </a>
               <Link
-                href="/what-is-mcp"
+                href="/ai-powered-ide"
                 className="rounded-full border border-gray-300 px-5 py-2.5 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
               >
-                Learn MCP
+                Share from Cursor / Claude
+              </Link>
+              <Link
+                href="/share-implementation-plan"
+                className="rounded-full border border-gray-300 px-5 py-2.5 font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
+              >
+                See a worked example
               </Link>
             </div>
           </div>
           <div className="self-start rounded-2xl border border-indigo-100 bg-white p-5 shadow-sm">
             <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-900">Why Docs MD</h2>
             <ul className="mt-3 space-y-1.5 text-sm text-gray-600">
-              <li>Share links that expire in 1, 7, or 30 days, or never</li>
-              <li>Edit or delete later with a private token</li>
-              <li>MCP endpoint for Cursor, Claude, and other IDEs</li>
-              <li>Mermaid, GFM, and syntax highlighting. No account needed</li>
+              <li>Links expire in 30 days by default; choose 1 day, 7 days, or never</li>
+              <li>Update or delete later with an edit token — same URL, new content</li>
+              <li>MCP server for Cursor, Claude Code, Windsurf, VS Code, and Zed</li>
+              <li>Mermaid, GFM tables, and syntax highlighting. Public links, no account</li>
             </ul>
             <h2 className="mt-4 text-xs font-semibold uppercase tracking-wide text-gray-900">Free markdown tools</h2>
             <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
@@ -355,15 +377,23 @@ export default function Home() {
 {`{
   "mcpServers": {
     "md-share": {
-      "url": "https://docs-md.com/api/mcp",
-      "transport": "http"
+      "url": "https://docs-md.com/api/mcp"
     }
   }
 }`}
             </pre>
           </div>
           <p className="text-sm text-gray-400">
-            Then ask your assistant: <span className="font-medium text-gray-200">&quot;Share this markdown file&quot;</span>
+            Then ask your assistant: <span className="font-medium text-gray-200">&quot;Share this markdown file with a 7-day expiry&quot;</span>
+            . Worked examples:{' '}
+            <Link href="/share-implementation-plan" className="text-indigo-300 underline">
+              share an implementation plan
+            </Link>{' '}
+            ·{' '}
+            <Link href="/agent-handoff-document" className="text-indigo-300 underline">
+              hand a task to another agent
+            </Link>
+            .
           </p>
         </div>
       </section>

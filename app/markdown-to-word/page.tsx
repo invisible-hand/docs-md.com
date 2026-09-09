@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import MarkdownWord from '@/components/tools/MarkdownWord';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown to Word Converter (and Word to Markdown)',
   description:
     'Convert markdown to a Word document with headings, tables, and code preserved, or paste from Word and get clean markdown back. Free, both ways, in-browser.',
-};
+  path: '/markdown-to-word',
+  kicker: 'Free markdown tool',
+});
 
 export default function MarkdownToWordPage() {
   return (

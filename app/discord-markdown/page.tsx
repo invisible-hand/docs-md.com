@@ -1,12 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Discord Markdown — Text Formatting Cheat Sheet',
   description:
     'Every Discord text format: bold, italic, underline, strikethrough, spoilers, headers, lists, quotes, highlighted code blocks, and masked links.',
-};
+  path: '/discord-markdown',
+  type: 'article',
+  kicker: 'Reference',
+});
 
 const ROWS: Array<{ effect: string; syntax: string; note?: string }> = [
   { effect: 'Italic', syntax: '*italic* or _italic_' },

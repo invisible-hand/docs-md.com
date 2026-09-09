@@ -1,12 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'What Is an MCP Server? Explained Simply',
   description:
     'An MCP server is a small program that gives AI assistants like Claude or Cursor tools: read files, query a database, share a doc. How it works and runs.',
-};
+  path: '/what-is-an-mcp-server',
+  type: 'article',
+});
 
 const FAQ = [
   {

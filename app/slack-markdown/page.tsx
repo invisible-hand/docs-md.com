@@ -1,12 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Slack Markdown — Message Formatting Cheat Sheet',
   description:
     'Slack formatting is not real markdown: *asterisks* bold, _underscores_ italicize, ~tildes~ strike through. Full mrkdwn syntax, gaps, and API differences.',
-};
+  path: '/slack-markdown',
+  type: 'article',
+  kicker: 'Reference',
+});
 
 const ROWS: Array<{ effect: string; syntax: string; note?: string }> = [
   { effect: 'Bold', syntax: '*bold*', note: 'Single asterisks — double asterisks show literally.' },

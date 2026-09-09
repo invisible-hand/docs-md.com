@@ -1,12 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import CopyButton from '@/components/CopyButton';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'README Templates — Copy-Paste Examples That Work',
   description:
     'Four README templates to copy: a general project, an open-source library, a CLI tool, and a GitHub profile README.',
-};
+  path: '/readme-templates',
+  type: 'article',
+});
 
 const TEMPLATES: Array<{ id: string; title: string; when: string; body: string }> = [
   {
@@ -87,6 +89,7 @@ npm install package-name
 
 \`\`\`js
 import { thing } from 'package-name';
+import { pageMetadata } from '@/lib/page-metadata';
 
 const result = thing('input');
 // => what the reader should expect to see

@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'MCP Server List — Best Servers Worth Installing (2026)',
   description:
     'A curated MCP server list: official servers for GitHub, Playwright, Sentry, Stripe, Figma, and databases, plus search, memory, and markdown-sharing tools.',
-};
+  path: '/mcp-servers',
+});
 
 interface Server {
   name: string;

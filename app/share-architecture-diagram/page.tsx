@@ -1,17 +1,19 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ExamplePanel from '@/components/ExamplePanel';
 import WalkthroughPage, { CODE, CodeBlock, H2, LINK } from '@/components/WalkthroughPage';
 import { getExample } from '@/lib/examples';
+import { pageMetadata } from '@/lib/page-metadata';
 
 const UPDATED = '2026-09-06';
 
-export const metadata: Metadata = {
-  title: 'Share a Mermaid Architecture Diagram with Notes as a Link (No Account)',
+export const metadata = pageMetadata({
+  title: 'Share a Mermaid Architecture Diagram as a Link',
   description:
     'Explain an architecture change with a mermaid diagram, assumptions, and failure paths. Preview locally, then share it as a link with no account.',
-  alternates: { canonical: '/share-architecture-diagram' },
-};
+  path: '/share-architecture-diagram',
+  type: 'article',
+  kicker: 'Walkthrough',
+});
 
 const FAQ = [
   {

@@ -1,14 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import UpdatedLine from '@/components/UpdatedLine';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import { TOOL_CATEGORIES, TOOLS, toolsInCategory } from '@/lib/tools-registry';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Free Markdown Tools — Converters, Generators, Checkers',
   description:
     'Free browser-based markdown tools: converters (HTML, PDF, Word, CSV), generators (tables, README, badges, changelog), a linter, diff, link checker, viewer.',
-};
+  path: '/tools',
+});
 
 const UPDATED = TOOLS.map((t) => t.updated).sort().at(-1)!;
 

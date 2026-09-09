@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import MarkdownToHtml from '@/components/tools/MarkdownToHtml';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown to HTML Converter — Free Online Tool',
   description:
     'Convert markdown to clean HTML in your browser: GFM tables, task lists, and code blocks supported. Copy the HTML or download a complete styled document.',
-};
+  path: '/markdown-to-html',
+  kicker: 'Free markdown tool',
+});
 
 function InlineCode({ children }: { children: string }) {
   return <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">{children}</code>;

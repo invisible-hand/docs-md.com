@@ -1,17 +1,19 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ExamplePanel from '@/components/ExamplePanel';
 import WalkthroughPage, { CODE, CodeBlock, H2, LINK } from '@/components/WalkthroughPage';
 import { getExample } from '@/lib/examples';
+import { pageMetadata } from '@/lib/page-metadata';
 
 const UPDATED = '2026-09-07';
 
-export const metadata: Metadata = {
-  title: 'Bug Report Template in Markdown: Sections, Filled-In Example, GitHub Issue Form',
+export const metadata = pageMetadata({
+  title: 'Bug Report Template in Markdown (with Filled-In Example)',
   description:
     'Markdown bug report template + filled-in example: environment, steps to reproduce, expected vs actual, evidence, scope, workaround. GitHub issue form too.',
-  alternates: { canonical: '/bug-report-template' },
-};
+  path: '/bug-report-template',
+  type: 'article',
+  kicker: 'Walkthrough',
+});
 
 const TEMPLATE = `# Bug: <one line — what breaks, where, under what condition>
 

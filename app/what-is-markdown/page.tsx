@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'What Is Markdown? And What Is a .md File?',
   description:
     'Markdown is a plain-text way to write formatted documents: **bold**, # headings, - lists. What .md files are, how to open one, why devs and AI use it.',
-};
+  path: '/what-is-markdown',
+  type: 'article',
+});
 
 const SAMPLE = `# Trip notes
 

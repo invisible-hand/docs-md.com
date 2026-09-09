@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import PdfToMarkdown from '@/components/tools/PdfToMarkdown';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'PDF to Markdown Converter — Free, Private, In-Browser',
   description:
     'Convert a PDF to markdown free in your browser: drop the file, get editable markdown with headings, lists, and paragraphs inferred from layout. No upload.',
-};
+  path: '/pdf-to-markdown',
+  kicker: 'Free markdown tool',
+});
 
 export default function PdfToMarkdownPage() {
   return (

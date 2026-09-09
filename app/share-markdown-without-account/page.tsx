@@ -1,15 +1,17 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import WalkthroughPage, { CODE, CodeBlock, H2, LINK } from '@/components/WalkthroughPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
 const UPDATED = '2026-09-06';
 
-export const metadata: Metadata = {
-  title: 'Share Markdown Without an Account: Free Options Compared (2026)',
+export const metadata = pageMetadata({
+  title: 'Share Markdown Without an Account: Free Options Compared',
   description:
     'Paste markdown, get a rendered link, no signup: Docs MD, yeet.md, JotBird, Rentry, HackMD and more compared on link lifetime, editing, Mermaid, and API.',
-  alternates: { canonical: '/share-markdown-without-account' },
-};
+  path: '/share-markdown-without-account',
+  type: 'article',
+  kicker: 'Comparison',
+});
 
 interface Row {
   name: string;

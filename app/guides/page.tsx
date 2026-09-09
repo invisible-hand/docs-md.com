@@ -1,13 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 import { listGuides } from '@/lib/guides';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown Guides — Syntax Questions Answered',
   description:
     'Short, answer-first markdown syntax guides: checkboxes, strikethrough, underline, quotes, line breaks, comments, indentation, images, links, code blocks.',
-};
+  path: '/guides',
+});
 
 export default function GuidesPage() {
   const guides = listGuides();

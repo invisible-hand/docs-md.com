@@ -1,16 +1,18 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import UpdatedLine from '@/components/UpdatedLine';
 
 const UPDATED = '2026-09-01';
 import ReadmeGenerator from '@/components/tools/ReadmeGenerator';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'README Generator — Free Online Tool',
   description:
     'Generate a professional README.md: fill in a form, get badges, install instructions, usage examples, and license sections with a live preview. Free.',
-};
+  path: '/readme-generator',
+  kicker: 'Free markdown tool',
+});
 
 export default function ReadmeGeneratorPage() {
   const jsonLd = {

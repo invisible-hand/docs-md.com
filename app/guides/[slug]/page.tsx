@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { getGuide, listGuideSlugs } from '@/lib/guides';
+import { pageMetadata } from '@/lib/page-metadata';
 
 export const dynamicParams = false;
 
@@ -18,11 +19,13 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const guide = getGuide(slug);
-    return {
+    return pageMetadata({
       title: guide.title,
       description: guide.description,
-      alternates: { canonical: `/guides/${slug}` },
-    };
+      path: `/guides/${slug}`,
+      type: 'article',
+      kicker: 'Markdown guide',
+    });
   } catch {
     return {};
   }

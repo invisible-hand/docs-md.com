@@ -1,17 +1,19 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ExamplePanel from '@/components/ExamplePanel';
 import WalkthroughPage, { CODE, CodeBlock, H2, LINK } from '@/components/WalkthroughPage';
 import { getExample } from '@/lib/examples';
+import { pageMetadata } from '@/lib/page-metadata';
 
 const UPDATED = '2026-09-06';
 
-export const metadata: Metadata = {
-  title: 'Share an Implementation Plan from Cursor or Claude Code as a Link',
+export const metadata = pageMetadata({
+  title: 'Share an Implementation Plan from Cursor or Claude Code',
   description:
     'Turn an AI-generated implementation plan into a rendered link a teammate can review, from Cursor or Claude Code via MCP or with curl. Example included.',
-  alternates: { canonical: '/share-implementation-plan' },
-};
+  path: '/share-implementation-plan',
+  type: 'article',
+  kicker: 'Walkthrough',
+});
 
 const FAQ = [
   {

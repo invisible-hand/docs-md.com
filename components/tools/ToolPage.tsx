@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import UpdatedLine from '@/components/UpdatedLine';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
+import { pageMetadata } from '@/lib/page-metadata';
 import { getTool, relatedTools } from '@/lib/tools-registry';
 
 export interface FaqItem {
@@ -28,7 +29,12 @@ interface ToolPageProps {
 
 export function toolMetadata(slug: string): Metadata {
   const tool = getTool(slug);
-  return { title: tool.metaTitle, description: tool.metaDescription };
+  return pageMetadata({
+    title: tool.metaTitle,
+    description: tool.metaDescription,
+    path: `/${slug}`,
+    kicker: 'Free markdown tool',
+  });
 }
 
 export const H2 = 'text-xl font-semibold text-gray-950';

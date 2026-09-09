@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { dbOperations, isExpired } from '@/lib/db';
 import { storageOperations } from '@/lib/storage';
+import { pageMetadata } from '@/lib/page-metadata';
 import { extractToc } from '@/lib/toc';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import ShareActions from '@/components/ShareActions';
@@ -127,11 +128,42 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   const expiresAt = Number(share.expires_at);
+  // fetch() is memoized per render, so the page's own read of the blob reuses this response.
+  const content = await storageOperations.readMarkdown(share.blob_url);
 
-  return {
+  return pageMetadata({
     title: share.filename,
-    description: `Shared markdown file: ${share.filename}`,
-    // Only permanent shares are worth indexing; expiring pages would churn the index.
-    robots: expiresAt === 0 ? undefined : { index: false, follow: true },
-  };
+    description: excerpt(content) || `Shared markdown file: ${share.filename}`,
+    path: `/${id}`,
+    type: 'article',
+    kicker: 'Shared markdown',
+    extra: {
+      // Only permanent shares are worth indexing; expiring pages would churn the index.
+      robots: expiresAt === 0 ? undefined : { index: false, follow: true },
+    },
+  });
+}
+
+/** First paragraph of prose, stripped of markdown syntax, for the description and link card. */
+function excerpt(content: string | null, max = 155): string {
+  if (!content) return '';
+  const lines = content.replace(/^---[\s\S]*?\n---\n/, '').split('\n');
+  let inFence = false;
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (line.startsWith('```') || line.startsWith('~~~')) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence || !line || /^(#{1,6}\s|[-*_]{3,}$|[|>]|!\[|<)/.test(line)) continue;
+    const text = line
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+      .replace(/[`*_~]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (text.length < 20) continue;
+    return text.length > max ? `${text.slice(0, max - 1).replace(/\s+\S*$/, '')}…` : text;
+  }
+  return '';
 }

@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Share Markdown from Cursor and Claude with MCP',
   description:
     'Set up markdown sharing from Cursor, Claude Code, Windsurf, VS Code, and Zed via MCP — with real configs, workflows, and prompt examples.',
-};
+  path: '/ai-powered-ide',
+});
 
 function CodeBlock({ children }: { children: string }) {
   return (

@@ -1,15 +1,17 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import WalkthroughPage, { CODE, CodeBlock, H2, LINK } from '@/components/WalkthroughPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
 const UPDATED = '2026-09-07';
 
-export const metadata: Metadata = {
-  title: 'GitHub Action to Publish a Markdown Report as a Shareable Link',
+export const metadata = pageMetadata({
+  title: 'GitHub Action to Publish Markdown as a Shareable Link',
   description:
     'Publish a markdown file from GitHub Actions as a rendered, expiring link and get the URL as a step output. No account needed. Inputs, outputs, examples.',
-  alternates: { canonical: '/github-action' },
-};
+  path: '/github-action',
+  type: 'article',
+  kicker: 'Walkthrough',
+});
 
 const BASIC = `- name: Publish report
   id: report

@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown Sharing Use Cases',
   description:
     'How teams use markdown share links: design reviews, incident postmortems, AI agent handoffs, client deliverables, README-linked docs, and CI reports.',
-};
+  path: '/use-cases',
+});
 
 function InlineCode({ children }: { children: string }) {
   return <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">{children}</code>;

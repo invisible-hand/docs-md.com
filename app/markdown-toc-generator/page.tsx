@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import TocGenerator from '@/components/tools/TocGenerator';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown Table of Contents Generator — Free TOC Tool',
   description:
     'Generate a markdown table of contents from your headings with correct GitHub anchor links. Choose depth, numbered or bulleted, and insert it in the doc.',
-};
+  path: '/markdown-toc-generator',
+  kicker: 'Free markdown tool',
+});
 
 export default function TocGeneratorPage() {
   return (

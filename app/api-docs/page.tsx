@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown Sharing API',
   description:
     'Free REST API for sharing markdown: create, update, and delete shares with expiring or permanent links. Includes raw endpoints and MCP integration.',
-};
+  path: '/api-docs',
+});
 
 function CodeBlock({ children }: { children: string }) {
   return (

@@ -1,17 +1,19 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ExamplePanel from '@/components/ExamplePanel';
 import WalkthroughPage, { CODE, CodeBlock, H2, LINK } from '@/components/WalkthroughPage';
 import { getExample } from '@/lib/examples';
+import { pageMetadata } from '@/lib/page-metadata';
 
 const UPDATED = '2026-09-06';
 
-export const metadata: Metadata = {
-  title: 'Agent Handoff Document: Template for Passing a Coding Task Between AI Agents',
+export const metadata = pageMetadata({
+  title: 'Agent Handoff Document: Template for AI Coding Agents',
   description:
     'Template and filled-in example for handing a coding task from one AI agent to another: objective, commit, changes, commands run, open problems, next steps.',
-  alternates: { canonical: '/agent-handoff-document' },
-};
+  path: '/agent-handoff-document',
+  type: 'article',
+  kicker: 'Walkthrough',
+});
 
 const TEMPLATE = `# Agent handoff: <task name>
 

@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
+import { ogImageUrl } from "@/lib/page-metadata";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,26 +24,31 @@ export const metadata: Metadata = {
     template: "%s | Docs MD",
   },
   description:
-    "Share markdown files with expiring links and connect your AI-powered IDE through MCP.",
+    "Share markdown for free, no signup: paste a file, get a rendered link that lasts a day, a week, a month, or forever. Free markdown tools and MCP server.",
   verification: {
     other: { "msvalidate.01": "EF33FF9A96023EF6C70454CCE7FD6507" },
   },
   alternates: {
     canonical: "./",
   },
+  // Pages override this whole block via lib/page-metadata.ts (Next does not deep-merge
+  // openGraph), so what is here only describes the homepage and any page without its own.
   openGraph: {
-    title: "Docs MD",
+    title: "Share Markdown online for free — no signup",
     description:
-      "Markdown sharing with expiring links, live preview, and MCP integration for AI-native workflows.",
-    url: "https://docs-md.com",
+      "Paste markdown, get a rendered link that expires in a day, a week, a month, or never. Free markdown tools and an MCP server for Cursor and Claude Code.",
+    url: "/",
     siteName: "Docs MD",
     type: "website",
+    locale: "en_US",
+    images: [{ url: ogImageUrl("Share Markdown online for free — no signup"), width: 1200, height: 630, alt: "Docs MD" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Docs MD",
+    title: "Share Markdown online for free — no signup",
     description:
-      "Markdown sharing with expiring links and MCP integration for AI-powered IDEs.",
+      "Paste markdown, get a rendered link that expires in a day, a week, a month, or never. Free markdown tools and an MCP server for Cursor and Claude Code.",
+    images: [ogImageUrl("Share Markdown online for free — no signup")],
   },
 };
 

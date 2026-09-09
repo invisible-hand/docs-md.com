@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import CopyButton from '@/components/CopyButton';
 import MermaidDiagram from '@/components/MermaidDiagram';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Mermaid Timeline Examples — Syntax and Copyable Code',
   description:
     'Mermaid timeline syntax with five copyable examples rendered live: basic, multiple events, sections, a project roadmap, styling, and embedding in markdown.',
-};
+  path: '/mermaid-timeline-examples',
+  type: 'article',
+});
 
 const EXAMPLES: Array<{ id: string; title: string; intro: string; code: string; after?: string }> = [
   {

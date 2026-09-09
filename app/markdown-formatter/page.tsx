@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import MarkdownFormatter from '@/components/tools/MarkdownFormatter';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown Formatter — Free Online Beautifier',
   description:
     'Format and prettify markdown online: normalize list markers, emphasis style, table alignment, and spacing. Semantic formatting that never changes output.',
-};
+  path: '/markdown-formatter',
+  kicker: 'Free markdown tool',
+});
 
 function InlineCode({ children }: { children: string }) {
   return <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">{children}</code>;

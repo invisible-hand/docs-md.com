@@ -1,13 +1,15 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import LinkGenerator from '@/components/tools/LinkGenerator';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown Link, Image & Code Block Generator',
   description:
     'Generate correct markdown for links, images, and fenced code blocks: fill in the fields, preview live, copy the snippet. Tooltips and reference links too.',
-};
+  path: '/markdown-link-generator',
+  kicker: 'Free markdown tool',
+});
 
 export default function LinkGeneratorPage() {
   return (

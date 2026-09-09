@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import CopyButton from '@/components/CopyButton';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import UpdatedLine from '@/components/UpdatedLine';
+import { pageMetadata } from '@/lib/page-metadata';
 
 const UPDATED = '2026-09-01';
 
@@ -34,11 +34,14 @@ const FAQ = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown Cheat Sheet — Complete Syntax Reference',
   description:
     'Every markdown element with live rendered examples: headings, emphasis, lists, links, images, code, tables, task lists, footnotes, mermaid. Copy a snippet.',
-};
+  path: '/markdown-cheat-sheet',
+  type: 'article',
+  kicker: 'Reference',
+});
 
 interface Snippet {
   label: string;

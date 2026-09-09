@@ -1,12 +1,14 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'What is MCP? Model Context Protocol Explained',
   description:
     'Model Context Protocol (MCP) explained: how servers, tools, and transports work, what problems MCP solves, and how to try a real remote MCP server fast.',
-};
+  path: '/what-is-mcp',
+  type: 'article',
+});
 
 function CodeBlock({ children }: { children: string }) {
   return (

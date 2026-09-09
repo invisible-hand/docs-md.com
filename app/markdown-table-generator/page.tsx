@@ -1,16 +1,18 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import UpdatedLine from '@/components/UpdatedLine';
 
 const UPDATED = '2026-09-01';
 import TableGenerator from '@/components/tools/TableGenerator';
+import { pageMetadata } from '@/lib/page-metadata';
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: 'Markdown Table Generator — Free Online Tool',
   description:
     'Build markdown tables visually: edit cells, set column alignment, paste CSV or TSV data, and copy clean padded markdown. Free, no signup, in your browser.',
-};
+  path: '/markdown-table-generator',
+  kicker: 'Free markdown tool',
+});
 
 function InlineCode({ children }: { children: string }) {
   return <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">{children}</code>;

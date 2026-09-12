@@ -261,6 +261,7 @@ export default function ReadmeTemplatesPage() {
             <Link href="/readme-generator" className="text-indigo-700 underline">README generator</Link>{' · '}
             <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">markdown cheat sheet</Link>{' · '}
             <Link href="/guides/markdown-image" className="text-indigo-700 underline">images &amp; badges syntax</Link>{' · '}
+            <Link href="/guides/markdown-quote" className="text-indigo-700 underline">[!NOTE] alerts &amp; blockquotes</Link>{' · '}
             <Link href="/" className="text-indigo-700 underline">share a draft for review</Link>
           </p>
         </section>

@@ -52,6 +52,14 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Docs MD', item: 'https://docs-md.com/' },
+          { '@type': 'ListItem', position: 2, name: 'Markdown guides', item: 'https://docs-md.com/guides' },
+          { '@type': 'ListItem', position: 3, name: guide.h1, item: `https://docs-md.com/guides/${guide.slug}` },
+        ],
+      },
+      {
         '@type': 'Article',
         headline: guide.h1,
         description: guide.description,

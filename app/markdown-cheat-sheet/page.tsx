@@ -5,7 +5,7 @@ import MarkdownRenderer from '@/components/MarkdownRenderer';
 import UpdatedLine from '@/components/UpdatedLine';
 import { pageMetadata } from '@/lib/page-metadata';
 
-const UPDATED = '2026-09-01';
+const UPDATED = '2026-09-12';
 
 const FAQ = [
   {
@@ -48,6 +48,8 @@ interface Snippet {
   code: string;
   note?: string;
   renderable?: boolean;
+  /** Optional "full guide" link rendered after the note. */
+  more?: { href: string; label: string };
 }
 
 interface Section {
@@ -164,6 +166,8 @@ const SECTIONS: Section[] = [
       {
         label: 'Quote and nesting',
         code: '> A quoted paragraph.\n>\n> > Nested quotes work too.\n>\n> Back to the first level — **formatting works inside**.',
+        note: 'Prefix every line with > (a lone > keeps a multi-paragraph quote together). GitHub turns > [!NOTE] / [!WARNING] quotes into coloured alerts.',
+        more: { href: '/guides/markdown-quote', label: 'Full blockquote guide: attribution, alerts, Discord/Slack quirks' },
       },
     ],
   },
@@ -240,6 +244,13 @@ function SnippetBlock({ snippet }: { snippet: Snippet }) {
         )}
       </div>
       {snippet.note ? <p className="mt-3 text-sm text-gray-600">{snippet.note}</p> : null}
+      {snippet.more ? (
+        <p className="mt-2 text-sm">
+          <Link href={snippet.more.href} className="text-indigo-700 underline">
+            {snippet.more.label} →
+          </Link>
+        </p>
+      ) : null}
     </div>
   );
 }

@@ -109,7 +109,8 @@ export default function SlackMarkdownPage() {
           <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">markdown cheat sheet</Link>{' · '}
           <Link href="/discord-markdown" className="text-indigo-700 underline">Discord formatting</Link>{' · '}
           <Link href="/guides/markdown-strikethrough" className="text-indigo-700 underline">strikethrough guide</Link>{' · '}
-          <Link href="/guides/markdown-underline" className="text-indigo-700 underline">underline guide</Link>
+          <Link href="/guides/markdown-underline" className="text-indigo-700 underline">underline guide</Link>{' · '}
+          <Link href="/guides/markdown-quote" className="text-indigo-700 underline">blockquote guide</Link>
         </p>
       </section>
     </ContentPage>

@@ -3,7 +3,7 @@ title: Markdown Comments — Hide Text From Output
 h1: How to write a comment in markdown
 description: Markdown has no comment syntax, but HTML comments <!-- like this --> stay hidden in rendered output. Where they leak, and truly invisible alternatives.
 updated: 2026-08-29
-related: markdown-new-line, markdown-code-block
+related: markdown-new-line, markdown-code-block, markdown-quote
 ---
 Markdown has no comment syntax of its own, but since markdown passes HTML through, an **HTML comment** stays out of the rendered page:
 

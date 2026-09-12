@@ -3,7 +3,7 @@ title: Markdown Indentation — Lists, Paragraphs, Code
 h1: How to indent in markdown
 description: Indentation in markdown is syntax, not styling: 2 spaces nests lists, 4 spaces makes a code block. Indent paragraphs, continue list items, avoid tabs.
 updated: 2026-08-29
-related: markdown-new-line, markdown-checkbox
+related: markdown-new-line, markdown-checkbox, markdown-quote
 ---
 In markdown, indentation is **syntax, not styling** — leading spaces change what an element *is*. Two rules cover most cases: indent **2 spaces** to nest a list item under a `-` bullet, and never indent a normal paragraph by 4+ spaces, because **4 spaces turns text into a code block**.
 

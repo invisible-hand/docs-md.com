@@ -260,11 +260,11 @@ export const TOOLS: Tool[] = [
     title: 'Markdown formatter',
     description:
       'Prettify messy markdown: uniform list markers, one emphasis style, aligned tables. Semantic — rendered output never changes.',
-    metaTitle: 'Markdown Formatter — Prettify Markdown Online, Free',
+    metaTitle: 'Markdown Formatter (MD Formatter) — Prettify Online, Free',
     metaDescription:
-      'Format and prettify markdown online: normalize list markers, emphasis style, table alignment, and spacing. Semantic formatting that never changes output.',
+      'Free md formatter: prettify markdown online — normalize list markers, emphasis style, table alignment, and spacing. Semantic formatting that never changes output.',
     category: 'edit',
-    updated: '2026-08-16',
+    updated: '2026-09-16',
   },
 
   // ---- reference -----------------------------------------------------------

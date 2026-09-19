@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="docs-md">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+  <!-- a page: rounded tile with the top-right corner folded -->
+  <path d="M14 2h30l18 18v30a12 12 0 0 1-12 12H14A12 12 0 0 1 2 50V14A12 12 0 0 1 14 2z" fill="url(#g)"/>
+  <path d="M44 2l18 18H52a8 8 0 0 1-8-8V2z" fill="#a5b4fc"/>
+  <!-- the markdown heading mark -->
+  <g transform="translate(1.5 0)" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round">
+    <path d="M27.5 19 22 49"/>
+    <path d="M41 25.5 36.5 49"/>
+    <path d="M16.5 29.5h29"/>
+    <path d="M14 40.5h29"/>
+  </g>
+</svg>

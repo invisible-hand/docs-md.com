@@ -64,7 +64,9 @@ export default function SiteFooter() {
       <div className="mx-auto w-full max-w-6xl px-4 py-12">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
-            <Link href="/" className="text-base font-semibold tracking-tight text-gray-950">
+            <Link href="/" className="flex items-center gap-2.5 text-base font-semibold tracking-tight text-gray-950">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.svg" alt="" width={26} height={26} className="h-[26px] w-[26px] flex-none" />
               DOCS-MD.COM
             </Link>
             <p className="mt-2 text-sm text-gray-600">

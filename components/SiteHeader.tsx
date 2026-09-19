@@ -13,11 +13,15 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200/70 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="group">
-          <p className="text-base font-semibold tracking-tight text-gray-950 transition-colors group-hover:text-indigo-700">
-            DOCS-MD.COM
-          </p>
-          <p className="text-[11px] text-gray-600">Markdown sharing for AI-native workflows</p>
+        <Link href="/" className="group flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.svg" alt="" width={34} height={34} className="h-[34px] w-[34px] flex-none" />
+          <span>
+            <span className="block text-base font-semibold tracking-tight text-gray-950 transition-colors group-hover:text-indigo-700">
+              DOCS-MD.COM
+            </span>
+            <span className="block text-[11px] text-gray-600">Markdown sharing for AI-native workflows</span>
+          </span>
         </Link>
         <nav className="hidden items-center gap-4 text-sm text-gray-700 md:flex">
           {navLinks.map((link) => (

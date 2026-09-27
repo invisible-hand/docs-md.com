@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      // Bare /raw (no share id) is what crawlers extract from "https://docs-md.com/raw/<id>"
+      // examples in page copy; send it to the docs for the raw endpoint instead of a 404.
+      { source: "/raw", destination: "/api-docs", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

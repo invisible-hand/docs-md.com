@@ -13,7 +13,7 @@ This is <u>underlined</u> with HTML.
 
 ## Why doesn't markdown have underline?
 
-Markdown was designed to mirror plain-text email conventions and compile to clean HTML. Underline was deliberately left out: readers confuse underlined text with hyperlinks, so typographic convention on the web reserves underline for links and uses *italics* or **bold** for emphasis. If your goal is emphasis, those are the portable, semantic choices.
+Markdown was designed to mirror plain-text email conventions and compile to clean HTML. Underline was deliberately left out: readers confuse underlined text with hyperlinks (see [how markdown links work](/guides/markdown-link)), so typographic convention on the web reserves underline for links and uses *italics* or **bold** for emphasis. If your goal is emphasis, those are the portable, semantic choices.
 
 ## What HTML tags underline text?
 

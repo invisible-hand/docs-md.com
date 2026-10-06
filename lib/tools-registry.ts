@@ -248,11 +248,11 @@ export const TOOLS: Tool[] = [
     title: 'Markdown viewer',
     description:
       'Open a .md file — drag it in, paste, or load from a URL — and read it rendered with tables, code highlighting, and mermaid diagrams. Print or share it.',
-    metaTitle: 'Markdown Viewer — Open and Read .md Files Online, Free',
+    metaTitle: 'Markdown Viewer — MD File Viewer, Read .md Files Online',
     metaDescription:
-      'View any markdown file in your browser: drag in a .md file or paste text to read it rendered with tables, highlighted code, and diagrams. Print or share.',
+      'Free md file viewer: open a .md file in your browser and read it rendered, with tables, highlighted code, and diagrams. Drag in, paste, or load a URL.',
     category: 'edit',
-    updated: '2026-09-03',
+    updated: '2026-10-05',
   },
   {
     slug: 'markdown-formatter',

@@ -41,7 +41,7 @@ Nest the image syntax inside a link's square brackets:
 [![Docs badge](https://img.shields.io/badge/docs-live-green)](https://docs-md.com)
 ```
 
-That's exactly how README badge rows work — each badge is an image wrapped in a link.
+That's exactly how README badge rows work — each badge is an image wrapped in a link. The [markdown link guide](/guides/markdown-link) covers the link half: titles, reference-style links, and relative paths.
 
 ## Can you add a caption?
 

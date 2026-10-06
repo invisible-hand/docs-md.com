@@ -33,7 +33,7 @@ Yes, with the same attribute directly on a heading tag, since markdown headings 
 <h1 align="center">Project Name</h1>
 ```
 
-The tradeoff: HTML headings don't get automatic anchor links in some renderers, and markdown inside HTML blocks isn't always processed (on GitHub, markdown inside a `<div>` only renders if you leave blank lines around it).
+The tradeoff: HTML headings don't get automatic [anchor links](/guides/markdown-link#how-do-you-link-to-a-heading-or-section-on-the-same-page) in some renderers, and markdown inside HTML blocks isn't always processed (on GitHub, markdown inside a `<div>` only renders if you leave blank lines around it).
 
 ## Can you center table columns?
 

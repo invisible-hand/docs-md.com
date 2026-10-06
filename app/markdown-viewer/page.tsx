@@ -8,12 +8,16 @@ export default function MarkdownViewerPage() {
   return (
     <ToolPage
       slug="markdown-viewer"
-      intro="Open a .md file and read it the way it was meant to look: drag the file in, paste the text, or load it from a GitHub URL. Tables, highlighted code, task lists, footnotes, and mermaid diagrams render in place. Adjust the type size, jump around with the outline, print to PDF, or publish it as a link."
+      intro="To read an md file online, drop the .md file onto the viewer below — or paste its text, or load it from a GitHub URL — and it renders instantly as a formatted document: headings, tables, highlighted code, task lists, footnotes, and mermaid diagrams. This md file viewer is free and runs in your browser; opened files are read locally, not uploaded. Adjust the type size, jump around with the outline, print to PDF, or publish it as a link."
       tool={<MarkdownViewer />}
       faq={[
         {
-          q: 'How do I open a .md file?',
-          a: 'Click "Open .md file" or drag the file anywhere onto the viewer panel. It is read locally with the browser File API and never uploaded. .markdown, .mdx, and .txt files work too.',
+          q: 'What is an md file viewer?',
+          a: 'An md file viewer (or md file reader) is a tool that opens a markdown file and shows it rendered — headings, lists, tables, links, and code formatted — instead of as raw text full of # and * characters. This one works in any browser with nothing to install.',
+        },
+        {
+          q: 'Is this md file reader free and private?',
+          a: 'Yes. It is free with no signup. A file you open or drop in is read by your browser with the File API and is not sent to a server; only the Share as link button publishes the document.',
         },
         {
           q: 'Can I view a README from GitHub without cloning?',
@@ -33,6 +37,55 @@ export default function MarkdownViewerPage() {
         },
       ]}
     >
+      <section className="space-y-3">
+        <h2 className={H2}>How do I read an md file online?</h2>
+        <p>
+          Open this page and give the viewer the file in whichever way is easiest — it renders as
+          soon as it has the text:
+        </p>
+        <ol className="list-decimal space-y-1 pl-6">
+          <li>
+            <strong>Drag and drop</strong> the <code className={CODE}>.md</code> file anywhere onto
+            the viewer panel, or click <em>Open .md file</em> and pick it.
+          </li>
+          <li>
+            <strong>Paste</strong> the markdown text into the editor.
+          </li>
+          <li>
+            <strong>Load from URL</strong> — paste a GitHub file link or any raw file address and
+            click <em>Load from URL</em>.
+          </li>
+        </ol>
+        <p>
+          Then click <em>Hide source</em> for a full-width reading view, choose the type size and width, and use the outline to jump
+          between headings. Nothing to install, no account, and it works the same on Windows, macOS,
+          Linux, and Chromebooks.
+        </p>
+      </section>
+      <section className="space-y-3">
+        <h2 className={H2}>How do I open a .md file?</h2>
+        <p>
+          A <code className={CODE}>.md</code> file is plain text, so any text editor (Notepad,
+          TextEdit, VS Code) opens it — but you see the raw markdown source, not the formatted
+          document. To read it formatted, open it in an md file viewer: click <em>Open .md file</em>{' '}
+          above or drag the file onto the panel. <code className={CODE}>.markdown</code>,{' '}
+          <code className={CODE}>.mdx</code>, and <code className={CODE}>.txt</code> files open the
+          same way. On a phone or tablet, tap <em>Open .md file</em> and choose the file from your
+          Files app. If you already work in VS Code, its built-in preview
+          (<code className={CODE}>Ctrl+Shift+V</code>, or <code className={CODE}>Cmd+Shift+V</code>{' '}
+          on a Mac) does the same job for local files.
+        </p>
+      </section>
+      <section className="space-y-3">
+        <h2 className={H2}>Which md file viewer should I use?</h2>
+        <p>
+          For a one-off file, a browser-based md file reader like this one is the quickest: no
+          install, and the rendering follows GitHub&apos;s rules, so a README looks the way it will
+          on GitHub. If you edit markdown every day, an editor with a live preview (VS Code,
+          Obsidian, Typora) is the better fit. If you need to send the rendered document to someone
+          who doesn&apos;t have any of those, share it as a link — they just open a web page.
+        </p>
+      </section>
       <section className="space-y-3">
         <h2 className={H2}>What does a markdown viewer do that a text editor doesn&apos;t?</h2>
         <p>

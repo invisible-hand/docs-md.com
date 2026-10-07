@@ -1,9 +1,9 @@
 ---
-title: Markdown Blockquote Syntax — How to Quote Text
-h1: Markdown blockquote: how to quote text
-description: Markdown blockquote syntax: start a line with > to quote text. Multi-line, nested and attributed quotes, GitHub [!NOTE] alerts, Obsidian callouts, fixes.
-updated: 2026-09-12
-related: markdown-code-block, markdown-indent, markdown-comment
+title: Markdown Blockquote Syntax — How to Quote Text in Markdown
+h1: Markdown blockquote: how to quote text in markdown
+description: Markdown blockquote syntax: start a line with > to quote text. Multi-line, nested and cited quotes, author attribution, code in quotes, Discord and Slack quotes, callouts.
+updated: 2026-10-07
+related: markdown-code-block, markdown-indent, markdown-comment, markdown-link, markdown-footnotes, markdown-escape-characters, markdown-collapsible-section
 ---
 To quote text in markdown, start the line with a `>` character. The result is called a *blockquote* — the same element HTML renders as `<blockquote>`:
 
@@ -97,9 +97,30 @@ Yes, everything works inside a blockquote as long as every line keeps the `> ` p
 
 The one thing that is unreliable is a **table inside a quote**. GitHub and most GFM renderers handle it, but several editors and chat apps break the pipes. If a quoted table matters, put the table below the quote instead of inside it.
 
-## How do you add attribution or a citation to a quote?
+## How do I quote code or a code block inside a blockquote?
 
-Markdown has no built-in attribution syntax. The convention is a final line inside the same blockquote, separated by an empty `>` line, that starts with an em dash:
+Put the `> ` prefix on every line of the fence, including the opening and closing backticks, and the code block renders inside the quote. For one word of code, use a normal code span (backticks) inside the quoted text.
+
+````markdown
+> The installer prints:
+>
+> ```bash
+> npm install docs-md
+> ```
+>
+> Run it from the project root.
+````
+
+The same rule applies when the quote itself must be shown as code. To display a blockquote's raw syntax in a document, wrap it in a fenced block, and use four backticks on the outside if the example contains a three-backtick fence, as above. Things that go wrong:
+
+- **A fence line missing its `> `.** The code block ends the quote and the rest renders as unquoted text. Check the opening and closing lines first.
+- **Code that itself starts with `>`** (shell prompts, diff output, comparison operators) is fine inside a fence. Outside a fence it starts a quote, so wrap it in backticks.
+- **Indented code inside a quote** needs five spaces after the `>` (the `> ` plus four), which is easy to miscount. Prefer fences. See the [code block guide](/guides/markdown-code-block).
+- **Syntax highlighting** still works inside the quote: `> ```python` highlights as Python on GitHub.
+
+## How do I add an author or citation to a markdown quote?
+
+Markdown has no attribution syntax, so put the author on a final line inside the same blockquote, separated by an empty `>` line, starting with an em dash. This is the pattern readers recognise everywhere:
 
 ```markdown
 > Simplicity is prerequisite for reliability.
@@ -111,7 +132,31 @@ Markdown has no built-in attribution syntax. The convention is a final line insi
 >
 > — Edsger W. Dijkstra
 
-Make the name a link if the source is online: `> — [Dijkstra, 1975](https://example.com/source)`. If you need a machine-readable source for a blog engine or a docs site that renders raw HTML, drop to `<blockquote cite="https://example.com">…</blockquote>` — but the `cite` attribute is invisible to readers, so keep the visible dash line as well.
+There are four common ways to cite a source, from simplest to most formal:
+
+| Pattern | Markdown | Notes |
+|---|---|---|
+| Dash line | `> — Name` | Works in every renderer. Use `--` or `-` if you can't type an em dash. |
+| Linked source | `> — [Name, 1975](https://example.com/source)` | Makes the citation clickable. See the [markdown link guide](/guides/markdown-link). |
+| Footnote | `> Quote text.[^1]` plus `[^1]: Name, *Title*, p. 12.` | GitHub, Obsidian, Pandoc. Not CommonMark. See the [footnotes guide](/guides/markdown-footnotes). |
+| HTML `<cite>` | `> Quote text.` / `>` / `> — <cite>Title</cite>` | Only where inline HTML is allowed; marks the title of a work. |
+
+Two cautions. First, markdown renderers do not treat the dash line specially: it is just a paragraph inside the quote, so style it yourself with italics if you want (`> — *Name*`). Second, the em dash must be real text, not a list marker: starting the line with `- Name` turns it into a bullet. If a line has to begin with a hyphen, use the dash character or escape it (see the [escape characters guide](/guides/markdown-escape-characters)).
+
+For a machine-readable source on a site that passes raw HTML through, write `<blockquote cite="https://example.com">`. The `cite` attribute is invisible to readers, so keep the visible dash line too.
+
+## What are the HTML blockquote and cite equivalents?
+
+Markdown `>` compiles to the HTML `<blockquote>` element, and the `<cite>` element marks the title of the work being quoted. When a renderer allows raw HTML you can write them directly, which gives you things markdown cannot express:
+
+```html
+<blockquote cite="https://example.com/essay">
+  <p>Simplicity is prerequisite for reliability.</p>
+  <footer>— <cite>Edsger W. Dijkstra</cite></footer>
+</blockquote>
+```
+
+Markdown falls back to HTML in three situations: you need the machine-readable `cite` URL, you need a `<footer>` or `<cite>` element for semantics or styling, or you need a custom class or style on the quote. Raw HTML works in Jekyll, Hugo, Docusaurus, Obsidian and most static site generators. GitHub allows `<blockquote>` and `<cite>` but strips `style` and `class`. Discord, Slack and most chat apps ignore HTML completely and print the tags as text. Rule of thumb: use `>` unless you have a concrete reason to need the HTML.
 
 ## How do you end a blockquote or put two quotes back to back?
 
@@ -187,25 +232,32 @@ Use a blockquote when the text is not yours or needs to stand apart from the flo
 
 Don't use blockquotes for **indentation**. It looks similar in some themes, but it carries the semantic meaning "this is quoted", screen readers announce it, and the left border shows up wherever the markdown is rendered. For plain indentation see the [markdown indent guide](/guides/markdown-indent).
 
-## Does the > quote syntax work in Discord, Slack, Reddit, Notion and other apps?
+## How do quotes work in Discord, Slack, Teams, Mattermost, Reddit, WhatsApp and Google Docs?
 
-Yes — the `>` prefix works nearly everywhere, but chat apps add their own rules for multi-line quotes and drop nesting. The differences that matter:
+The `>` prefix works in most chat and forum apps, but each app differs on multi-line quotes and nesting, and two (WhatsApp and Google Docs) have no markdown quote at all. This table summarises the current behaviour:
 
-| App | One line | Rest of message | Nesting | Alerts / callouts |
+| App | Syntax | Multi-line | Nested | Notes |
 |---|---|---|---|---|
-| GitHub, GitLab | `> text` | prefix every line | `>>` | `[!NOTE]` … 5 types |
-| Obsidian | `> text` | prefix every line | `>>` | `[!type]` callouts, foldable |
-| Notion | `"` + space, or `/quote` | Shift+Enter inside the block | no | use `/callout` |
-| Discord | `> text` | `>>> text` | no | no |
-| Slack | `> text` | `>>> text` | no | no |
-| Reddit | `> text` | prefix every line | `>>` | no |
-| VS Code preview, pandoc, Hugo, Jekyll | `> text` | prefix every line | `>>` | plugin-dependent |
-| Microsoft Teams, WhatsApp | no markdown quotes | — | — | — |
+| GitHub, GitLab | `> text` | prefix every line | yes, `>>` | `[!NOTE]` alerts on top |
+| Obsidian | `> text` | prefix every line | yes | `[!type]` callouts, foldable |
+| Discord | `> text` | `>>> text` quotes everything after it | no | The space after `>` is required. Nested `>>` is not supported. |
+| Slack | `> text` | `>>> text` for a multi-line block | no | In the message box, typing `> ` converts to a quote. Slack's own mrkdwn uses `>` per line in the API. |
+| Microsoft Teams | quote button in the formatting toolbar; `> ` at line start in the compose box | Shift+Enter keeps the quote going | limited | Teams formatting is mostly toolbar-driven, so typed markdown is inconsistent between old and new clients. Test in yours. |
+| Mattermost | `> text` | prefix every line | yes, `>>` | Full CommonMark-style markdown, no `>>>` shortcut. |
+| Reddit | `> text` | prefix every line | yes, `>>` | The rich-text editor has a quote button; switch to Markdown mode to type `>`. |
+| WhatsApp | none | none | none | Uses reply-to-message quoting instead. WhatsApp does format `*bold*`, `_italic_`, `~strike~` and backticks, but has no quote syntax in the composer. |
+| Google Docs | none | none | none | No markdown blockquote. Use a paragraph indent and italics, or paste markdown after enabling Tools, Preferences, "Automatically detect Markdown". |
+| Notion | `"` then space, or `/quote` | Shift+Enter inside the block | no | Callouts are a separate block type. |
 
-- **Discord**: `> ` quotes one line; `>>> ` at the start of the message quotes everything after it. Nested `>>` does not work. Details in the [Discord markdown guide](/discord-markdown).
-- **Slack**: same `> ` / `>>> ` pair; the space after `>` is required. Slack renders the quote bar only in its own message box, not in code blocks. See the [Slack markdown guide](/slack-markdown).
-- **Reddit**: standard `> ` per line; `>>` nests in the markdown editor. Reddit's rich-text editor has its own quote button and can mangle pasted `>` lines — switch to markdown mode.
-- **Notion**: typing `"` followed by a space converts the block to a quote; `>` is not used. A callout is a separate block type.
+Practical notes per app:
+
+- **Discord**: `> ` quotes one line; `>>> ` at the start of a message quotes everything after it, including later lines. Details in the [Discord markdown guide](/discord-markdown).
+- **Slack**: use `>>> ` for several lines, because a plain `> ` quotes only its own line. See the [Slack markdown guide](/slack-markdown).
+- **Reddit**: leave a blank line before and after a quote, or the next paragraph is pulled into it.
+- **WhatsApp**: hold a message and choose Reply to quote it. Nothing you type at the start of a line creates a quote.
+- **Google Docs**: its markdown import is limited and does not give you a styled quote block. Format the paragraph with an indent and a left border, or use a table cell.
+
+Apps change their editors often, so treat the Teams row in particular as a starting point and verify in your own client.
 
 ## How do you style a blockquote with CSS or HTML?
 
@@ -245,13 +297,27 @@ Escape it with a backslash: `\> not a quote`. That only matters at the start of 
 
 Yes — a line with only `>` renders an empty blockquote (a bare left border), and CommonMark allows it. There is rarely a reason to want one; it usually appears by accident when a `>` line is left behind after editing. Delete the stray line to remove the empty box.
 
-## What is the difference between a blockquote and a callout?
+## What is the difference between a blockquote and a callout/admonition?
 
-A blockquote is the semantic HTML element for quoted text; a callout (or alert, admonition) is a highlighted box for notes and warnings that many tools *build on top of* blockquote syntax. In portable markdown there is no callout — GitHub, Obsidian, Docusaurus and MkDocs each add their own marker inside a blockquote (`[!NOTE]`, `[!tip]`, `:::note`, `!!! note`). If your document must render in more than one of those, use `> **Note:**` — it is a plain quote everywhere and reads as a callout anyway.
+A blockquote is the semantic element for quoted text; a callout (also called an alert or admonition) is a highlighted box for notes and warnings. Plain markdown and CommonMark have no callout, so each tool adds its own marker, usually on top of blockquote syntax or a fence:
+
+| Tool | Syntax |
+|---|---|
+| GitHub, GitLab | `> [!NOTE]` on its own line, then quoted text (5 types, upper case) |
+| Obsidian | `> [!tip] Title` (many types, foldable with `-` or `+`) |
+| MkDocs Material | `!!! note "Title"` then an indented body |
+| Docusaurus | `:::note` ... `:::` fence |
+| Plain markdown, portable | `> **Note:** text` |
+
+Only the GitHub and Obsidian forms are blockquotes underneath. MkDocs and Docusaurus use their own block syntax, which prints as literal text anywhere else. If a document must render in more than one tool, use `> **Note:**`: it is a plain quote everywhere and reads as a callout anyway. For the foldable variants see the [collapsible section guide](/guides/markdown-collapsible-section).
 
 ## How long should a blockquote be?
 
 Keep a quote to a sentence or a short paragraph unless the quoted text itself is the point of the document. Long quotes lose the visual "aside" effect, and on GitHub a multi-screen alert box is hard to scan. If you need to reproduce a long passage, quote it in full and add a one-line summary above it in your own words so readers can skip it.
+
+## Does LaTeX have a blockquote?
+
+LaTeX has no blockquote in the markdown sense because LaTeX is a typesetting language, not markdown, but it has two equivalent environments: `quote` for short quotations and `quotation` for longer, multi-paragraph ones (which indent the first line of each paragraph). Write `\begin{quote} ... \end{quote}`. If you convert markdown to PDF with Pandoc, a `>` blockquote is output as a LaTeX `quote` environment automatically. For quotations with a source, the `csquotes` package adds `\blockquote[Source]{text}`.
 
 ## What are the best practices for markdown blockquotes?
 

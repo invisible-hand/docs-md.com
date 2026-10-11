@@ -4,9 +4,9 @@ import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
-  title: 'What Is Markdown? And What Is a .md File?',
+  title: 'What Is Markdown? The .md File Format Explained',
   description:
-    'Markdown is a plain-text way to write formatted documents: **bold**, # headings, - lists. What .md files are, how to open one, why devs and AI use it.',
+    'A .md file is a plain-text file written in Markdown. Learn what Markdown is, how to open a .md file, and how .md, .markdown and .mdx differ.',
   path: '/what-is-markdown',
   type: 'article',
 });
@@ -22,16 +22,20 @@ const SAMPLE = `# Trip notes
 
 const FAQ = [
   {
+    q: 'What is a .md file?',
+    a: 'A .md file is a plain text file written in Markdown syntax. It opens in any text editor and renders as formatted text on GitHub, in editors with preview, and in Markdown viewers.',
+  },
+  {
+    q: 'How do I open a .md file?',
+    a: 'To read or edit the raw text, use any text editor: Notepad on Windows, TextEdit on Mac, or VS Code. To see it formatted, use the VS Code preview (Cmd/Ctrl+Shift+V), view it on GitHub, or open it in the browser-based Markdown viewer on this site.',
+  },
+  {
+    q: 'Is .md the same as Markdown?',
+    a: 'Not exactly. Markdown is the writing syntax. .md is the most common file extension for text written in that syntax. The same syntax can also be saved as .markdown or .mdown, and most tools treat those like .md.',
+  },
+  {
     q: 'What is markdown in simple terms?',
     a: 'Markdown is a way of writing formatted text using ordinary characters instead of buttons: **asterisks** for bold, # for headings, - for lists. The file stays plain text, and any markdown-aware app renders it with real formatting.',
-  },
-  {
-    q: 'What is a .md file?',
-    a: 'A .md (or .markdown) file is just a plain text file whose content uses markdown syntax. It opens in any text editor — Notepad, TextEdit, VS Code — and renders as a formatted document in markdown viewers, on GitHub, or on a share link.',
-  },
-  {
-    q: 'How do you open a markdown file?',
-    a: 'To edit: any text editor. To see it rendered: GitHub or an editor with preview (VS Code: Cmd/Ctrl+Shift+V), or paste it into docs-md.com to view and share it rendered — no install needed.',
   },
   {
     q: 'Is markdown the same everywhere?',
@@ -45,9 +49,9 @@ export default function WhatIsMarkdownPage() {
     '@graph': [
       {
         '@type': 'Article',
-        headline: 'What is markdown? And what is a .md file?',
+        headline: 'What is Markdown? The .md file format explained',
         description: metadata.description,
-        dateModified: '2026-08-29',
+        dateModified: '2026-10-11',
         author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
         mainEntityOfPage: 'https://docs-md.com/what-is-markdown',
       },
@@ -63,14 +67,14 @@ export default function WhatIsMarkdownPage() {
   };
   return (
     <ContentPage
-      title="What is markdown?"
-      description="Markdown is a plain-text way to write formatted documents: a few punctuation conventions — **bold**, # headings, - lists — that stay readable as raw text and render as rich formatting."
+      title="What is Markdown? The .md file format explained"
+      description="A .md file is a plain-text file written in Markdown. It opens in any text editor and renders as formatted text on GitHub, in editors and in viewers. Markdown itself is the syntax inside: asterisks for bold, # for headings, dashes for lists."
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="space-y-4">
         <p>
-          <strong>Markdown</strong> is a lightweight markup language created by John Gruber and
-          Aaron Swartz in 2004. Instead of clicking formatting buttons, you type conventions
+          A <strong>.md file</strong> is a plain text file written in Markdown, and Markdown is
+          a lightweight markup language created by John Gruber and Aaron Swartz in 2004. Instead of clicking formatting buttons, you type conventions
           straight into the text — <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">**bold**</code>,{' '}
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm"># heading</code>,{' '}
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">- list item</code> — and any markdown-aware app turns them
@@ -91,24 +95,54 @@ export default function WhatIsMarkdownPage() {
       <section className="space-y-3">
         <h2 className="text-xl font-semibold text-gray-950">What is a .md file?</h2>
         <p>
-          A file ending in <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.md</code> (or{' '}
-          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.markdown</code>) is a plain text file written in markdown —
-          nothing more. There&apos;s no special format to decode and no app that owns it: it opens in
-          Notepad, renders on GitHub (every repository&apos;s{' '}
-          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">README.md</code> is one), and diffs cleanly in version
-          control. That durability is the point — a .md file from 2004 still opens perfectly today.
+          A <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.md</code> file is a plain text file written in Markdown syntax.
+          It opens in any text editor and renders as formatted text on GitHub, in editors with
+          preview, and in Markdown viewers. There&apos;s no special format to decode and no app that
+          owns it. Every repository&apos;s <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">README.md</code> is one, and
+          .md files diff cleanly in version control. A .md file from 2004 still opens today.
         </p>
       </section>
       <section className="space-y-3">
-        <h2 className="text-xl font-semibold text-gray-950">How do you open and view a markdown file?</h2>
+        <h2 className="text-xl font-semibold text-gray-950">Markdown file extensions: .md, .markdown, .mdx</h2>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-left text-sm">
+            <thead>
+              <tr className="border-b border-gray-200 text-gray-950">
+                <th className="py-2 pr-4 font-semibold">Extension</th>
+                <th className="py-2 font-semibold">What it is</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700">
+              <tr className="border-b border-gray-100">
+                <td className="py-2 pr-4"><code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.md</code></td>
+                <td className="py-2">The most common extension for Markdown files.</td>
+              </tr>
+              <tr className="border-b border-gray-100">
+                <td className="py-2 pr-4"><code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.markdown</code></td>
+                <td className="py-2">The same content with the long extension. Treated like .md by most tools.</td>
+              </tr>
+              <tr>
+                <td className="py-2 pr-4"><code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.mdx</code></td>
+                <td className="py-2">Markdown that also allows JSX components. Needs a build step; plain viewers show it as text.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold text-gray-950">How to open a .md file</h2>
         <p>
-          To <em>edit</em>: any text editor. To <em>view it rendered</em>: VS Code&apos;s built-in
-          preview (Cmd/Ctrl+Shift+V), GitHub, Obsidian — or paste it into the{' '}
-          <Link href="/" className="text-indigo-700 underline">
-            editor on this site
+          To <em>edit</em>: Notepad on Windows, TextEdit on Mac (plain text mode), or any code
+          editor. To <em>view it rendered</em>: VS Code&apos;s built-in preview (Cmd/Ctrl+Shift+V),
+          GitHub, Obsidian, or the browser-based{' '}
+          <Link href="/markdown-viewer" className="text-indigo-700 underline">
+            Markdown viewer
           </Link>{' '}
-          to see it rendered instantly and get a shareable link, with no install. From there you can
-          also{' '}
+          on this site, with no install. You can also paste it into the{' '}
+          <Link href="/" className="text-indigo-700 underline">
+            editor
+          </Link>{' '}
+          to get a shareable link, and{' '}
           <Link href="/markdown-to-pdf" className="text-indigo-700 underline">
             convert it to PDF
           </Link>{' '}

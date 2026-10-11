@@ -4,12 +4,12 @@ import WalkthroughPage, { CODE, CodeBlock, H2, LINK } from '@/components/Walkthr
 import { getExample } from '@/lib/examples';
 import { pageMetadata } from '@/lib/page-metadata';
 
-const UPDATED = '2026-09-06';
+const UPDATED = '2026-10-11';
 
 export const metadata = pageMetadata({
-  title: 'Agent Handoff Document: Template for AI Coding Agents',
+  title: 'HANDOFF.md: What It Is + a Copy-Paste Template',
   description:
-    'Template and filled-in example for handing a coding task from one AI agent to another: objective, commit, changes, commands run, open problems, next steps.',
+    'HANDOFF.md is a markdown file that records state, decisions and next steps so another AI agent or developer can continue. Copy-paste template and example.',
   path: '/agent-handoff-document',
   type: 'article',
   kicker: 'Walkthrough',
@@ -51,7 +51,50 @@ npm test  → 14 passed
 1. ...
 `;
 
+const HANDOFF_MD = `# HANDOFF: <task name>
+
+## Goal
+What "done" means, in one or two sentences. What must not change.
+
+## Current state
+Where the work stands right now. Branch, last commit, what runs and what does not.
+
+## What changed
+- ...
+
+## Decisions and why
+- Chose X over Y because ...
+
+## Next steps
+1. ...
+2. ...
+
+## Open questions / blockers
+- ...
+
+## How to verify
+\`\`\`
+npm test
+\`\`\`
+
+## Files touched
+- path/one.ts (new)
+- path/two.ts (modified)
+`;
+
 const FAQ = [
+  {
+    q: 'What is HANDOFF.md?',
+    a: 'HANDOFF.md is a plain markdown file, usually at the repo root or in a task folder, that records the goal, current state, decisions, next steps and open questions of a piece of work. An AI coding agent or a developer writes it at the end of a session so the next agent or person can continue without the old conversation.',
+  },
+  {
+    q: 'Where should HANDOFF.md go?',
+    a: 'Put it at the repo root for a single piece of ongoing work. For several tasks in parallel, use one file per task, such as tasks/<name>/HANDOFF.md. Commit it on the task branch, or keep it out of git if it holds scratch notes, and delete or archive it when the work merges.',
+  },
+  {
+    q: 'Is HANDOFF.md a standard?',
+    a: 'No. It is a community convention, not a formal spec. No tool requires the name or the sections. Teams pick the headings that fit and tell their agents to read and update the file. The template on this page is one workable layout.',
+  },
   {
     q: 'How do I hand off a coding task to another AI agent?',
     a: 'Have the current agent write a handoff document: objective, repo and branch, the commit its summary describes, completed changes, files touched, commands it ran with their results, unresolved problems, decisions, and next steps. Publish it as a link. The next agent reads the raw markdown URL; a human reads the rendered page.',
@@ -79,11 +122,47 @@ export default function AgentHandoffDocumentPage() {
   return (
     <WalkthroughPage
       slug="agent-handoff-document"
-      title="Agent handoff document: pass a coding task between AI agents"
-      description="A fresh session, a different assistant, or a teammate has to pick up where an agent stopped. This is the document that makes that possible — a template, a filled-in example, and the two ways the next reader consumes it."
+      title="HANDOFF.md: what it is and a copy-paste template"
+      description="HANDOFF.md is a plain markdown file at the repo root or in a task folder. It records the goal, current state, decisions, next steps and open questions so another AI agent or person can continue the work. Below: a template, an example and how to share it."
       updated={UPDATED}
       faq={FAQ}
     >
+      <section className="space-y-4">
+        <h2 className={H2}>Copy-paste HANDOFF.md template</h2>
+        <p>Paste this into a new file, or ask your agent to fill it in at the end of a session.</p>
+        <CodeBlock>{HANDOFF_MD}</CodeBlock>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className={H2}>Where do you put HANDOFF.md and how do agents use it?</h2>
+        <ul className="list-disc space-y-2 pl-6">
+          <li>
+            <strong>Repo root</strong> for one stream of work. The next session finds it without being told.
+          </li>
+          <li>
+            <strong>Per task</strong> (for example <code className={CODE}>tasks/login-fix/HANDOFF.md</code>) when
+            several agents or branches run in parallel.
+          </li>
+        </ul>
+        <p>
+          Agents such as Claude Code, Cursor or Codex can read any file in the repo, so the simplest
+          setup is a line in your instructions: &quot;At the end of a session, update HANDOFF.md. At
+          the start, read it first.&quot; Nothing here depends on a built-in feature; it is an ordinary
+          file and an ordinary instruction.
+        </p>
+      </section>
+
+      <section className="space-y-4">
+        <h2 className={H2}>HANDOFF.md vs AGENTS.md, CLAUDE.md and README</h2>
+        <p>
+          HANDOFF.md holds <strong>session state</strong>: what happened and what comes next. It
+          changes every session and is retired when the work ends. AGENTS.md and CLAUDE.md hold{' '}
+          <strong>standing instructions</strong> for agents: build commands, code style, rules. README
+          holds <strong>project docs</strong> for humans. Do not put session notes in the standing
+          files; they go stale and mislead later runs.
+        </p>
+      </section>
+
       <section className="space-y-4">
         <h2 className={H2}>Why does an agent handoff need a document at all?</h2>
         <p>
@@ -97,7 +176,7 @@ export default function AgentHandoffDocumentPage() {
 
       <section className="space-y-4">
         <h2 className={H2}>What should an agent handoff document contain?</h2>
-        <p>Nine sections, in this order. Copy the template into your project or ask your assistant to fill it in.</p>
+        <p>The template above is the short form. This longer nine-section version suits larger tasks and adds the commit and the commands already run.</p>
         <CodeBlock>{TEMPLATE}</CodeBlock>
         <p>
           Two of these do most of the work. <strong>Commands run and results</strong> saves the next

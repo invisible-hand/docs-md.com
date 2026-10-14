@@ -19,6 +19,7 @@ export const STATIC_ROUTES = [
   '/readme-generator',
   '/markdown-formatter',
   '/guides',
+  '/github-readme-viewer',
   '/pdf-to-markdown',
   '/what-is-an-mcp-server',
   '/mcp-servers',

@@ -119,6 +119,18 @@ export const TOOLS: Tool[] = [
     updated: '2026-09-01',
   },
   {
+    slug: 'github-readme-viewer',
+    name: 'GitHub README viewer',
+    title: 'GitHub README and docs viewer',
+    description:
+      'Paste a repository URL and read its README and docs folder as a clean, linked site — relative links and images resolved, no cloning.',
+    metaTitle: 'GitHub README Viewer — Read a Repo\'s Docs as a Site',
+    metaDescription:
+      'Open any public GitHub repository and read its README and docs/ folder as a formatted, navigable site. Relative links and images resolved. Free, nothing to install.',
+    category: 'edit',
+    updated: '2026-10-13',
+  },
+  {
     slug: 'readme-generator',
     name: 'README generator',
     title: 'README generator',

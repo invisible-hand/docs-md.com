@@ -8,7 +8,7 @@ export default function MarkdownViewerPage() {
   return (
     <ToolPage
       slug="markdown-viewer"
-      intro="To read an md file online, drop the .md file onto the viewer below — or paste its text, or load it from a GitHub URL — and it renders instantly as a formatted document: headings, tables, highlighted code, task lists, footnotes, and mermaid diagrams. This md file viewer is free and runs in your browser; opened files are read locally, not uploaded. Adjust the type size, jump around with the outline, print to PDF, or publish it as a link."
+      intro="To read an md file online, drop the .md file onto the viewer below — or paste its text, or load it from a GitHub URL — and it renders instantly as a formatted document: headings, tables, highlighted code, task lists, footnotes, and mermaid diagrams. This md file viewer is free and runs in your browser; opened files are read locally, not uploaded. Adjust the type size, jump around with the outline, print to PDF, or publish it as a link. To read a whole repository's README and docs folder with working links, use the GitHub README viewer."
       tool={<MarkdownViewer />}
       faq={[
         {

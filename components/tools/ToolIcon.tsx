@@ -72,6 +72,15 @@ const GLYPHS: Record<string, ReactNode> = {
       <path d="M8 12h8M8 16h8M8 8h3" />
     </>
   ),
+  'handoff-generator': (
+    <>
+      <path d="M4 7h8" />
+      <path d="M9 4l3 3-3 3" />
+      <path d="M20 17h-8" />
+      <path d="M15 14l-3 3 3 3" />
+      <path d="M4 12h5M15 12h5" />
+    </>
+  ),
   'markdown-toc-generator': (
     <>
       <path d="M4 6h2M9 6h11M4 12h2M9 12h11M4 18h2M9 18h11" />

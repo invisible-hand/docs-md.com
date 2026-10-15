@@ -17,6 +17,7 @@ export const STATIC_ROUTES = [
   '/markdown-cheat-sheet',
   '/markdown-to-html',
   '/readme-generator',
+  '/handoff-generator',
   '/markdown-formatter',
   '/guides',
   '/github-readme-viewer',

@@ -204,6 +204,18 @@ export const TOOLS: Tool[] = [
     updated: '2026-09-01',
   },
   {
+    slug: 'handoff-generator',
+    name: 'HANDOFF.md generator',
+    title: 'Agent handoff document generator (HANDOFF.md)',
+    description:
+      'Fill in goal, state, commands, key files, decisions and next steps; get a complete HANDOFF.md for the next developer or AI coding agent, with a live preview.',
+    metaTitle: 'HANDOFF.md Generator — Agent Handoff Document Tool',
+    metaDescription:
+      'Generate a HANDOFF.md for passing work to a developer or AI coding agent: goal, state, commands, key files, decisions, next steps. Live preview, free.',
+    category: 'generate',
+    updated: '2026-10-15',
+  },
+  {
     slug: 'markdown-toc-generator',
     name: 'TOC generator',
     title: 'Table of contents generator',

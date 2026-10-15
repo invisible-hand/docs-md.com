@@ -251,6 +251,13 @@ template, then share it with a 7-day expiry and give me both links.`}</CodeBlock
           </li>
         </ul>
         <p>
+          To build the file from a form instead of by hand, use the{' '}
+          <Link href="/handoff-generator" className={LINK}>
+            HANDOFF.md generator
+          </Link>
+          : it emits the same sections with a live preview, a download, and a share link.
+        </p>
+        <p>
           See also:{' '}
           <Link href="/share-implementation-plan" className={LINK}>
             share an implementation plan for review

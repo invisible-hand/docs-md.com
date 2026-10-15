@@ -50,6 +50,13 @@ const GLYPHS: Record<string, ReactNode> = {
       <path d="M11.5 5.5h2.5" />
     </>
   ),
+  'json-to-markdown-table': (
+    <>
+      <path d="M7 4.5c-1.5 0-2 .75-2 2v3c0 1-.5 1.75-1.5 2 1 .25 1.5 1 1.5 2v3c0 1.25.5 2 2 2" />
+      <path d="M12 6h9v12h-9z" />
+      <path d="M12 10h9M12 14h9M16.5 6v12" />
+    </>
+  ),
 
   // generate
   'markdown-table-generator': (

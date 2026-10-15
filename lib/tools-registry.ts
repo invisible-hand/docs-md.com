@@ -104,6 +104,67 @@ export const TOOLS: Tool[] = [
     category: 'convert',
     updated: '2026-09-03',
   },
+  {
+    slug: 'json-to-markdown-table',
+    name: 'JSON to markdown table',
+    title: 'JSON to markdown table converter',
+    description:
+      'Paste a JSON array or object and get a markdown table — nested keys flattened to dot paths, pipes escaped, columns reorderable — or turn a table back into JSON.',
+    metaTitle: 'JSON to Markdown Table Converter — Free Online Tool',
+    metaDescription:
+      'Convert JSON to a markdown table in your browser: arrays of objects, nested keys flattened, null and arrays handled, column order, alignment. Reverse too.',
+    category: 'convert',
+    updated: '2026-10-15',
+  },
+
+  {
+    slug: 'markdown-to-slack',
+    name: 'Markdown to Slack',
+    title: 'Markdown to Slack converter',
+    description:
+      'Turn standard markdown into Slack mrkdwn — *bold*, _italic_, <url|text> links, headings as bold lines, tables as code grids — with a list of what was approximated.',
+    metaTitle: 'Markdown to Slack Converter — mrkdwn Formatting, Free',
+    metaDescription:
+      'Convert markdown to Slack mrkdwn in your browser: *bold*, _italic_, ~strike~, <url|text> links, code blocks. Headings and tables approximated and reported.',
+    category: 'convert',
+    updated: '2026-10-15',
+  },
+  {
+    slug: 'markdown-to-discord',
+    name: 'Markdown to Discord',
+    title: 'Markdown to Discord converter',
+    description:
+      'Turn standard markdown into Discord markdown — headings to ###, masked links, code blocks with languages, tables as code grids — with every approximation listed.',
+    metaTitle: 'Markdown to Discord Converter — Message Formatting, Free',
+    metaDescription:
+      'Convert markdown to Discord markdown in your browser: headings to ###, **bold**, masked links, highlighted code blocks. Tables and h4+ approximated, listed.',
+    category: 'convert',
+    updated: '2026-10-15',
+  },
+  {
+    slug: 'markdown-to-jira',
+    name: 'Markdown to Jira',
+    title: 'Markdown to Jira converter',
+    description:
+      'Turn standard markdown into Jira wiki markup — h1. headings, *bold*, {code:lang} blocks, ||header|| tables, [text|url] links, ** nested lists — ready for issue fields.',
+    metaTitle: 'Markdown to Jira Converter — Wiki Markup Formatting, Free',
+    metaDescription:
+      'Convert markdown to Jira wiki markup in your browser: h1. headings, *bold*, {code:lang} blocks, ||header|| tables, [text|url] links, nested * and # lists.',
+    category: 'convert',
+    updated: '2026-10-15',
+  },
+  {
+    slug: 'markdown-to-plain-text',
+    name: 'Markdown to plain text',
+    title: 'Markdown to plain text converter',
+    description:
+      'Strip every markdown marker and keep the words, lists, code and paragraph structure — links optionally kept as "text (url)". For email, SMS, and form fields.',
+    metaTitle: 'Markdown to Plain Text — Strip Markdown Online, Free',
+    metaDescription:
+      'Strip markdown to plain text in your browser: remove heading, emphasis, code, link and table syntax while keeping the words, lists and structure.',
+    category: 'convert',
+    updated: '2026-10-15',
+  },
 
   // ---- generate ------------------------------------------------------------
   {

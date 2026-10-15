@@ -27,10 +27,25 @@ function parseGuide(slug: string): Guide {
   const body = m[2].trim();
 
   const faq: Guide['faq'] = [];
-  const sections = body.split(/^## /m).slice(1);
+  // Split on H2 lines, ignoring any "## " that sits inside a fenced code block.
+  const sections: string[] = [];
+  let inFence = false;
+  let current: string[] | null = null;
+  for (const line of body.split('\n')) {
+    if (/^(```|~~~)/.test(line)) inFence = !inFence;
+    if (!inFence && line.startsWith('## ')) {
+      if (current) sections.push(current.join('\n'));
+      current = [line.slice(3)];
+      continue;
+    }
+    if (current) current.push(line);
+  }
+  if (current) sections.push(current.join('\n'));
   for (const section of sections) {
     const lines = section.split('\n');
     const question = lines[0].trim();
+    // Only question-phrased H2s become FAQ entries; rendered heading examples stay out.
+    if (!question.endsWith('?')) continue;
     const rest = lines.slice(1).join('\n').trim();
     // First non-code paragraph as the answer, stripped of markdown markup.
     const para = rest

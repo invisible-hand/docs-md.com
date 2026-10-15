@@ -3,7 +3,7 @@ title: Markdown Headings — H1 to H6 Syntax, Anchors and Rules
 h1: How to make headings in markdown
 description: Make a heading with # for H1 through ###### for H6, a space after the hashes. Anchor links, the one-H1 rule, setext underlines, and where headings break in GitHub, Discord, Slack and Obsidian.
 updated: 2026-10-13
-related: markdown-table-of-contents, markdown-bullet-points, markdown-horizontal-rule
+related: markdown-anchor-link, markdown-bullet-points, markdown-horizontal-rule
 ---
 To make a heading in markdown, start a line with one to six `#` characters, a space, then the text. One `#` is the top-level heading (H1), two is H2, and so on down to six.
 

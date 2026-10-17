@@ -21,6 +21,22 @@ export interface ParsedDoc {
   faq: Array<{ question: string; answer: string }>;
 }
 
+/** First non-code paragraph of a markdown fragment, stripped of inline markup ('' if none). */
+export function firstParagraph(markdown: string): string {
+  const para = markdown
+    .trim()
+    .split(/\n\n/)
+    .find((p) => !p.startsWith('```') && !p.startsWith('````') && p.trim());
+  if (!para) return '';
+  return para
+    .replace(/`{1,4}/g, '')
+    .replace(/\*{1,3}([^*]+)\*{1,3}/g, '$1')
+    .replace(/~~([^~]+)~~/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/\n/g, ' ')
+    .trim();
+}
+
 /**
  * Splits a content file into flat `key: value` frontmatter and a markdown body, and
  * extracts FAQ entries: every H2 ending in "?" paired with the first non-code paragraph
@@ -55,19 +71,8 @@ export function parseMarkdownDoc(raw: string, id: string): ParsedDoc {
     const question = lines[0].trim();
     // Only question-phrased H2s become FAQ entries; rendered heading examples stay out.
     if (!question.endsWith('?')) continue;
-    const rest = lines.slice(1).join('\n').trim();
-    // First non-code paragraph as the answer, stripped of markdown markup.
-    const para = rest
-      .split(/\n\n/)
-      .find((p) => !p.startsWith('```') && !p.startsWith('````') && p.trim());
-    if (!para) continue;
-    const answer = para
-      .replace(/`{1,4}/g, '')
-      .replace(/\*{1,3}([^*]+)\*{1,3}/g, '$1')
-      .replace(/~~([^~]+)~~/g, '$1')
-      .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
-      .replace(/\n/g, ' ')
-      .trim();
+    const answer = firstParagraph(lines.slice(1).join('\n'));
+    if (!answer) continue;
     faq.push({ question, answer });
   }
 

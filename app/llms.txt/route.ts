@@ -95,10 +95,17 @@ export function GET() {
     '',
     guides.join('\n'),
     '',
-    '## Optional',
+    '## Discovery',
     '',
     `- [Sitemap](${BASE}/sitemap.xml): every indexable URL`,
+    `- [Full text](${BASE}/llms-full.txt): every syntax guide and tool with its description and the opening answer paragraph, in one plain-text file`,
+    `- Raw markdown of any share: ${BASE}/raw/<id> (text/markdown), where <id> is the share's URL path`,
     `- [Source](https://github.com/invisible-hand/docs-md.com): public repository with the site; the GitHub Action lives at https://github.com/invisible-hand/share-markdown-action`,
+    '',
+    '## Notes',
+    '',
+    '- /api/ endpoints and user share pages (docs-md.com/<id>) are not listed here or in the sitemap; shares are user content.',
+    "- Dates (in llms-full.txt and on each page) are that page's own updated date, not the build date.",
     '',
   ].join('\n');
 

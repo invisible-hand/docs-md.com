@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/indexnow-ping.mjs",
+    "build": "node scripts/check-tool-guides.mjs && next build && node scripts/indexnow-ping.mjs",
     "start": "next start",
     "lint": "eslint",
+    "check:tool-guides": "node scripts/check-tool-guides.mjs",
     "cleanup": "curl -X DELETE http://localhost:3000/api/cleanup",
     "type-check": "tsc --noEmit",
     "db:init": "tsx lib/init-db.ts"

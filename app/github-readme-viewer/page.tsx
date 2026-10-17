@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import GithubRepoForm from '@/components/tools/GithubRepoForm';
 import ToolPage, { CODE, H2, toolMetadata } from '@/components/tools/ToolPage';
 
@@ -80,6 +81,7 @@ export default function GithubReadmeViewerPage() {
           use the <Link href="/" className="text-indigo-700 underline">share tool</Link>.
         </p>
       </section>
+      <ToolGuideLinks tool="github-readme-viewer" />
     </ToolPage>
   );
 }

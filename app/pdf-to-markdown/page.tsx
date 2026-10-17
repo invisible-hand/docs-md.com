@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import PdfToMarkdown from '@/components/tools/PdfToMarkdown';
 import { pageMetadata } from '@/lib/page-metadata';
@@ -76,6 +77,8 @@ export default function PdfToMarkdownPage() {
             .
           </p>
         </section>
+
+        <ToolGuideLinks tool="pdf-to-markdown" />
       </div>
     </div>
   );

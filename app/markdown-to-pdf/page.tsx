@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import MarkdownToPdf from '@/components/tools/MarkdownToPdf';
 import { pageMetadata } from '@/lib/page-metadata';
@@ -99,6 +100,8 @@ export default function MarkdownToPdfPage() {
             </div>
           </div>
         </section>
+
+        <ToolGuideLinks tool="markdown-to-pdf" />
 
         <section className="space-y-3 rounded-2xl bg-indigo-50 p-6">
           <h2 className="text-xl font-semibold text-gray-950">More markdown tools</h2>

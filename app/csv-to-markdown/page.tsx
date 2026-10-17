@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import CsvToMarkdown from '@/components/tools/CsvToMarkdown';
 import ToolPage, { CODE, H2, toolMetadata } from '@/components/tools/ToolPage';
 
@@ -74,6 +75,7 @@ export default function CsvToMarkdownPage() {
           .
         </p>
       </section>
+      <ToolGuideLinks tool="csv-to-markdown" />
     </ToolPage>
   );
 }

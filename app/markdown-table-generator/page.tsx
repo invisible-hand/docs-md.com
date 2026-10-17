@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import UpdatedLine from '@/components/UpdatedLine';
 
@@ -147,6 +148,8 @@ export default function MarkdownTableGeneratorPage() {
             </div>
           </div>
         </section>
+
+        <ToolGuideLinks tool="markdown-table-generator" />
 
         <section className="space-y-3 rounded-2xl bg-indigo-50 p-6">
           <h2 className="text-xl font-semibold text-gray-950">More markdown tools</h2>

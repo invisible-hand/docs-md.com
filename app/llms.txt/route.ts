@@ -1,4 +1,5 @@
 import { listGuides } from '@/lib/guides';
+import { toolGuidesFor } from '@/lib/tool-guides';
 import { TOOLS, TOOL_CATEGORIES } from '@/lib/tools-registry';
 
 // /llms.txt — the llmstxt.org convention: an H1, a one-paragraph summary in a
@@ -57,7 +58,13 @@ function line([path, title, desc]: [string, string, string]) {
 export function GET() {
   const guides = listGuides().map((g) => line([`/guides/${g.slug}`, g.h1, g.description]));
   const tools = TOOL_CATEGORIES.map((c) => {
-    const rows = TOOLS.filter((t) => t.category === c.id).map((t) => line([`/${t.slug}`, t.title, t.description]));
+    const rows = TOOLS.filter((t) => t.category === c.id).map((t) =>
+      [
+        line([`/${t.slug}`, t.title, t.description]),
+        // Question pages nested under their tool.
+        ...toolGuidesFor(t.slug).map((g) => `  ${line([g.path, g.h1, g.description])}`),
+      ].join('\n'),
+    );
     return rows.length ? `### ${c.label}\n\n${rows.join('\n')}` : '';
   }).filter(Boolean);
 

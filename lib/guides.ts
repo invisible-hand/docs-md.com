@@ -15,18 +15,27 @@ export interface Guide {
   faq: Array<{ question: string; answer: string }>;
 }
 
-function parseGuide(slug: string): Guide {
-  const raw = readFileSync(join(GUIDES_DIR, `${slug}.md`), 'utf8');
+export interface ParsedDoc {
+  meta: Record<string, string>;
+  body: string;
+  faq: Array<{ question: string; answer: string }>;
+}
+
+/**
+ * Splits a content file into flat `key: value` frontmatter and a markdown body, and
+ * extracts FAQ entries: every H2 ending in "?" paired with the first non-code paragraph
+ * after it. Shared by the syntax guides and the tool guides (lib/tool-guides.ts).
+ */
+export function parseMarkdownDoc(raw: string, id: string): ParsedDoc {
   const m = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!m) throw new Error(`Guide ${slug} is missing frontmatter`);
+  if (!m) throw new Error(`${id} is missing frontmatter`);
   const meta: Record<string, string> = {};
   for (const line of m[1].split('\n')) {
     const i = line.indexOf(':');
     if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim();
   }
   const body = m[2].trim();
-
-  const faq: Guide['faq'] = [];
+  const faq: ParsedDoc['faq'] = [];
   // Split on H2 lines, ignoring any "## " that sits inside a fenced code block.
   const sections: string[] = [];
   let inFence = false;
@@ -62,6 +71,11 @@ function parseGuide(slug: string): Guide {
     faq.push({ question, answer });
   }
 
+  return { meta, body, faq };
+}
+
+function parseGuide(slug: string): Guide {
+  const { meta, body, faq } = parseMarkdownDoc(readFileSync(join(GUIDES_DIR, `${slug}.md`), 'utf8'), `Guide ${slug}`);
   return {
     slug,
     title: meta.title,

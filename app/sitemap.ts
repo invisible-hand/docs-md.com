@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { listGuideSlugs } from '@/lib/guides';
+import { listToolGuides } from '@/lib/tool-guides';
 import { TOOL_ROUTES } from '@/lib/tools-registry';
 
 const BASE_URL = 'https://docs-md.com';
@@ -73,7 +74,11 @@ for (const route of TOOL_ROUTES) {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [...STATIC_ROUTES, ...listGuideSlugs().map((s) => `/guides/${s}`)];
+  const routes = [
+    ...STATIC_ROUTES,
+    ...listGuideSlugs().map((s) => `/guides/${s}`),
+    ...listToolGuides().map((g) => g.path),
+  ];
   return routes.map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date(),

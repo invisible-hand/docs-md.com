@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import TocGenerator from '@/components/tools/TocGenerator';
 import { pageMetadata } from '@/lib/page-metadata';
@@ -64,6 +65,8 @@ export default function TocGeneratorPage() {
             <Link href="/" className="text-indigo-700 underline">share the finished doc</Link>
           </p>
         </section>
+
+        <ToolGuideLinks tool="markdown-toc-generator" />
       </div>
     </div>
   );

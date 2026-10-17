@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import MarkdownWord from '@/components/tools/MarkdownWord';
 import { pageMetadata } from '@/lib/page-metadata';
@@ -78,6 +79,8 @@ export default function MarkdownToWordPage() {
             .
           </p>
         </section>
+
+        <ToolGuideLinks tool="markdown-to-word" />
       </div>
     </div>
   );

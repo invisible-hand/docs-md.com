@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import HtmlToMarkdown from '@/components/tools/HtmlToMarkdown';
 import ToolPage, { CODE, H2, toolMetadata } from '@/components/tools/ToolPage';
 
@@ -83,6 +84,7 @@ export default function HtmlToMarkdownPage() {
           handles PDFs.
         </p>
       </section>
+      <ToolGuideLinks tool="html-to-markdown" />
     </ToolPage>
   );
 }

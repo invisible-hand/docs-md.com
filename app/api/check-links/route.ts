@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
-import { vetUrl, vetUrlSyntax } from '@/lib/url-safety';
+import { request as httpRequest } from 'node:http';
+import { request as httpsRequest } from 'node:https';
+import { guardedLookup, vetUrl, vetUrlSyntax } from '@/lib/url-safety';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
@@ -29,34 +31,59 @@ export interface LinkCheckResult {
   error?: string;
 }
 
-async function fetchOnce(url: string, method: 'HEAD' | 'GET'): Promise<Response> {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  try {
-    return await fetch(url, {
-      method,
-      redirect: 'manual',
-      signal: controller.signal,
-      headers: {
-        'User-Agent': USER_AGENT,
-        Accept: 'text/html,application/xhtml+xml,*/*;q=0.8',
-        'Accept-Language': 'en',
+interface HopResponse {
+  status: number;
+  location: string | null;
+}
+
+/**
+ * One request with no redirect following. Uses node:http(s) rather than fetch so the
+ * connection goes through guardedLookup: the private-address check runs on the IP that
+ * is actually dialled, which closes the DNS-rebinding gap between vetUrl() and the request.
+ * Reads at most MAX_READ_BYTES of the body so a huge response never ties up the function.
+ */
+function fetchOnce(url: string, method: 'HEAD' | 'GET'): Promise<HopResponse> {
+  return new Promise((resolve, reject) => {
+    const target = new URL(url);
+    const request = (target.protocol === 'https:' ? httpsRequest : httpRequest)(
+      target,
+      {
+        method,
+        lookup: guardedLookup,
+        timeout: TIMEOUT_MS,
+        headers: {
+          'User-Agent': USER_AGENT,
+          Accept: 'text/html,application/xhtml+xml,*/*;q=0.8',
+          'Accept-Language': 'en',
+        },
       },
-    });
-  } finally {
-    clearTimeout(timer);
-  }
+      (res) => {
+        const result = { status: res.statusCode ?? 0, location: res.headers.location ?? null };
+        let read = 0;
+        res.on('data', (chunk: Buffer) => {
+          read += chunk.length;
+          if (read >= MAX_READ_BYTES) res.destroy();
+        });
+        res.on('close', () => resolve(result));
+        res.on('error', () => resolve(result));
+      }
+    );
+    const timer = setTimeout(() => request.destroy(Object.assign(new Error('timeout'), { name: 'AbortError' })), TIMEOUT_MS);
+    request.on('timeout', () => request.destroy(Object.assign(new Error('timeout'), { name: 'AbortError' })));
+    request.on('error', reject);
+    request.on('close', () => clearTimeout(timer));
+    request.end();
+  });
 }
 
 /** Follow redirects by hand so every hop goes through the SSRF guard. */
-async function fetchFollowing(start: string, method: 'HEAD' | 'GET'): Promise<{ res: Response; finalUrl: string; redirected: boolean }> {
+async function fetchFollowing(start: string, method: 'HEAD' | 'GET'): Promise<{ res: HopResponse; finalUrl: string; redirected: boolean }> {
   let current = start;
   let redirected = false;
   for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
     const res = await fetchOnce(current, method);
-    if (res.status >= 300 && res.status < 400 && res.headers.get('location')) {
-      await res.body?.cancel();
-      const next = new URL(res.headers.get('location')!, current).toString();
+    if (res.status >= 300 && res.status < 400 && res.location) {
+      const next = new URL(res.location, current).toString();
       const vet = await vetUrl(next);
       if (!vet.ok) throw new Error(`redirect blocked: ${vet.reason}`);
       current = next;
@@ -68,33 +95,13 @@ async function fetchFollowing(start: string, method: 'HEAD' | 'GET'): Promise<{ 
   throw new Error('too many redirects');
 }
 
-async function drain(res: Response): Promise<void> {
-  // Read at most MAX_READ_BYTES so a huge body never ties up the function.
-  const reader = res.body?.getReader();
-  if (!reader) return;
-  let read = 0;
-  try {
-    while (read < MAX_READ_BYTES) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      read += value.byteLength;
-    }
-  } finally {
-    await reader.cancel().catch(() => undefined);
-  }
-}
-
 async function checkOne(url: string): Promise<LinkCheckResult> {
   const started = Date.now();
   const base = { url, finalUrl: url, redirected: false };
   const vet = await vetUrl(url);
   if (!vet.ok) return { ...base, status: 0, ok: false, ms: 0, error: vet.reason };
 
-  const attempt = async (method: 'HEAD' | 'GET') => {
-    const { res, finalUrl, redirected } = await fetchFollowing(url, method);
-    await drain(res);
-    return { res, finalUrl, redirected };
-  };
+  const attempt = (method: 'HEAD' | 'GET') => fetchFollowing(url, method);
 
   try {
     let result = await attempt('HEAD');

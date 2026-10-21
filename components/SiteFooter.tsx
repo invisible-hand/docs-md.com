@@ -39,6 +39,13 @@ const LEARN = [
   { href: '/mcp-servers', label: 'MCP server list' },
 ];
 
+const LEGAL = [
+  { href: '/terms', label: 'Terms' },
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/acceptable-use', label: 'Acceptable use' },
+  { href: '/report', label: 'Report content' },
+];
+
 const MORE_FROM_US = [
   { href: 'https://chartcraft.dev', label: 'ChartCraft', blurb: 'diagrams from text' },
   { href: 'https://fixmyformatting.com', label: 'FixMyFormatting', blurb: 'clean up AI text' },
@@ -131,6 +138,13 @@ export default function SiteFooter() {
 
         <div className="mt-8 flex flex-col gap-2 border-t border-gray-100 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Docs MD. Built with Next.js, Vercel Blob, Neon Postgres, and MCP.</p>
+          <nav aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-1">
+            {LEGAL.map((l) => (
+              <Link key={l.href} href={l.href} className="transition hover:text-indigo-700">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
           <p>Tools run in your browser. Nothing is uploaded unless you share it.</p>
         </div>
       </div>

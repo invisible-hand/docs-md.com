@@ -4,6 +4,7 @@ import { checkRateLimit } from '@/lib/rate-limit';
 import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
 import { createShare } from '@/lib/share-service';
 import { pingIndexNow } from '@/lib/indexnow';
+import { consumeDailyQuota, DAILY_SHARE_LIMIT_PER_IP, dailyLimitMessage, secondsUntilUtcMidnight } from '@/lib/quota';
 
 const MAX_SHARE_REQUEST_BYTES = Number(process.env.MAX_SHARE_REQUEST_BYTES ?? 200_000);
 const MAX_CONTENT_CHARS = Number(process.env.MAX_MARKDOWN_CHARS ?? 120_000);
@@ -47,6 +48,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: parsed.error.issues[0]?.message ?? 'Invalid request payload' },
         { status: 400 }
+      );
+    }
+
+    const quota = await consumeDailyQuota('share', ip, DAILY_SHARE_LIMIT_PER_IP);
+    if (!quota.allowed) {
+      return NextResponse.json(
+        { error: dailyLimitMessage(quota.limit) },
+        { status: 429, headers: { 'Retry-After': String(secondsUntilUtcMidnight()) } }
       );
     }
 

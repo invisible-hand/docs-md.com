@@ -27,6 +27,18 @@ export const storageOperations = {
     }
   },
 
+  deleteMarkdownBatch: async (blobUrls: string[]): Promise<boolean> => {
+    if (blobUrls.length === 0) return true;
+    try {
+      // del() treats URLs that no longer exist as already deleted.
+      await del(blobUrls);
+      return true;
+    } catch (error) {
+      console.error(`Error deleting ${blobUrls.length} markdown files:`, error);
+      return false;
+    }
+  },
+
   deleteMarkdown: async (blobUrl: string): Promise<boolean> => {
     try {
       await del(blobUrl);

@@ -6,6 +6,14 @@ interface RouteContext {
   params: Promise<{ id: string }>;
 }
 
+// Header values must be Latin-1, so non-ASCII names go in the RFC 5987 filename* form
+// with an ASCII fallback (a raw "заметки.md" here used to throw and return 500).
+function contentDisposition(filename: string): string {
+  const ascii = filename.replace(/[^\x20-\x7e]/g, '_').replace(/["\\]/g, '') || 'untitled.md';
+  const encoded = encodeURIComponent(filename).replace(/['()*]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+  return `inline; filename="${ascii}"; filename*=UTF-8''${encoded}`;
+}
+
 export async function GET(_request: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
@@ -19,7 +27,7 @@ export async function GET(_request: Request, context: RouteContext) {
     return new NextResponse(content, {
       headers: {
         'Content-Type': 'text/markdown; charset=utf-8',
-        'Content-Disposition': `inline; filename="${share.filename.replace(/"/g, '')}"`,
+        'Content-Disposition': contentDisposition(share.filename),
         'Cache-Control': 'public, max-age=60',
         'X-Robots-Tag': 'noindex',
       },

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { consumeDailyQuota, DAILY_SHARE_LIMIT_PER_IP, dailyLimitMessage } from '@/lib/quota';
 import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
 import { createShare, deleteShare, ShareServiceError, updateShare } from '@/lib/share-service';
 
@@ -221,6 +222,11 @@ export async function POST(request: NextRequest) {
           const parsedArgs = shareArgsSchema.safeParse(args);
           if (!parsedArgs.success) {
             return invalidParamsError(id, parsedArgs.error.issues[0]?.message ?? 'Invalid tool arguments');
+          }
+
+          const quota = await consumeDailyQuota('share', ip, DAILY_SHARE_LIMIT_PER_IP);
+          if (!quota.allowed) {
+            return toolTextResult(id, `✗ ${dailyLimitMessage(quota.limit)}`, true);
           }
 
           const { content, filename, expiry } = parsedArgs.data;

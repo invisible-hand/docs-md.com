@@ -111,6 +111,12 @@ export default async function SharePage({ params }: PageProps) {
               ? 'This link does not expire.'
               : `This link will be automatically deleted on ${expiresDate.toLocaleDateString()}`}
           </p>
+          <p className="mt-2">
+            Content is published by its author, not by Docs MD.{' '}
+            <Link href={`/report?share=${id}`} rel="nofollow" className="text-gray-600 underline-offset-2 hover:text-indigo-700 hover:underline">
+              Report this share
+            </Link>
+          </p>
         </div>
       </div>
     </div>

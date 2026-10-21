@@ -50,9 +50,43 @@ export async function initDatabase() {
     await sql`
       CREATE INDEX IF NOT EXISTS idx_expires_at ON shares(expires_at);
     `;
+    await createQuotaAndReportTables();
   } catch (error) {
     console.error('Error initializing database:', error);
   }
+}
+
+// Per-day creation counters (keyed by a salted IP hash, never the raw IP) and abuse reports.
+export async function createQuotaAndReportTables() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS share_quota (
+      key_hash TEXT NOT NULL,
+      day DATE NOT NULL,
+      count INTEGER NOT NULL DEFAULT 0,
+      PRIMARY KEY (key_hash, day)
+    );
+  `;
+  await sql`
+    CREATE TABLE IF NOT EXISTS share_reports (
+      id SERIAL PRIMARY KEY,
+      share_id TEXT,
+      reason TEXT NOT NULL,
+      details TEXT,
+      contact TEXT,
+      created_at BIGINT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'open'
+    );
+  `;
+}
+
+export interface ShareReport {
+  id: number;
+  share_id: string | null;
+  reason: string;
+  details: string | null;
+  contact: string | null;
+  created_at: number;
+  status: string;
 }
 
 export const dbOperations = {
@@ -114,5 +148,43 @@ export const dbOperations = {
       DELETE FROM shares WHERE expires_at > 0 AND expires_at < ${now}
     `;
     return result.rowCount || 0;
+  },
+
+  deleteSharesByIds: async (ids: string[]): Promise<number> => {
+    if (ids.length === 0) return 0;
+    const result = await sql.query('DELETE FROM shares WHERE id = ANY($1)', [ids]);
+    return result.rowCount || 0;
+  },
+
+  /** Adds one to today's counter for this key and returns the new total. */
+  incrementDailyCount: async (keyHash: string): Promise<number> => {
+    const result = await sql`
+      INSERT INTO share_quota (key_hash, day, count)
+      VALUES (${keyHash}, CURRENT_DATE, 1)
+      ON CONFLICT (key_hash, day) DO UPDATE SET count = share_quota.count + 1
+      RETURNING count
+    `;
+    return Number(result.rows[0]?.count ?? 0);
+  },
+
+  pruneDailyCounts: async (): Promise<number> => {
+    const result = await sql`
+      DELETE FROM share_quota WHERE day < CURRENT_DATE - 1
+    `;
+    return result.rowCount || 0;
+  },
+
+  createReport: async (
+    shareId: string | null,
+    reason: string,
+    details: string | null,
+    contact: string | null
+  ): Promise<number> => {
+    const result = await sql`
+      INSERT INTO share_reports (share_id, reason, details, contact, created_at)
+      VALUES (${shareId}, ${reason}, ${details}, ${contact}, ${Date.now()})
+      RETURNING id
+    `;
+    return Number(result.rows[0]?.id);
   },
 };

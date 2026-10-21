@@ -1,5 +1,6 @@
 import { dbOperations, ExpiryOption, isExpired, Share, ShareOrigin } from '@/lib/db';
 import { generateEditToken, isValidEditToken, normalizeFilename } from '@/lib/security';
+import { invalidateShare } from '@/lib/share-cache';
 import { generateSlug } from '@/lib/slug-generator';
 import { storageOperations } from '@/lib/storage';
 
@@ -49,6 +50,8 @@ export async function createShare(
     editToken,
     origin
   );
+  // Clears a cached "not found" in the unlikely case this id was requested before it existed.
+  invalidateShare(share.id);
 
   return {
     id: share.id,
@@ -68,6 +71,7 @@ export async function getLiveShare(id: string): Promise<Share> {
   if (isExpired(share, Date.now())) {
     await storageOperations.deleteMarkdown(share.blob_url);
     await dbOperations.deleteShare(id);
+    invalidateShare(id);
     throw new ShareServiceError('Share not found', 404);
   }
   return share;
@@ -92,6 +96,7 @@ export async function updateShare(
   const newBlobUrl = await storageOperations.saveMarkdown(id, content);
   const newFilename = filename ? normalizeFilename(filename) : share.filename;
   await dbOperations.updateShare(id, newFilename, newBlobUrl);
+  invalidateShare(id);
 
   if (newBlobUrl !== share.blob_url) {
     await storageOperations.deleteMarkdown(share.blob_url);
@@ -104,4 +109,5 @@ export async function deleteShare(id: string, editToken: string): Promise<void> 
   const share = await getAuthorizedShare(id, editToken);
   await storageOperations.deleteMarkdown(share.blob_url);
   await dbOperations.deleteShare(id);
+  invalidateShare(id);
 }

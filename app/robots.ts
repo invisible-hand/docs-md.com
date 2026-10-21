@@ -23,13 +23,15 @@ export default function robots(): MetadataRoute.Robots {
           'meta-externalagent',
         ],
         allow: ['/'],
-        disallow: ['/api/'],
+        disallow: ['/api/', '/gh/'],
       },
       {
         userAgent: '*',
         allow: '/',
         // JSON API (POST/PATCH/DELETE only); crawling it just yields 4xx noise in Search Console.
-        disallow: '/api/',
+        // /gh/ renders any GitHub repository (noindex): an endless space of other people's pages, so
+        // crawlers stay out; the /github-readme-viewer tool page itself stays crawlable.
+        disallow: ['/api/', '/gh/'],
       },
     ],
     sitemap: 'https://docs-md.com/sitemap.xml',

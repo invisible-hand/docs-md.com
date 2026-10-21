@@ -14,7 +14,7 @@ interface MarkdownRendererProps {
    * `page` (another rendered page on this site) and relative image sources against `raw`
    * (the file host). Without it, relative links render as plain text (see `a` below).
    */
-  relativeBase?: { page: string; raw: string };
+  relativeBase?: { page: string; raw: string; pageRoot?: string; rawRoot?: string };
 }
 
 const ABSOLUTE = /^(https?:\/\/|\/|#|mailto:|data:)/i;
@@ -58,12 +58,15 @@ export default function MarkdownRenderer({ content, relativeBase }: MarkdownRend
           // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `node` must not reach the DOM
           a: ({ children, href, node: _node, ...props }) => {
             const h = href ?? '';
-            if (!ABSOLUTE.test(h)) {
+            // In a repository README a leading "/" means the repository root, not docs-md.com's root.
+            const repoRootLink = Boolean(relativeBase?.pageRoot) && /^\/(?!\/)/.test(h);
+            if (!ABSOLUTE.test(h) || repoRootLink) {
               if (relativeBase) {
                 // Markdown pages stay on this site; any other file goes to the file host.
-                const target = PAGE_LIKE.test(h) || !/\.[a-z0-9]{1,5}(#.*)?$/i.test(h)
-                  ? joinRelative(relativeBase.page, h)
-                  : joinRelative(relativeBase.raw, h);
+                const isPage = PAGE_LIKE.test(h) || !/\.[a-z0-9]{1,5}(#.*)?$/i.test(h);
+                const pageBase = repoRootLink ? relativeBase.pageRoot! : relativeBase.page;
+                const rawBase = repoRootLink ? (relativeBase.rawRoot ?? relativeBase.raw) : relativeBase.raw;
+                const target = isPage ? joinRelative(pageBase, h) : joinRelative(rawBase, h);
                 const external = /^https?:\/\//i.test(target);
                 return (
                   <a href={target} {...(external ? { rel: 'nofollow ugc noopener noreferrer' } : {})} {...props}>
@@ -86,7 +89,14 @@ export default function MarkdownRenderer({ content, relativeBase }: MarkdownRend
           // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `node` must not reach the DOM
           img: ({ src, alt, node: _node, ...props }) => {
             const s = typeof src === 'string' ? src : '';
-            const resolved = relativeBase && s && !ABSOLUTE.test(s) ? joinRelative(relativeBase.raw, s) : s;
+            const repoRootSrc = Boolean(relativeBase?.rawRoot) && /^\/(?!\/)/.test(s);
+            const resolved = !relativeBase || !s
+              ? s
+              : repoRootSrc
+                ? joinRelative(relativeBase.rawRoot!, s)
+                : !ABSOLUTE.test(s)
+                  ? joinRelative(relativeBase.raw, s)
+                  : s;
             // eslint-disable-next-line @next/next/no-img-element -- user content from arbitrary hosts
             return <img src={resolved} alt={alt ?? ''} loading="lazy" {...props} />;
           },

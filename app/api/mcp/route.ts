@@ -4,8 +4,9 @@ import { checkRateLimit } from '@/lib/rate-limit';
 import { consumeDailyQuota, DAILY_SHARE_LIMIT_PER_IP, dailyLimitMessage } from '@/lib/quota';
 import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
 import { normalizeClientName, userAgentFamily } from '@/lib/client-info';
-import { createShare, deleteShare, getLiveShare, ShareServiceError, updateShare } from '@/lib/share-service';
-import { storageOperations } from '@/lib/storage';
+import { createShare, deleteShare, ShareServiceError, updateShare } from '@/lib/share-service';
+import { isExpired } from '@/lib/db';
+import { getCachedShare } from '@/lib/share-cache';
 
 const SERVER_INFO = {
   name: 'md-share',
@@ -306,12 +307,11 @@ export async function POST(request: NextRequest) {
             return invalidParamsError(id, parsedArgs.error.issues[0]?.message ?? 'Invalid tool arguments');
           }
 
-          const share = await getLiveShare(shareIdFrom(parsedArgs.data.id));
-          const markdown = await storageOperations.readMarkdown(share.blob_url);
-          if (markdown === null) {
-            return toolTextResult(id, '✗ Share not found', true);
+          const cached = await getCachedShare(shareIdFrom(parsedArgs.data.id));
+          if (!cached || cached.content === null || isExpired(cached.share, Date.now())) {
+            return toolTextResult(id, '✗ Share not found (it may have expired or been deleted)', true);
           }
-          return toolTextResult(id, markdown);
+          return toolTextResult(id, cached.content);
         }
 
         if (name === 'delete_share') {

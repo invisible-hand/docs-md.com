@@ -1,14 +1,17 @@
 import { notFound } from 'next/navigation';
-import { headers } from 'next/headers';
 import Link from 'next/link';
-import { isBotUserAgent } from '@/lib/client-info';
-import { dbOperations, isExpired } from '@/lib/db';
-import { storageOperations } from '@/lib/storage';
+import { isExpired } from '@/lib/db';
+import { getCachedShare } from '@/lib/share-cache';
 import { pageMetadata } from '@/lib/page-metadata';
 import { extractToc } from '@/lib/toc';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import ShareActions from '@/components/ShareActions';
+import ShareViewBeacon from '@/components/ShareViewBeacon';
 import TableOfContents from '@/components/TableOfContents';
+
+// Rendered per request so the expiry check below always uses the current time;
+// the share's row and markdown come from the per-id data cache (lib/share-cache.ts).
+export const dynamic = 'force-dynamic';
 
 interface PageProps {
   params: Promise<{
@@ -19,31 +22,20 @@ interface PageProps {
 export default async function SharePage({ params }: PageProps) {
   const { id } = await params;
 
-  // Get share metadata from database
-  const share = await dbOperations.getShare(id);
-
-  if (!share) {
+  const cached = await getCachedShare(id);
+  if (!cached) {
     notFound();
   }
+  const { share, content } = cached;
 
-  // Convert BIGINT strings from Postgres to numbers
-  const createdAt = typeof share.created_at === 'string' ? parseInt(share.created_at) : share.created_at;
-  const expiresAt = typeof share.expires_at === 'string' ? parseInt(share.expires_at) : share.expires_at;
+  const createdAt = Number(share.created_at);
+  const expiresAt = Number(share.expires_at);
   // eslint-disable-next-line react-hooks/purity -- dynamic server route; expiry must be checked against request time
   const nowTimestamp = Date.now();
   const neverExpires = expiresAt === 0;
 
-  if (isExpired({ expires_at: expiresAt }, nowTimestamp)) {
-    // Delete expired share
-    await storageOperations.deleteMarkdown(share.blob_url);
-    await dbOperations.deleteShare(id);
-    notFound();
-  }
-
-  // Read markdown content
-  const content = await storageOperations.readMarkdown(share.blob_url);
-
-  if (!content) {
+  // Expired shares 404 at once; the cleanup cron deletes them (no database write while rendering).
+  if (isExpired({ expires_at: expiresAt }, nowTimestamp) || !content) {
     notFound();
   }
 
@@ -52,13 +44,9 @@ export default async function SharePage({ params }: PageProps) {
   const daysUntilExpiry = Math.ceil((expiresAt - nowTimestamp) / (1000 * 60 * 60 * 24));
   const toc = extractToc(content);
 
-  // Daily count of people (not crawlers or scripts) reading shares: the top of the share → new share funnel.
-  if (!isBotUserAgent((await headers()).get('user-agent'))) {
-    await dbOperations.recordShareView().catch((error) => console.error('Error recording share view:', error));
-  }
-
   return (
     <div className="px-4 py-8 md:py-12">
+      <ShareViewBeacon />
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mx-auto mb-8 flex max-w-5xl items-center justify-between">
@@ -164,17 +152,16 @@ export default async function SharePage({ params }: PageProps) {
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
-  const share = await dbOperations.getShare(id);
+  const cached = await getCachedShare(id);
 
-  if (!share) {
+  if (!cached) {
     return {
       title: 'Shared Markdown Not Found',
     };
   }
 
+  const { share, content } = cached;
   const expiresAt = Number(share.expires_at);
-  // fetch() is memoized per render, so the page's own read of the blob reuses this response.
-  const content = await storageOperations.readMarkdown(share.blob_url);
 
   return pageMetadata({
     title: share.filename,

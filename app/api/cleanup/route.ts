@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { dbOperations } from '@/lib/db';
 import { isAuthorizedByEnvSecret } from '@/lib/security';
+import { invalidateShare } from '@/lib/share-cache';
 import { storageOperations } from '@/lib/storage';
 
 export const maxDuration = 300;
@@ -42,6 +43,7 @@ async function runCleanup(request: NextRequest) {
         continue;
       }
       deletedCount += await dbOperations.deleteSharesByIds(batch.map((s) => s.id));
+      for (const s of batch) invalidateShare(s.id);
     }
 
     const prunedQuotaRows = await dbOperations.pruneDailyCounts().catch((error) => {

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { getLiveShare, ShareServiceError } from '@/lib/share-service';
-import { storageOperations } from '@/lib/storage';
+import { isExpired } from '@/lib/db';
+import { getCachedShare } from '@/lib/share-cache';
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -17,12 +17,12 @@ function contentDisposition(filename: string): string {
 export async function GET(_request: Request, context: RouteContext) {
   try {
     const { id } = await context.params;
-    const share = await getLiveShare(id);
-    const content = await storageOperations.readMarkdown(share.blob_url);
-
-    if (content === null) {
+    const cached = await getCachedShare(id);
+    // Expired shares 404 at once; the cleanup cron deletes them.
+    if (!cached || cached.content === null || isExpired(cached.share, Date.now())) {
       return new NextResponse('Not found', { status: 404 });
     }
+    const { share, content } = cached;
 
     return new NextResponse(content, {
       headers: {
@@ -36,9 +36,6 @@ export async function GET(_request: Request, context: RouteContext) {
       },
     });
   } catch (error) {
-    if (error instanceof ShareServiceError) {
-      return new NextResponse('Not found', { status: 404 });
-    }
     console.error('Raw share error:', error);
     return new NextResponse('Internal error', { status: 500 });
   }

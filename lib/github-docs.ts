@@ -189,13 +189,20 @@ export function pageHref(owner: string, repo: string, path: string, ref?: string
   return ref ? `${base}?ref=${encodeURIComponent(ref)}` : base;
 }
 
-/** Bases for rewriting the document's relative links: pages stay on docs-md, assets go to raw GitHub. */
-export function relativeBases(owner: string, repo: string, ref: string, dir: string): { page: string; raw: string } {
+/**
+ * Bases for rewriting the document's relative links: pages stay on docs-md, assets go to raw GitHub.
+ * `pageRoot`/`rawRoot` resolve repo-root links ("/examples/x"), which GitHub reads as the repository root.
+ */
+export function relativeBases(
+  owner: string,
+  repo: string,
+  ref: string,
+  dir: string,
+): { page: string; raw: string; pageRoot: string; rawRoot: string } {
   const d = dir ? `${dir}/` : '';
-  return {
-    page: `/gh/${owner}/${repo}/${d}`,
-    raw: `${RAW}/${owner}/${repo}/${encodeURIComponent(ref)}/${d}`,
-  };
+  const pageRoot = `/gh/${owner}/${repo}/`;
+  const rawRoot = `${RAW}/${owner}/${repo}/${encodeURIComponent(ref)}/`;
+  return { page: `${pageRoot}${d}`, raw: `${rawRoot}${d}`, pageRoot, rawRoot };
 }
 
 /** First paragraph of a markdown document, flattened, for a meta description. */

@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 import { LegalMeta, LegalSection, legalLinkClass } from '@/components/LegalSection';
-import { ABUSE_EMAIL } from '@/lib/legal';
 import { DAILY_SHARE_LIMIT_PER_IP } from '@/lib/quota';
 import { pageMetadata } from '@/lib/page-metadata';
 
@@ -70,8 +69,7 @@ export default function TermsPage() {
         <p>
           We may remove any share, or block access to the service, if we believe it breaks these terms or the law, or
           puts the service or other people at risk. We may do this without notice. To report a share, use the{' '}
-          <Link href="/report" className={legalLinkClass}>report form</Link> or email{' '}
-          <span className="font-medium text-gray-900">{ABUSE_EMAIL}</span>.
+          <Link href="/report" className={legalLinkClass}>report form</Link>.
         </p>
       </LegalSection>
 
@@ -134,7 +132,8 @@ export default function TermsPage() {
 
       <LegalSection title="13. Contact">
         <p>
-          Questions about these terms: <span className="font-medium text-gray-900">{ABUSE_EMAIL}</span>. See also our{' '}
+          Questions about these terms: use the <Link href="/report" className={legalLinkClass}>contact and report form</Link>{' '}
+          (choose &quot;Something else&quot;). See also our{' '}
           <Link href="/privacy" className={legalLinkClass}>Privacy Policy</Link>.
         </p>
       </LegalSection>

@@ -29,6 +29,9 @@ export async function GET(_request: Request, context: RouteContext) {
         'Content-Type': 'text/markdown; charset=utf-8',
         'Content-Disposition': contentDisposition(share.filename),
         'Cache-Control': 'public, max-age=60',
+        // /<id> rewrites here for "Accept: text/markdown"; keep the CDN from serving markdown to browsers.
+        'CDN-Cache-Control': 'no-store',
+        Vary: 'Accept',
         'X-Robots-Tag': 'noindex',
       },
     });

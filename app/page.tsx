@@ -55,12 +55,31 @@ export default function Home() {
   const [copiedField, setCopiedField] = useState<'url' | 'token' | null>(null);
   const [mobileTab, setMobileTab] = useState<'write' | 'preview'>('write');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // Where this visitor came from (e.g. the banner on a share page), stored with the new share for the channel stats.
+  const refRef = useRef<string | null>(null);
 
   // `/?example=<slug>` pre-fills the editor with a worked example from
-  // content/examples. It only fills the textarea — nothing is published until
-  // the user clicks Share Markdown.
+  // content/examples; `/?from=<share id>` pre-fills it with a copy of an existing
+  // share ("Duplicate and edit"). Neither publishes anything until the user clicks Share Markdown.
   useEffect(() => {
-    const slug = new URLSearchParams(window.location.search).get('example');
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get('ref');
+    if (ref && /^[a-z0-9:._-]{1,40}$/.test(ref)) refRef.current = ref;
+
+    const from = params.get('from');
+    if (from && /^[a-z]+-[a-z]+-[A-Za-z0-9]{5}$/.test(from)) {
+      refRef.current = 'duplicate';
+      fetch(`/raw/${from}`)
+        .then((res) => (res.ok ? res.text() : Promise.reject(new Error(String(res.status)))))
+        .then((text) => {
+          setContent(text);
+          document.getElementById('editor')?.scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch(() => setError('Could not load that share. It may have expired.'));
+      return;
+    }
+
+    const slug = params.get('example');
     if (!slug || !/^[a-z0-9-]+$/.test(slug)) return;
     fetch(`/examples/${slug}/raw`)
       .then((res) => (res.ok ? res.text() : Promise.reject(new Error(String(res.status)))))
@@ -102,6 +121,8 @@ export default function Home() {
           content,
           filename: 'untitled.md',
           expiry,
+          client: 'web',
+          ref: refRef.current ?? undefined,
         }),
       });
 

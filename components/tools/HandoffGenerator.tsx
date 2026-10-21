@@ -109,7 +109,7 @@ export default function HandoffGenerator() {
       const response = await fetch('/api/share', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: markdown, filename: 'HANDOFF.md', expiry: '30d' }),
+        body: JSON.stringify({ client: 'tool:handoff', content: markdown, filename: 'HANDOFF.md', expiry: '30d' }),
       });
       if (!response.ok) throw new Error('share failed');
       const data = await response.json();

@@ -1,6 +1,5 @@
 // Shared facts for the legal pages and the report form. Bump LEGAL_UPDATED when any policy text changes.
 export const LEGAL_UPDATED = 'October 20, 2026';
-export const ABUSE_EMAIL = 'abuse@docs-md.com';
 
 export const REPORT_REASONS = [
   { value: 'illegal', label: 'Illegal content' },
@@ -11,7 +10,7 @@ export const REPORT_REASONS = [
   { value: 'malware-phishing', label: 'Malware, phishing or a scam' },
   { value: 'harassment', label: 'Harassment, threats or hate' },
   { value: 'spam', label: 'Spam' },
-  { value: 'other', label: 'Something else' },
+  { value: 'other', label: 'Something else (a question or other request)' },
 ] as const;
 
 export type ReportReason = (typeof REPORT_REASONS)[number]['value'];

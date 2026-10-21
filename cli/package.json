@@ -1,0 +1,16 @@
+{
+  "name": "docs-md-cli",
+  "version": "1.0.0",
+  "description": "Share markdown as a rendered link from the terminal or any AI agent: npx docs-md-cli share README.md",
+  "type": "module",
+  "bin": {
+    "docs-md": "bin/docs-md.js",
+    "docs-md-cli": "bin/docs-md.js"
+  },
+  "files": ["bin", "README.md"],
+  "engines": { "node": ">=18" },
+  "keywords": ["markdown", "share", "pastebin", "cli", "ai-agent", "mcp", "handoff"],
+  "homepage": "https://docs-md.com/agents",
+  "repository": { "type": "git", "url": "git+https://github.com/invisible-hand/docs-md.com.git", "directory": "cli" },
+  "license": "MIT"
+}

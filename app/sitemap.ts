@@ -58,6 +58,7 @@ export const STATIC_ROUTES = [
   '/agent-handoff-document',
   '/share-architecture-diagram',
   '/share-markdown-without-account',
+  '/agents',
   '/terms',
   '/privacy',
   '/acceptable-use',

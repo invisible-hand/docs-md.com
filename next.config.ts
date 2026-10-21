@@ -8,6 +8,23 @@ const nextConfig: NextConfig = {
       { source: "/raw", destination: "/api-docs", permanent: true },
     ];
   },
+  async rewrites() {
+    // Agents get the markdown itself: /<id>.md, or /<id> with "Accept: text/markdown".
+    // Only share-id-shaped paths match, so no static page can be shadowed.
+    const shareId = ":id([a-z]+-[a-z]+-[A-Za-z0-9]{5})";
+    return {
+      beforeFiles: [
+        { source: `/${shareId}.md`, destination: "/raw/:id" },
+        {
+          source: `/${shareId}`,
+          has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
+          destination: "/raw/:id",
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   async headers() {
     return [
       {

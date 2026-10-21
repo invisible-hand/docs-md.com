@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import Link from 'next/link';
+import { isBotUserAgent } from '@/lib/client-info';
 import { dbOperations, isExpired } from '@/lib/db';
 import { storageOperations } from '@/lib/storage';
 import { pageMetadata } from '@/lib/page-metadata';
@@ -50,13 +52,18 @@ export default async function SharePage({ params }: PageProps) {
   const daysUntilExpiry = Math.ceil((expiresAt - nowTimestamp) / (1000 * 60 * 60 * 24));
   const toc = extractToc(content);
 
+  // Daily count of people (not crawlers or scripts) reading shares: the top of the share → new share funnel.
+  if (!isBotUserAgent((await headers()).get('user-agent'))) {
+    await dbOperations.recordShareView().catch((error) => console.error('Error recording share view:', error));
+  }
+
   return (
     <div className="px-4 py-8 md:py-12">
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div className="mx-auto mb-8 flex max-w-5xl items-center justify-between">
           <Link
-            href="/"
+            href="/?ref=share-nav"
             className="rounded-full border border-gray-200 px-4 py-2 text-sm text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
           >
             ← Share New
@@ -91,6 +98,13 @@ export default async function SharePage({ params }: PageProps) {
                 >
                   Raw
                 </a>
+                <Link
+                  href={`/?from=${id}`}
+                  rel="nofollow"
+                  className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
+                >
+                  Duplicate &amp; edit
+                </Link>
                 <ShareActions content={content} filename={share.filename} />
               </div>
             </div>
@@ -102,6 +116,31 @@ export default async function SharePage({ params }: PageProps) {
           </div>
 
           <TableOfContents entries={toc} />
+        </div>
+
+        {/* Recipients are the biggest audience that has never heard of Docs MD: invite them to share their own. */}
+        <div className="mx-auto mt-8 flex max-w-5xl flex-col gap-4 rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 to-white p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-base font-semibold text-gray-950">Share your own markdown in seconds</p>
+            <p className="mt-1 text-sm text-gray-600">
+              Free, no account. Paste markdown and get a link like this one, or publish straight from Claude Code,
+              Cursor or any AI agent.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/?ref=share-banner"
+              className="rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
+            >
+              Share markdown free
+            </Link>
+            <Link
+              href="/agents?ref=share-banner"
+              className="rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-medium text-indigo-700 transition hover:border-indigo-300"
+            >
+              For AI agents
+            </Link>
+          </div>
         </div>
 
         {/* Footer Info */}
@@ -146,6 +185,8 @@ export async function generateMetadata({ params }: PageProps) {
     extra: {
       // Only permanent shares are worth indexing; expiring pages would churn the index.
       robots: expiresAt === 0 ? undefined : { index: false, follow: true },
+      // Agents can fetch the markdown itself instead of the rendered page.
+      alternates: { canonical: `/${id}`, types: { 'text/markdown': `/raw/${id}` } },
     },
   });
 }

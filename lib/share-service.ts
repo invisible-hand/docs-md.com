@@ -1,4 +1,4 @@
-import { dbOperations, ExpiryOption, isExpired, Share } from '@/lib/db';
+import { dbOperations, ExpiryOption, isExpired, Share, ShareOrigin } from '@/lib/db';
 import { generateEditToken, isValidEditToken, normalizeFilename } from '@/lib/security';
 import { generateSlug } from '@/lib/slug-generator';
 import { storageOperations } from '@/lib/storage';
@@ -29,7 +29,8 @@ export interface CreatedShare {
 export async function createShare(
   content: string,
   filename: string | undefined,
-  expiry: ExpiryOption
+  expiry: ExpiryOption,
+  origin: ShareOrigin | null = null
 ): Promise<CreatedShare> {
   let id = generateSlug();
   let attempts = 0;
@@ -45,7 +46,8 @@ export async function createShare(
     normalizeFilename(filename),
     blobUrl,
     expiry,
-    editToken
+    editToken,
+    origin
   );
 
   return {

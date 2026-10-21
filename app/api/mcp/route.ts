@@ -3,13 +3,22 @@ import { z } from 'zod';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { consumeDailyQuota, DAILY_SHARE_LIMIT_PER_IP, dailyLimitMessage } from '@/lib/quota';
 import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
-import { createShare, deleteShare, ShareServiceError, updateShare } from '@/lib/share-service';
+import { normalizeClientName, userAgentFamily } from '@/lib/client-info';
+import { createShare, deleteShare, getLiveShare, ShareServiceError, updateShare } from '@/lib/share-service';
+import { storageOperations } from '@/lib/storage';
 
 const SERVER_INFO = {
   name: 'md-share',
   title: 'Docs MD',
-  version: '1.1.0',
+  version: '1.2.0',
 };
+
+// Sent in the initialize result; MCP clients show it to the model as guidance for this server.
+const SERVER_INSTRUCTIONS = `Docs MD publishes markdown at a public link (https://docs-md.com/<id>) with no account.
+Use share_markdown when the user wants to send, publish, hand off or review a markdown document (plans, specs, reports, READMEs, agent handoffs). Default expiry is 30 days; use "never" only when asked for a permanent link.
+Always give the user the URL and keep the edit token: it is the only way to update_share or delete_share later.
+Use read_share to fetch the markdown of any docs-md.com link someone gives you (for example a handoff from another agent).
+Anything shared is public to whoever has the link: never include passwords, API keys, card numbers or other people's personal data.`;
 
 const PROTOCOL_VERSION = '2025-06-18';
 const MAX_MCP_REQUEST_BYTES = Number(process.env.MAX_MCP_REQUEST_BYTES ?? 250_000);
@@ -36,6 +45,16 @@ const updateArgsSchema = z.object({
   filename: z.string().trim().max(120).optional(),
 });
 
+const readArgsSchema = z.object({
+  id: z.string().trim().min(1, 'id is required'),
+});
+
+/** Accepts a bare id or any docs-md.com URL form (/<id>, /<id>.md, /raw/<id>). */
+function shareIdFrom(value: string): string {
+  const match = /([a-z]+-[a-z]+-[A-Za-z0-9]{5})(?:\.md)?\/?(?:[?#].*)?$/.exec(value.trim());
+  return match ? match[1] : value.trim();
+}
+
 const deleteArgsSchema = z.object({
   id: z.string().trim().min(1, 'id is required'),
   edit_token: z.string().trim().min(1, 'edit_token is required'),
@@ -52,17 +71,17 @@ const TOOL_DEFINITIONS = [
     name: 'share_markdown',
     title: 'Share Markdown',
     description:
-      'Share a markdown file and get a public URL. Returns an edit token that can be used later to update or delete the share.',
+      'Publish markdown at a public docs-md.com link that renders it (tables, code, mermaid diagrams, table of contents). Use it to send a plan, spec, report, README or agent handoff to a person or another agent. Returns the URL, a raw-markdown URL and an edit token for later updates or deletion.',
     inputSchema: {
       type: 'object',
       properties: {
         content: {
           type: 'string',
-          description: 'The markdown content to share',
+          description: 'The markdown content to share (up to 120,000 characters)',
         },
         filename: {
           type: 'string',
-          description: 'Optional filename for the markdown file',
+          description: 'Optional file name shown as the page title, e.g. "HANDOFF.md" or "plan.md"',
         },
         expiry: {
           type: 'string',
@@ -87,6 +106,20 @@ const TOOL_DEFINITIONS = [
       },
       required: ['id', 'edit_token', 'content'],
     },
+  },
+  {
+    name: 'read_share',
+    title: 'Read Shared Markdown',
+    description:
+      'Fetch the raw markdown of a docs-md.com share. Accepts the share id or any docs-md.com share URL. Use it when someone gives you a docs-md.com link, for example a handoff written by another agent.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'Share id (e.g. calm-river-Ab12C) or a docs-md.com share URL' },
+      },
+      required: ['id'],
+    },
+    annotations: { readOnlyHint: true },
   },
   {
     name: 'delete_share',
@@ -169,6 +202,15 @@ export async function POST(request: NextRequest) {
 
     const { method, params, id } = parsedRpc.data;
 
+    // JSON-RPC notifications (no id), e.g. notifications/initialized, get no response body.
+    if (id === undefined || method.startsWith('notifications/')) {
+      return new NextResponse(null, { status: 202 });
+    }
+
+    if (method === 'ping') {
+      return NextResponse.json({ jsonrpc: '2.0', id, result: {} });
+    }
+
     // Handle initialize
     if (method === 'initialize') {
       return NextResponse.json({
@@ -180,6 +222,7 @@ export async function POST(request: NextRequest) {
             tools: {},
           },
           serverInfo: SERVER_INFO,
+          instructions: SERVER_INSTRUCTIONS,
         },
       });
     }
@@ -230,7 +273,11 @@ export async function POST(request: NextRequest) {
           }
 
           const { content, filename, expiry } = parsedArgs.data;
-          const share = await createShare(content, filename, expiry);
+          const share = await createShare(content, filename, expiry, {
+            client: 'mcp',
+            ref: normalizeClientName(request.headers.get('x-client')),
+            ua: userAgentFamily(request.headers.get('user-agent')),
+          });
           const expiresLine =
             share.expiresAt === 0
               ? 'Expires: never'
@@ -251,6 +298,20 @@ export async function POST(request: NextRequest) {
           const { id: shareId, edit_token, content, filename } = parsedArgs.data;
           const { url } = await updateShare(shareId, edit_token, content, filename);
           return toolTextResult(id, `✓ Share updated.\n\n${url}`);
+        }
+
+        if (name === 'read_share') {
+          const parsedArgs = readArgsSchema.safeParse(args);
+          if (!parsedArgs.success) {
+            return invalidParamsError(id, parsedArgs.error.issues[0]?.message ?? 'Invalid tool arguments');
+          }
+
+          const share = await getLiveShare(shareIdFrom(parsedArgs.data.id));
+          const markdown = await storageOperations.readMarkdown(share.blob_url);
+          if (markdown === null) {
+            return toolTextResult(id, '✗ Share not found', true);
+          }
+          return toolTextResult(id, markdown);
         }
 
         if (name === 'delete_share') {
@@ -276,8 +337,8 @@ export async function POST(request: NextRequest) {
         if (error instanceof ShareServiceError) {
           return toolTextResult(id, `✗ ${error.message}`, true);
         }
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        return toolTextResult(id, `✗ Failed: ${errorMessage}`, true);
+        console.error('MCP tool error:', error);
+        return toolTextResult(id, '✗ Failed: internal error, please retry in a moment.', true);
       }
     }
 
@@ -311,7 +372,7 @@ export async function POST(request: NextRequest) {
         jsonrpc: '2.0',
         error: {
           code: -32603,
-          message: error instanceof Error ? error.message : 'Internal error',
+          message: 'Internal error',
         },
         id: null,
       },
@@ -365,7 +426,7 @@ export async function OPTIONS() {
     headers: {
       'Access-Control-Allow-Origin': allowOrigin,
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, Mcp-Session-Id, Mcp-Protocol-Version',
     },
   });
 }

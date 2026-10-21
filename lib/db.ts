@@ -8,6 +8,16 @@ export interface Share {
   // 0 means the share never expires
   expires_at: number;
   edit_token: string | null;
+  // Which channel created the share (web, tool:<name>, api, mcp, cli, github-action, …) and from where
+  client?: string | null;
+  ref?: string | null;
+  ua?: string | null;
+}
+
+export interface ShareOrigin {
+  client: string;
+  ref?: string | null;
+  ua?: string | null;
 }
 
 export type ExpiryOption = '1d' | '7d' | '30d' | 'never';
@@ -51,6 +61,7 @@ export async function initDatabase() {
       CREATE INDEX IF NOT EXISTS idx_expires_at ON shares(expires_at);
     `;
     await createQuotaAndReportTables();
+    await addShareOriginColumns();
   } catch (error) {
     console.error('Error initializing database:', error);
   }
@@ -79,6 +90,19 @@ export async function createQuotaAndReportTables() {
   `;
 }
 
+// Share channel stats: who created each share, and daily human views of share pages.
+export async function addShareOriginColumns() {
+  await sql`ALTER TABLE shares ADD COLUMN IF NOT EXISTS client TEXT;`;
+  await sql`ALTER TABLE shares ADD COLUMN IF NOT EXISTS ref TEXT;`;
+  await sql`ALTER TABLE shares ADD COLUMN IF NOT EXISTS ua TEXT;`;
+  await sql`
+    CREATE TABLE IF NOT EXISTS share_views_daily (
+      day DATE PRIMARY KEY,
+      views INTEGER NOT NULL DEFAULT 0
+    );
+  `;
+}
+
 export interface ShareReport {
   id: number;
   share_id: string | null;
@@ -95,14 +119,16 @@ export const dbOperations = {
     filename: string,
     blobUrl: string,
     expiry: ExpiryOption = '30d',
-    editToken: string | null = null
+    editToken: string | null = null,
+    origin: ShareOrigin | null = null
   ): Promise<Share> => {
     const now = Date.now();
     const expiresAt = resolveExpiresAt(expiry, now);
 
     await sql`
-      INSERT INTO shares (id, filename, blob_url, created_at, expires_at, edit_token)
-      VALUES (${id}, ${filename}, ${blobUrl}, ${now}, ${expiresAt}, ${editToken})
+      INSERT INTO shares (id, filename, blob_url, created_at, expires_at, edit_token, client, ref, ua)
+      VALUES (${id}, ${filename}, ${blobUrl}, ${now}, ${expiresAt}, ${editToken},
+              ${origin?.client ?? null}, ${origin?.ref ?? null}, ${origin?.ua ?? null})
     `;
 
     return {
@@ -165,6 +191,13 @@ export const dbOperations = {
       RETURNING count
     `;
     return Number(result.rows[0]?.count ?? 0);
+  },
+
+  recordShareView: async (): Promise<void> => {
+    await sql`
+      INSERT INTO share_views_daily (day, views) VALUES (CURRENT_DATE, 1)
+      ON CONFLICT (day) DO UPDATE SET views = share_views_daily.views + 1
+    `;
   },
 
   pruneDailyCounts: async (): Promise<number> => {

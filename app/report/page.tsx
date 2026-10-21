@@ -2,7 +2,6 @@ import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 import ReportForm from '@/components/ReportForm';
 import { LegalMeta, LegalSection, legalLinkClass } from '@/components/LegalSection';
-import { ABUSE_EMAIL } from '@/lib/legal';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
@@ -29,18 +28,19 @@ export default async function ReportPage({ searchParams }: ReportPageProps) {
 
       <ReportForm initialShare={initialShare} />
 
-      <LegalSection title="Other ways to reach us">
+      <LegalSection title="How we handle reports">
         <p>
-          Email <span className="font-medium text-gray-900">{ABUSE_EMAIL}</span> with the share link and what is wrong with
-          it. Reports about child sexual abuse material and intimate images shared without consent are handled first.
+          This form is the only contact channel for Docs MD, for reports and for any other question. Reports about child
+          sexual abuse material and intimate images shared without consent are handled first. Leave an email address if
+          you want a reply.
         </p>
       </LegalSection>
 
       <section id="copyright" className="space-y-3 leading-relaxed">
         <h2 className="text-xl font-semibold text-gray-950">Copyright notices (DMCA)</h2>
         <p>
-          To ask us to remove material that infringes your copyright, email{' '}
-          <span className="font-medium text-gray-900">{ABUSE_EMAIL}</span> with:
+          To ask us to remove material that infringes your copyright, send the form above with the reason
+          &quot;Copyright or trademark infringement&quot; and put the following in the details:
         </p>
         <ol className="list-decimal space-y-2 pl-5">
           <li>The copyrighted work you believe is infringed.</li>
@@ -57,8 +57,8 @@ export default async function ReportPage({ searchParams }: ReportPageProps) {
           <li>Your physical or electronic signature.</li>
         </ol>
         <p>
-          If your share was removed after a notice and you believe that was a mistake, you can send a counter-notice to
-          the same address. Include the removed link, your contact details, a statement under penalty of perjury that you
+          If your share was removed after a notice and you believe that was a mistake, you can send a counter-notice
+          through the same form. Include the removed link, your contact details, a statement under penalty of perjury that you
           believe the material was removed by mistake, and your consent to the jurisdiction of the relevant court. We
           remove content from people who repeatedly infringe.
         </p>

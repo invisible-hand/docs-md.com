@@ -24,6 +24,25 @@ export default function ApiDocsPage() {
       description="Share, update, and delete markdown programmatically. No API key required — an edit token returned at creation authorizes changes to each share."
     >
       <section className="space-y-4">
+        <h2 className="text-xl font-semibold text-gray-950">The one-line version</h2>
+        <p>Send the file itself. The reply is plain text with the link on the first line:</p>
+        <CodeBlock>{`curl --data-binary @README.md "https://docs-md.com/api/share?expiry=7d"
+
+# Response
+https://docs-md.com/misty-fox-a1b2c
+raw: https://docs-md.com/raw/misty-fox-a1b2c
+expires: 2026-10-27
+edit-token: …`}</CodeBlock>
+        <p className="text-sm text-gray-600">
+          Options go in the query string: <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">expiry</code>,{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">filename</code> and an optional{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">client</code> name. Building an agent? See{' '}
+          <Link href="/agents" className="text-indigo-700 underline">Docs MD for AI agents</Link> and the{' '}
+          <a href="/openapi.json" className="text-indigo-700 underline">OpenAPI spec</a>.
+        </p>
+      </section>
+
+      <section className="space-y-4">
         <h2 className="text-xl font-semibold text-gray-950">Create a share</h2>
         <p>
           <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">POST /api/share</code> with a JSON

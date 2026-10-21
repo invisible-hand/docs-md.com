@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 import { LegalMeta, LegalSection, legalLinkClass } from '@/components/LegalSection';
-import { ABUSE_EMAIL } from '@/lib/legal';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
@@ -101,9 +100,9 @@ export default function PrivacyPage() {
       <LegalSection title="Your choices">
         <p>
           Delete your own share at any time with its edit token. If a share contains your personal data and you do not
-          have the token, ask us to remove it through the <Link href="/report" className={legalLinkClass}>report form</Link>{' '}
-          or by email. Depending on where you live, you may have rights to access, correct or delete personal data we
-          hold about you. Contact us to use them. We do not sell personal data.
+          have the token, ask us to remove it through the <Link href="/report" className={legalLinkClass}>report form</Link>.
+          Depending on where you live, you may have rights to access, correct or delete personal data we hold about
+          you. Use the same form to exercise them. We do not sell personal data.
         </p>
       </LegalSection>
 
@@ -113,8 +112,9 @@ export default function PrivacyPage() {
 
       <LegalSection title="Changes and contact">
         <p>
-          We will update this page when our practices change and update the date at the top. Questions:{' '}
-          <span className="font-medium text-gray-900">{ABUSE_EMAIL}</span>. See also the{' '}
+          We will update this page when our practices change and update the date at the top. For questions, use the{' '}
+          <Link href="/report" className={legalLinkClass}>contact and report form</Link> (choose &quot;Something
+          else&quot;). See also the{' '}
           <Link href="/terms" className={legalLinkClass}>Terms of Service</Link>.
         </p>
       </LegalSection>

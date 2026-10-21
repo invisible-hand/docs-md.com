@@ -3,6 +3,7 @@ import { toolsInCategory } from '@/lib/tools-registry';
 
 const PRODUCT = [
   { href: '/', label: 'Share markdown' },
+  { href: '/agents', label: 'For AI agents' },
   { href: '/what-is-mcp', label: 'MCP server' },
   { href: '/ai-powered-ide', label: 'AI IDE setup' },
   { href: '/api-docs', label: 'REST API' },

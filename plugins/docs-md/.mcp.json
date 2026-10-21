@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "docs-md": {
+      "type": "http",
+      "url": "https://docs-md.com/api/mcp"
+    }
+  }
+}

@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     const quota = await consumeDailyQuota('report', getClientIp(request), DAILY_REPORT_LIMIT_PER_IP);
     if (!quota.allowed) {
-      return NextResponse.json({ error: 'Too many reports from this address today. Email us instead.' }, { status: 429 });
+      return NextResponse.json({ error: 'Too many reports from this address today. Try again tomorrow.' }, { status: 429 });
     }
 
     const id = await dbOperations.createReport(shareId, reason, details || null, contact || null);
@@ -49,6 +49,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: error.status });
     }
     console.error('Error saving report:', error);
-    return NextResponse.json({ error: 'Could not save the report. Please email us instead.' }, { status: 500 });
+    return NextResponse.json({ error: 'Could not save the report. Please try again in a few minutes.' }, { status: 500 });
   }
 }

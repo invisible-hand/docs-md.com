@@ -1,0 +1,19 @@
+{
+  "name": "docs-md",
+  "owner": {
+    "name": "Docs MD",
+    "url": "https://docs-md.com"
+  },
+  "metadata": {
+    "description": "Publish and read markdown at docs-md.com links from Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "docs-md",
+      "source": "./plugins/docs-md",
+      "description": "Share markdown as a rendered docs-md.com link (plans, handoffs, reports, READMEs) and read docs-md.com links others send you. MCP server + skill, no account.",
+      "category": "productivity",
+      "homepage": "https://docs-md.com/agents"
+    }
+  ]
+}

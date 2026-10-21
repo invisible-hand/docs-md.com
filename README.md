@@ -59,6 +59,18 @@ Indexing policy: only permanent shares are indexable; expiring shares are served
 
 Published in the [official MCP Registry](https://registry.modelcontextprotocol.io) as `com.docs-md/markdown-share` — remote streamable-HTTP server at `https://docs-md.com/api/mcp` with tools `share_markdown`, `update_share`, and `delete_share`.
 
+## For AI agents
+
+- One line: `curl --data-binary @PLAN.md "https://docs-md.com/api/share?expiry=7d"`
+- Read any share as markdown: `https://docs-md.com/<id>.md`
+- Claude Code plugin (MCP server + skill):
+
+  ```
+  /plugin install docs-md --marketplace invisible-hand/docs-md.com
+  ```
+
+- Everything else (every MCP client, AGENTS.md snippet, OpenAPI): https://docs-md.com/agents
+
 ## MCP Setup
 
 Remote streamable-HTTP server, no API key. Per-editor configs (Cursor, Claude Code, VS Code, Windsurf, Zed) are on [docs-md.com/ai-powered-ide](https://docs-md.com/ai-powered-ide). Cursor, in `~/.cursor/mcp.json` or the project's `.cursor/mcp.json`:

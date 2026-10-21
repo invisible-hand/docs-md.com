@@ -121,7 +121,7 @@ export default function ReadmeGenerator() {
       const response = await fetch('/api/share', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: markdown, filename: 'README.md', expiry: '30d' }),
+        body: JSON.stringify({ client: 'tool:readme', content: markdown, filename: 'README.md', expiry: '30d' }),
       });
       if (!response.ok) throw new Error('share failed');
       const data = await response.json();

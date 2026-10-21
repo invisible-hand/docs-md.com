@@ -126,7 +126,7 @@ export default function MarkdownViewer() {
       const response = await fetch('/api/share', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content, filename: fileName, expiry: '30d' }),
+        body: JSON.stringify({ client: 'tool:viewer', content, filename: fileName, expiry: '30d' }),
       });
       if (!response.ok) throw new Error('share failed');
       const data = (await response.json()) as { url: string };

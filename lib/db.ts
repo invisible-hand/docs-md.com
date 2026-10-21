@@ -88,6 +88,8 @@ export async function createQuotaAndReportTables() {
       status TEXT NOT NULL DEFAULT 'open'
     );
   `;
+  // Set when the report went out in the daily digest email (app/api/report-digest).
+  await sql`ALTER TABLE share_reports ADD COLUMN IF NOT EXISTS notified_at BIGINT;`;
 }
 
 // Share channel stats: who created each share, and daily human views of share pages.
@@ -111,6 +113,7 @@ export interface ShareReport {
   contact: string | null;
   created_at: number;
   status: string;
+  notified_at: number | null;
 }
 
 export const dbOperations = {
@@ -205,6 +208,18 @@ export const dbOperations = {
       DELETE FROM share_quota WHERE day < CURRENT_DATE - 1
     `;
     return result.rowCount || 0;
+  },
+
+  getUnnotifiedReports: async (): Promise<ShareReport[]> => {
+    const result = await sql`
+      SELECT * FROM share_reports WHERE notified_at IS NULL ORDER BY created_at
+    `;
+    return result.rows as ShareReport[];
+  },
+
+  markReportsNotified: async (ids: number[]): Promise<void> => {
+    if (ids.length === 0) return;
+    await sql.query('UPDATE share_reports SET notified_at = $1 WHERE id = ANY($2)', [Date.now(), ids]);
   },
 
   createReport: async (

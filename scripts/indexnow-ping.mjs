@@ -9,6 +9,10 @@ const routes = [
   ...(existsSync('content/tool-guides') ? readdirSync('content/tool-guides') : [])
     .filter((d) => statSync(`content/tool-guides/${d}`).isDirectory())
     .flatMap((d) => readdirSync(`content/tool-guides/${d}`).filter((f) => f.endsWith('.md')).map((f) => `/${d}/${f.replace(/\.md$/, '')}`)),
+  // Translated pages: content/i18n/<locale>/<page>.json -> /<locale>/<slug>
+  ...(existsSync('content/i18n') ? readdirSync('content/i18n') : [])
+    .filter((l) => statSync(`content/i18n/${l}`).isDirectory())
+    .flatMap((l) => readdirSync(`content/i18n/${l}`).filter((f) => f.endsWith('.json')).map((f) => `/${l}/${JSON.parse(readFileSync(`content/i18n/${l}/${f}`, 'utf8')).slug}`)),
 ];
 const host = 'docs-md.com';
 const body = { host, key, keyLocation: `https://${host}/${key}.txt`, urlList: routes.map((r) => `https://${host}${r}`) };

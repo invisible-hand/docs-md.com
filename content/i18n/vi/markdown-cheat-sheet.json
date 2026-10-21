@@ -1,0 +1,364 @@
+{
+  "locale": "vi",
+  "page": "markdown-cheat-sheet",
+  "slug": "cu-phap-markdown",
+  "title": "Cú pháp Markdown: bảng tra cứu đầy đủ kèm ví dụ",
+  "description": "Toàn bộ cú pháp Markdown kèm ví dụ hiển thị trực tiếp: tiêu đề, chữ đậm, danh sách, link, ảnh, code, bảng, task list, chú thích, mermaid.",
+  "h1": "Cú pháp Markdown – bảng tra cứu nhanh",
+  "intro": "Markdown là cách định dạng văn bản bằng các ký tự thông thường: `#` cho tiêu đề, `**` cho chữ đậm, `-` cho danh sách. Trang này liệt kê mọi thành phần, cú pháp bên trái và kết quả hiển thị bên phải — gồm markdown cơ bản, GitHub Flavored Markdown (GFM), khung cảnh báo, emoji, link neo và sơ đồ mermaid. Bấm *Sao chép* để lấy đoạn mẫu.",
+  "updated": "2026-10-20",
+  "chrome": {
+    "updated": "Cập nhật",
+    "faqTitle": "Câu hỏi thường gặp",
+    "otherLanguages": "Ngôn ngữ khác",
+    "copy": "Sao chép",
+    "copied": "✓ Đã sao chép",
+    "glanceTitle": "Tóm tắt cú pháp Markdown",
+    "glanceElement": "Thành phần",
+    "glanceSyntax": "Cú pháp",
+    "glanceNote": "Ghi chú",
+    "sectionsTitle": "Tra cứu đầy đủ kèm ví dụ"
+  },
+  "glance": [
+    {
+      "element": "Tiêu đề",
+      "syntax": "# H1  ## H2  ### H3",
+      "note": "Tối đa sáu dấu #; nhớ có dấu cách phía sau."
+    },
+    {
+      "element": "Chữ đậm",
+      "syntax": "**chữ đậm**"
+    },
+    {
+      "element": "Chữ nghiêng",
+      "syntax": "*nghiêng* hoặc _nghiêng_"
+    },
+    {
+      "element": "Vừa đậm vừa nghiêng",
+      "syntax": "***cả hai***"
+    },
+    {
+      "element": "Gạch ngang",
+      "syntax": "~~đã xóa~~",
+      "note": "GitHub Flavored Markdown (GFM)."
+    },
+    {
+      "element": "Code trong dòng",
+      "syntax": "`code`"
+    },
+    {
+      "element": "Khối code",
+      "syntax": "```js\ncode\n```",
+      "note": "Từ đứng sau dấu backtick chọn ngôn ngữ để tô màu cú pháp."
+    },
+    {
+      "element": "Link",
+      "syntax": "[văn bản](https://example.com)"
+    },
+    {
+      "element": "Hình ảnh",
+      "syntax": "![mô tả ảnh](image.png)"
+    },
+    {
+      "element": "Danh sách gạch đầu dòng",
+      "syntax": "- mục",
+      "note": "Dùng * hoặc + cũng được."
+    },
+    {
+      "element": "Danh sách đánh số",
+      "syntax": "1. mục"
+    },
+    {
+      "element": "Danh sách việc cần làm",
+      "syntax": "- [ ] cần làm\n- [x] đã xong",
+      "note": "GFM."
+    },
+    {
+      "element": "Trích dẫn",
+      "syntax": "> đoạn trích dẫn"
+    },
+    {
+      "element": "Bảng",
+      "syntax": "| A | B |\n| --- | --- |\n| 1 | 2 |",
+      "note": "GFM. Dấu hai chấm ở hàng thứ hai quy định căn lề."
+    },
+    {
+      "element": "Đường kẻ ngang",
+      "syntax": "---"
+    },
+    {
+      "element": "Xuống dòng",
+      "syntax": "dòng một\\\ndòng hai",
+      "note": "Một dấu gạch chéo ngược hoặc hai dấu cách ở cuối dòng."
+    },
+    {
+      "element": "Chú thích cuối trang",
+      "syntax": "Văn bản[^1]\n\n[^1]: Nội dung chú thích.",
+      "note": "GFM."
+    },
+    {
+      "element": "Thoát ký tự",
+      "syntax": "\\*không nghiêng\\*",
+      "note": "Đặt dấu gạch chéo ngược trước bất kỳ ký hiệu markdown nào."
+    },
+    {
+      "element": "Sơ đồ",
+      "syntax": "```mermaid\nflowchart LR\n  A --> B\n```",
+      "note": "Hiển thị trên GitHub, GitLab và Docs MD."
+    }
+  ],
+  "sections": [
+    {
+      "id": "headings",
+      "title": "Tiêu đề",
+      "snippets": [
+        {
+          "label": "Sáu cấp tiêu đề",
+          "syntax": "# H1 — tiêu đề trang\n## H2 — mục\n### H3 — mục con\n#### H4\n##### H5\n###### H6",
+          "note": "Quy ước là mỗi tài liệu chỉ có một H1. Cú pháp \"gạch chân\" thay thế (=== / ---) chỉ dùng được cho H1 và H2 — nên ưu tiên dạng #."
+        }
+      ]
+    },
+    {
+      "id": "emphasis",
+      "title": "Nhấn mạnh",
+      "snippets": [
+        {
+          "label": "Đậm, nghiêng, cả hai",
+          "syntax": "**đậm** và *nghiêng* và ***vừa đậm vừa nghiêng***",
+          "note": "Dấu gạch dưới cũng dùng được (__đậm__, _nghiêng_), nhưng dấu sao vẫn có tác dụng ở giữa từ: fan**tas**tic."
+        },
+        {
+          "label": "Gạch ngang (GFM)",
+          "syntax": "~~bị gạch bỏ~~"
+        }
+      ]
+    },
+    {
+      "id": "lists",
+      "title": "Danh sách",
+      "snippets": [
+        {
+          "label": "Không đánh số",
+          "syntax": "- Mục thứ nhất\n- Mục thứ hai\n  - Mục lồng (thụt vào 2 dấu cách)\n- Mục thứ ba"
+        },
+        {
+          "label": "Có đánh số",
+          "syntax": "1. Bước một\n2. Bước hai\n1. Số bạn gõ không quan trọng — trình hiển thị tự đếm"
+        },
+        {
+          "label": "Danh sách việc cần làm (GFM)",
+          "syntax": "- [x] Phát hành tính năng\n- [ ] Viết tài liệu\n- [ ] Báo cho mọi người"
+        }
+      ]
+    },
+    {
+      "id": "links-images",
+      "title": "Link và hình ảnh",
+      "snippets": [
+        {
+          "label": "Link trong dòng",
+          "syntax": "[văn bản link](https://docs-md.com \"tiêu đề hiện khi rê chuột, không bắt buộc\")"
+        },
+        {
+          "label": "Hình ảnh",
+          "syntax": "![mô tả nội dung hình ảnh](https://docs-md.com/favicon.ico)",
+          "note": "Hình ảnh là một link có dấu ! phía trước. Văn bản thay thế (alt) rất quan trọng: trình đọc màn hình đọc nó, và nó hiện ra khi ảnh bị lỗi."
+        },
+        {
+          "label": "Tự nhận link (GFM)",
+          "syntax": "URL để trần sẽ tự thành link: https://docs-md.com"
+        },
+        {
+          "label": "Link kiểu tham chiếu",
+          "syntax": "Tài liệu dài sẽ dễ đọc hơn với [tham chiếu có tên][docs].\n\n[docs]: https://docs-md.com",
+          "note": "Phần định nghĩa có thể đặt ở bất kỳ đâu trong file — theo quy ước là ở cuối."
+        }
+      ]
+    },
+    {
+      "id": "anchor-links",
+      "title": "Link neo",
+      "intro": "Link dẫn tới một tiêu đề trên cùng trang. Đích đến là tiêu đề chuyển thành slug: chữ thường, dấu cách thành gạch nối, bỏ dấu câu.",
+      "snippets": [
+        {
+          "label": "Link tới một tiêu đề",
+          "syntax": "## Bắt đầu nhanh\n\nChuyển tới [Bắt đầu nhanh](#bắt-đầu-nhanh) hoặc [Bước 2: Cài đặt](#bước-2-cài-đặt).",
+          "note": "Quy tắc slug trên GitHub: chuyển hết thành chữ thường, bỏ dấu câu trừ gạch nối và gạch dưới, đổi dấu cách thành gạch nối, thêm -1, -2 cho các tiêu đề trùng nhau. Chữ có dấu tiếng Việt được giữ nguyên. \"Bước 2: Cài đặt\" thành #bước-2-cài-đặt."
+        },
+        {
+          "label": "Neo tùy chỉnh bằng HTML",
+          "syntax": "<a id=\"custom-target\"></a>\n## Tiêu đề bất kỳ\n\n[Đi tới đó](#custom-target)",
+          "note": "Khi tiêu đề có thể bị đổi chữ, hãy cố định một id rõ ràng bằng thẻ <a> rỗng đặt phía trên. Dùng được ở mọi nơi cho phép HTML trong dòng (GitHub, GitLab, phần lớn trình tạo trang tĩnh).",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "title": "Code",
+      "snippets": [
+        {
+          "label": "Code trong dòng",
+          "syntax": "Chạy `npm install` trước `npm run dev`."
+        },
+        {
+          "label": "Khối code có chỉ định ngôn ngữ",
+          "syntax": "```ts\nfunction greet(name: string) {\n  return `Xin chào, ${name}`;\n}\n```",
+          "note": "Nhãn ngôn ngữ sau ``` bật tính năng tô màu cú pháp. Các nhãn hay dùng: js, ts, python, bash, json, sql, diff."
+        },
+        {
+          "label": "Khối code lồng trong khối code",
+          "syntax": "````md\nĐể hiển thị một khối code bên trong khối code,\nhãy dùng nhiều dấu backtick hơn ở lớp ngoài:\n```js\nconsole.log(\"nested\");\n```\n````",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "tables",
+      "title": "Bảng (GFM)",
+      "snippets": [
+        {
+          "label": "Bảng cơ bản có căn lề",
+          "syntax": "| Trái | Giữa | Phải |\n| :--- | :----: | ----: |\n| a    |   b    |     c |\n| d    |   e    |     f |",
+          "note": "Dấu hai chấm ở hàng phân cách quy định căn lề. Muốn có dấu | thật trong ô, viết \\|. Cần tạo bảng nhanh? Dùng công cụ tạo bảng bên dưới."
+        }
+      ]
+    },
+    {
+      "id": "blockquotes",
+      "title": "Trích dẫn",
+      "snippets": [
+        {
+          "label": "Trích dẫn và trích dẫn lồng",
+          "syntax": "> Một đoạn trích dẫn.\n>\n> > Trích dẫn lồng nhau cũng được.\n>\n> Quay lại cấp đầu tiên — **định dạng vẫn dùng được bên trong**.",
+          "note": "Đặt > ở đầu mỗi dòng (một dấu > đứng riêng giữ các đoạn trong cùng một trích dẫn). GitHub biến các trích dẫn > [!NOTE] / [!WARNING] thành khung cảnh báo có màu."
+        }
+      ]
+    },
+    {
+      "id": "alerts",
+      "title": "Khung cảnh báo (GitHub)",
+      "intro": "Trích dẫn có dòng đầu là [!TYPE] sẽ hiển thị thành khung chú ý có màu trên GitHub. Có năm loại: NOTE, TIP, IMPORTANT, WARNING, CAUTION.",
+      "snippets": [
+        {
+          "label": "Năm loại cảnh báo",
+          "syntax": "> [!NOTE]\n> Thông tin hữu ích người đọc nên biết.\n\n> [!TIP]\n> Lời khuyên để làm tốt hơn.\n\n> [!IMPORTANT]\n> Thông tin then chốt để thành công.\n\n> [!WARNING]\n> Thông tin khẩn cần chú ý ngay.\n\n> [!CAUTION]\n> Hậu quả xấu của một hành động.",
+          "note": "Hiển thị thành khung có màu và biểu tượng trên GitHub (README, issue, PR, discussion) và GitLab. Ở những nơi khác — xem trước trong VS Code, Slack, Discord, Notion, phần lớn trình tạo trang tĩnh — dòng chữ \"[!NOTE]\" hiện nguyên văn trong một trích dẫn thường, gần giống bản xem trước bên phải.",
+          "preview": "> **Note**\n> Thông tin hữu ích người đọc nên biết.\n\n> **Tip**\n> Lời khuyên để làm tốt hơn.\n\n> **Important**\n> Thông tin then chốt để thành công.\n\n> **Warning**\n> Thông tin khẩn cần chú ý ngay.\n\n> **Caution**\n> Hậu quả xấu của một hành động."
+        }
+      ]
+    },
+    {
+      "id": "structure",
+      "title": "Bố cục và khoảng cách",
+      "snippets": [
+        {
+          "label": "Đường kẻ ngang",
+          "syntax": "Phía trên đường kẻ.\n\n---\n\nPhía dưới đường kẻ.",
+          "note": "Ba dấu gạch nối trở lên trên một dòng riêng, có dòng trống ở trên và dưới (nếu không, --- nằm ngay dưới một dòng chữ sẽ biến dòng đó thành H2)."
+        },
+        {
+          "label": "Xuống dòng hay đoạn mới",
+          "syntax": "Kết thúc dòng bằng hai dấu cách  \nđể xuống dòng trong cùng một đoạn.\n\nMột dòng trống bắt đầu đoạn mới.",
+          "note": "Dấu gạch chéo ngược ở cuối dòng cũng ép xuống dòng và dễ nhìn thấy hơn hai dấu cách."
+        },
+        {
+          "label": "Thoát ký tự",
+          "syntax": "\\*không nghiêng\\* và \\# không phải tiêu đề và \\| không phải dấu cột bảng"
+        }
+      ]
+    },
+    {
+      "id": "footnotes",
+      "title": "Chú thích cuối trang (GFM)",
+      "snippets": [
+        {
+          "label": "Tham chiếu và định nghĩa chú thích",
+          "syntax": "Markdown ra đời năm 2004.[^1]\n\n[^1]: Do John Gruber tạo ra, Aaron Swartz góp phần xây dựng cú pháp.",
+          "note": "Được hỗ trợ trên GitHub và phần lớn trình hiển thị hiện đại; không thuộc markdown nguyên bản."
+        }
+      ]
+    },
+    {
+      "id": "emoji",
+      "title": "Emoji",
+      "snippets": [
+        {
+          "label": "Mã viết tắt và emoji thật",
+          "syntax": "Phát hành thôi :tada: :rocket: — hoặc dán thẳng ký tự: 🎉 🚀",
+          "note": "Mã viết tắt như :tada: không phải là markdown: GitHub, GitLab, Slack và Discord chuyển chúng thành emoji; trình hiển thị CommonMark, xem trước trong VS Code và phần lớn trình tạo trang tĩnh in nguyên dấu hai chấm. Dán ký tự emoji thật thì dùng được ở mọi nơi.",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "mermaid",
+      "title": "Sơ đồ Mermaid",
+      "snippets": [
+        {
+          "label": "Flowchart từ một khối code",
+          "syntax": "```mermaid\ngraph LR\n  A[Viết markdown] --> B{Chia sẻ?}\n  B -->|có| C[Lấy link]\n  B -->|không| D[Giữ trên máy]\n```",
+          "note": "Hiển thị trên GitHub, GitLab và trang chia sẻ của Docs MD. Hỗ trợ cả sequence diagram, biểu đồ Gantt và sơ đồ ER."
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "title": "HTML trong markdown",
+      "snippets": [
+        {
+          "label": "Khi markdown không đủ dùng",
+          "syntax": "Markdown không có gạch chân, nên hãy dùng <u>HTML</u>, <sub>chỉ số dưới</sub>, <sup>chỉ số trên</sup>, hoặc <kbd>Ctrl</kbd>+<kbd>C</kbd>.",
+          "note": "Phần lớn trình hiển thị cho HTML đi qua (GitHub lọc bỏ script và style). Bản xem trước trên trang này loại bỏ HTML thô, nên hãy kiểm tra kết quả trên nền tảng đích."
+        },
+        {
+          "label": "Phím bấm với <kbd>",
+          "syntax": "Nhấn <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> để mở bảng lệnh.",
+          "note": "GitHub hiển thị <kbd> thành hình phím nhỏ. Markdown không có cú pháp riêng cho phím bấm; dấu backtick (`Ctrl`) là cách dự phòng dạng văn bản thuần dùng được ở mọi nơi.",
+          "render": false
+        },
+        {
+          "label": "Phần thu gọn với <details>",
+          "syntax": "<details>\n<summary>Bấm để mở rộng</summary>\n\nNội dung ẩn — **markdown dùng được ở đây** nếu bạn để một dòng trống sau summary.\n\n</details>",
+          "note": "Được hỗ trợ trên GitHub, GitLab và phần lớn trang tài liệu. Dùng <details open> để mặc định mở sẵn. Không hỗ trợ trong Slack, Discord hay Notion.",
+          "render": false
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Bảng cú pháp markdown (cheat sheet) là gì?",
+      "a": "Là trang tra cứu gói gọn mọi thành phần markdown, đặt cú pháp và kết quả hiển thị cạnh nhau, để bạn sao chép đúng ký tự thay vì phải đoán. Trang này gồm markdown cơ bản, GitHub Flavored Markdown (bảng, danh sách việc cần làm, gạch ngang, chú thích cuối trang) và sơ đồ mermaid."
+    },
+    {
+      "q": "Làm sao in đậm hoặc in nghiêng chữ trong markdown?",
+      "a": "Bọc chữ trong hai dấu sao để in đậm (**đậm**), một dấu sao hoặc dấu gạch dưới để in nghiêng (*nghiêng* hoặc _nghiêng_). Ba dấu sao cho chữ vừa đậm vừa nghiêng. Trên GitHub, dấu gạch dưới nằm giữa từ không tạo nhấn mạnh, nên dấu sao là lựa chọn an toàn hơn."
+    },
+    {
+      "q": "Làm sao chèn link hoặc hình ảnh?",
+      "a": "Link viết là [văn bản](https://example.com), còn hình ảnh viết y như vậy nhưng có dấu chấm than phía trước: ![mô tả ảnh](image.png). Thêm tiêu đề trong ngoặc kép sau URL để có chú giải khi rê chuột. Link kiểu tham chiếu ([văn bản][id] cộng với [id]: url trên một dòng riêng) giúp tài liệu dài dễ đọc hơn."
+    },
+    {
+      "q": "Làm sao viết khối code?",
+      "a": "Đặt code giữa hai dòng gồm ba dấu backtick. Thêm tên ngôn ngữ ngay sau ba dấu backtick mở đầu (```js) để được tô màu cú pháp. Dùng một dấu backtick cho code trong dòng."
+    },
+    {
+      "q": "Làm sao tạo bảng trong markdown?",
+      "a": "Ngăn cách các cột bằng dấu | và thêm một dòng gạch nối dưới hàng tiêu đề. Dấu hai chấm trong dòng phân cách đó quy định căn lề: :--- căn trái, :---: căn giữa, ---: căn phải. Bảng là phần mở rộng của GFM, được GitHub, GitLab và phần lớn trình hiển thị hỗ trợ."
+    },
+    {
+      "q": "Markdown và GitHub Flavored Markdown khác nhau thế nào?",
+      "a": "GitHub Flavored Markdown (GFM) là markdown nguyên bản cộng thêm bảng, danh sách việc cần làm, gạch ngang, tự nhận link và chú thích cuối trang, với đặc tả chính thức xây dựng trên CommonMark. Gần như mọi trình hiển thị hiện đại đều hỗ trợ GFM, nên khi nói \"markdown\" người ta thường ngụ ý GFM. Bản thân GitHub còn thêm khung cảnh báo, mã emoji và mermaid bên trên GFM."
+    },
+    {
+      "q": "Markdown nào dùng được trong Slack, Discord và Notion?",
+      "a": "Mỗi nơi là một biến thể khác nhau. Discord hỗ trợ phần lớn cú pháp cơ bản (**đậm**, *nghiêng*, khối code, tiêu đề, trích dẫn) nhưng không có bảng hay hình ảnh, và dùng __hai dấu gạch dưới__ để gạch chân. Slack hoàn toàn không phải markdown: *một dấu sao* là chữ đậm, _gạch dưới_ là nghiêng, ~dấu ngã~ là gạch ngang, và link [văn bản](url) chỉ hoạt động trong khung soạn tin khi bật tùy chọn định dạng markup. Notion chuyển markdown ngay khi bạn gõ và khi dán, kể cả bảng và danh sách việc cần làm. Hãy kiểm tra quy tắc của từng nền tảng trước khi dán."
+    },
+    {
+      "q": "Xem trước file markdown đã định dạng ở đâu?",
+      "a": "Dán markdown hoặc thả file .md vào trình xem Docs MD tại docs-md.com/vi/doc-file-md-online — tài liệu hiển thị ngay trong trình duyệt với bảng, code tô màu và sơ đồ mermaid, không cần cài đặt và file không bị tải lên máy chủ."
+    }
+  ]
+}

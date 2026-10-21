@@ -10,10 +10,12 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     // Agents get the markdown itself: /<id>.md, or /<id> with "Accept: text/markdown".
-    // Only share-id-shaped paths match, so no static page can be shadowed.
+    // afterFiles: real pages and files (e.g. /markdown-cheat-sheet, whose name also fits the
+    // share-id shape) match first; only the share viewer's dynamic segment is overridden.
     const shareId = ":id([a-z]+-[a-z]+-[A-Za-z0-9]{5})";
     return {
-      beforeFiles: [
+      beforeFiles: [],
+      afterFiles: [
         { source: `/${shareId}.md`, destination: "/raw/:id" },
         {
           source: `/${shareId}`,
@@ -21,7 +23,6 @@ const nextConfig: NextConfig = {
           destination: "/raw/:id",
         },
       ],
-      afterFiles: [],
       fallback: [],
     };
   },

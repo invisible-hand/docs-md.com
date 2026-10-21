@@ -4,9 +4,11 @@ import { useState } from 'react';
 
 interface CopyButtonProps {
   content: string;
+  /** Button text for translated pages; English by default. */
+  labels?: { copy: string; copied: string };
 }
 
-export default function CopyButton({ content }: CopyButtonProps) {
+export default function CopyButton({ content, labels = { copy: 'Copy', copied: '✓ Copied' } }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -24,7 +26,7 @@ export default function CopyButton({ content }: CopyButtonProps) {
       onClick={handleCopy}
       className="px-4 py-2 text-sm bg-gray-950 text-white rounded-lg hover:bg-gray-800 transition-colors"
     >
-      {copied ? '✓ Copied' : 'Copy'}
+      {copied ? labels.copied : labels.copy}
     </button>
   );
 }

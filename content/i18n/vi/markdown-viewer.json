@@ -1,0 +1,114 @@
+{
+  "locale": "vi",
+  "page": "markdown-viewer",
+  "slug": "doc-file-md-online",
+  "title": "Đọc file MD online – Trình xem Markdown miễn phí",
+  "description": "Đọc file md online miễn phí: kéo thả file .md, dán nội dung hoặc tải từ GitHub để xem có định dạng — bảng, code, sơ đồ mermaid. Không cần cài đặt.",
+  "h1": "Đọc file MD online",
+  "intro": "Để đọc file md online, hãy kéo thả file .md vào trình xem bên dưới — hoặc dán nội dung, hoặc tải từ link GitHub — và tài liệu hiển thị ngay có định dạng: tiêu đề, bảng, code tô màu, danh sách việc cần làm, sơ đồ mermaid. Miễn phí, chạy trong trình duyệt, file không bị tải lên máy chủ.",
+  "updated": "2026-10-20",
+  "chrome": {
+    "updated": "Cập nhật",
+    "faqTitle": "Câu hỏi thường gặp",
+    "otherLanguages": "Ngôn ngữ khác",
+    "copy": "Sao chép",
+    "copied": "✓ Đã sao chép"
+  },
+  "ui": {
+    "openFile": "Mở file .md",
+    "urlAria": "Tải markdown từ URL",
+    "loading": "Đang tải…",
+    "loadFromUrl": "Tải từ URL",
+    "loadExample": "Mở ví dụ",
+    "hideSource": "Ẩn mã nguồn",
+    "editSource": "Sửa mã nguồn",
+    "privacy": "File được mở ngay trong trình duyệt bằng File API và không bị tải lên máy chủ. Yêu cầu mạng duy nhất là lệnh Tải từ URL (nếu bạn dùng) và, khi bạn bấm, Chia sẻ qua link.",
+    "openSourceBefore": "Trình xem này là",
+    "openSource": "mã nguồn mở",
+    "size": "Cỡ chữ",
+    "wide": "Rộng",
+    "paper": "Trang giấy",
+    "words": "từ",
+    "print": "In / PDF",
+    "copy": "Sao chép",
+    "copied": "Đã chép ✓",
+    "download": "Tải xuống",
+    "share": "Chia sẻ qua link",
+    "sharing": "Đang chia sẻ…",
+    "liveAt": "Đã đăng tại",
+    "expires30": "(hết hạn sau 30 ngày)",
+    "corsError": "Trình duyệt không lấy được URL này — máy chủ không cho phép đọc chéo nguồn (CORS). Hãy tải file về rồi thả vào đây. Link raw của GitHub và gist vẫn dùng được.",
+    "loadError": "Không tải được:",
+    "exampleError": "Không mở được ví dụ này.",
+    "shareError": "Chia sẻ thất bại — vui lòng thử lại.",
+    "sourceAria": "Mã nguồn markdown",
+    "sourcePlaceholder": "Dán markdown vào đây, hoặc thả file .md vào bất kỳ đâu trên khung này.",
+    "outline": "Mục lục",
+    "empty": "Chưa có gì để hiển thị — hãy dán markdown hoặc mở một file."
+  },
+  "starter": "# Trình xem Markdown\n\nThả file `.md` vào trang này, dán markdown hoặc tải file từ URL — tài liệu hiển thị ngay với bảng, code tô màu, danh sách việc cần làm và sơ đồ mermaid.\n\n## Bạn có thể làm gì\n\n- [x] Đọc README mà không cần clone repo\n- [x] In hoặc lưu thành PDF ngay từ trình duyệt\n- [ ] Chia sẻ trang đã hiển thị qua link (hết hạn sau 30 ngày)\n\n| Điều khiển | Tác dụng |\n| ---------- | -------- |\n| Cỡ chữ | S / M / L |\n| Độ rộng | Hẹp để đọc, rộng cho bảng |\n| Mục lục | Nhảy giữa các tiêu đề |\n\n```mermaid\nflowchart LR\n  A[File .md] --> B{Trình xem}\n  B --> C[In]\n  B --> D[Chia sẻ link]\n```\n\n> Mẹo: dẫn link thẳng tới bản đã hiển thị bằng `?url=https://raw.githubusercontent.com/...`\n",
+  "sections": [
+    {
+      "h2": "Làm sao để đọc file md online?",
+      "body": "Mở trang này và đưa file cho trình xem theo cách nào tiện nhất — tài liệu hiển thị ngay khi có nội dung:\n\n1. **Kéo thả** file `.md` vào bất kỳ đâu trên khung trình xem, hoặc bấm *Mở file .md* rồi chọn file.\n2. **Dán** văn bản markdown vào ô soạn thảo.\n3. **Tải từ URL** — dán link file trên GitHub hoặc địa chỉ file raw bất kỳ rồi bấm *Tải từ URL*.\n\nSau đó bấm *Ẩn mã nguồn* để có chế độ đọc toàn khung, chọn cỡ chữ và độ rộng, rồi dùng *Mục lục* để nhảy giữa các tiêu đề. Không cần cài đặt, không cần tài khoản, và trang hoạt động giống nhau trên Windows, macOS, Linux lẫn Chromebook."
+    },
+    {
+      "h2": "File .md là gì và vì sao mở ra chỉ thấy toàn ký hiệu?",
+      "body": "File `.md` (Markdown) là file văn bản thuần: định dạng được ghi bằng chính các ký tự thông thường. Dấu `#` đầu dòng là tiêu đề, `**hai dấu sao**` bao quanh chữ là chữ đậm, các dấu `|` xếp thành bảng, ba dấu backtick bao quanh một đoạn code. Bạn gặp loại file này khắp nơi: README.md trong mọi repo GitHub, tài liệu hướng dẫn đi kèm phần mềm, ghi chú xuất từ Obsidian, hay văn bản do các công cụ AI tạo ra.\n\nKhi mở bằng trình soạn thảo văn bản như Notepad hay TextEdit, bạn thấy đúng những ký tự đó — tức mã nguồn markdown — chứ không phải tài liệu đã định dạng. File không hề bị lỗi; chỉ là chương trình đó không *hiển thị* (render) markdown. Trình xem markdown làm đúng phần việc còn thiếu: đọc các ký hiệu và biến chúng thành tiêu đề, danh sách, bảng và code được tô màu cú pháp, kèm mục lục bấm được. Đọc nhanh hơn hẳn, và bạn còn kiểm tra được tài liệu có hiển thị đúng ý trước khi commit hay không — một khối code quên đóng hoặc một bảng bị vỡ sẽ lộ ra ngay. Muốn tra nhanh ký hiệu nào nghĩa là gì trong lúc đọc, hãy mở kèm [bảng cú pháp Markdown](/vi/cu-phap-markdown)."
+    },
+    {
+      "h2": "Mở file .md trên Windows và macOS như thế nào?",
+      "body": "Trên **Windows**, khi nhấp đúp vào file `.md`, hệ thống thường hỏi bạn muốn mở bằng ứng dụng nào; Notepad mở được nhưng chỉ hiện văn bản thô. Trên **macOS**, TextEdit cũng cho kết quả tương tự. Cách nhanh nhất để đọc file có định dạng trên cả hai hệ điều hành mà không phải cài gì:\n\n1. Mở trang này bằng trình duyệt bất kỳ (Chrome, Edge, Safari, Firefox).\n2. Kéo file từ File Explorer hoặc Finder thả vào khung trình xem — hoặc bấm *Mở file .md* và chọn file.\n3. Bấm *Ẩn mã nguồn* để đọc ở chế độ toàn khung.\n\nFile `.markdown`, `.mdx` và `.txt` cũng mở theo cách tương tự. File được trình duyệt đọc bằng File API và không gửi lên máy chủ, nên tài liệu nội bộ vẫn nằm trên máy bạn. Nếu bạn đã quen làm việc trong VS Code, chế độ xem trước có sẵn của nó cũng làm được việc này với file trên máy: nhấn `Ctrl+Shift+V` (trên Mac là `Cmd+Shift+V`) — chi tiết trong [tài liệu Markdown của VS Code](https://code.visualstudio.com/docs/languages/markdown)."
+    },
+    {
+      "h2": "Mở file .md trên điện thoại Android và iPhone ra sao?",
+      "body": "Điện thoại thường không có sẵn ứng dụng hiển thị markdown: file `.md` nhận qua Zalo, email hay Google Drive, nếu mở được thì cũng chỉ là văn bản thô đầy ký hiệu. Trình xem này chạy trong trình duyệt di động nên dùng được ngay, không cần cài app:\n\n- **Android**: mở trang bằng Chrome, chạm *Mở file .md* và chọn file trong mục Tải xuống, Google Drive hoặc trình quản lý file.\n- **iPhone / iPad**: mở trang bằng Safari, chạm *Mở file .md* và chọn file trong ứng dụng Tệp (Files), kể cả file lưu trên iCloud Drive.\n\nNếu file nằm trên GitHub thì không cần tải về: dán link vào ô URL và chạm *Tải từ URL*. Trên màn hình nhỏ, hãy chọn *Ẩn mã nguồn* để phần tài liệu chiếm trọn chiều rộng."
+    },
+    {
+      "h2": "Phần mềm nào xem trước được markdown?",
+      "body": "Với một file chỉ cần đọc một lần, trình đọc md trên trình duyệt như trang này là nhanh nhất: không cài đặt, và cách hiển thị theo đúng quy tắc của GitHub nên README trông giống hệt khi đưa lên GitHub. Nếu bạn soạn markdown hằng ngày, một trình soạn thảo có xem trước trực tiếp sẽ hợp hơn:\n\n- **VS Code** — xem trước tích hợp sẵn: `Ctrl+Shift+V` mở bản xem trước, `Ctrl+K V` mở nó song song với mã nguồn.\n- **Obsidian** — ứng dụng ghi chú lưu mọi thứ thành file `.md` ngay trên máy.\n- **Typora** — soạn và xem kết quả trong cùng một khung.\n\nCòn khi cần gửi tài liệu đã định dạng cho người không dùng các công cụ trên, hãy chia sẻ nó dưới dạng link — người nhận chỉ việc mở một trang web."
+    },
+    {
+      "h2": "Làm sao đọc README trên GitHub mà không cần clone?",
+      "body": "Dán địa chỉ file trên GitHub (dạng `github.com/.../blob/...`) vào ô URL rồi bấm *Tải từ URL*. Trình xem tự đổi nó sang địa chỉ `raw.githubusercontent.com`, nơi cho phép trình duyệt đọc chéo nguồn (CORS); link gist cũng dùng được. Bạn còn có thể gửi cho người khác link dẫn thẳng tới bản đã hiển thị bằng cách thêm `?url=` vào địa chỉ trang này.\n\nViệc tải diễn ra ngay trong trình duyệt, nên máy chủ phía bên kia phải cho phép đọc chéo nguồn. Nhiều wiki nội bộ và bản xuất từ CMS không cho phép — khi đó hãy tải file về rồi thả vào khung trình xem. Muốn đọc cả README lẫn thư mục docs của một repository với các link nội bộ bấm được, hãy dùng [trình xem README GitHub](/github-readme-viewer)."
+    },
+    {
+      "h2": "Làm sao chia sẻ file markdown đã định dạng qua link?",
+      "body": "Bấm *Chia sẻ qua link*. Tài liệu được đăng lên một URL ngắn, hiển thị y hệt như ở đây — kể cả sơ đồ — và hết hạn sau 30 ngày. Ai có link cũng xem được, vì vậy đừng chia sẻ nội dung cần giữ kín. Nếu cần thời hạn khác, token chỉnh sửa, endpoint raw hoặc máy chủ MCP để chia sẻ thẳng từ Cursor hay Claude Code, hãy dùng [trang chia sẻ chính của Docs MD](/).\n\nKhi người nhận cần một file để lưu hoặc in, bấm *In / PDF* rồi chọn \"Lưu dưới dạng PDF\" trong hộp thoại in của trình duyệt — các nút điều khiển được ẩn đi, chỉ phần tài liệu được in. Cần thêm tùy chọn thiết lập trang thì dùng công cụ [chuyển Markdown sang PDF](/markdown-to-pdf)."
+    },
+    {
+      "h2": "Trình xem hiển thị loại markdown nào?",
+      "body": "GitHub Flavored Markdown (GFM): CommonMark cộng thêm bảng, danh sách việc cần làm, chữ gạch ngang, tự nhận link và chú thích cuối trang, kèm tô màu cú pháp cho các khối code. Đây cũng là chuẩn mà GitHub, GitLab và phần lớn các trang tài liệu sử dụng, nên những gì bạn thấy ở đây chính là cách README sẽ hiển thị sau khi push. Khối code gắn nhãn `mermaid` được vẽ thành sơ đồ SVG. Các ứng dụng chat như Discord hay Slack có cách định dạng riêng, khác với GFM. Toàn bộ cú pháp kèm ví dụ có trong [bảng cú pháp Markdown](/vi/cu-phap-markdown)."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Trình xem file md là gì?",
+      "a": "Trình xem file md (hay trình đọc file md) là công cụ mở file markdown và hiển thị nó đã được định dạng — tiêu đề, danh sách, bảng, link và code — thay vì văn bản thô đầy dấu # và *. Trình xem này chạy trên mọi trình duyệt, không cần cài đặt gì."
+    },
+    {
+      "q": "Trình đọc file md này có miễn phí và riêng tư không?",
+      "a": "Có. Công cụ miễn phí và không cần đăng ký. File bạn mở hoặc thả vào được trình duyệt đọc bằng File API và không gửi lên máy chủ; chỉ khi bấm Chia sẻ qua link thì tài liệu mới được đăng lên."
+    },
+    {
+      "q": "Có xem được README trên GitHub mà không cần clone không?",
+      "a": "Được. Dán địa chỉ file trên GitHub (dạng github.com/.../blob/...) rồi bấm Tải từ URL; địa chỉ sẽ được đổi sang raw.githubusercontent.com, nơi cho phép đọc chéo nguồn. Bạn cũng có thể gửi link dẫn thẳng tới bản đã hiển thị bằng tham số ?url= trên địa chỉ trang này."
+    },
+    {
+      "q": "Vì sao tải từ một số URL bị lỗi?",
+      "a": "Việc tải diễn ra trong trình duyệt của bạn, nên máy chủ từ xa phải cho phép yêu cầu chéo nguồn (CORS). File raw trên GitHub và gist cho phép, còn nhiều wiki công ty và bản xuất từ CMS thì không. Khi đó hãy tải file về rồi thả vào."
+    },
+    {
+      "q": "Làm sao chuyển markdown sang PDF?",
+      "a": "Bấm In / PDF và chọn \"Lưu dưới dạng PDF\" trong hộp thoại in của trình duyệt; các nút điều khiển được ẩn và chỉ tài liệu đã hiển thị được in ra. Nếu cần công cụ chuyển đổi riêng với tùy chọn thiết lập trang, hãy dùng công cụ Markdown sang PDF của Docs MD."
+    },
+    {
+      "q": "Sơ đồ mermaid có hiển thị không?",
+      "a": "Có. Khối code gắn nhãn mermaid được vẽ thành sơ đồ SVG — flowchart, sequence diagram, timeline và các loại sơ đồ khác mà mermaid hỗ trợ."
+    },
+    {
+      "q": "Có đọc được file .md trên điện thoại không?",
+      "a": "Được. Mở trang này bằng Chrome trên Android hoặc Safari trên iPhone, chạm Mở file .md và chọn file từ bộ nhớ máy, Google Drive hoặc ứng dụng Tệp. Tài liệu hiển thị ngay trong trình duyệt, không cần cài app."
+    }
+  ]
+}

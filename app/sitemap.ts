@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { listGuideSlugs } from '@/lib/guides';
 import { listToolGuides } from '@/lib/tool-guides';
 import { TOOL_ROUTES } from '@/lib/tools-registry';
+import { LOCALES, listLocalized } from '@/lib/i18n';
 
 const BASE_URL = 'https://docs-md.com';
 
@@ -83,6 +84,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...STATIC_ROUTES,
     ...listGuideSlugs().map((s) => `/guides/${s}`),
     ...listToolGuides().map((g) => g.path),
+    ...LOCALES.flatMap((locale) => listLocalized(locale).map((p) => `/${locale}/${p.slug}`)),
   ];
   return routes.map((route) => ({
     url: `${BASE_URL}${route}`,

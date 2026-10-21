@@ -32,6 +32,43 @@ flowchart LR
 > Tip: link straight to a rendered file with \`?url=https://raw.githubusercontent.com/...\`
 `;
 
+export const VIEWER_LABELS_EN = {
+  openFile: 'Open .md file',
+  urlAria: 'Load markdown from URL',
+  loading: 'Loading…',
+  loadFromUrl: 'Load from URL',
+  loadExample: 'Load example',
+  hideSource: 'Hide source',
+  editSource: 'Edit source',
+  privacy: 'Files open in your browser with the File API and are not uploaded. The only network requests are the optional Load from URL fetch and, if you click it, Share as link.',
+  openSourceBefore: 'The viewer is',
+  openSource: 'open source',
+  size: 'Size',
+  wide: 'Wide',
+  paper: 'Paper',
+  words: 'words',
+  print: 'Print / PDF',
+  copy: 'Copy',
+  copied: 'Copied ✓',
+  download: 'Download',
+  share: 'Share as link',
+  sharing: 'Sharing…',
+  liveAt: 'Live at',
+  expires30: '(expires in 30 days)',
+  corsError:
+    'Could not fetch that URL from the browser — the host does not allow cross-origin reads (CORS). Download the file and drop it here instead. GitHub raw and gist URLs work.',
+  loadError: 'Could not load:',
+  exampleError: 'Could not load that example.',
+  shareError: 'Sharing failed — please try again.',
+  sourceAria: 'Markdown source',
+  sourcePlaceholder: 'Paste markdown here, or drop a .md file anywhere on this panel.',
+  outline: 'Outline',
+  empty: 'Nothing to show yet — paste markdown or open a file.',
+};
+
+export type ViewerLabels = typeof VIEWER_LABELS_EN;
+
+
 const LABEL = 'text-xs font-semibold uppercase tracking-wide text-gray-500';
 
 function toRawUrl(input: string): string {
@@ -44,8 +81,16 @@ function formatSize(bytes: number): string {
   return bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(1)} KB`;
 }
 
-export default function MarkdownViewer() {
-  const [content, setContent] = useState(STARTER);
+interface MarkdownViewerProps {
+  /** Interface text for translated pages (content/i18n/<locale>/markdown-viewer.json); English by default. */
+  labels?: Partial<ViewerLabels>;
+  /** The document shown before the visitor opens a file. */
+  starter?: string;
+}
+
+export default function MarkdownViewer({ labels, starter = STARTER }: MarkdownViewerProps = {}) {
+  const L = { ...VIEWER_LABELS_EN, ...labels };
+  const [content, setContent] = useState(starter);
   const [fileName, setFileName] = useState('untitled.md');
   const [editing, setEditing] = useState(true);
   const [url, setUrl] = useState('');
@@ -76,12 +121,13 @@ export default function MarkdownViewer() {
       const msg = e instanceof Error ? e.message : String(e);
       setError(
         msg.includes('fetch')
-          ? 'Could not fetch that URL from the browser — the host does not allow cross-origin reads (CORS). Download the file and drop it here instead. GitHub raw and gist URLs work.'
-          : `Could not load: ${msg}`,
+          ? L.corsError
+          : `${L.loadError} ${msg}`,
       );
     } finally {
       setLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- labels are static per page
   }, []);
 
   const loadExample = useCallback((slug: string) => {
@@ -94,8 +140,9 @@ export default function MarkdownViewer() {
         setFileName(`${slug}.md`);
         setEditing(false);
       })
-      .catch(() => setError('Could not load that example.'))
+      .catch(() => setError(L.exampleError))
       .finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- labels are static per page
   }, []);
 
   useEffect(() => {
@@ -134,7 +181,7 @@ export default function MarkdownViewer() {
       setShareState('done');
     } catch {
       setShareState('idle');
-      setError('Sharing failed — please try again.');
+      setError(L.shareError);
     }
   };
 
@@ -159,7 +206,7 @@ export default function MarkdownViewer() {
     >
       <div className="mb-4 flex flex-wrap items-center gap-2 print:hidden">
         <button type="button" className={BTN_PRIMARY} onClick={() => fileInput.current?.click()}>
-          Open .md file
+          {L.openFile}
         </button>
         <input
           ref={fileInput}
@@ -179,33 +226,31 @@ export default function MarkdownViewer() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="https://github.com/owner/repo/blob/main/README.md"
-            aria-label="Load markdown from URL"
+            aria-label={L.urlAria}
             className="min-w-0 flex-1 rounded-lg border border-gray-300 px-3 py-1.5 text-xs text-gray-900 focus:border-indigo-400 focus:outline-none"
           />
           <button type="submit" className={BTN_GHOST} disabled={loading || !url.trim()}>
-            {loading ? 'Loading…' : 'Load from URL'}
+            {loading ? L.loading : L.loadFromUrl}
           </button>
         </form>
         <button type="button" className={BTN_GHOST} onClick={() => loadExample('architecture-webhook-flow')} disabled={loading}>
-          Load example
+          {L.loadExample}
         </button>
         <button type="button" className={BTN_GHOST} onClick={() => setEditing((v) => !v)}>
-          {editing ? 'Hide source' : 'Edit source'}
+          {editing ? L.hideSource : L.editSource}
         </button>
       </div>
       <p className="mb-4 text-xs text-gray-500 print:hidden">
-        Files open in your browser with the File API and are not uploaded. The only network
-        requests are the optional <em>Load from URL</em> fetch and, if you click it, <em>Share as
-        link</em>. The viewer is{' '}
+        {L.privacy} {L.openSourceBefore}{' '}
         <a href="https://github.com/invisible-hand/docs-md.com/blob/main/components/tools/MarkdownViewer.tsx" className="text-indigo-700 underline" target="_blank" rel="noopener noreferrer">
-          open source
+          {L.openSource}
         </a>
         .
       </p>
 
       <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-gray-700 print:hidden">
         <div className="flex items-center gap-1.5">
-          <span className={LABEL}>Size</span>
+          <span className={LABEL}>{L.size}</span>
           <div className="inline-flex rounded-full border border-gray-200 p-0.5">
             {(['S', 'M', 'L'] as const).map((s) => (
               <button
@@ -220,36 +265,36 @@ export default function MarkdownViewer() {
           </div>
         </div>
         <label className="flex items-center gap-1.5">
-          <input type="checkbox" checked={wide} onChange={(e) => setWide(e.target.checked)} /> Wide
+          <input type="checkbox" checked={wide} onChange={(e) => setWide(e.target.checked)} /> {L.wide}
         </label>
         <label className="flex items-center gap-1.5">
-          <input type="checkbox" checked={paper} onChange={(e) => setPaper(e.target.checked)} /> Paper
+          <input type="checkbox" checked={paper} onChange={(e) => setPaper(e.target.checked)} /> {L.paper}
         </label>
         <span className="ml-auto text-gray-500">
-          {fileName} · {formatSize(size)} · {stats.words.toLocaleString()} words
+          {fileName} · {formatSize(size)} · {stats.words.toLocaleString()} {L.words}
         </span>
         <button type="button" className={BTN_GHOST} onClick={() => window.print()}>
-          Print / PDF
+          {L.print}
         </button>
         <button type="button" className={BTN_GHOST} onClick={() => copy(content)}>
-          {copied ? 'Copied ✓' : 'Copy'}
+          {copied ? L.copied : L.copy}
         </button>
         <button type="button" className={BTN_GHOST} onClick={() => downloadFile(fileName.endsWith('.md') ? fileName : `${fileName}.md`, content, 'text/markdown')}>
-          Download
+          {L.download}
         </button>
         <button type="button" className={BTN_DARK} onClick={handleShare} disabled={shareState === 'loading' || !content.trim()}>
-          {shareState === 'loading' ? 'Sharing…' : 'Share as link'}
+          {shareState === 'loading' ? L.sharing : L.share}
         </button>
       </div>
 
       {error && <p className="mb-4 rounded-xl bg-red-50 px-4 py-2 text-sm text-red-700 print:hidden">{error}</p>}
       {shareState === 'done' && (
         <p className="mb-4 text-sm text-gray-600 print:hidden">
-          Live at{' '}
+          {L.liveAt}{' '}
           <Link href={shareUrl} className="text-indigo-700 underline">
             {shareUrl}
           </Link>{' '}
-          (expires in 30 days)
+          {L.expires30}
         </p>
       )}
 
@@ -259,13 +304,13 @@ export default function MarkdownViewer() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             spellCheck={false}
-            aria-label="Markdown source"
-            placeholder="Paste markdown here, or drop a .md file anywhere on this panel."
+            aria-label={L.sourceAria}
+            placeholder={L.sourcePlaceholder}
             className="h-[70vh] w-full resize-y rounded-2xl border border-gray-200 bg-gray-50 p-4 font-mono text-sm text-gray-900 focus:border-indigo-400 focus:outline-none print:hidden"
           />
         ) : toc.length > 1 ? (
           <nav aria-label="Outline" className="hidden lg:block print:hidden">
-            <p className={`${LABEL} mb-2`}>Outline</p>
+            <p className={`${LABEL} mb-2`}>{L.outline}</p>
             <ul className="sticky top-24 max-h-[70vh] space-y-1 overflow-auto text-xs">
               {toc.map((h, i) => (
                 <li key={`${h.slug}-${i}`} style={{ paddingLeft: `${(h.depth - 1) * 10}px` }}>
@@ -284,7 +329,7 @@ export default function MarkdownViewer() {
             {content.trim() ? (
               <MarkdownRenderer content={content} />
             ) : (
-              <p className="text-sm text-gray-400">Nothing to show yet — paste markdown or open a file.</p>
+              <p className="text-sm text-gray-400">{L.empty}</p>
             )}
           </div>
         </article>

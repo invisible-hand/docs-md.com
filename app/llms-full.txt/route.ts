@@ -1,10 +1,13 @@
-import { firstParagraph, listGuides } from '@/lib/guides';
+import { listGuides } from '@/lib/guides';
+import { cheatSheetMarkdown, sectionsMarkdown } from '@/lib/cheat-sheet-markdown';
+import { PLATFORM_SHEETS } from '@/lib/platform-sheets';
+import { toolGuidesFor } from '@/lib/tool-guides';
 import { TOOLS, TOOL_CATEGORIES } from '@/lib/tools-registry';
 
-// /llms-full.txt — the expanded companion to /llms.txt: one plain-text block per
-// syntax guide (title, URL, updated date, description, opening answer paragraph)
-// and per tool (title, URL, updated date, description). Built from the same
-// registries as llms.txt and the sitemap.
+// /llms-full.txt — the expanded companion to /llms.txt, so a model can read the site's
+// reference content in one fetch: the full markdown cheat sheet, every platform cheat
+// sheet, every syntax guide and tool question page in full, and every tool's
+// description. Built from the same sources as the pages themselves.
 
 export const dynamic = 'force-static';
 
@@ -20,8 +23,12 @@ export function GET() {
       '',
       g.description,
       '',
-      firstParagraph(g.body),
+      g.body.trim(),
     ].join('\n'),
+  );
+
+  const sheets = PLATFORM_SHEETS.map((p) =>
+    [`# ${p.title}`, '', `URL: ${BASE}/${p.slug}`, '', sectionsMarkdown(p.sections, 2)].join('\n'),
   );
 
   const label = new Map(TOOL_CATEGORIES.map((c) => [c.id, c.label]));
@@ -34,13 +41,22 @@ export function GET() {
       `Updated: ${t.updated}`,
       '',
       t.description,
+      ...toolGuidesFor(t.slug).flatMap((q) => ['', `## ${q.h1}`, '', `URL: ${BASE}${q.path}`, `Updated: ${q.updated}`, '', q.body.trim()]),
     ].join('\n'),
   );
 
   const body = [
     'Docs MD (docs-md.com) — full text index',
     '',
-    'Docs MD shares Markdown documents as rendered links with an expiry you choose, no account needed, and hosts free browser-side markdown tools and syntax guides. This file lists every syntax guide with its opening answer and every tool with its description. The link index is at https://docs-md.com/llms.txt.',
+    'Docs MD shares Markdown documents as rendered links with an expiry you choose, no account needed, and hosts free browser-side markdown tools and syntax guides. This file holds the full text of the markdown cheat sheet, the platform cheat sheets, every syntax guide and every tool question page. The link index is at https://docs-md.com/llms.txt. Agents can publish markdown with `curl --data-binary @FILE.md https://docs-md.com/api/share` (see https://docs-md.com/agents).',
+    '',
+    '',
+    cheatSheetMarkdown('2026-10-20').replace(/^# /, '## '),
+    '',
+    '',
+    '## Platform and dialect cheat sheets',
+    '',
+    sheets.join('\n\n---\n\n'),
     '',
     '',
     '## Markdown syntax guides',

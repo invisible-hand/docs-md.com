@@ -52,6 +52,36 @@ export const metadata: Metadata = {
   },
 };
 
+// Who publishes the site, for search engines and AI answers: one entity with its official profiles.
+const SITE_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://docs-md.com/#organization',
+      name: 'Docs MD',
+      alternateName: ['docs-md.com', 'MD Share'],
+      url: 'https://docs-md.com',
+      logo: 'https://docs-md.com/logo.svg',
+      description:
+        'Docs MD shares markdown as rendered links with an expiry, with an MCP server and API for AI agents and free markdown tools.',
+      sameAs: [
+        'https://github.com/invisible-hand/docs-md.com',
+        'https://github.com/marketplace/actions/share-markdown-with-docs-md',
+        'https://glama.ai/mcp/connectors/com.docs-md/markdown-share',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://docs-md.com/#website',
+      name: 'Docs MD',
+      url: 'https://docs-md.com',
+      inLanguage: ['en', 'ru', 'vi', 'es', 'pt-BR'],
+      publisher: { '@id': 'https://docs-md.com/#organization' },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -62,6 +92,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }} />
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-HBDKD40XNV"

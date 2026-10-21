@@ -1,0 +1,368 @@
+{
+  "locale": "es",
+  "page": "markdown-cheat-sheet",
+  "slug": "sintaxis-markdown",
+  "title": "Sintaxis Markdown: guía rápida con ejemplos",
+  "description": "Sintaxis de Markdown con ejemplos renderizados: encabezados, negrita, listas, enlaces, imágenes, código, tablas, listas de tareas, notas al pie y mermaid.",
+  "h1": "Sintaxis de Markdown: guía rápida con ejemplos",
+  "intro": "Markdown es una forma de dar formato a texto plano con símbolos sencillos: `#` para títulos, `**` para negritas, `-` para listas. Lo usan GitHub, los archivos README, la documentación técnica y muchas apps de notas. Esta guía rápida reúne toda la sintaxis de Markdown en una página, con ejemplos listos para copiar y su resultado renderizado, incluidas las extensiones de GitHub (GFM) y los diagramas mermaid.",
+  "updated": "2026-10-20",
+  "chrome": {
+    "updated": "Actualizado",
+    "faqTitle": "Preguntas frecuentes",
+    "otherLanguages": "También disponible en",
+    "copy": "Copiar",
+    "copied": "✓ Copiado",
+    "glanceTitle": "Sintaxis de Markdown de un vistazo",
+    "glanceElement": "Elemento",
+    "glanceSyntax": "Sintaxis",
+    "glanceNote": "Nota",
+    "sectionsTitle": "Referencia completa con ejemplos"
+  },
+  "glance": [
+    {
+      "element": "Encabezado",
+      "syntax": "# H1  ## H2  ### H3",
+      "note": "Hasta seis #; deja un espacio después."
+    },
+    {
+      "element": "Negrita",
+      "syntax": "**texto en negrita**"
+    },
+    {
+      "element": "Cursiva",
+      "syntax": "*cursiva* o _cursiva_"
+    },
+    {
+      "element": "Negrita y cursiva",
+      "syntax": "***ambas***"
+    },
+    {
+      "element": "Tachado",
+      "syntax": "~~eliminado~~",
+      "note": "GitHub Flavored Markdown (GFM)."
+    },
+    {
+      "element": "Código en línea",
+      "syntax": "`código`"
+    },
+    {
+      "element": "Bloque de código",
+      "syntax": "```js\ncódigo\n```",
+      "note": "La palabra después de las comillas invertidas define el lenguaje del resaltado."
+    },
+    {
+      "element": "Enlace",
+      "syntax": "[texto](https://example.com)"
+    },
+    {
+      "element": "Imagen",
+      "syntax": "![texto alternativo](imagen.png)"
+    },
+    {
+      "element": "Lista con viñetas",
+      "syntax": "- elemento",
+      "note": "* y + también funcionan."
+    },
+    {
+      "element": "Lista numerada",
+      "syntax": "1. elemento"
+    },
+    {
+      "element": "Lista de tareas",
+      "syntax": "- [ ] pendiente\n- [x] hecho",
+      "note": "GFM."
+    },
+    {
+      "element": "Cita",
+      "syntax": "> texto citado"
+    },
+    {
+      "element": "Tabla",
+      "syntax": "| A | B |\n| --- | --- |\n| 1 | 2 |",
+      "note": "GFM. Los dos puntos en la segunda fila definen la alineación."
+    },
+    {
+      "element": "Línea horizontal",
+      "syntax": "---"
+    },
+    {
+      "element": "Salto de línea",
+      "syntax": "línea uno\\\nlínea dos",
+      "note": "Una barra invertida o dos espacios al final de la línea."
+    },
+    {
+      "element": "Nota al pie",
+      "syntax": "Texto[^1]\n\n[^1]: La nota.",
+      "note": "GFM."
+    },
+    {
+      "element": "Escapar un carácter",
+      "syntax": "\\*no es cursiva\\*",
+      "note": "Una barra invertida antes de cualquier símbolo de markdown."
+    },
+    {
+      "element": "Diagrama",
+      "syntax": "```mermaid\nflowchart LR\n  A --> B\n```",
+      "note": "Se renderiza en GitHub, GitLab y Docs MD."
+    }
+  ],
+  "sections": [
+    {
+      "id": "headings",
+      "title": "Encabezados",
+      "snippets": [
+        {
+          "label": "Seis niveles",
+          "syntax": "# H1 — título de la página\n## H2 — sección\n### H3 — subsección\n#### H4\n##### H5\n###### H6",
+          "note": "Lo habitual es un solo H1 por documento. La sintaxis alternativa \"subrayada\" (=== / ---) solo sirve para H1 y H2; se prefiere la forma con #."
+        }
+      ]
+    },
+    {
+      "id": "emphasis",
+      "title": "Énfasis",
+      "snippets": [
+        {
+          "label": "Negrita, cursiva, ambas",
+          "syntax": "**negrita** y *cursiva* y ***negrita cursiva***",
+          "note": "Los guiones bajos también funcionan (__negrita__, _cursiva_), pero los asteriscos funcionan en medio de una palabra: fan**tás**tico."
+        },
+        {
+          "label": "Tachado (GFM)",
+          "syntax": "~~texto tachado~~"
+        }
+      ]
+    },
+    {
+      "id": "lists",
+      "title": "Listas",
+      "snippets": [
+        {
+          "label": "Sin orden",
+          "syntax": "- Primer elemento\n- Segundo elemento\n  - Anidado (sangría de 2 espacios)\n- Tercer elemento"
+        },
+        {
+          "label": "Ordenada",
+          "syntax": "1. Paso uno\n2. Paso dos\n1. Los números que escribas no importan: el renderizador cuenta por ti"
+        },
+        {
+          "label": "Lista de tareas (GFM)",
+          "syntax": "- [x] Lanzar la función\n- [ ] Escribir la documentación\n- [ ] Avisarle a alguien"
+        }
+      ]
+    },
+    {
+      "id": "links-images",
+      "title": "Enlaces e imágenes",
+      "snippets": [
+        {
+          "label": "Enlace en línea",
+          "syntax": "[texto del enlace](https://docs-md.com \"título opcional al pasar el cursor\")"
+        },
+        {
+          "label": "Imagen",
+          "syntax": "![texto alternativo que describe la imagen](https://docs-md.com/favicon.ico)",
+          "note": "Una imagen es un enlace con ! delante. El texto alternativo importa: los lectores de pantalla lo leen y aparece cuando la imagen no carga."
+        },
+        {
+          "label": "Enlace automático (GFM)",
+          "syntax": "Las URL sueltas se convierten en enlaces: https://docs-md.com"
+        },
+        {
+          "label": "Por referencia",
+          "syntax": "Los documentos largos se leen mejor con [referencias con nombre][docs].\n\n[docs]: https://docs-md.com",
+          "note": "Las definiciones pueden ir en cualquier parte del archivo; por convención, al final."
+        }
+      ]
+    },
+    {
+      "id": "anchor-links",
+      "title": "Enlaces a anclas",
+      "intro": "Un enlace a un encabezado de la misma página. El destino es el texto del encabezado convertido en slug: minúsculas, espacios por guiones y sin puntuación.",
+      "snippets": [
+        {
+          "label": "Enlazar a un encabezado",
+          "syntax": "## Primeros pasos\n\nVe a [Primeros pasos](#primeros-pasos) o a [Paso 2: Instalar](#paso-2-instalar).",
+          "note": "Reglas del slug en GitHub: todo en minúsculas, se quita la puntuación excepto guiones y guiones bajos, los espacios se convierten en guiones y a los encabezados repetidos se les agrega -1, -2. \"Paso 2: Instalar\" queda como #paso-2-instalar. Las letras con tilde se conservan en minúscula, así que \"Instalación\" queda como #instalación."
+        },
+        {
+          "label": "Ancla personalizada con HTML",
+          "syntax": "<a id=\"destino-personalizado\"></a>\n## Cualquier texto de encabezado\n\n[Ir allá](#destino-personalizado)",
+          "note": "Si el texto del encabezado puede cambiar, fija un id explícito con una etiqueta <a> vacía encima. Funciona donde se permita HTML en línea (GitHub, GitLab, la mayoría de los generadores de sitios estáticos).",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "title": "Código",
+      "snippets": [
+        {
+          "label": "Código en línea",
+          "syntax": "Ejecuta `npm install` antes de `npm run dev`."
+        },
+        {
+          "label": "Bloque con lenguaje",
+          "syntax": "```ts\nfunction greet(name: string) {\n  return `Hello, ${name}`;\n}\n```",
+          "note": "La etiqueta de lenguaje después de ``` activa el resaltado de sintaxis. Etiquetas comunes: js, ts, python, bash, json, sql, diff."
+        },
+        {
+          "label": "Un bloque dentro de otro",
+          "syntax": "````md\nPara mostrar un bloque de código dentro de otro,\nusa más comillas invertidas afuera:\n```js\nconsole.log(\"anidado\");\n```\n````",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "tables",
+      "title": "Tablas (GFM)",
+      "snippets": [
+        {
+          "label": "Tabla básica con alineación",
+          "syntax": "| Izquierda | Centro | Derecha |\n| :-------- | :----: | ------: |\n| a         |   b    |       c |\n| d         |   e    |       f |",
+          "note": "Los dos puntos en la fila separadora controlan la alineación. Para escribir una barra vertical literal dentro de una celda, escápala como \\|."
+        }
+      ]
+    },
+    {
+      "id": "blockquotes",
+      "title": "Citas",
+      "snippets": [
+        {
+          "label": "Cita y anidamiento",
+          "syntax": "> Un párrafo citado.\n>\n> > Las citas anidadas también funcionan.\n>\n> De vuelta al primer nivel: **el formato funciona adentro**.",
+          "note": "Pon > al inicio de cada línea (un > solo mantiene unida una cita de varios párrafos). GitHub convierte las citas > [!NOTE] / [!WARNING] en alertas de color."
+        }
+      ]
+    },
+    {
+      "id": "alerts",
+      "title": "Alertas (GitHub)",
+      "intro": "Una cita cuya primera línea es [!TYPE] se muestra en GitHub como un recuadro de color. Hay cinco tipos: NOTE, TIP, IMPORTANT, WARNING y CAUTION. Las palabras clave van en inglés.",
+      "snippets": [
+        {
+          "label": "Los cinco tipos de alerta",
+          "syntax": "> [!NOTE]\n> Información útil que el lector debe conocer.\n\n> [!TIP]\n> Un consejo para hacer algo mejor.\n\n> [!IMPORTANT]\n> Información clave para lograrlo.\n\n> [!WARNING]\n> Información urgente que requiere atención inmediata.\n\n> [!CAUTION]\n> Consecuencias negativas de una acción.",
+          "note": "Se muestran como recuadros de color con íconos en GitHub (README, issues, pull requests, discusiones) y GitLab. En los demás lugares (vista previa de VS Code, Slack, Discord, Notion, la mayoría de los generadores de sitios estáticos) el texto literal \"[!NOTE]\" aparece dentro de una cita normal, que es más o menos lo que muestra la vista previa de la derecha.",
+          "preview": "> **Nota**\n> Información útil que el lector debe conocer.\n\n> **Consejo**\n> Un consejo para hacer algo mejor.\n\n> **Importante**\n> Información clave para lograrlo.\n\n> **Advertencia**\n> Información urgente que requiere atención inmediata.\n\n> **Precaución**\n> Consecuencias negativas de una acción."
+        }
+      ]
+    },
+    {
+      "id": "structure",
+      "title": "Estructura y espaciado",
+      "snippets": [
+        {
+          "label": "Línea horizontal",
+          "syntax": "Arriba de la línea.\n\n---\n\nDebajo de la línea.",
+          "note": "Tres o más guiones solos en una línea, con líneas en blanco alrededor (si no, un --- debajo de un texto lo convierte en H2)."
+        },
+        {
+          "label": "Salto de línea vs. párrafo nuevo",
+          "syntax": "Termina una línea con dos espacios  \npara un salto de línea en el mismo párrafo.\n\nUna línea en blanco empieza un párrafo nuevo.",
+          "note": "Una barra invertida al final de la línea también fuerza el salto y se ve más fácil que los espacios al final."
+        },
+        {
+          "label": "Escapar caracteres",
+          "syntax": "\\*no es cursiva\\* y \\# no es encabezado y \\| no es barra de tabla"
+        }
+      ]
+    },
+    {
+      "id": "footnotes",
+      "title": "Notas al pie (GFM)",
+      "snippets": [
+        {
+          "label": "Referencia y definición de la nota",
+          "syntax": "Markdown se creó en 2004.[^1]\n\n[^1]: Por John Gruber, con aportes de Aaron Swartz a la sintaxis.",
+          "note": "Compatible con GitHub y la mayoría de los renderizadores modernos; no forma parte del markdown original."
+        }
+      ]
+    },
+    {
+      "id": "emoji",
+      "title": "Emoji",
+      "snippets": [
+        {
+          "label": "Códigos cortos y emoji literales",
+          "syntax": "Listo para lanzar :tada: :rocket: o pega el carácter directamente: 🎉 🚀",
+          "note": "Los códigos cortos como :tada: no son markdown: GitHub, GitLab, Slack y Discord los convierten; los renderizadores CommonMark, la vista previa de VS Code y la mayoría de los generadores de sitios estáticos muestran los dos puntos. Pegar el emoji como carácter funciona en todas partes.",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "mermaid",
+      "title": "Diagramas mermaid",
+      "snippets": [
+        {
+          "label": "Diagrama de flujo desde un bloque de código",
+          "syntax": "```mermaid\ngraph LR\n  A[Escribir markdown] --> B{¿Compartirlo?}\n  B -->|sí| C[Obtener un enlace]\n  B -->|no| D[Guardarlo local]\n```",
+          "note": "Compatible con GitHub, GitLab y las páginas compartidas de Docs MD. También admite diagramas de secuencia, diagramas de Gantt y diagramas entidad-relación."
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "title": "HTML en línea",
+      "snippets": [
+        {
+          "label": "Cuando markdown no alcanza",
+          "syntax": "Markdown no tiene subrayado, así que usa <u>HTML</u>, <sub>subíndice</sub>, <sup>superíndice</sup> o <kbd>Ctrl</kbd>+<kbd>C</kbd>.",
+          "note": "La mayoría de los renderizadores dejan pasar el HTML (GitHub elimina scripts y estilos). La vista previa de esta página quita el HTML sin procesar, así que revisa el resultado en la plataforma de destino."
+        },
+        {
+          "label": "Teclas con <kbd>",
+          "syntax": "Presiona <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> para abrir la paleta de comandos.",
+          "note": "GitHub muestra <kbd> como una pequeña tecla. Markdown no tiene sintaxis propia para teclas; las comillas invertidas (`Ctrl`) son la alternativa en texto plano que funciona en todas partes.",
+          "render": false
+        },
+        {
+          "label": "Sección desplegable con <details>",
+          "syntax": "<details>\n<summary>Haz clic para expandir</summary>\n\nContenido oculto: **aquí funciona markdown** si dejas una línea en blanco después del summary.\n\n</details>",
+          "note": "Compatible con GitHub, GitLab y la mayoría de los sitios de documentación. Agrega <details open> para que empiece expandida. No funciona en Slack, Discord ni Notion.",
+          "render": false
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "¿Qué es una guía rápida de Markdown?",
+      "a": "Es una referencia de una página con cada elemento de markdown, su sintaxis y el resultado renderizado lado a lado, para que copies los caracteres exactos en lugar de adivinar. Esta cubre el markdown básico, GitHub Flavored Markdown (tablas, listas de tareas, tachado, notas al pie) y los diagramas mermaid."
+    },
+    {
+      "q": "¿Cómo pongo texto en negrita o cursiva en markdown?",
+      "a": "Encierra el texto entre dos asteriscos para negrita (**negrita**) y entre un asterisco o guion bajo para cursiva (*cursiva* o _cursiva_). Tres asteriscos dan negrita cursiva. En GitHub, los guiones bajos dentro de una palabra no activan el énfasis, así que los asteriscos son la opción más segura."
+    },
+    {
+      "q": "¿Cómo agrego un enlace o una imagen?",
+      "a": "Un enlace es [texto](https://example.com) y una imagen es lo mismo con un signo de exclamación delante: ![texto alternativo](imagen.png). Para agregar un texto emergente, pon un título entre comillas después de la URL. Los enlaces por referencia ([texto][id] más [id]: url en su propia línea) mantienen legibles los documentos largos."
+    },
+    {
+      "q": "¿Cómo escribo un bloque de código?",
+      "a": "Pon el código entre dos líneas de tres comillas invertidas. Agrega el nombre del lenguaje justo después de las comillas de apertura (```js) para activar el resaltado de sintaxis. Para código en línea, usa una sola comilla invertida a cada lado."
+    },
+    {
+      "q": "¿Cómo hago una tabla en markdown?",
+      "a": "Separa las columnas con barras verticales y agrega una línea de guiones debajo de la fila de encabezado. Los dos puntos en esa línea separadora definen la alineación: :--- izquierda, :---: centro, ---: derecha. Las tablas son una extensión de GFM compatible con GitHub, GitLab y la mayoría de los renderizadores."
+    },
+    {
+      "q": "¿Cuál es la diferencia entre Markdown y GitHub Flavored Markdown?",
+      "a": "GitHub Flavored Markdown (GFM) es el markdown original más tablas, listas de tareas, tachado, enlaces automáticos y notas al pie, con una especificación formal basada en CommonMark. Casi todos los renderizadores modernos soportan GFM, así que es lo que la gente suele llamar \"markdown\". GitHub además agrega alertas, códigos cortos de emoji y mermaid sobre GFM."
+    },
+    {
+      "q": "¿Qué Markdown funciona en Slack, Discord y Notion?",
+      "a": "Cada uno usa una variante distinta. Discord admite casi todo lo básico (**negrita**, *cursiva*, bloques de código, encabezados, citas), pero no tiene tablas ni imágenes y usa __guiones bajos__ para subrayar. Slack no es markdown: *un asterisco* es negrita, _guiones bajos_ cursiva, ~virgulillas~ tachado, y los enlaces [texto](url) solo funcionan en el cuadro de mensaje con la preferencia de marcado activada. Notion convierte el markdown mientras escribes y al pegar, incluidas tablas y listas de tareas."
+    },
+    {
+      "q": "¿Cómo hago un salto de línea en markdown?",
+      "a": "Un solo Enter no basta: las dos líneas se unen en el mismo párrafo. Termina la línea con una barra invertida o con dos espacios para un salto de línea, o deja una línea en blanco para empezar un párrafo nuevo."
+    },
+    {
+      "q": "¿Con qué abro un archivo .md para ver el resultado?",
+      "a": "Cualquier editor de texto muestra la sintaxis sin formato. Para ver el resultado renderizado, abre el archivo en un visor de markdown en el navegador, como el de Docs MD, o usa la vista previa de un editor como Visual Studio Code."
+    }
+  ]
+}

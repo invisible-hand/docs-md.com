@@ -1,0 +1,114 @@
+{
+  "locale": "pt-br",
+  "page": "markdown-viewer",
+  "slug": "visualizador-markdown",
+  "title": "Visualizador Markdown online: abrir arquivo md grátis",
+  "description": "Abra e leia arquivos .md online, já formatados: arraste o arquivo, cole o texto ou carregue do GitHub. Grátis, sem cadastro e sem upload do arquivo.",
+  "h1": "Visualizador Markdown: abrir arquivo md online",
+  "intro": "Para abrir um arquivo md online, arraste o arquivo `.md` para o visualizador abaixo, cole o texto ou carregue por uma URL do GitHub: ele aparece formatado na hora, com títulos, tabelas, código destacado, listas de tarefas, notas de rodapé e diagramas mermaid. É grátis e roda no navegador; o arquivo é lido no seu aparelho, sem upload. Imprima em PDF ou compartilhe por link.",
+  "updated": "2026-10-20",
+  "chrome": {
+    "updated": "Atualizado em",
+    "faqTitle": "Perguntas frequentes",
+    "otherLanguages": "Também disponível em",
+    "copy": "Copiar",
+    "copied": "✓ Copiado"
+  },
+  "ui": {
+    "openFile": "Abrir arquivo .md",
+    "urlAria": "Carregar markdown de uma URL",
+    "loading": "Carregando…",
+    "loadFromUrl": "Carregar da URL",
+    "loadExample": "Carregar exemplo",
+    "hideSource": "Ocultar código",
+    "editSource": "Editar código",
+    "privacy": "Os arquivos são abertos no seu navegador com a File API e não são enviados para nenhum servidor. As únicas requisições de rede são o Carregar da URL, se você usar, e o Compartilhar por link, se você clicar nele.",
+    "openSourceBefore": "O visualizador é",
+    "openSource": "código aberto",
+    "size": "Tamanho",
+    "wide": "Largo",
+    "paper": "Papel",
+    "words": "palavras",
+    "print": "Imprimir / PDF",
+    "copy": "Copiar",
+    "copied": "Copiado ✓",
+    "download": "Baixar",
+    "share": "Compartilhar por link",
+    "sharing": "Compartilhando…",
+    "liveAt": "Publicado em",
+    "expires30": "(expira em 30 dias)",
+    "corsError": "Não foi possível buscar essa URL pelo navegador — o servidor não permite leituras de outra origem (CORS). Baixe o arquivo e solte-o aqui. URLs raw do GitHub e de gists funcionam.",
+    "loadError": "Não foi possível carregar:",
+    "exampleError": "Não foi possível carregar esse exemplo.",
+    "shareError": "Falha ao compartilhar — tente novamente.",
+    "sourceAria": "Código markdown",
+    "sourcePlaceholder": "Cole o markdown aqui ou solte um arquivo .md em qualquer lugar deste painel.",
+    "outline": "Sumário",
+    "empty": "Nada para mostrar ainda — cole um markdown ou abra um arquivo."
+  },
+  "starter": "# Visualizador de Markdown\n\nArraste um arquivo `.md` para esta página, cole o texto em markdown ou carregue um arquivo por URL — ele aparece formatado aqui, com tabelas, código destacado, listas de tarefas e diagramas mermaid.\n\n## O que você pode fazer\n\n- [x] Ler um README sem clonar o repositório\n- [x] Imprimir ou salvar como PDF pelo navegador\n- [ ] Compartilhar a página renderizada por link (expira em 30 dias)\n\n| Controle | Efeito |\n| -------- | ------ |\n| Tamanho da fonte | P / M / G |\n| Largura | Estreita para leitura, larga para tabelas |\n| Sumário | Pula entre os títulos |\n\n```mermaid\nflowchart LR\n  A[Arquivo .md] --> B{Visualizador}\n  B --> C[Imprimir]\n  B --> D[Link para compartilhar]\n```\n\n> Dica: crie um link direto para um arquivo renderizado com `?url=https://raw.githubusercontent.com/...`\n",
+  "sections": [
+    {
+      "h2": "Como abrir um arquivo md online?",
+      "body": "Abra esta página e entregue o arquivo ao visualizador do jeito que for mais fácil — ele renderiza assim que recebe o texto:\n\n1. **Arraste e solte** o arquivo `.md` em qualquer lugar do painel do visualizador, ou clique em *Abrir arquivo .md* e escolha o arquivo.\n2. **Cole** o texto em markdown no editor.\n3. **Carregue da URL** — cole o link de um arquivo no GitHub ou qualquer endereço de arquivo raw e clique em *Carregar da URL*.\n\nDepois clique em *Ocultar código* para ler em tela cheia, escolha o tamanho da letra e a largura, e use o sumário para pular entre os títulos. Não precisa instalar nada nem criar conta, e funciona do mesmo jeito no Windows, no macOS, no Linux e em Chromebooks."
+    },
+    {
+      "h2": "Por que o arquivo .md aparece cheio de # e *?",
+      "body": "Porque um arquivo `.md` é texto puro. O Markdown é uma forma de marcar a formatação com símbolos comuns: `#` no começo da linha vira título, `**texto**` vira negrito, `-` vira item de lista, `|` monta tabelas e três crases abrem um bloco de código. Quem transforma esses símbolos em documento formatado é um *renderizador* — o GitHub, um editor com pré-visualização ou um visualizador markdown como este.\n\nQuando você abre o arquivo no Bloco de Notas, no TextEdit ou em um app de notas comum, ninguém faz essa conversão, então você vê o código-fonte cru. O arquivo não está corrompido nem com problema de codificação: é só o formato sendo exibido sem renderização. Se quiser entender o que cada símbolo significa, a [sintaxe markdown completa](/pt-br/sintaxe-markdown) mostra cada elemento lado a lado com o resultado."
+    },
+    {
+      "h2": "Como abrir arquivo md no Windows e no Mac?",
+      "body": "No **Windows**, clique com o botão direito no arquivo, escolha *Abrir com* e selecione o Bloco de Notas — você vai ler o texto, mas sem formatação. Para ver o documento formatado, abra esta página no Edge, no Chrome ou no Firefox e arraste o arquivo para o visualizador.\n\nNo **macOS**, um duplo clique costuma abrir o `.md` no TextEdit, que também mostra o código cru. O caminho mais rápido é o mesmo: abra o docs-md.com no Safari ou no Chrome e solte o arquivo no painel.\n\nSe você já usa o **VS Code**, a pré-visualização embutida resolve para arquivos locais: abra o arquivo e pressione `Ctrl+Shift+V` (no Mac, `Cmd+Shift+V`), ou `Ctrl+K V` para abrir a prévia ao lado do código. A documentação oficial está em [code.visualstudio.com](https://code.visualstudio.com/docs/languages/markdown). Arquivos `.markdown`, `.mdx` e `.txt` abrem do mesmo jeito no visualizador."
+    },
+    {
+      "h2": "Como abrir arquivo md no celular (Android e iPhone)?",
+      "body": "Celulares normalmente não têm um app padrão para `.md`: o Android pergunta com que app abrir, e o iPhone mostra o texto cru na pré-visualização do app Arquivos. Não precisa instalar nada para ler formatado.\n\n- **Android:** abra esta página no Chrome, toque em *Abrir arquivo .md* e escolha o arquivo em Downloads, no Google Drive ou em outra pasta do seletor de arquivos.\n- **iPhone e iPad:** abra a página no Safari, toque em *Abrir arquivo .md* e escolha o arquivo no app Arquivos (iCloud Drive, No Meu iPhone ou outro provedor conectado).\n\nSe o arquivo chegou por e-mail ou WhatsApp, salve-o primeiro no aparelho e depois abra pelo seletor. Para um README que está no GitHub, é ainda mais simples: copie o link do arquivo, cole no campo de URL e toque em *Carregar da URL*. O arquivo é lido no próprio navegador, sem upload."
+    },
+    {
+      "h2": "Quais editores mostram a pré-visualização de markdown?",
+      "body": "Para um arquivo avulso, um leitor de md no navegador, como este, é o mais rápido: nada para instalar, e a renderização segue as regras do GitHub, então um README aparece do jeito que vai ficar no GitHub. Se você edita markdown todos os dias, um editor com pré-visualização ao vivo combina mais com a rotina:\n\n- **VS Code** — prévia embutida com `Ctrl+Shift+V`, sem extensão.\n- **Obsidian** — notas em markdown com modo de leitura e de edição.\n- **Typora** — editor que mostra o documento já formatado enquanto você digita.\n\nSe você precisa mandar o documento renderizado para alguém que não tem nenhum desses programas, compartilhe por link — a pessoa só abre uma página web. Para transformar o arquivo em PDF com opções de página, use o conversor de [markdown para PDF](/markdown-to-pdf)."
+    },
+    {
+      "h2": "O que um visualizador markdown faz que um editor de texto não faz?",
+      "body": "Ele mostra o documento renderizado, e não o código-fonte. Um README aberto no Bloco de Notas é uma parede de `#`, `|` e crases; o mesmo arquivo aqui vira títulos, tabelas e código destacado, com um sumário clicável. A leitura fica mais rápida, e você confere se o documento renderiza como esperado antes de fazer o commit — um bloco de código sem fechamento ou uma tabela quebrada aparecem na hora.\n\nPara ler a pasta inteira de um repositório, com o README e os documentos da pasta docs e os links funcionando entre eles, use o [visualizador de README do GitHub](/github-readme-viewer). Para dúvidas de sintaxe durante a leitura, deixe a [colinha de markdown](/pt-br/sintaxe-markdown) aberta em outra aba."
+    },
+    {
+      "h2": "Como compartilhar um arquivo markdown renderizado por link?",
+      "body": "Clique em *Compartilhar por link*. O documento é publicado em uma URL curta que renderiza exatamente como aqui — diagramas incluídos — e expira em 30 dias. O link é público para qualquer pessoa que o tenha, então não compartilhe dados sensíveis por ele.\n\nPara outras opções de validade, tokens de edição, endpoints raw e um servidor MCP que compartilha direto do Cursor ou do Claude Code, use a [página principal de compartilhamento](/). Também dá para mandar alguém direto para um arquivo renderizado: acrescente `?url=` com o endereço raw do arquivo ao endereço desta página. Para imprimir ou gerar um PDF, clique em *Imprimir / PDF* e escolha *Salvar como PDF* na janela de impressão do navegador; os controles ficam ocultos e só o documento é impresso."
+    },
+    {
+      "h2": "Qual sabor de markdown é renderizado?",
+      "body": "O GitHub Flavored Markdown (GFM): CommonMark mais tabelas, listas de tarefas, tachado, links automáticos e notas de rodapé, com realce de sintaxe nos blocos de código. Blocos marcados como `mermaid` viram diagramas SVG. É o mesmo padrão do GitHub, do GitLab e da maioria dos sites de documentação, então o que você vê aqui é como o README vai ficar depois do push. Apps de chat como Discord, Slack e WhatsApp usam dialetos próprios e mais limitados, então a mesma marcação pode aparecer diferente neles."
+    }
+  ],
+  "faq": [
+    {
+      "q": "O que é um visualizador de arquivos md?",
+      "a": "É uma ferramenta que abre um arquivo markdown e mostra o resultado renderizado — títulos, listas, tabelas, links e código formatados — em vez do texto cru cheio de # e *. Este funciona em qualquer navegador, sem instalar nada."
+    },
+    {
+      "q": "Este leitor de md é gratuito e privado?",
+      "a": "Sim. É gratuito e não pede cadastro. O arquivo que você abre ou arrasta é lido pelo navegador com a File API e não é enviado a nenhum servidor; só o botão Compartilhar por link publica o documento."
+    },
+    {
+      "q": "Dá para ver um README do GitHub sem clonar o repositório?",
+      "a": "Sim. Cole a URL do arquivo no GitHub (o endereço github.com/.../blob/...) e clique em Carregar da URL; ela é convertida para o endereço raw.githubusercontent.com, que permite leitura de outra origem. Você também pode mandar alguém direto para o arquivo renderizado usando ?url= no endereço desta página."
+    },
+    {
+      "q": "Por que carregar de algumas URLs dá erro?",
+      "a": "A requisição é feita pelo seu navegador, então o servidor remoto precisa permitir requisições de outra origem (CORS). Arquivos raw do GitHub e gists permitem; muitas wikis corporativas e exportações de CMS não. Nesse caso, baixe o arquivo e arraste-o para o visualizador."
+    },
+    {
+      "q": "Como transformar o markdown em PDF?",
+      "a": "Clique em Imprimir / PDF e escolha Salvar como PDF na janela de impressão do navegador; os controles ficam ocultos e só o documento renderizado é impresso. Para um conversor dedicado com opções de página, use a ferramenta de markdown para PDF."
+    },
+    {
+      "q": "Os diagramas mermaid são renderizados?",
+      "a": "Sim. Um bloco de código marcado como mermaid é renderizado como diagrama SVG — fluxogramas, diagramas de sequência, linhas do tempo e o restante do catálogo do mermaid."
+    },
+    {
+      "q": "Qual programa abre arquivo .md?",
+      "a": "Qualquer editor de texto abre um .md, como o Bloco de Notas, o TextEdit ou o VS Code, mas mostra o código cru. Para ler formatado, use um visualizador markdown no navegador, como este, ou a pré-visualização do VS Code (Ctrl+Shift+V)."
+    }
+  ]
+}

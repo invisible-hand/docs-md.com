@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import MarkdownFormatter from '@/components/tools/MarkdownFormatter';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import ToolPage, { CODE, H2, toolMetadata } from '@/components/tools/ToolPage';
 
 export const metadata = toolMetadata('markdown-formatter');
@@ -106,6 +107,7 @@ export default function MarkdownFormatterPage() {
           </li>
         </ul>
       </section>
+      <ToolGuideLinks tool="markdown-formatter" />
     </ToolPage>
   );
 }

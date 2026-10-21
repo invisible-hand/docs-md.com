@@ -1,4 +1,5 @@
 import { listGuides } from '@/lib/guides';
+import { LOCALES, LOCALE_INFO, listLocalized } from '@/lib/i18n';
 import { toolGuidesFor } from '@/lib/tool-guides';
 import { TOOLS, TOOL_CATEGORIES } from '@/lib/tools-registry';
 
@@ -97,6 +98,10 @@ export function GET() {
     '### Syntax guides',
     '',
     guides.join('\n'),
+    '',
+    '## Other languages',
+    '',
+    LOCALES.flatMap((l) => listLocalized(l).map((p) => `- [${p.h1}](${BASE}/${l}/${p.slug}): ${LOCALE_INFO[l].name}, ${p.page === 'markdown-viewer' ? 'markdown viewer' : 'markdown cheat sheet'}`)).join('\n'),
     '',
     '## Discovery',
     '',

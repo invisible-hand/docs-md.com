@@ -34,13 +34,13 @@ export interface Section {
   more?: { href: string; label: string }[];
 }
 
-export function SnippetBlock({ snippet }: { snippet: Snippet }) {
+export function SnippetBlock({ snippet, copyLabels }: { snippet: Snippet; copyLabels?: { copy: string; copied: string } }) {
   const renderable = snippet.render !== false;
   return (
     <div className="cheat-snippet rounded-2xl border border-gray-200 bg-white p-5">
       <div className="mb-3 flex items-center justify-between gap-2">
         <h3 className="text-sm font-semibold text-gray-900">{snippet.label}</h3>
-        <CopyButton content={snippet.syntax} />
+        <CopyButton content={snippet.syntax} labels={copyLabels} />
       </div>
       <div className={`cheat-snippet-grid grid gap-4 ${renderable ? 'lg:grid-cols-2' : ''}`}>
         <pre className="overflow-x-auto rounded-xl bg-gray-950 p-4 text-sm text-gray-200">
@@ -82,7 +82,13 @@ export function SectionNav({ sections, className = 'mt-5 flex flex-wrap gap-2 te
 }
 
 /** The sections themselves: one `<section id>` with an H2 and a SnippetBlock per snippet. */
-export default function CheatSheet({ sections }: { sections: Section[] }) {
+export default function CheatSheet({
+  sections,
+  copyLabels,
+}: {
+  sections: Section[];
+  copyLabels?: { copy: string; copied: string };
+}) {
   return (
     <div className="cheat-sheet space-y-12">
       {sections.map((section) => (
@@ -90,7 +96,7 @@ export default function CheatSheet({ sections }: { sections: Section[] }) {
           <h2 className="text-2xl font-semibold tracking-tight text-gray-950">{section.title}</h2>
           {section.intro ? <p className="text-base text-gray-600">{section.intro}</p> : null}
           {section.snippets.map((snippet) => (
-            <SnippetBlock key={snippet.label} snippet={snippet} />
+            <SnippetBlock key={snippet.label} snippet={snippet} copyLabels={copyLabels} />
           ))}
           {section.more && section.more.length > 0 ? (
             <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm">

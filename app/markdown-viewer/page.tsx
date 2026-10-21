@@ -1,8 +1,14 @@
 import Link from 'next/link';
 import MarkdownViewer from '@/components/tools/MarkdownViewer';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
+import LanguageLinks from '@/components/LanguageLinks';
+import { languageAlternates, otherLanguageLinks } from '@/lib/i18n';
 import ToolPage, { CODE, H2, toolMetadata } from '@/components/tools/ToolPage';
 
-export const metadata = toolMetadata('markdown-viewer');
+export const metadata = {
+  ...toolMetadata('markdown-viewer'),
+  alternates: { canonical: '/markdown-viewer', languages: languageAlternates('markdown-viewer') },
+};
 
 export default function MarkdownViewerPage() {
   return (
@@ -135,6 +141,8 @@ export default function MarkdownViewerPage() {
           formatting references.
         </p>
       </section>
+      <ToolGuideLinks tool="markdown-viewer" />
+      <LanguageLinks label="This viewer in other languages" links={otherLanguageLinks('markdown-viewer', 'en')} />
     </ToolPage>
   );
 }

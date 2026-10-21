@@ -342,7 +342,7 @@ export const TOOLS: Tool[] = [
   {
     slug: 'markdown-formatter',
     name: 'Formatter',
-    title: 'Markdown formatter',
+    title: 'Markdown formatter (md formatter)',
     description:
       'Prettify messy markdown: uniform list markers, one emphasis style, aligned tables. Semantic — rendered output never changes.',
     metaTitle: 'Markdown Formatter (MD Formatter) — Prettify Online, Free',

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.docs-md/markdown-share",
+  "description": "Share markdown as public links from your AI assistant — expiring or permanent, no API key.",
+  "title": "Docs MD — Markdown Share",
+  "repository": { "url": "https://github.com/invisible-hand/docs-md.com", "source": "github" },
+  "version": "1.2.0",
+  "websiteUrl": "https://docs-md.com",
+  "remotes": [{ "type": "streamable-http", "url": "https://docs-md.com/api/mcp" }]
+}

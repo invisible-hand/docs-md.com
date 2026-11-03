@@ -3,6 +3,7 @@ import { listGuideSlugs } from '@/lib/guides';
 import { listToolGuides } from '@/lib/tool-guides';
 import { TOOL_ROUTES } from '@/lib/tools-registry';
 import { LOCALES, listLocalized } from '@/lib/i18n';
+import { DISCORD_GUIDE_ROUTES } from '@/lib/discord-guides';
 
 const BASE_URL = 'https://docs-md.com';
 
@@ -40,6 +41,11 @@ export const STATIC_ROUTES = [
   '/mdx-cheat-sheet',
   '/pandoc-markdown',
   '/mermaid-timeline-examples',
+  '/mermaid-pie-chart-examples',
+  '/mermaid-gantt-chart-examples',
+  '/mermaid-mindmap-examples',
+  '/mermaid-gitgraph-examples',
+  '/mermaid-in-markdown',
   '/markdown-toc-generator',
   '/readme-templates',
   '/what-is-markdown',
@@ -71,6 +77,8 @@ export const STATIC_ROUTES = [
   '/markdown-to-discord',
   '/markdown-to-jira',
   '/markdown-to-plain-text',
+  '/discord-timestamp-generator',
+  '/discord-colored-text-generator',
 ];
 
 // The IndexNow post-build script parses STATIC_ROUTES textually, so tool routes
@@ -84,6 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...STATIC_ROUTES,
     ...listGuideSlugs().map((s) => `/guides/${s}`),
     ...listToolGuides().map((g) => g.path),
+    ...DISCORD_GUIDE_ROUTES,
     ...LOCALES.flatMap((locale) => listLocalized(locale).map((p) => `/${locale}/${p.slug}`)),
   ];
   return routes.map((route) => ({

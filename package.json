@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/check-tool-guides.mjs && node scripts/check-i18n.mjs && next build && node scripts/indexnow-ping.mjs",
+    "build": "node scripts/check-tool-guides.mjs && node scripts/check-discord-guides.mjs && node scripts/check-mermaid-examples.mjs && node scripts/check-i18n.mjs && next build && node scripts/indexnow-ping.mjs",
     "start": "next start",
     "lint": "eslint",
     "check:tool-guides": "node scripts/check-tool-guides.mjs",
     "cleanup": "curl -X DELETE http://localhost:3000/api/cleanup",
     "type-check": "tsc --noEmit",
     "db:init": "tsx lib/init-db.ts",
-    "check:i18n": "node scripts/check-i18n.mjs"
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "check:discord-guides": "node scripts/check-discord-guides.mjs",
+    "check:mermaid-examples": "node scripts/check-mermaid-examples.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.20.2",

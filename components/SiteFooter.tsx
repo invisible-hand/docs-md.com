@@ -36,6 +36,8 @@ const LEARN = [
   { href: '/mdx-cheat-sheet', label: 'MDX cheat sheet' },
   { href: '/pandoc-markdown', label: 'Pandoc markdown' },
   { href: '/mermaid-timeline-examples', label: 'Mermaid timelines' },
+  { href: '/mermaid-in-markdown', label: 'Mermaid in Markdown' },
+  { href: '/discord-timestamp-generator', label: 'Discord timestamps' },
   { href: '/what-is-an-mcp-server', label: 'What is an MCP server?' },
   { href: '/mcp-servers', label: 'MCP server list' },
 ];

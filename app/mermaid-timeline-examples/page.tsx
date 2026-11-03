@@ -158,6 +158,16 @@ export default function MermaidTimelineExamplesPage() {
             reads far better; if it&apos;s &ldquo;task A blocks task B&rdquo;, use Gantt.
           </p>
         </section>
+        <section className="no-print space-y-3 rounded-2xl bg-indigo-50 p-6">
+          <h2 className="text-xl font-semibold text-gray-950">More Mermaid examples</h2>
+          <p className="text-sm">
+            <Link href="/mermaid-gantt-chart-examples" className="text-indigo-700 underline">Gantt chart</Link>{' · '}
+            <Link href="/mermaid-pie-chart-examples" className="text-indigo-700 underline">Pie chart</Link>{' · '}
+            <Link href="/mermaid-mindmap-examples" className="text-indigo-700 underline">Mindmap</Link>{' · '}
+            <Link href="/mermaid-gitgraph-examples" className="text-indigo-700 underline">Git graph</Link>{' · '}
+            <Link href="/mermaid-in-markdown" className="text-indigo-700 underline">Mermaid in Markdown</Link>
+          </p>
+        </section>
       </div>
     </div>
   );

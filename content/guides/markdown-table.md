@@ -2,7 +2,7 @@
 title: Markdown Table Syntax — Alignment, Escaping, Line Breaks
 h1: How to make a table in markdown
 description: Markdown table syntax: pipes for columns, a hyphen row under the header, colons for alignment. Escaping |, line breaks with <br>, empty cells, no colspan, and where tables render.
-updated: 2026-10-15
+updated: 2026-11-03
 related: markdown-table-line-break, markdown-escape-characters, markdown-new-line, markdown-headings, markdown-bullet-points, markdown-definition-list
 ---
 To make a table in markdown, separate columns with `|` and put a row of hyphens (at least three per column) under the header row. Every other line is a data row. Add a colon to the hyphen row to set the column's alignment:
@@ -115,7 +115,7 @@ No. There is no markdown syntax for merged cells in GFM, CommonMark, Markdown Ex
 </table>
 ```
 
-Markdown inside an HTML table only renders on GitLab (and only when each markdown line sits on its own line inside the tag); GitHub treats the contents of a raw `<table>` as HTML. Before reaching for HTML, consider whether a merged header is really needed. A second table, a column of repeated values, or a grouped heading above the table are all plain markdown and work everywhere.
+Markdown inside an HTML table renders on GitHub and GitLab only when blank lines separate it from the surrounding tags: an HTML block ends at a blank line in the GFM spec, so the markdown in between is parsed again. Without those blank lines the contents stay literal HTML text. [Merging cells in a markdown table](/markdown-table-generator/merge-cells-in-markdown-table) walks through the options. Before reaching for HTML, consider whether a merged header is really needed. A second table, a column of repeated values, or a grouped heading above the table are all plain markdown and work everywhere.
 
 ## Where do markdown tables render?
 

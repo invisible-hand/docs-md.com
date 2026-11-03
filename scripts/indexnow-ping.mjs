@@ -9,6 +9,8 @@ const routes = [
   ...(existsSync('content/tool-guides') ? readdirSync('content/tool-guides') : [])
     .filter((d) => statSync(`content/tool-guides/${d}`).isDirectory())
     .flatMap((d) => readdirSync(`content/tool-guides/${d}`).filter((f) => f.endsWith('.md')).map((f) => `/${d}/${f.replace(/\.md$/, '')}`)),
+  // Discord topic pages: lib/discord-guides/<topic>.ts -> /discord-markdown/<topic>
+  ...readdirSync('lib/discord-guides').filter((f) => f.endsWith('.ts') && !['index.ts', 'types.ts'].includes(f)).map((f) => `/discord-markdown/${f.replace(/\.ts$/, '')}`),
   // Translated pages: content/i18n/<locale>/<page>.json -> /<locale>/<slug>
   ...(existsSync('content/i18n') ? readdirSync('content/i18n') : [])
     .filter((l) => statSync(`content/i18n/${l}`).isDirectory())

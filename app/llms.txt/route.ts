@@ -1,6 +1,7 @@
 import { listGuides } from '@/lib/guides';
 import { LOCALES, LOCALE_INFO, listLocalized } from '@/lib/i18n';
 import { toolGuidesFor } from '@/lib/tool-guides';
+import { DISCORD_GUIDES } from '@/lib/discord-guides';
 import { TOOLS, TOOL_CATEGORIES } from '@/lib/tools-registry';
 
 // /llms.txt — the llmstxt.org convention: an H1, a one-paragraph summary in a
@@ -49,6 +50,11 @@ const LEARN: [string, string, string][] = [
   ['/mdx-cheat-sheet', 'MDX cheat sheet', 'JSX, import/export, expressions, layouts, escaping, MDX 2 vs 3, Next.js/Docusaurus/Astro setup.'],
   ['/pandoc-markdown', 'Pandoc markdown cheat sheet', 'Extensions table, conversion commands, R Markdown and Quarto chunk syntax.'],
   ['/mermaid-timeline-examples', 'Mermaid timeline examples', 'Timeline syntax with rendered examples.'],
+  ['/mermaid-pie-chart-examples', 'Mermaid pie chart examples', 'Pie syntax, showData, decimals, donut, legend position, colours, rendered live.'],
+  ['/mermaid-gantt-chart-examples', 'Mermaid Gantt chart examples', 'dateFormat, sections, dependencies, milestones, crit/active/done, excludes, axisFormat, rendered live.'],
+  ['/mermaid-mindmap-examples', 'Mermaid mindmap examples', 'Indentation, node shapes, markdown strings, rendered live.'],
+  ['/mermaid-gitgraph-examples', 'Mermaid git graph examples', 'Commits, branches, merges, cherry-picks, tags, orientation, rendered live.'],
+  ['/mermaid-in-markdown', 'Mermaid diagrams in Markdown', 'How to embed Mermaid in a Markdown file; GitHub, GitLab, Obsidian, Notion, VS Code support.'],
   ['/what-is-an-mcp-server', 'What is an MCP server?', 'The Model Context Protocol explained.'],
   ['/mcp-servers', 'MCP server list', 'Public MCP servers worth knowing.'],
 ];
@@ -59,6 +65,8 @@ function line([path, title, desc]: [string, string, string]) {
 
 export function GET() {
   const guides = listGuides().map((g) => line([`/guides/${g.slug}`, g.h1, g.description]));
+  // Discord topic pages nest under the Discord row of LEARN.
+  const discord = DISCORD_GUIDES.map((g) => `  ${line([`/discord-markdown/${g.slug}`, g.h1, g.description])}`);
   const tools = TOOL_CATEGORIES.map((c) => {
     const rows = TOOLS.filter((t) => t.category === c.id).map((t) =>
       [
@@ -93,7 +101,7 @@ export function GET() {
     '',
     '## Learn markdown',
     '',
-    LEARN.map(line).join('\n'),
+    LEARN.map((row) => (row[0] === '/discord-markdown' ? [line(row), ...discord].join('\n') : line(row))).join('\n'),
     '',
     '### Syntax guides',
     '',

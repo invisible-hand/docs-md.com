@@ -142,6 +142,30 @@ export const TOOLS: Tool[] = [
     updated: '2026-10-15',
   },
   {
+    slug: 'discord-timestamp-generator',
+    name: 'Discord timestamp',
+    title: 'Discord timestamp generator',
+    description:
+      'Pick a date, time and time zone and get every Discord <t:…> timestamp code with a preview of what readers see, plus a decoder for existing codes.',
+    metaTitle: 'Discord Timestamp Generator — All 9 <t:> Formats, Free',
+    metaDescription:
+      'Make Discord timestamps that show in every reader\'s time zone: pick a date and time, copy any of the 9 <t:unix:style> formats, or decode an existing one.',
+    category: 'generate',
+    updated: '2026-11-03',
+  },
+  {
+    slug: 'discord-colored-text-generator',
+    name: 'Discord colored text',
+    title: 'Discord colored text generator',
+    description:
+      'Build coloured Discord messages with ANSI code blocks: pick text and background colours, bold and underline per part, preview it, copy it ready to paste.',
+    metaTitle: 'Discord Colored Text Generator — ANSI Code Blocks, Free',
+    metaDescription:
+      'Write coloured text in Discord: choose text and background colours, bold or underline for each part, preview the ansi code block, and copy it to paste.',
+    category: 'generate',
+    updated: '2026-11-03',
+  },
+  {
     slug: 'markdown-to-jira',
     name: 'Markdown to Jira',
     title: 'Markdown to Jira converter',

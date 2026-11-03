@@ -3,8 +3,9 @@ import CheatSheet, { SectionNav } from '@/components/CheatSheet';
 import { SECTIONS } from '@/lib/platform-sheets/discord-markdown';
 import UpdatedLine from '@/components/UpdatedLine';
 import { pageMetadata } from '@/lib/page-metadata';
+import { DISCORD_GUIDES } from '@/lib/discord-guides';
 
-const UPDATED = '2026-10-15';
+const UPDATED = '2026-11-03';
 
 const DISCORD_DOCS = 'https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline';
 const DISCORD_SPOILERS = 'https://support.discord.com/hc/en-us/articles/360022320632-Spoiler-Tags';
@@ -38,7 +39,7 @@ const FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: 'How do Discord timestamps work?',
-    a: 'Type <t:UNIX_SECONDS:STYLE> and every reader sees the moment in their own timezone and locale. The style letter picks the format: t short time, T medium time, d short date, D long date, f long date and short time (the default), F full date and short time, R relative ("in 3 hours").',
+    a: 'Type <t:UNIX_SECONDS:STYLE> and every reader sees the moment in their own timezone and locale. The style letter picks the format: t short time, T medium time, d short date, D long date, f long date and short time (the default), F full date and short time, s short date and short time, S short date and medium time, R relative ("in 3 hours").',
   },
 ];
 
@@ -110,6 +111,19 @@ export default function DiscordMarkdownPage() {
         <SectionNav sections={SECTIONS} className="no-print mt-5 flex flex-wrap gap-2 text-xs" />
       </div>
 
+      <nav aria-label="Discord formatting topics" className="mb-10 rounded-2xl border border-gray-200 bg-white p-5">
+        <h2 className="text-base font-semibold text-gray-950">One format per page, with live previews</h2>
+        <ul className="mt-3 flex flex-wrap gap-2 text-sm">
+          {DISCORD_GUIDES.map((g) => (
+            <li key={g.slug}>
+              <Link href={`/discord-markdown/${g.slug}`} className="inline-block rounded-full border border-gray-200 px-3 py-1 text-indigo-700 hover:border-indigo-300 hover:bg-indigo-50">
+                {g.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
       <CheatSheet sections={SECTIONS} />
 
       <section className="mt-16 space-y-4">
@@ -164,6 +178,8 @@ export default function DiscordMarkdownPage() {
             <Link href="/telegram-markdown" className="text-indigo-700 underline">Telegram formatting</Link>{' · '}
             <Link href="/whatsapp-formatting" className="text-indigo-700 underline">WhatsApp formatting</Link>{' · '}
             <Link href="/markdown-to-discord" className="text-indigo-700 underline">Markdown to Discord converter</Link>{' · '}
+            <Link href="/discord-timestamp-generator" className="text-indigo-700 underline">Discord timestamp generator</Link>{' · '}
+            <Link href="/discord-colored-text-generator" className="text-indigo-700 underline">Colored text generator</Link>{' · '}
             <Link href="/guides/markdown-strikethrough" className="text-indigo-700 underline">Strikethrough guide</Link>{' · '}
             <Link href="/guides/markdown-underline" className="text-indigo-700 underline">Underline guide</Link>{' · '}
             <Link href="/guides/markdown-quote" className="text-indigo-700 underline">Blockquote guide</Link>

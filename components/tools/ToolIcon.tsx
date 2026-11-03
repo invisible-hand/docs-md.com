@@ -5,6 +5,19 @@ import type { ReactNode } from 'react';
 // the tile decide the color.
 
 const GLYPHS: Record<string, ReactNode> = {
+  'discord-timestamp-generator': (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 7.5V12l3 2" />
+    </>
+  ),
+  'discord-colored-text-generator': (
+    <>
+      <path d="M4 18h16" />
+      <path d="M7 15l5-10 5 10" />
+      <path d="M8.5 12h7" />
+    </>
+  ),
   // convert
   'html-to-markdown': (
     <>

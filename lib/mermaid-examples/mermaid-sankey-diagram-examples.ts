@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-sankey-diagram-examples',
-  title: 'Mermaid Sankey Diagram Examples — Syntax and Copyable Code',
+  title: 'Mermaid Sankey Diagram Examples — Copyable Code',
   description:
     'Mermaid sankey-beta syntax with copyable examples rendered live: energy flow, budget, user funnel, website traffic, CSV rules, colours and alignment.',
   h1: 'Mermaid sankey diagram examples',

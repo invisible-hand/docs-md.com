@@ -1,7 +1,7 @@
 ---
-title: Markdown Headings — H1 to H6 Syntax, Anchors and Rules
+title: Markdown Headings — H1 to H6 Syntax and Rules
 h1: How to make headings in markdown
-description: Make a heading with # for H1 through ###### for H6, a space after the hashes. Anchor links, custom IDs, the one-H1 rule, setext underlines, accessibility, and where headings break in GitHub, Discord, Slack, Jira and Obsidian.
+description: Make a heading with # for H1 through ###### for H6, a space after the hashes. Anchor links, custom IDs, the one-H1 rule, setext underlines, pitfalls.
 updated: 2026-10-15
 related: markdown-anchor-link, markdown-table, markdown-bold-italic, markdown-horizontal-rule, markdown-alerts, markdown-nested-list
 ---
@@ -34,17 +34,17 @@ Yes, by convention, and for two practical reasons. Renderers that build a table 
 Original markdown also allows two underline styles: a line of `=` under text makes an H1, a line of `-` makes an H2. Only those two levels exist.
 
 ```markdown
-Title of the document
-=====================
+Release notes
+=============
 
-A section
+Bug fixes
 ---------
 ```
 
-Title of the document
-=====================
+Release notes
+=============
 
-A section
+Bug fixes
 ---------
 
 Any number of `=` or `-` works (one is enough). Setext headings survive in every renderer, but most style guides, linters (markdownlint rule MD003) and editors prefer the `#` form because it is one line, supports all six levels, and does not get confused with a horizontal rule: `---` on its own line is a rule, `---` directly under text is an H2.

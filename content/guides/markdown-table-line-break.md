@@ -1,7 +1,7 @@
 ---
-title: Markdown Table Line Break — Multiple Lines in One Cell
+title: Markdown Table Line Break — Multi-Line Cells
 h1: How to add a line break in a markdown table cell
-description: Put multiple lines in a markdown table cell with <br>. Two-space and backslash breaks do not work in tables. Escaped pipes in inline code, bullets inside cells, and when to switch to an HTML table.
+description: Put multiple lines in a markdown table cell with <br>. Two-space and backslash breaks do not work in tables. Escaped pipes, bullets in cells, HTML tables.
 updated: 2026-10-15
 related: markdown-table, markdown-new-line, markdown-escape-characters, markdown-bullet-points, markdown-code-block
 ---

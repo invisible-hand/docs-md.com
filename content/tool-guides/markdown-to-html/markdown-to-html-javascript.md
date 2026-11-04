@@ -1,5 +1,5 @@
 ---
-title: Markdown to HTML in JavaScript: marked, markdown-it, remark
+title: Markdown to HTML in JavaScript: marked, remark
 h1: How do I convert Markdown to HTML in JavaScript?
 description: Install a parser such as marked or markdown-it and call it on your string. Tested code for Node and the browser, how the libraries differ, and sanitizing.
 tool: markdown-to-html

@@ -1,7 +1,7 @@
 ---
-title: Markdown Numbered List — Start Number, Restarts and Nesting
+title: Markdown Numbered List — Start, Restart, Nest
 h1: How to make a numbered list in markdown
-description: Make a numbered list in markdown with 1. 2. 3. or just 1. 1. 1. — renderers auto-number. Start at any number, continue after a paragraph, the 1) form, nested numbering, and the renderers that differ.
+description: Make a numbered list in markdown with 1. 2. 3. or just 1. 1. 1. — renderers auto-number. Start at any number, continue after a paragraph, nested numbering.
 updated: 2026-10-15
 related: markdown-bullet-points, markdown-nested-list, markdown-indent, markdown-escape-characters, markdown-checkbox, markdown-new-line
 ---

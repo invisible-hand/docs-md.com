@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const GUIDES_DIR = join(process.cwd(), 'content', 'guides');
@@ -106,4 +106,31 @@ export function getGuide(slug: string): Guide {
 
 export function listGuides(): Guide[] {
   return listGuideSlugs().map(parseGuide);
+}
+
+// ---------------------------------------------------------------------------
+// Validation, run before `next build` by scripts/check-guides.mjs (any problem fails the build).
+
+export const GUIDE_RULES = {
+  /** Bare <title>; the layout appends " | Docs MD" (10 chars), so 50 keeps the rendered title ≤ 60. */
+  titleMax: 50,
+  descriptionMax: 155,
+} as const;
+
+/** Problems with one guide's frontmatter; empty when it meets the contract. */
+export function validateGuide(guide: Guide): string[] {
+  const R = GUIDE_RULES;
+  const errors: string[] = [];
+  if (!guide.title) errors.push('frontmatter "title" is missing');
+  else if (guide.title.length > R.titleMax)
+    errors.push(`title is ${guide.title.length} chars (max ${R.titleMax} before the site suffix, ${R.titleMax + 10} rendered)`);
+  if (!guide.h1) errors.push('frontmatter "h1" is missing');
+  if (!guide.description) errors.push('frontmatter "description" is missing');
+  else if (guide.description.length > R.descriptionMax)
+    errors.push(`description is ${guide.description.length} chars (max ${R.descriptionMax})`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(guide.updated) || Number.isNaN(Date.parse(`${guide.updated}T00:00:00Z`)))
+    errors.push(`updated "${guide.updated}" must be a YYYY-MM-DD date`);
+  else if (guide.updated > new Date().toISOString().slice(0, 10)) errors.push(`updated ${guide.updated} is in the future`);
+  for (const r of guide.related) if (!existsSync(join(GUIDES_DIR, `${r}.md`))) errors.push(`related "${r}" is not a guide slug`);
+  return errors;
 }

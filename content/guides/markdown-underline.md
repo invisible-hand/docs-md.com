@@ -1,7 +1,7 @@
 ---
-title: Markdown Underline — What Works on GitHub, Discord, Slack
+title: Markdown Underline — GitHub, Discord, Slack
 h1: How to underline text in markdown
-description: Markdown has no underline syntax; underscores make italics. Use <ins> on GitHub (it strips <u>), __text__ on Discord, Ctrl+U in Notion and Jira, and see where no underline exists at all.
+description: Markdown has no underline syntax; underscores make italics. Use <ins> on GitHub (it strips <u>), __text__ on Discord, Ctrl+U in Notion and Jira.
 updated: 2026-10-15
 related: markdown-bold-italic, markdown-strikethrough, markdown-highlight, markdown-color-text, markdown-center-text, markdown-escape-characters
 ---

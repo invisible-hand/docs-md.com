@@ -1,5 +1,5 @@
 ---
-title: How to Preview Markdown in VS Code (Shortcuts and Fixes)
+title: How to Preview Markdown in VS Code (Shortcuts)
 h1: How do I preview markdown in VS Code?
 description: Press Ctrl+Shift+V (Cmd+Shift+V on Mac) for the preview, or Ctrl+K V side by side. Preview locking, scroll sync, blocked images and styling.
 tool: markdown-viewer

@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-gantt-chart-examples',
-  title: 'Mermaid Gantt Chart Examples — Syntax and Copyable Code',
+  title: 'Mermaid Gantt Chart Examples — Copyable Code',
   description:
     'Mermaid Gantt chart syntax with copyable examples rendered live: dateFormat, sections, durations, after, milestones, crit and done, weekends, axisFormat.',
   h1: 'Mermaid Gantt chart examples',

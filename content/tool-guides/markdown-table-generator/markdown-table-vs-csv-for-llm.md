@@ -1,5 +1,5 @@
 ---
-title: Markdown Table or CSV for an LLM Prompt? How to Choose
+title: Markdown Table or CSV for an LLM Prompt?
 h1: Should I give an LLM a Markdown table or CSV?
 description: CSV uses fewer tokens; a Markdown table marks every cell boundary and renders in chat. Measured token counts, quoting pitfalls, and when to use neither.
 tool: markdown-table-generator

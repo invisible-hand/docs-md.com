@@ -1,5 +1,5 @@
 ---
-title: Is Markdown to HTML Safe? XSS Risks and How to Fix Them
+title: Is Markdown to HTML Safe? XSS Risks and Fixes
 h1: Is converting Markdown to HTML safe from XSS?
 description: Markdown converters are not sanitizers. Raw HTML and javascript: links pass through most of them. What to sanitize, where, and with which library.
 tool: markdown-to-html

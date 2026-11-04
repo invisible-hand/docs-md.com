@@ -1,5 +1,5 @@
 ---
-title: Tables in Discord and Slack: Code Blocks, Images, Links
+title: Tables in Discord and Slack: What Works
 h1: How do you make a table in Discord or Slack?
 description: Neither app has table syntax in messages. Use a space-aligned grid in a code block, a converter that builds one, or an image, a link or a Slack canvas.
 tool: markdown-table-generator

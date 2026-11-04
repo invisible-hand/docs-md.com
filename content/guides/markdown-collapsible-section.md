@@ -1,7 +1,7 @@
 ---
 title: Markdown Collapsible Section — Details and Summary
 h1: Markdown collapsible section: how to hide and expand text
-description: Markdown collapsible section: wrap content in <details><summary> for an expandable block on GitHub and GitLab. Open by default, nesting, code inside, Obsidian folds, Notion toggles.
+description: Markdown collapsible section: wrap content in <details><summary> for an expandable block on GitHub and GitLab. Open by default, nesting, Obsidian, Notion.
 updated: 2026-10-07
 related: markdown-code-block, markdown-quote, markdown-bullet-points, markdown-comment, markdown-escape-characters
 ---

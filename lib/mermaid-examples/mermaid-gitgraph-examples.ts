@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-gitgraph-examples',
-  title: 'Mermaid Git Graph Examples — Syntax and Copyable Code',
+  title: 'Mermaid Git Graph Examples — Copyable Code',
   description:
     'Mermaid gitGraph syntax with copyable examples rendered live: commit, branch, checkout, merge, cherry-pick, tags, commit types, orientation and colours.',
   h1: 'Mermaid git graph examples',

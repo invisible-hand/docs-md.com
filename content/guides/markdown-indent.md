@@ -1,7 +1,7 @@
 ---
-title: Markdown Indentation — Nested Lists, Paragraphs, Code, Tabs
+title: Markdown Indentation — Lists, Paragraphs, Code
 h1: How to indent in markdown
-description: Indentation in markdown is syntax: 2 spaces nests a bullet, 3 nests under 1., 4 spaces makes a code block. Paragraph indents with &nbsp;, continuation lines, tabs vs spaces, and per-app rules.
+description: Indentation in markdown is syntax: 2 spaces nests a bullet, 3 nests under 1., 4 spaces makes a code block. Paragraph indents, continuation lines, tabs.
 updated: 2026-11-03
 related: markdown-nested-list, markdown-numbered-list, markdown-bullet-points, markdown-code-block, markdown-new-line, markdown-quote
 ---

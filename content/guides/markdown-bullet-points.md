@@ -1,7 +1,7 @@
 ---
 title: Markdown Bullet Points — Bullet List Syntax
 h1: Markdown bullet points: how to make a bullet list
-description: Markdown bullet points: start a line with -, * or + and a space. Nested bullets, tight vs loose lists, bullets inside quotes and tables, and why a list does not render.
+description: Markdown bullet points: start a line with -, * or + and a space. Nested bullets, tight vs loose lists, bullets in quotes and tables, and why a list fails.
 updated: 2026-10-07
 related: markdown-indent, markdown-checkbox, markdown-quote, markdown-new-line, markdown-escape-characters
 ---

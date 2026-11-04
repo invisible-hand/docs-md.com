@@ -17,10 +17,10 @@ import { SECTIONS as TelegramMarkdown } from './telegram-markdown';
 import { SECTIONS as WhatsappFormatting } from './whatsapp-formatting';
 
 export const PLATFORM_SHEETS: Array<{ slug: string; title: string; sections: Section[] }> = [
-  { slug: 'confluence-markdown', title: 'Confluence Markdown: Shortcuts, Paste, Mermaid Diagrams', sections: ConfluenceMarkdown },
+  { slug: 'confluence-markdown', title: 'Confluence Markdown: Shortcuts, Paste, Mermaid', sections: ConfluenceMarkdown },
   { slug: 'discord-markdown', title: 'Discord Markdown — Text Formatting Cheat Sheet', sections: DiscordMarkdown },
   { slug: 'github-flavored-markdown', title: 'GitHub Flavored Markdown (GFM) Cheat Sheet', sections: GithubFlavoredMarkdown },
-  { slug: 'google-docs-markdown', title: 'Google Docs Markdown: Paste, Import, Export and Copy', sections: GoogleDocsMarkdown },
+  { slug: 'google-docs-markdown', title: 'Google Docs Markdown: Paste, Import, Export', sections: GoogleDocsMarkdown },
   { slug: 'jira-markdown', title: 'Jira Wiki Markup vs Markdown Cheat Sheet', sections: JiraMarkdown },
   { slug: 'markdown-flavors', title: 'Markdown Flavors Compared: GFM, Slack, Discord…', sections: MarkdownFlavors },
   { slug: 'markdown-for-ai-output', title: 'Markdown in ChatGPT and Claude Answers: Read, Strip, Keep', sections: MarkdownForAiOutput },

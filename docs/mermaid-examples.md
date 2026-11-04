@@ -9,7 +9,7 @@ then answers. `/mermaid-timeline-examples` is the older hand-written page of the
 | Type | `lib/mermaid-examples/types.ts` |
 | Registry + validator | `lib/mermaid-examples/index.ts` (`MERMAID_PAGES`, `validateMermaidPage`) |
 | Layout | `components/MermaidExamplesView.tsx` |
-| Route | `app/<slug>/page.tsx` (copy `app/mermaid-pie-chart-examples/page.tsx`, change the slug) |
+| Route | `app/(en)/<slug>/page.tsx` (copy `app/(en)/mermaid-pie-chart-examples/page.tsx`, change the slug) |
 | Check | `node scripts/check-mermaid-examples.mjs` or `--file lib/mermaid-examples/<slug>.ts`; part of `npm run build` |
 
 Model: `lib/mermaid-examples/mermaid-pie-chart-examples.ts`.
@@ -18,7 +18,7 @@ Model: `lib/mermaid-examples/mermaid-pie-chart-examples.ts`.
 
 | Rule | Enforced |
 |---|---|
-| `title` ≤ 60; `description` 80–155; `answer` ≤ 60 words with no link in its first sentence | yes |
+| `title` ≤ 50 (60 with the "| Docs MD" suffix); `description` 80–155; `answer` ≤ 60 words with no link in its first sentence | yes |
 | 3–8 examples with unique kebab-case `id`; `code` has no ``` fence | yes |
 | ≥ 3 sections, ≥ 4 FAQ (answers 30–120 words), body ≥ 700 words excluding code | yes |
 | Internal links resolve; 2–6 `related` paths | yes |

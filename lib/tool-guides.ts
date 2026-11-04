@@ -5,8 +5,8 @@ import { TOOLS } from './tools-registry';
 
 // Tool guides: one question per page, nested under the tool that answers it, at
 // /<tool>/<question>. Content lives in content/tool-guides/<tool>/<question>.md.
-// The top-level dynamic segment belongs to the share viewer (app/[id]), so every
-// tool that has guides needs its own app/<tool>/[question]/page.tsx (see
+// The top-level dynamic segment belongs to the share viewer (app/(en)/[id]), so every
+// tool that has guides needs its own app/(en)/<tool>/[question]/page.tsx (see
 // lib/tool-guide-route.tsx). The writer contract is in docs/tool-guides.md and is
 // enforced by validateToolGuide(), which `npm run build` runs first.
 
@@ -22,7 +22,7 @@ export interface ToolGuide {
   slug: string;
   /** Site path, e.g. "/readme-generator/what-is-a-readme-file". */
   path: string;
-  /** <title> (the layout appends "| Docs MD"). */
+  /** <title>, ≤ 50 characters (the layout appends "| Docs MD"). */
   title: string;
   /** The question, ending in "?". */
   h1: string;
@@ -120,7 +120,7 @@ function internalPathExists(path: string): boolean {
   if (clean === '') return true;
   if (labelForPath(clean)) return true;
   if (clean === '/guides') return true;
-  const dir = join(ROOT, 'app', ...clean.split('/').filter(Boolean));
+  const dir = join(ROOT, 'app', '(en)', ...clean.split('/').filter(Boolean));
   return ['page.tsx', 'page.ts', 'route.ts', 'route.tsx'].some((f) => existsSync(join(dir, f)));
 }
 
@@ -150,7 +150,7 @@ export function firstParagraph(body: string): string {
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
 export const TOOL_GUIDE_RULES = {
-  titleMax: 60,
+  titleMax: 50,
   descriptionMax: 155,
   minWords: 900,
   minFaq: 4,
@@ -168,8 +168,8 @@ export function validateToolGuide(guide: ToolGuide, all: ToolGuide[] = listToolG
   if (!TOOLS.some((t) => t.slug === guide.tool)) errors.push(`folder "${guide.tool}" is not a tool slug in TOOLS`);
   if (!declared) errors.push('frontmatter "tool" is missing');
   else if (declared !== guide.tool) errors.push(`frontmatter tool "${declared}" does not match folder "${guide.tool}"`);
-  if (!existsSync(join(ROOT, 'app', guide.tool, '[question]', 'page.tsx')))
-    errors.push(`app/${guide.tool}/[question]/page.tsx is missing, so this guide would not be built`);
+  if (!existsSync(join(ROOT, 'app', '(en)', guide.tool, '[question]', 'page.tsx')))
+    errors.push(`app/(en)/${guide.tool}/[question]/page.tsx is missing, so this guide would not be built`);
   if (!guide.title) errors.push('frontmatter "title" is missing');
   else if (guide.title.length > R.titleMax) errors.push(`title is ${guide.title.length} chars (max ${R.titleMax})`);
   if (!guide.h1) errors.push('frontmatter "h1" is missing');

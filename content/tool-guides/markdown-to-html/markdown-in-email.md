@@ -1,5 +1,5 @@
 ---
-title: Can I Use Markdown in Email? What Works and What Doesn't
+title: Can I Use Markdown in Email? What Works
 h1: Can I use Markdown in email?
 description: Not directly: email clients render HTML or plain text, not Markdown. Write in Markdown, convert to HTML, then paste or send the HTML. Steps and pitfalls.
 tool: markdown-to-html

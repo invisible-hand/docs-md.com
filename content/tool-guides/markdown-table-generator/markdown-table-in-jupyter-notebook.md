@@ -1,5 +1,5 @@
 ---
-title: Markdown Tables in Jupyter Notebooks: Cells and pandas
+title: Markdown Tables in Jupyter Notebooks
 h1: How do you make a table in a Jupyter notebook Markdown cell?
 description: Switch the cell to Markdown (press M), write a GFM pipe table and run it. Alignment, LaTeX in cells, HTML tables, pandas to_markdown(), nbconvert.
 tool: markdown-table-generator

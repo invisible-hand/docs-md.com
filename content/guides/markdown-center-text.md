@@ -1,7 +1,7 @@
 ---
-title: Center Text in Markdown — align="center" and Where It Works
+title: Center Text in Markdown — Where align=center Works
 h1: How to center text in markdown
-description: Markdown has no centering syntax. Use <div align="center"> or <p align="center"> on GitHub (style= is stripped), center images and headings, table columns with :---:, and see which apps ignore it.
+description: Markdown has no centering syntax. Use <div align="center"> or <p align="center"> on GitHub, center images and headings, :---: columns, and where it fails.
 updated: 2026-10-15
 related: markdown-image, markdown-table, markdown-headings, markdown-underline, markdown-color-text, markdown-highlight
 ---

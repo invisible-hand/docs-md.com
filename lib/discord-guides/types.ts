@@ -7,7 +7,7 @@ import type { AnatomyPart } from '@/components/SyntaxAnatomy';
 export type DiscordGuide = {
   /** URL segment under /discord-markdown, lowercase kebab-case. */
   slug: string;
-  /** <title> without the site suffix, ≤ 60 characters. */
+  /** <title> without the site suffix, ≤ 50 characters (60 rendered). */
   title: string;
   /** Meta description, 80–155 characters. */
   description: string;

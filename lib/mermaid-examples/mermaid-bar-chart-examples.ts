@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-bar-chart-examples',
-  title: 'Mermaid Bar Chart Examples — xychart Syntax, Line Charts',
+  title: 'Mermaid Bar Chart Examples — xychart Syntax',
   description:
     'Mermaid bar chart syntax (xychart) with copyable examples rendered live: vertical and horizontal bars, line charts, bar plus line, labels and colours.',
   h1: 'Mermaid bar chart examples',

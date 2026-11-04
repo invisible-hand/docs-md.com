@@ -1,7 +1,7 @@
 ---
-title: Markdown Anchor Links — Link to a Heading or Section
+title: Markdown Anchor Links — Link to a Heading
 h1: How to link to a heading in markdown
-description: Link to a heading in markdown with [text](#heading-slug). GitHub's slug rules (lowercase, spaces to hyphens, punctuation removed, duplicates get -1), <a id> fallback, cross-file anchors, and where anchors differ.
+description: Link to a heading in markdown with [text](#heading-slug). GitHub slug rules, the <a id> fallback, cross-file anchors, and where anchors differ.
 updated: 2026-10-15
 related: markdown-headings, markdown-link, markdown-emoji, markdown-escape-characters, markdown-collapsible-section
 ---

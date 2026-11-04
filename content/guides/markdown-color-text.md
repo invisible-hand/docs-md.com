@@ -1,7 +1,7 @@
 ---
 title: Markdown Color Text — How to Change Text Color
 h1: Markdown color text: how to change the color of text
-description: Markdown has no color syntax. Use <span style> where HTML is allowed, the math color trick or diff blocks on GitHub, Discord ANSI code blocks, Obsidian and Notion options.
+description: Markdown has no color syntax. Use <span style> where HTML is allowed, the math color trick or diff blocks on GitHub, Discord ANSI blocks, Obsidian, Notion.
 updated: 2026-10-07
 related: markdown-math, markdown-code-block, markdown-collapsible-section, markdown-quote, markdown-underline
 ---

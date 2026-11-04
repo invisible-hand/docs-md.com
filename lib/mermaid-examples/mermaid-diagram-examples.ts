@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-diagram-examples',
-  title: 'Mermaid Diagram Examples — Every Chart Type, Copyable Code',
+  title: 'Mermaid Diagram Examples — Every Chart Type',
   description:
     'Copyable Mermaid diagram examples for every chart type, rendered live: bar, pie, Gantt, timeline, mindmap, git graph, quadrant, sankey and more.',
   h1: 'Mermaid diagram examples',

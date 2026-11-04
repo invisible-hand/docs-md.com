@@ -2,7 +2,7 @@
   "locale": "pt-br",
   "page": "markdown-viewer",
   "slug": "visualizador-markdown",
-  "title": "Visualizador Markdown online: abrir arquivo md grátis",
+  "title": "Visualizador Markdown online: abrir arquivo .md",
   "description": "Abra e leia arquivos .md online, já formatados: arraste o arquivo, cole o texto ou carregue do GitHub. Grátis, sem cadastro e sem upload do arquivo.",
   "h1": "Visualizador Markdown: abrir arquivo md online",
   "intro": "Para abrir um arquivo md online, arraste o arquivo `.md` para o visualizador abaixo, cole o texto ou carregue por uma URL do GitHub: ele aparece formatado na hora, com títulos, tabelas, código destacado, listas de tarefas, notas de rodapé e diagramas mermaid. É grátis e roda no navegador; o arquivo é lido no seu aparelho, sem upload. Imprima em PDF ou compartilhe por link.",

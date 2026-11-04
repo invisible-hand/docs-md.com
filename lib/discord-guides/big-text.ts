@@ -2,7 +2,7 @@ import type { DiscordGuide } from './types';
 
 export const GUIDE: DiscordGuide = {
   slug: 'big-text',
-  title: 'Big Text on Discord: How to Make Text Bigger (No Font Size)',
+  title: 'Big Text on Discord: How to Make Text Bigger',
   description:
     'Discord has no font size for messages. Make text bigger with headers (# ## ###), see what bold, emoji and font generators really do, and why the # shows.',
   h1: 'How to make text bigger on Discord',

@@ -2,7 +2,7 @@ import type { DiscordGuide } from './types';
 
 export const GUIDE: DiscordGuide = {
   slug: 'bold-italics-underline',
-  title: 'Discord Bold, Italics and Underline: Every Combination',
+  title: 'Discord Bold, Italics and Underline Syntax',
   description:
     'Bold, italic and underlined text on Discord: **bold**, *italics*, __underline__, every combination, the keyboard shortcuts, and why __ is not bold here.',
   h1: 'How to bold, italicize and underline text on Discord',

@@ -1,7 +1,7 @@
 ---
-title: Markdown Link Syntax: Hyperlinks, Anchors, References
+title: Markdown Link Syntax: Hyperlinks and Anchors
 h1: Markdown links: how to add a hyperlink in markdown
-description: Markdown link syntax: [text](url) makes a hyperlink. Reference-style links, autolinks, relative links, links to headings, image links, titles, escaping, fixes.
+description: Markdown link syntax: [text](url) makes a hyperlink. Reference-style links, autolinks, relative links, links to headings, image links, titles and escaping.
 updated: 2026-10-05
 related: markdown-image, markdown-code-block, markdown-quote
 ---

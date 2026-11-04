@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'what-is-a-mermaid-diagram',
-  title: 'What Is a Mermaid Diagram? Types, Syntax, Where It Renders',
+  title: 'What Is a Mermaid Diagram? Types and Syntax',
   description:
     'A Mermaid diagram is a chart written as text and rendered to SVG. What Mermaid is, its diagram types with small live examples, and where the code renders.',
   h1: 'What is a Mermaid diagram?',

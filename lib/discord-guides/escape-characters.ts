@@ -2,7 +2,7 @@ import type { DiscordGuide } from './types';
 
 export const GUIDE: DiscordGuide = {
   slug: 'escape-characters',
-  title: 'Discord Escape Characters: Type * _ # Without Formatting',
+  title: 'Discord Escape Characters: Type * _ # Literally',
   description:
     'Show * _ ~ | > # literally on Discord with a backslash or inline code, stop a link preview with <url>, and keep @everyone from pinging with \\@everyone.',
   h1: 'How to escape characters on Discord',

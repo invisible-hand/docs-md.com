@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-user-journey-examples',
-  title: 'Mermaid User Journey Examples — Syntax and Copyable Code',
+  title: 'Mermaid User Journey Examples — Copyable Code',
   description:
     'Mermaid user journey syntax with copyable examples rendered live: sections, tasks with scores and actors, onboarding, checkout and support journeys.',
   h1: 'Mermaid user journey examples',

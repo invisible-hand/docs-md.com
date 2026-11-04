@@ -1,7 +1,7 @@
 ---
-title: Markdown Emoji — :shortcode: Syntax and Where It Works
+title: Markdown Emoji — :shortcode: Syntax and Support
 h1: How to add emoji in markdown
-description: Add emoji in markdown by typing :shortcode: (GitHub, GitLab, Slack, Discord, Obsidian plugins) or pasting the Unicode character, which works everywhere. Support matrix, top-50 shortcode table, accessibility.
+description: Add emoji in markdown by typing :shortcode: (GitHub, GitLab, Slack, Discord) or pasting the Unicode character, which works everywhere. Support matrix.
 updated: 2026-10-15
 related: markdown-escape-characters, markdown-headings, markdown-anchor-link, markdown-checkbox, markdown-bold-italic
 ---

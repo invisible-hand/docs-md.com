@@ -1,7 +1,7 @@
 ---
-title: Markdown Nested List — Indentation Rules That Actually Work
+title: Markdown Nested List — Indentation Rules
 h1: How to nest lists in markdown
-description: Nest a markdown list by indenting the child item to where the parent's text starts: 2 spaces under -, 3 under 1., 4 under 10. CommonMark rule, mixed lists, paragraphs and code in items.
+description: Nest a markdown list by indenting the child to where the parent text starts: 2 spaces under -, 3 under 1., 4 under 10. CommonMark rule and mixed lists.
 updated: 2026-10-15
 related: markdown-bullet-points, markdown-numbered-list, markdown-indent, markdown-checkbox, markdown-code-block, markdown-new-line
 ---

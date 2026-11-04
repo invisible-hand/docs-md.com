@@ -6,7 +6,7 @@ import { pageMetadata } from '@/lib/page-metadata';
 
 type Props = { params: Promise<{ page: string }> };
 
-/** Everything app/<locale>/[page]/page.tsx needs (each file still declares dynamicParams = false itself). */
+/** Everything app/(l10n)/<locale>/[page]/page.tsx needs (each file still declares dynamicParams = false itself). */
 export function makeLocaleRoute(locale: Locale) {
   function generateStaticParams() {
     return listLocalized(locale).map((p) => ({ page: p.slug }));

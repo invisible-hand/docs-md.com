@@ -1,7 +1,7 @@
 ---
-title: Markdown Strikethrough — ~~Double Tildes~~ and Where They Work
+title: Markdown Strikethrough — ~~Double Tildes~~
 h1: How to strikethrough text in markdown
-description: Cross out text in markdown with double tildes, ~~like this~~. Single vs double tilde, Slack and Notion's single-tilde forms, <del> vs <s> fallbacks, accessibility, and a per-app table (GitHub, Discord, Obsidian, Jira, Pandoc).
+description: Cross out text in markdown with double tildes, ~~like this~~. Single vs double tilde, Slack and Notion single-tilde forms, <del> vs <s>, per-app table.
 updated: 2026-10-15
 related: markdown-bold-italic, markdown-underline, markdown-highlight, markdown-checkbox, markdown-escape-characters, markdown-table
 ---

@@ -1,5 +1,5 @@
 ---
-title: Markdown Reader vs Markdown Editor: What's the Difference?
+title: Markdown Reader vs Editor: What's the Difference?
 h1: What is the difference between a markdown reader and a markdown editor?
 description: A markdown reader shows a .md file formatted; an editor lets you write and change it, usually with a preview. Which you need, and examples of each.
 tool: markdown-viewer

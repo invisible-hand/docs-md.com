@@ -1,7 +1,7 @@
 ---
 title: Markdown Horizontal Rule — Divider Line Syntax
 h1: Markdown horizontal rule: how to add a divider line
-description: Markdown horizontal rule syntax: three or more hyphens, asterisks or underscores on a line of their own. Fix the --- heading and front matter pitfall, spacing and styling.
+description: Markdown horizontal rule syntax: three or more hyphens, asterisks or underscores on a line of their own. The --- heading and front matter pitfall, styling.
 updated: 2026-10-07
 related: markdown-page-break, markdown-bullet-points, markdown-new-line, markdown-escape-characters, markdown-quote
 ---

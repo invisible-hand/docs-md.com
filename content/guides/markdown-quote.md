@@ -1,7 +1,7 @@
 ---
-title: Markdown Blockquote Syntax — How to Quote Text in Markdown
+title: Markdown Blockquote Syntax — How to Quote Text
 h1: Markdown blockquote: how to quote text in markdown
-description: Markdown blockquote syntax: start a line with > to quote text. Multi-line, nested and cited quotes, author attribution, code in quotes, Discord and Slack quotes, callouts.
+description: Markdown blockquote syntax: start a line with > to quote text. Multi-line, nested and cited quotes, author attribution, code in quotes, Discord and Slack.
 updated: 2026-10-07
 related: markdown-code-block, markdown-indent, markdown-comment, markdown-link, markdown-footnotes, markdown-escape-characters, markdown-collapsible-section
 ---

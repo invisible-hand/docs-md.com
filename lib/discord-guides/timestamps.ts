@@ -3,7 +3,7 @@ import type { DiscordGuide } from './types';
 // All example codes use 1798747200 = 31 December 2026, 20:00 UTC.
 export const GUIDE: DiscordGuide = {
   slug: 'timestamps',
-  title: 'Discord Timestamp Format: The <t:UNIX:STYLE> Code Explained',
+  title: 'Discord Timestamp Format: <t:UNIX:STYLE> Explained',
   description:
     'Discord’s timestamp code <t:UNIX:STYLE> shows one moment in each reader’s time zone. All nine style letters, how to get the Unix number, where it fails.',
   h1: 'How Discord timestamp codes work',

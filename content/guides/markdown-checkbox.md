@@ -1,7 +1,7 @@
 ---
 title: Markdown Checkboxes — Task List Syntax
 h1: How to make a checkbox in markdown
-description: Create checkboxes in markdown with - [ ] for unchecked and - [x] for checked. Task list syntax for GitHub, GitLab, Obsidian, Notion, Jira, Pandoc and MDX, nesting, progress tracking, accessibility and gotchas.
+description: Create checkboxes in markdown with - [ ] for unchecked and - [x] for checked. Task lists on GitHub, GitLab, Obsidian, Notion, Jira and MDX, plus nesting.
 updated: 2026-10-15
 related: markdown-nested-list, markdown-numbered-list, markdown-bullet-points, markdown-indent, markdown-strikethrough, markdown-table
 ---

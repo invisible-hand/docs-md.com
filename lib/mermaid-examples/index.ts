@@ -1,5 +1,5 @@
 // Registry and validator for the "Mermaid <chart> examples" pages. One data file per page in this
-// folder plus a five-line app/<slug>/page.tsx. Contract: docs/mermaid-examples.md.
+// folder plus a five-line app/(en)/<slug>/page.tsx. Contract: docs/mermaid-examples.md.
 // The validator runs before `next build` (scripts/check-mermaid-examples.mjs).
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
@@ -57,15 +57,15 @@ function pathExists(path: string): boolean {
   if (g) return existsSync(join(ROOT, 'content', 'guides', `${g[1]}.md`));
   const d = /^\/discord-markdown\/([^/]+)$/.exec(clean);
   if (d) return existsSync(join(ROOT, 'lib', 'discord-guides', `${d[1]}.ts`));
-  const dir = join(ROOT, 'app', ...clean.split('/').filter(Boolean));
+  const dir = join(ROOT, 'app', '(en)', ...clean.split('/').filter(Boolean));
   return ['page.tsx', 'page.ts', 'route.ts', 'route.tsx'].some((f) => existsSync(join(dir, f)));
 }
 
 export function validateMermaidPage(p: MermaidExamplesPage, all: MermaidExamplesPage[]): string[] {
   const e: string[] = [];
-  if (!existsSync(join(ROOT, 'app', p.slug, 'page.tsx'))) e.push(`app/${p.slug}/page.tsx missing`);
+  if (!existsSync(join(ROOT, 'app', '(en)', p.slug, 'page.tsx'))) e.push(`app/(en)/${p.slug}/page.tsx missing`);
   if (all.filter((x) => x.slug === p.slug).length > 1) e.push('duplicate slug');
-  if (!p.title || p.title.length > 60) e.push(`title must be 1–60 chars (${p.title.length})`);
+  if (!p.title || p.title.length > 50) e.push(`title must be 1–50 chars before the site suffix (${p.title.length})`);
   if (p.description.length < 80 || p.description.length > 155) e.push(`description must be 80–155 chars (${p.description.length})`);
   if (!DATE.test(p.updated) || p.updated > new Date().toISOString().slice(0, 10)) e.push('updated must be YYYY-MM-DD, not in the future');
   if (words(p.answer) > 60) e.push(`answer must be ≤ 60 words (${words(p.answer)})`);

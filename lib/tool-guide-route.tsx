@@ -8,7 +8,7 @@ import { getTool } from '@/lib/tools-registry';
 type Props = { params: Promise<{ question: string }> };
 
 /**
- * Everything app/<tool>/[question]/page.tsx needs. Next.js reads route segment
+ * Everything app/(en)/<tool>/[question]/page.tsx needs. Next.js reads route segment
  * config statically, so each page file still declares `dynamicParams = false`
  * itself; the factory supplies the params, metadata and the page component.
  */

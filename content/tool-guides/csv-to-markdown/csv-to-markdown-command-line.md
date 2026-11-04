@@ -1,5 +1,5 @@
 ---
-title: CSV to Markdown From the Command Line: pandoc, Miller
+title: CSV to Markdown From the Command Line: 4 Tools
 h1: How do I convert CSV to Markdown from the command line?
 description: One-line commands with pandoc, Miller, csvkit and pandas that turn a CSV file into a markdown table, tested, with the quirks each tool has.
 tool: csv-to-markdown

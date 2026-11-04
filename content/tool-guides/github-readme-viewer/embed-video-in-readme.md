@@ -1,5 +1,5 @@
 ---
-title: How to Embed a Video in a GitHub README (What Works)
+title: How to Embed a Video in a GitHub README
 h1: How do you embed a video in a GitHub README?
 description: Upload the .mp4, .mov or .webm in GitHub's editor and keep the generated URL on its own line. Iframes are filtered, so link a thumbnail for YouTube.
 tool: github-readme-viewer

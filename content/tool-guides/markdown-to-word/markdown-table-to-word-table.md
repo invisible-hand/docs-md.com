@@ -1,5 +1,5 @@
 ---
-title: Markdown Table to Word Table: 3 Ways That Keep Columns
+title: Markdown Table to Word Table: 3 Ways
 h1: How do I turn a Markdown table into a Word table?
 description: Three ways to get a real Word table from a Markdown pipe table: a converter, Pandoc, or Word's Convert Text to Table. Steps, column widths, limits.
 tool: markdown-to-word

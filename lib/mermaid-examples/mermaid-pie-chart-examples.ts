@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-pie-chart-examples',
-  title: 'Mermaid Pie Chart Examples — Syntax and Copyable Code',
+  title: 'Mermaid Pie Chart Examples — Copyable Code',
   description:
     'Mermaid pie chart syntax with copyable examples rendered live: title, showData, decimals, donut charts, legend position and colours, plus how to embed one.',
   h1: 'Mermaid pie chart examples',

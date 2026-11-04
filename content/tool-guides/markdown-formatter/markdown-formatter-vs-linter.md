@@ -1,5 +1,5 @@
 ---
-title: Markdown Formatter vs Linter: What's the Difference?
+title: Markdown Formatter vs Linter: The Difference
 h1: What is the difference between a markdown formatter and a linter?
 description: A formatter rewrites markdown into one style without asking. A linter reports rule violations and fixes only some. Most projects use both.
 tool: markdown-formatter

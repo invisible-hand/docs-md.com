@@ -1,5 +1,5 @@
 ---
-title: Bullet List in a Markdown Table Cell: Multi-Line Cells
+title: Bullet List in a Markdown Table Cell
 h1: How do you put a bullet list or multiple lines in a Markdown table cell?
 description: Markdown lists do not work in a cell. Make a multi-line cell with <br> and bullet characters, or <ul> HTML where allowed (GitHub). Images work as they are.
 tool: markdown-table-generator

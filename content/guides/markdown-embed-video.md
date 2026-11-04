@@ -1,7 +1,7 @@
 ---
-title: Markdown Embed Video — YouTube, GitHub Uploads, Iframes
+title: Markdown Embed Video — YouTube, GitHub, Iframes
 h1: How to embed a video in markdown
-description: Embed a video in markdown: a clickable thumbnail link works everywhere, uploaded MP4/MOV URLs play inline on GitHub, iframes are stripped by GitHub and GitLab, and Obsidian, Notion, Docusaurus and Hugo each have their own YouTube embed.
+description: Embed a video in markdown: a thumbnail link works everywhere, uploaded MP4/MOV URLs play inline on GitHub, iframes are stripped, apps have own embeds.
 updated: 2026-10-15
 related: markdown-image, markdown-link, markdown-collapsible-section, markdown-anchor-link
 ---
@@ -33,7 +33,7 @@ Here is the feature in action:
 https://github.com/user-attachments/assets/3f1c2d4e-....mp4
 ```
 
-Two things do not work. Raw `<video>` and `<iframe>` tags are removed by GitHub's HTML sanitiser (`video` and `iframe` are not on the allowlist), so a YouTube embed snippet renders as nothing. And a video file committed into the repository does not play from a `blob` or `raw` URL in the same way; only the uploaded asset URL gets the player. The upload has to happen through a comment or editor box, after which the URL is reusable in any file. For the README-specific checklist, including the `<video>` tag and which hosts GitHub's page policy lets play, see [embedding a video in a GitHub README](/github-readme-viewer/embed-video-in-readme).
+Two things do not work. An `<iframe>` is removed by the GFM [tagfilter extension](https://github.github.com/gfm/#disallowed-raw-html-extension-) (its list is `title`, `textarea`, `style`, `xmp`, `iframe`, `noembed`, `noframes`, `script` and `plaintext`), so a YouTube embed snippet renders as nothing. A `<video>` tag is not on that list and does render a player, but only when its `src` is a GitHub-hosted asset URL: the page's Content Security Policy blocks media from any other host, so `<video src="https://example.com/demo.mp4">` shows an empty player. And a video file committed into the repository does not play from a `blob` or `raw` URL in the same way; only the uploaded asset URL gets the player. The upload has to happen through a comment or editor box, after which the URL is reusable in any file. For the README-specific checklist, including the `<video>` tag and which hosts GitHub's page policy lets play, see [embedding a video in a GitHub README](/github-readme-viewer/embed-video-in-readme).
 
 ## Can you embed a video on GitLab?
 

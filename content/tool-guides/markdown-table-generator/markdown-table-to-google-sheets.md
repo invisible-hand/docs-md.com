@@ -1,5 +1,5 @@
 ---
-title: Markdown Table to Google Sheets: Paste, Import, SPLIT
+title: Markdown Table to Google Sheets: Paste or Import
 h1: How do you create a Google Sheet from a Markdown table?
 description: Sheets pastes a Markdown table into one column. Convert it to TSV or CSV first, or split the pasted pipes with Data → Split text to columns or SPLIT().
 tool: markdown-table-generator

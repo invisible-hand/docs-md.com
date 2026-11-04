@@ -1,5 +1,5 @@
 ---
-title: Copy a Markdown Table Into Excel: Three Ways That Work
+title: Copy a Markdown Table Into Excel: Three Ways
 h1: How do you copy a Markdown table into Excel?
 description: Paste the table and run Data → Text to Columns with | as the delimiter, or convert to TSV or CSV first and paste or open the file. Delete the hyphen row.
 tool: markdown-table-generator

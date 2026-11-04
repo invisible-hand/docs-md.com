@@ -60,7 +60,7 @@ function pathExists(path: string, all: DiscordGuide[]): boolean {
   if (m) return all.some((g) => g.slug === m[1]);
   const g = /^\/guides\/([^/]+)$/.exec(clean);
   if (g) return existsSync(join(ROOT, 'content', 'guides', `${g[1]}.md`));
-  const dir = join(ROOT, 'app', ...clean.split('/').filter(Boolean));
+  const dir = join(ROOT, 'app', '(en)', ...clean.split('/').filter(Boolean));
   return ['page.tsx', 'page.ts', 'route.ts', 'route.tsx'].some((f) => existsSync(join(dir, f)));
 }
 
@@ -69,7 +69,7 @@ export function validateDiscordGuide(g: DiscordGuide, all: DiscordGuide[]): stri
   const e: string[] = [];
   if (!SLUG.test(g.slug)) e.push('slug is not lowercase kebab-case');
   if (all.filter((x) => x.slug === g.slug).length > 1) e.push('duplicate slug');
-  if (!g.title || g.title.length > 60) e.push(`title must be 1–60 chars (${g.title.length})`);
+  if (!g.title || g.title.length > 50) e.push(`title must be 1–50 chars before the site suffix (${g.title.length})`);
   if (g.description.length < 80 || g.description.length > 155) e.push(`description must be 80–155 chars (${g.description.length})`);
   if (!g.h1) e.push('h1 missing');
   if (all.filter((x) => x.h1.toLowerCase() === g.h1.toLowerCase()).length > 1) e.push('h1 duplicates another topic');

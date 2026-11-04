@@ -1,5 +1,5 @@
 ---
-title: How to Align a Markdown Table So the Columns Line Up
+title: How to Align a Markdown Table's Columns
 h1: How do I align a markdown table so the columns line up?
 description: Pad every cell to its column's widest entry so the pipes line up. Do it by hand, with an md formatter, or with Prettier. Colons only set text alignment.
 tool: markdown-formatter

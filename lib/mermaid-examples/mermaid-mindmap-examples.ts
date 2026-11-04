@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-mindmap-examples',
-  title: 'Mermaid Mindmap Examples — Syntax and Copyable Code',
+  title: 'Mermaid Mindmap Examples — Copyable Code',
   description:
     'Mermaid mindmap syntax with copyable examples rendered live: indentation, node shapes, markdown strings, icons, and turning a Markdown list into a mindmap.',
   h1: 'Mermaid mindmap examples',

@@ -1,5 +1,5 @@
 ---
-title: What Should a README Contain? Sections and Checklist
+title: What Should a README Contain? Checklist
 h1: What should a README contain?
 description: The sections a README needs, what good looks like in each, what to leave out, and how the list changes for a library, a CLI, an app or a dataset.
 tool: readme-generator

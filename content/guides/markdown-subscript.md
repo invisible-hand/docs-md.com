@@ -1,7 +1,7 @@
 ---
 title: Markdown Subscript — How to Write H₂O
 h1: Markdown subscript: how to write text below the line
-description: Markdown subscript syntax: <sub>text</sub> on GitHub, ~text~ in Pandoc and Typora, Unicode H₂O in chat apps. Why ~ clashes with strikethrough, with a support table.
+description: Markdown subscript syntax: <sub>text</sub> on GitHub, ~text~ in Pandoc and Typora, Unicode H₂O in chat apps. Why ~ clashes with strikethrough; a table.
 updated: 2026-10-07
 related: markdown-superscript, markdown-math, markdown-strikethrough, markdown-footnotes, markdown-escape-characters
 ---

@@ -1,5 +1,5 @@
 ---
-title: Export as Markdown — Meaning, Where It Appears, What to Do
+title: Export as Markdown — Meaning and What to Do
 h1: What does "Export as Markdown" or "Copy as Markdown" mean?
 description: Export as Markdown saves a document as plain text (.md) with its formatting written as Markdown symbols. Where it appears and what to do with the file.
 updated: 2026-11-03

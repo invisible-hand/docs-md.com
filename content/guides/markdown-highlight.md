@@ -1,7 +1,7 @@
 ---
-title: Markdown Highlight Text — ==text== and the <mark> Fallback
+title: Markdown Highlight Text — ==text== and <mark>
 h1: How to highlight text in markdown
-description: Highlight text in markdown with ==text== in Obsidian, Typora, Pandoc and Markdown Extra tools, or with <mark>text</mark> on GitHub and GitLab. No highlight in Slack, Discord or Reddit; alternatives that work.
+description: Highlight text in markdown with ==text== in Obsidian, Typora and Pandoc, or with <mark>text</mark> on GitHub and GitLab. No highlight in Slack or Discord.
 updated: 2026-10-15
 related: markdown-color-text, markdown-underline, markdown-bold-italic, markdown-alerts, markdown-escape-characters
 ---

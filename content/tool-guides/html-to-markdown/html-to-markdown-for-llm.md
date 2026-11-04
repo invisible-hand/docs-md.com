@@ -1,5 +1,5 @@
 ---
-title: Why Convert HTML to Markdown Before Sending to an LLM?
+title: Why Convert HTML to Markdown for an LLM?
 h1: Why convert HTML to Markdown before sending it to an LLM?
 description: Markdown keeps headings, lists, links and tables but drops tags, scripts and styling, so the same page costs far fewer tokens. A measured example.
 tool: html-to-markdown

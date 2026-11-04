@@ -1,7 +1,7 @@
 ---
-title: Markdown Definition List — Syntax, GitHub Fallback, When to Use
+title: Markdown Definition List — Syntax and Fallbacks
 h1: How to make a definition list in markdown
-description: Definition list syntax (term on one line, : definition on the next) in Markdown Extra, Pandoc, kramdown and GitLab. GitHub has none: use a bold term with an indented paragraph or an HTML <dl>. When a table is better.
+description: Definition list syntax (term, then : definition on the next line) in Markdown Extra, Pandoc, kramdown and GitLab. GitHub has none: use bold terms or <dl>.
 updated: 2026-10-15
 related: markdown-table, markdown-bullet-points, markdown-indent, markdown-nested-list, markdown-bold-italic, markdown-footnotes
 ---

@@ -2,7 +2,7 @@ import type { DiscordGuide } from './types';
 
 export const GUIDE: DiscordGuide = {
   slug: 'code-block',
-  title: 'Discord Code Blocks: Inline Code and Syntax Highlighting',
+  title: 'Discord Code Blocks: Inline Code and Highlighting',
   description:
     'Make a code block on Discord: one backtick for inline code, three for a block, plus a language name for syntax highlighting. Examples and fixes.',
   h1: 'How to make a code block on Discord',

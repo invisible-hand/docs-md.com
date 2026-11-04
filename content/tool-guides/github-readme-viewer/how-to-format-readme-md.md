@@ -1,5 +1,5 @@
 ---
-title: How to Format a README.md: Syntax That Works on GitHub
+title: How to Format a README.md: Syntax for GitHub
 h1: How do I format a README.md?
 description: The markdown a README.md needs on GitHub: headings, code blocks, lists, tables, relative links and images, alerts, line breaks, and which HTML survives.
 tool: github-readme-viewer

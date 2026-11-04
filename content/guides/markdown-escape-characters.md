@@ -1,7 +1,7 @@
 ---
 title: Markdown Escape Characters — Backslash Escapes
 h1: Markdown escape characters: how to show * _ # and | literally
-description: Markdown escape characters: put a backslash before a symbol to show it literally. Full CommonMark escape list, escaping pipes in tables, backticks, < and >, HTML entities, Discord and Slack.
+description: Markdown escape characters: put a backslash before a symbol to show it literally. Full CommonMark escape list, pipes in tables, backticks, < and >.
 updated: 2026-11-03
 related: markdown-code-block, markdown-bullet-points, markdown-quote, markdown-math, markdown-footnotes
 ---

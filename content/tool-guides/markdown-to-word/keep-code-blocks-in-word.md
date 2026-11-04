@@ -1,5 +1,5 @@
 ---
-title: Keep Code Blocks Formatted When Converting Markdown to Word
+title: Keep Code Blocks Formatted in Markdown to Word
 h1: How do I keep code blocks formatted when converting Markdown to Word?
 description: Convert with a tool that maps fenced code to a monospaced block style, tag the language for highlighting, and stop Word's AutoCorrect from changing quotes.
 tool: markdown-to-word

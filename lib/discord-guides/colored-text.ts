@@ -4,7 +4,7 @@ import type { DiscordGuide } from './types';
 // copy button gives text that works when pasted into Discord. It is invisible in the "You type" pane.
 export const GUIDE: DiscordGuide = {
   slug: 'colored-text',
-  title: 'Discord Colored Text: How to Color Text with ANSI Codes',
+  title: 'Discord Colored Text: How to Color Text (ANSI)',
   description:
     'Color text on Discord with an ansi code block and ESC[31m-style codes: 8 text and 8 background colors, bold, underline, the mobile caveat, the diff trick.',
   h1: 'How to make colored text on Discord',

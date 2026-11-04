@@ -1,7 +1,7 @@
 ---
-title: Markdown Code Blocks — Fences, Highlighting, Inline Code
+title: Markdown Code Blocks — Fences and Highlighting
 h1: How to write a code block in markdown
-description: Make a code block with three backticks and a language tag for syntax highlighting. Inline code, backticks inside code, code in lists, diff and mermaid fences, and where fences render (GitHub, Slack, Discord, Notion, Obsidian).
+description: Make a code block with three backticks and a language tag for highlighting. Inline code, backticks inside code, diff and mermaid fences, where they render.
 updated: 2026-10-15
 related: markdown-indent, markdown-escape-characters, markdown-table, markdown-nested-list, markdown-quote, markdown-alerts
 ---

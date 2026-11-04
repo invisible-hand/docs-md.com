@@ -1,5 +1,5 @@
 ---
-title: Google Docs to Markdown: Built-In Export and Other Ways
+title: Google Docs to Markdown: Export and Other Ways
 h1: How do I convert a Google Doc to Markdown?
 description: Turn on Enable Markdown, then use File, Download, Markdown (.md) or right-click, Copy as Markdown. Other routes: paste into a converter, or pandoc.
 tool: html-to-markdown

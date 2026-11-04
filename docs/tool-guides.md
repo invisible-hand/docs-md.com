@@ -10,16 +10,16 @@ A tool guide is a question page nested under the tool that answers it:
 | Content | `content/tool-guides/<tool>/<question>.md` |
 | Registry + validator | `lib/tool-guides.ts` (`listToolGuides`, `getToolGuide`, `toolGuidesFor`, `validateToolGuide`) |
 | Page template | `components/ToolGuidePage.tsx` (also exports `ToolGuideLinks`, the "Questions about …" list on tool pages) |
-| Route | `lib/tool-guide-route.tsx` → `makeToolGuideRoute('<tool>')`, used by `app/<tool>/[question]/page.tsx` |
+| Route | `lib/tool-guide-route.tsx` → `makeToolGuideRoute('<tool>')`, used by `app/(en)/<tool>/[question]/page.tsx` |
 | Discovery | `app/sitemap.ts`, `app/llms.txt/route.ts` (nested under the tool's row), `scripts/indexnow-ping.mjs` |
 | Check | `npm run check:tool-guides` (also the first step of `npm run build`) |
 
-The share viewer owns the top-level dynamic segment (`app/[id]`), so there is no
-catch-all: each tool with guides needs its own `app/<tool>/[question]/page.tsx`.
-Routes exist for markdown-to-pdf, readme-generator, pdf-to-markdown,
+The share viewer owns the top-level dynamic segment (`app/(en)/[id]`), so there is no
+catch-all: each tool with guides needs its own `app/(en)/<tool>/[question]/page.tsx`.
+Routes exist for markdown-to-pdf, readme-generator, pdf-to-markdown, markdown-viewer,
 markdown-to-word, markdown-table-generator, csv-to-markdown, html-to-markdown,
-markdown-to-html, markdown-toc-generator and github-readme-viewer. To add another
-tool, copy one of those five-line files, change the slug, and add
+markdown-to-html, markdown-toc-generator, markdown-formatter, markdown-link-checker and
+github-readme-viewer. To add another tool, copy one of those five-line files, change the slug, and add
 `<ToolGuideLinks tool="<slug>" />` to the tool page.
 
 ## Writer contract
@@ -39,11 +39,11 @@ related: /github-readme-viewer, /guides/markdown-headings
 
 | Rule | Enforced |
 |---|---|
-| `title` ≤ 60 characters (the layout appends "\| Docs MD") | yes |
+| `title` ≤ 50 characters (the layout appends "\| Docs MD", 60 rendered) | yes |
 | `h1` is the question and ends with `?` | yes |
 | `description` present, ≤ 155 characters | yes |
 | `tool` is a slug in `TOOLS` and matches the folder name | yes |
-| `app/<tool>/[question]/page.tsx` exists | yes |
+| `app/(en)/<tool>/[question]/page.tsx` exists | yes |
 | `updated` is `YYYY-MM-DD` and not in the future | yes |
 | `related` (optional): comma-separated site paths, each a syntax guide, a tool or another tool guide | yes |
 | File name is lowercase kebab-case and unique across all tool guides | yes |

@@ -1,7 +1,7 @@
 ---
-title: Markdown Line Breaks — New Line Syntax That Works Everywhere
+title: Markdown Line Breaks — New Line Syntax
 h1: How to make a new line in markdown
-description: A single Enter collapses in markdown. Force a line break with two trailing spaces, a backslash or <br>; leave a blank line for a paragraph. Per-app rules for GitHub, Obsidian, Slack, Discord, Notion, and inside tables and lists.
+description: A single Enter collapses in markdown. Force a line break with two trailing spaces, a backslash or <br>; a blank line starts a paragraph. Per-app rules.
 updated: 2026-10-15
 related: markdown-table-line-break, markdown-indent, markdown-table, markdown-nested-list, markdown-horizontal-rule, markdown-escape-characters
 ---

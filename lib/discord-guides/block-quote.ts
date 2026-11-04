@@ -2,7 +2,7 @@ import type { DiscordGuide } from './types';
 
 export const GUIDE: DiscordGuide = {
   slug: 'block-quote',
-  title: 'How to Quote on Discord: Block Quotes with > and >>>',
+  title: 'How to Quote on Discord: > and >>> Block Quotes',
   description:
     'Quote on Discord with > and a space for one line, or >>> for the rest of the message. Replying vs quoting, examples, and fixes for quotes that fail.',
   h1: 'How to quote on Discord',

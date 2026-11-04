@@ -1,7 +1,7 @@
 ---
 title: Markdown Footnotes — Footnote Syntax and Support
 h1: Markdown footnotes: how to add a footnote
-description: Markdown footnote syntax: [^1] in the text and [^1]: note at the bottom. Inline ^[note] footnotes, multi-paragraph notes, numbering and which apps support them.
+description: Markdown footnote syntax: [^1] in the text and [^1]: note at the bottom. Inline ^[note] footnotes, multi-paragraph notes, numbering and app support.
 updated: 2026-10-07
 related: markdown-superscript, markdown-link, markdown-quote, markdown-escape-characters, markdown-bullet-points
 ---

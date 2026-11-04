@@ -2,7 +2,7 @@ import type { DiscordGuide } from './types';
 
 export const GUIDE: DiscordGuide = {
   slug: 'strikethrough',
-  title: 'Discord Strikethrough: How to Cross Out Text (~~text~~)',
+  title: 'Discord Strikethrough: How to Cross Out Text',
   description:
     'Cross out text on Discord with two tildes: ~~text~~. How it combines with bold and spoilers, why it sometimes fails, and how to show tildes literally.',
   h1: 'How to strikethrough text on Discord',

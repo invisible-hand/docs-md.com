@@ -1,7 +1,7 @@
 ---
 title: Markdown Page Break — How to Force a New Page
 h1: Markdown page break: how to start a new page in PDF and Word
-description: Markdown has no page break syntax. Use <div style="page-break-after: always"> for HTML and PDF export, \newpage in Pandoc, or editor options. Why --- is not a page break.
+description: Markdown has no page break syntax. Use <div style="page-break-after: always"> for HTML and PDF export, \newpage in Pandoc, or editor options.
 updated: 2026-10-07
 related: markdown-horizontal-rule, markdown-new-line, markdown-collapsible-section, markdown-color-text, markdown-footnotes
 ---

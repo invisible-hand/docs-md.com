@@ -29,7 +29,7 @@ for (const locale of LOCALES) {
     if (!LOCALIZED_SLUGS[page]) err(`unknown page "${page}"`);
     else if (c.slug !== LOCALIZED_SLUGS[page][locale]) err(`slug "${c.slug}" must be "${LOCALIZED_SLUGS[page][locale]}"`);
     for (const k of ['title', 'description', 'h1', 'intro', 'updated']) if (!c[k]) err(`"${k}" is missing`);
-    if (c.title?.length > 60) err(`title is ${c.title.length} chars (max 60)`);
+    if (c.title?.length > 50) err(`title is ${c.title.length} chars (max 50 before the site suffix)`);
     if (c.description?.length > 155) err(`description is ${c.description.length} chars (max 155)`);
     if (!Array.isArray(c.faq) || c.faq.length < 4) err('needs at least 4 FAQ entries');
     for (const k of ['updated', 'faqTitle', 'otherLanguages', 'copy', 'copied']) if (!c.chrome?.[k]) err(`chrome.${k} is missing`);
@@ -59,7 +59,7 @@ const exists = (path) => {
   const parts = clean.split('/').filter(Boolean);
   if (parts.length === 2 && existsSync(join('content/tool-guides', parts[0], `${parts[1]}.md`))) return true;
   if (parts[0] === 'guides' && parts.length === 2) return existsSync(join('content/guides', `${parts[1]}.md`));
-  const dir = join('app', ...parts);
+  const dir = join('app', '(en)', ...parts);
   return existsSync(dir) && statSync(dir).isDirectory() && ['page.tsx', 'route.ts'].some((f) => existsSync(join(dir, f)));
 };
 for (const p of pages) {

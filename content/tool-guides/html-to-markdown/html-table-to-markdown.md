@@ -1,5 +1,5 @@
 ---
-title: HTML Table to Markdown: Header Rows, Colspan, Paste
+title: HTML Table to Markdown: Headers, Colspan, Paste
 h1: How do you convert an HTML table to Markdown?
 description: Paste the table's HTML or the copied table into a converter. One header row converts cleanly; colspan, rowspan and multi-line cells need fixing.
 tool: html-to-markdown

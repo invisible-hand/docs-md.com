@@ -387,7 +387,7 @@ export const TOOLS: Tool[] = [
     metaDescription:
       'Every markdown element with live rendered examples: headings, emphasis, lists, links, images, code, tables, task lists, footnotes, mermaid. Copy a snippet.',
     category: 'reference',
-    updated: '2026-09-01',
+    updated: '2026-10-20',
   },
 ];
 

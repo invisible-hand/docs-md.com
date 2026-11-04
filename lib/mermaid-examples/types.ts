@@ -3,9 +3,9 @@
  * Contract: docs/mermaid-examples.md. Text fields accept `code` and [label](href) only.
  */
 export type MermaidExamplesPage = {
-  /** Top-level route without the slash, e.g. "mermaid-pie-chart-examples". Needs app/<slug>/page.tsx. */
+  /** Top-level route without the slash, e.g. "mermaid-pie-chart-examples". Needs app/(en)/<slug>/page.tsx. */
   slug: string;
-  /** <title> without the site suffix, ≤ 60 characters. */
+  /** <title> without the site suffix, ≤ 50 characters (60 rendered). */
   title: string;
   /** Meta description, 80–155 characters. */
   description: string;

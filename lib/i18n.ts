@@ -6,9 +6,9 @@ import type { GlanceRow } from '@/lib/cheat-sheet';
 
 // Translated versions of the pages AI answers already cite most (the viewer and the cheat sheet),
 // at /<locale>/<native slug>. Content lives in content/i18n/<locale>/<page>.json. The share viewer
-// owns the top-level dynamic segment (app/[id]), so each locale has its own app/<locale>/[page]
-// route built by makeLocaleRoute(). The root layout stays English; each page marks its own
-// language with lang= and hreflang alternates.
+// owns the top-level dynamic segment (app/(en)/[id]), so each locale has its own
+// app/(l10n)/<locale>/[page] route built by makeLocaleRoute() and its own root layout
+// (lib/locale-layout.tsx) that sets <html lang>; pages add hreflang alternates.
 
 export const LOCALES = ['ru', 'vi', 'es', 'pt-br'] as const;
 export type Locale = (typeof LOCALES)[number];

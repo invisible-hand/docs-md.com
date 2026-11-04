@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-quadrant-chart-examples',
-  title: 'Mermaid Quadrant Chart Examples — Syntax and Copyable Code',
+  title: 'Mermaid Quadrant Chart Examples — Copyable Code',
   description:
     'Mermaid quadrantChart syntax with copyable examples rendered live: priority matrix, effort and impact, risk matrix, point styling and theme config.',
   h1: 'Mermaid quadrant chart examples',

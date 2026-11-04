@@ -1,7 +1,7 @@
 ---
-title: Bold and Italic in Markdown — Asterisks, Underscores, Nesting
+title: Bold and Italic in Markdown — Asterisks, Nesting
 h1: How to make text bold or italic in markdown
-description: Bold is **text** or __text__, italic is *text* or _text_, bold italic is ***text***. Nesting, the mid-word underscore trap, punctuation rules, HTML fallbacks, and the Slack, Discord, WhatsApp, Jira and Pandoc differences.
+description: Bold is **text** or __text__, italic is *text* or _text_, bold italic is ***text***. Nesting, the mid-word underscore trap and per-app differences.
 updated: 2026-10-15
 related: markdown-strikethrough, markdown-underline, markdown-highlight, markdown-escape-characters, markdown-headings, markdown-table
 ---

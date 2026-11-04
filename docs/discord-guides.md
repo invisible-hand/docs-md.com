@@ -20,7 +20,7 @@ Model: `lib/discord-guides/strikethrough.ts`. Read it before writing.
 
 | Rule | Enforced |
 |---|---|
-| `title` ≤ 60 characters; `description` 80–155 | yes |
+| `title` ≤ 50 characters (60 with the "| Docs MD" suffix); `description` 80–155 | yes |
 | `answer` ≤ 60 words, answers the H1 plainly, no link in its first sentence | yes |
 | `anatomy`: the core syntax split into marker / content / extra parts, each with a short label | yes |
 | 2–6 `examples`; each `source` is exactly what a user types, and the preview must look right | yes / review |

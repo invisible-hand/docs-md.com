@@ -1,5 +1,5 @@
 ---
-title: How to Format Markdown in VS Code (Prettier, markdownlint)
+title: How to Format Markdown in VS Code (Prettier)
 h1: How do I format markdown in VS Code?
 description: VS Code has no built-in markdown formatter. Install Prettier or markdownlint, set it as the default formatter, then run Format Document.
 tool: markdown-formatter

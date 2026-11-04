@@ -1,5 +1,5 @@
 ---
-title: Find Broken Links in a GitHub README: Tool and CI Options
+title: Find Broken Links in a GitHub README (Tool, CI)
 h1: How do you find broken links in a GitHub README?
 description: Paste the README into a link checker to test external URLs, anchors and reference links, then automate the check with lychee or markdown-link-check.
 tool: markdown-link-checker

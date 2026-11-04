@@ -1,7 +1,7 @@
 ---
-title: Markdown Table Syntax — Alignment, Escaping, Line Breaks
+title: Markdown Table Syntax — Alignment and Escaping
 h1: How to make a table in markdown
-description: Markdown table syntax: pipes for columns, a hyphen row under the header, colons for alignment. Escaping |, line breaks with <br>, empty cells, no colspan, and where tables render.
+description: Markdown table syntax: pipes for columns, a hyphen row under the header, colons for alignment. Escaping |, line breaks with <br>, empty cells, no colspan.
 updated: 2026-11-03
 related: markdown-table-line-break, markdown-escape-characters, markdown-new-line, markdown-headings, markdown-bullet-points, markdown-definition-list
 ---

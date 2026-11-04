@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-in-markdown',
-  title: 'Mermaid in Markdown: GitHub, GitLab, Obsidian, Notion',
+  title: 'Mermaid in Markdown: GitHub, GitLab, Obsidian',
   description:
     'Add a Mermaid diagram to Markdown with a mermaid code block, and where it renders: GitHub, GitLab, Obsidian, Notion, VS Code, Confluence and Docs MD.',
   h1: 'How to use Mermaid diagrams in Markdown',

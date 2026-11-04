@@ -1,5 +1,5 @@
 ---
-title: How to Format Markdown Files with Prettier (CLI + Config)
+title: How to Format Markdown Files with Prettier
 h1: How do I format markdown files with Prettier?
 description: Run npx prettier --write "**/*.md" to format every markdown file. What Prettier changes, the proseWrap option, ignore comments and CI checks.
 tool: markdown-formatter

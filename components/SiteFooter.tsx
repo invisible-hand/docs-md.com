@@ -58,7 +58,7 @@ const MORE_FROM_US = [
 function Column({ heading, links }: { heading: string; links: { href: string; label: string }[] }) {
   return (
     <div>
-      <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-900">{heading}</h2>
+      <p className="text-xs font-semibold uppercase tracking-wide text-gray-900">{heading}</p>
       <ul className="mt-3 space-y-2 text-sm">
         {links.map((l) => (
           <li key={l.href + l.label}>
@@ -114,7 +114,7 @@ export default function SiteFooter() {
 
         <div className="mt-10 grid gap-10 border-t border-gray-100 pt-8 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-900">Learn markdown</h2>
+            <p className="text-xs font-semibold uppercase tracking-wide text-gray-900">Learn markdown</p>
             <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
               {LEARN.map((l) => (
                 <li key={l.href}>
@@ -126,7 +126,7 @@ export default function SiteFooter() {
             </ul>
           </div>
           <div className="lg:col-span-2">
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-900">More from us</h2>
+            <p className="text-xs font-semibold uppercase tracking-wide text-gray-900">More from us</p>
             <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
               {MORE_FROM_US.map((l) => (
                 <li key={l.href}>

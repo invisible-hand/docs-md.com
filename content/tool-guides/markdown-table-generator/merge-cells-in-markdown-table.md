@@ -1,5 +1,5 @@
 ---
-title: Merge Cells in a Markdown Table: Colspan and Rowspan
+title: Merge Cells in a Markdown Table (Colspan)
 h1: Can you merge cells in a Markdown table?
 description: Not in a pipe table: GFM has no colspan or rowspan. Use an HTML table where the platform renders HTML, a Pandoc grid table, or restructure the data.
 tool: markdown-table-generator

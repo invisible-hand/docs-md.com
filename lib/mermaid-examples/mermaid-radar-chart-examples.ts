@@ -2,7 +2,7 @@ import type { MermaidExamplesPage } from './types';
 
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-radar-chart-examples',
-  title: 'Mermaid Radar Chart Examples — Syntax and Copyable Code',
+  title: 'Mermaid Radar Chart Examples — Copyable Code',
   description:
     'Mermaid radar-beta syntax with copyable examples rendered live: skill charts, product comparisons, axis and curve statements, graticule, ticks and colours.',
   h1: 'Mermaid radar chart examples',

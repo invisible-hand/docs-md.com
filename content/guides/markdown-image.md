@@ -1,7 +1,7 @@
 ---
-title: Markdown Image Syntax — Embed, Resize, Link, Alt Text
+title: Markdown Image Syntax — Embed, Resize, Alt Text
 h1: How to add an image in markdown
-description: Add an image in markdown with ![alt text](url). Local paths, resizing with <img width> or {width=}, clickable images, captions, dark-mode logos, alt text rules, and where the syntax works.
+description: Add an image in markdown with ![alt text](url). Local paths, resizing with <img width>, clickable images, captions, dark-mode logos and alt text rules.
 updated: 2026-10-15
 related: markdown-link, markdown-embed-video, markdown-center-text, markdown-table, markdown-anchor-link, markdown-escape-characters
 ---

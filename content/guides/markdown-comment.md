@@ -1,7 +1,7 @@
 ---
-title: Markdown Comments — Hide Text From the Rendered Output
+title: Markdown Comments — Hide Text From the Output
 h1: How to write a comment in markdown
-description: Markdown has no comment syntax, but HTML comments <!-- like this --> stay hidden in rendered output on GitHub, GitLab and Obsidian. Where they leak (Slack, Discord, Reddit, MDX), Obsidian %% and MDX {/* */} forms, and tool directives.
+description: Markdown has no comment syntax, but HTML comments <!-- like this --> stay hidden on GitHub, GitLab and Obsidian. Where they leak, plus Obsidian and MDX.
 updated: 2026-10-15
 related: markdown-collapsible-section, markdown-code-block, markdown-escape-characters, markdown-new-line, markdown-quote, markdown-alerts
 ---

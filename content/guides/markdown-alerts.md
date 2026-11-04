@@ -1,7 +1,7 @@
 ---
-title: Markdown Alerts — GitHub [!NOTE] Syntax and Callout Equivalents
+title: Markdown Alerts — GitHub [!NOTE] Callout Syntax
 h1: How to make alerts and callouts in markdown
-description: GitHub alerts use > [!NOTE], [!TIP], [!IMPORTANT], [!WARNING], [!CAUTION] on a blockquote. Rendered meaning of each, the GitLab, Obsidian and Docusaurus equivalents, and where they show as plain quotes.
+description: GitHub alerts use > [!NOTE], [!TIP], [!IMPORTANT], [!WARNING], [!CAUTION] on a blockquote. What each means, plus the GitLab, Obsidian and Docusaurus forms.
 updated: 2026-10-15
 related: markdown-quote, markdown-collapsible-section, markdown-color-text, markdown-highlight, markdown-horizontal-rule
 ---

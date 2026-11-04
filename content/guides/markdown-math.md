@@ -1,7 +1,7 @@
 ---
 title: Markdown Math — LaTeX Equations in Markdown
 h1: Markdown math: how to write equations with $ and $$
-description: Markdown math syntax: $x^2$ for inline and $$ blocks for display equations, plus GitHub math fences. Support in GitHub, GitLab, Obsidian, Typora, Jupyter, with LaTeX examples.
+description: Markdown math syntax: $x^2$ for inline and $ blocks for display equations, plus GitHub math fences. Support in GitHub, GitLab, Obsidian, Typora, Jupyter.
 updated: 2026-10-07
 related: markdown-superscript, markdown-subscript, markdown-escape-characters, markdown-code-block, markdown-color-text
 ---

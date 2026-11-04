@@ -68,7 +68,7 @@ export default function WordCounter() {
     <div className="grid gap-6 lg:grid-cols-[minmax(0,6fr)_minmax(0,6fr)]">
       <div>
         <div className="mb-2 flex min-h-8 items-center justify-between">
-          <h3 className="text-sm font-semibold text-gray-900">Document</h3>
+          <p className="text-sm font-semibold text-gray-900">Document</p>
           <div className="flex gap-2">
             <label className={`${BTN_GHOST} cursor-pointer`}>
               Open .md

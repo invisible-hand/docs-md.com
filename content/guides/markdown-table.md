@@ -38,6 +38,28 @@ A markdown table is a header row, a delimiter row of hyphens, and zero or more b
 
 The delimiter row is what turns pipes into a table. A single column still needs a pipe on the line (`| only |`), otherwise the parser sees plain text.
 
+## Markdown table syntax, piece by piece
+
+Every markdown table is built from the same five pieces: pipes, a header row, a separator row of hyphens, optional alignment colons, and body rows. Here is one table with each part labelled:
+
+```markdown
+| Name   | Qty | Price |     <- header row: one cell per column, between pipes
+|:-------|----:|:-----:|     <- separator row: hyphens, with colons for alignment
+| Apple  |   3 |  1.20 |     <- body rows: one line each
+| Pear   |   1 |  0.95 |
+```
+
+| Piece | What it does | Rule |
+|---|---|---|
+| Pipe `\|` | Separates cells | Required between cells. The outer pipes at the start and end of a row are optional, and GitHub's docs and the GFM spec both allow mixing rows with and without them |
+| Header row | Names the columns and fixes their number | Always the first line. It must have the same number of cells as the separator row, or the spec says the table is not recognised |
+| Separator row | Marks the end of the header and turns the pipes into a table | Each cell is hyphens only. GitHub's docs ask for at least three (`---`); the spec accepts one. Spaces around the hyphens are fine |
+| Alignment colon `:` | Sets a column's alignment | `:---` left, `---:` right, `:---:` centre, written in the separator row. No colon means the renderer's default |
+| Body rows | Hold the data | One line per row. Rows with fewer cells than the header are padded with empty cells; extra cells are dropped |
+| Escaped pipe `\|` | Shows a literal pipe inside a cell | Needed even inside inline code and bold, because the row is split on pipes before the inline syntax is read |
+
+Three rules sit around the pieces. Spaces between a pipe and the cell content are trimmed, so you can pad cells to line up the source or not; the result is identical. A table needs a blank line before it on GitHub. And a table ends at the first blank line or at the start of another block such as a quote or heading, so a line of plain text directly under the table is read as one more row. All of this is from the [GFM specification](https://github.github.com/gfm/#tables-extension-) and GitHub's [table documentation](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-tables); the sections below take each piece in turn.
+
 ## How do you align columns in a markdown table?
 
 Put a colon on the side of the hyphens you want the text pulled toward: `:---` is left, `---:` is right, `:---:` is centre. Alignment is set per column in the delimiter row and applies to every cell in that column, header included:
@@ -153,3 +175,14 @@ There is no limit in the syntax, but there is one in the layout: a table wider t
 ## What are the best practices for markdown tables?
 
 Keep the outer pipes (they survive every renderer and make the source readable), align numeric columns right with `---:`, escape pipes in cells, avoid empty cells in documentation, and do not use a table for layout. Use a [definition list](/guides/markdown-definition-list) or a bulleted list when there is only one column of values. If you are converting data, start from the [CSV to markdown converter](/csv-to-markdown) rather than typing pipes, and check the result in the viewer before publishing. For the rest of the syntax see the [markdown cheat sheet](/markdown-cheat-sheet).
+
+## Common table questions, answered
+
+The syntax above covers the table itself. Getting a table in or out of other programs, and bending the rules, each have their own page:
+
+- [Create a Google Sheet from a markdown table](/markdown-table-generator/markdown-table-to-google-sheets): paste as TSV, import a CSV, or split the pipes with `SPLIT()`.
+- [Copy a markdown table into Excel](/markdown-table-generator/markdown-table-to-excel): Text to Columns with `|`, CSV import, or Power Query.
+- [Put a bullet list or multiple lines in a table cell](/markdown-table-generator/markdown-table-cell-lists-images): `<br>` and bullet characters, `<ul>` where HTML is allowed.
+- [Make a table without a header](/markdown-table-generator/table-without-header): empty header cells, an HTML table, or a different structure.
+- [Tables in Jupyter notebook markdown cells](/markdown-table-generator/markdown-table-in-jupyter-notebook): GFM tables, LaTeX in cells, `to_markdown()` and nbconvert.
+- [Convert a markdown table to CSV or Excel](/csv-to-markdown/markdown-table-to-csv) and [merge cells in a markdown table](/markdown-table-generator/merge-cells-in-markdown-table).

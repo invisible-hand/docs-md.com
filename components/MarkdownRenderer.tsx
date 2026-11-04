@@ -1,7 +1,7 @@
 'use client';
 
-import { isValidElement, ReactNode } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { createElement, isValidElement, ReactNode } from 'react';
+import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
@@ -15,6 +15,28 @@ interface MarkdownRendererProps {
    * (the file host). Without it, relative links render as plain text (see `a` below).
    */
   relativeBase?: { page: string; raw: string; pageRoot?: string; rawRoot?: string };
+  /**
+   * Shift every heading down by this many levels (h1→h2 … h5→h6; h6 stays h6). Preview and
+   * example panes pass 1 so a sample document's `# Title` does not become a second page <h1>.
+   */
+  headingOffset?: number;
+  /** Only demote `#` headings to h2 (article bodies: the page already has its own <h1>). */
+  demoteH1?: boolean;
+}
+
+type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+const HEADINGS: HeadingTag[] = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+/** Component overrides that render each heading one or more levels lower. */
+function shiftedHeadings(offset: number, h1Only: boolean): Partial<Components> {
+  const out: Partial<Components> = {};
+  HEADINGS.forEach((tag, i) => {
+    const target = HEADINGS[Math.min(5, i + offset)];
+    if (target === tag || (h1Only && tag !== 'h1')) return;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `node` must not reach the DOM
+    out[tag] = ({ node: _node, ...props }) => createElement(target, props);
+  });
+  return out;
 }
 
 const ABSOLUTE = /^(https?:\/\/|\/|#|mailto:|data:)/i;
@@ -45,13 +67,15 @@ function extractText(node: ReactNode): string {
   return '';
 }
 
-export default function MarkdownRenderer({ content, relativeBase }: MarkdownRendererProps) {
+export default function MarkdownRenderer({ content, relativeBase, headingOffset = 0, demoteH1 = false }: MarkdownRendererProps) {
+  const headings = headingOffset > 0 ? shiftedHeadings(headingOffset, false) : demoteH1 ? shiftedHeadings(1, true) : {};
   return (
     <div className="markdown-content">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeSlug, rehypeHighlight]}
         components={{
+          ...headings,
           // User-generated links must not pass SEO value (anti link-spam).
           // Relative repo-style links (e.g. `[MIT](LICENSE)` in a README) cannot resolve on
           // docs-md.com and would 404 — render them as plain text instead of a dead link.

@@ -1,5 +1,7 @@
 import { listGuides } from '@/lib/guides';
 import { cheatSheetMarkdown, sectionsMarkdown } from '@/lib/cheat-sheet-markdown';
+import { DISCORD_GUIDES } from '@/lib/discord-guides';
+import { MERMAID_PAGES } from '@/lib/mermaid-examples';
 import { PLATFORM_SHEETS } from '@/lib/platform-sheets';
 import { toolGuidesFor } from '@/lib/tool-guides';
 import { TOOLS, TOOL_CATEGORIES } from '@/lib/tools-registry';
@@ -45,10 +47,45 @@ export function GET() {
     ].join('\n'),
   );
 
+  // Topic pages are structured data, not markdown bodies: flatten sections, tables and FAQ.
+  const table = (t?: { head: string[]; rows: string[][] }) =>
+    t ? ['', `| ${t.head.join(' | ')} |`, `| ${t.head.map(() => '---').join(' | ')} |`, ...t.rows.map((r) => `| ${r.join(' | ')} |`)] : [];
+  const sections = (list: { h2: string; paragraphs: string[]; table?: { head: string[]; rows: string[][] } }[]) =>
+    list.flatMap((s) => ['', `## ${s.h2}`, '', s.paragraphs.join('\n\n'), ...table(s.table)]);
+  const faq = (list: { q: string; a: string }[]) => list.flatMap((f) => ['', `## ${f.q}`, '', f.a]);
+
+  const discord = DISCORD_GUIDES.map((g) =>
+    [
+      `# ${g.h1}`,
+      '',
+      `URL: ${BASE}/discord-markdown/${g.slug}`,
+      `Updated: ${g.updated}`,
+      '',
+      g.answer,
+      ...g.examples.flatMap((ex) => ['', `### ${ex.label}`, '', '```', ex.source, '```', ...(ex.note ? ['', ex.note] : [])]),
+      ...sections(g.sections),
+      ...faq(g.faq),
+    ].join('\n'),
+  );
+
+  const mermaid = MERMAID_PAGES.map((p) =>
+    [
+      `# ${p.h1}`,
+      '',
+      `URL: ${BASE}/${p.slug}`,
+      `Updated: ${p.updated}`,
+      '',
+      p.answer,
+      ...p.examples.flatMap((ex) => ['', `### ${ex.title}`, '', ex.intro, '', '```mermaid', ex.code.trim(), '```']),
+      ...sections(p.sections),
+      ...faq(p.faq),
+    ].join('\n'),
+  );
+
   const body = [
     'Docs MD (docs-md.com) — full text index',
     '',
-    'Docs MD shares Markdown documents as rendered links with an expiry you choose, no account needed, and hosts free browser-side markdown tools and syntax guides. This file holds the full text of the markdown cheat sheet, the platform cheat sheets, every syntax guide and every tool question page. The link index is at https://docs-md.com/llms.txt. Agents can publish markdown with `curl --data-binary @FILE.md https://docs-md.com/api/share` (see https://docs-md.com/agents).',
+    'Docs MD shares Markdown documents as rendered links with an expiry you choose, no account needed, and hosts free browser-side markdown tools and syntax guides. This file holds the full text of the markdown cheat sheet, the platform cheat sheets, every syntax guide, every tool question page, the Discord formatting topics and the Mermaid example pages. The link index is at https://docs-md.com/llms.txt. Agents can publish markdown with `curl --data-binary @FILE.md https://docs-md.com/api/share` (see https://docs-md.com/agents).',
     '',
     '',
     cheatSheetMarkdown('2026-10-20').replace(/^# /, '## '),
@@ -67,6 +104,16 @@ export function GET() {
     '## Free markdown tools',
     '',
     tools.join('\n\n---\n\n'),
+    '',
+    '',
+    '## Discord formatting topics',
+    '',
+    discord.join('\n\n---\n\n'),
+    '',
+    '',
+    '## Mermaid diagram examples',
+    '',
+    mermaid.join('\n\n---\n\n'),
     '',
   ].join('\n');
 

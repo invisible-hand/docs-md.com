@@ -102,7 +102,7 @@ export const GUIDE: DiscordGuide = {
   ],
   faq: [
     {
-      q: 'How do you spoiler on Discord mobile?',
+      q: 'Is the spoiler syntax the same on the Discord mobile app?',
       a: 'Type two vertical bars before and after the text, `||like this||`, the same as on desktop; Discord’s help article confirms the syntax works on mobile, links included. On iOS you can also select the text in the message box, tap it and choose Mark as Spoiler. The vertical bar is on the symbols page of the phone keyboard.',
     },
     {

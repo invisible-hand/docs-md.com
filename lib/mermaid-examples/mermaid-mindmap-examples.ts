@@ -4,7 +4,7 @@ export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-mindmap-examples',
   title: 'Mermaid Mindmap Examples — Syntax and Copyable Code',
   description:
-    'Mermaid mindmap syntax with copyable examples rendered live: indentation, node shapes, line breaks and markdown strings, plus how icons and classes work.',
+    'Mermaid mindmap syntax with copyable examples rendered live: indentation, node shapes, markdown strings, icons, and turning a Markdown list into a mindmap.',
   h1: 'Mermaid mindmap examples',
   label: 'Mindmap',
   updated: '2026-11-03',
@@ -108,6 +108,24 @@ three themes\`"]
     open)Open questions(
       Move standup later?`,
     },
+    {
+      id: 'markdown-outline',
+      title: 'A Markdown outline turned into a mindmap',
+      intro:
+        'A nested bullet list is already a mindmap in text form. This map came from the outline shown in the section below: the `mindmap` keyword went on top, the single top-level bullet became the root, every `- ` marker was deleted and the indentation was kept as it was. Only the last line needed quoting, because its text has parentheses.',
+      code: `mindmap
+  root((Website redesign))
+    Research
+      User interviews
+      Analytics review
+    Design
+      Wireframes
+      Visual design
+    Build
+      Front end
+      CMS
+      b1["Launch checklist (draft)"]`,
+    },
   ],
   sections: [
     {
@@ -116,6 +134,25 @@ three themes\`"]
         'A mindmap is a text outline. The first node after `mindmap` is the root and there can be only one: a second line at the root’s indentation makes Mermaid stop with the error “There can be only one root”. Every other line becomes a child of the nearest line above it that is indented less. The amount of indentation does not matter, only how it compares with the lines above, which is why the uneven example still produces a tidy map.',
         'Because a parent is found by looking upwards, the order of lines matters as much as their indentation. To move a whole branch, move its lines together. To keep large maps readable in source, indent by a fixed step, such as two or four spaces per level, even though Mermaid would accept anything that is consistently deeper.',
       ],
+    },
+    {
+      h2: 'Turn a Markdown outline into a mindmap',
+      paragraphs: [
+        'Start from the list as it is written in the file. Put `mindmap` on the first line. Turn the one top-level bullet into the root, optionally in a shape such as `root((Website redesign))`; if the list has several top-level bullets, add a root above them, such as the document title, and indent every bullet one step. Then delete the bullet marker, `- `, `* ` or `1. `, from every line and keep the indentation exactly as it was. Mermaid reads a line indented further than the one above as its child, which is the same rule a Markdown list follows, so the hierarchy carries over without any edits. The example above was made this way from the outline in the table.',
+        'Two kinds of line need a hand. Text that contains parentheses or brackets, such as “Launch checklist (draft)”, has to go in quotes inside a shape with an ID in front, `b1["Launch checklist (draft)"]`, or Mermaid reads the parentheses as a shape. Inline Markdown such as bold or a link has no meaning in a plain node: strip it, or wrap the label as a markdown string, a double quote and a backtick at each end, where `**bold**` and `*italic*` do work. Icons, `::icon(fa fa-book)` on the line after a node, and classes, `:::name`, can be added afterwards; both only show where the renderer supplies the icon font or the CSS, so a converted map is usually left without them.',
+        'Both versions can live in the same Markdown file: the list stays readable text and the fenced `mermaid` block renders as the map on GitHub, GitLab, Obsidian and Docs MD. When the list changes, repeat the same steps; there is nothing else to keep in sync.',
+      ],
+      table: {
+        head: ['Markdown outline', 'Mindmap source', 'What changed'],
+        rows: [
+          ['—', '`mindmap`', 'The diagram keyword goes on the first line'],
+          ['`- Website redesign`', '`root((Website redesign))`', 'The single top-level bullet becomes the root; the double parentheses make it a circle and are optional'],
+          ['`  - Research`', '`Research`, indented one level under the root', 'Bullet marker removed, indentation kept'],
+          ['`    - User interviews`', '`User interviews`, indented one level under Research', 'Same rule, one level deeper'],
+          ['`  - Build`', '`Build`, back at the first level', 'Less indentation closes the branch, exactly as in the list'],
+          ['`    - Launch checklist (draft)`', '`b1["Launch checklist (draft)"]`', 'Parentheses in the text need an ID and quotes inside a shape'],
+        ],
+      },
     },
     {
       h2: 'Which node shapes can a Mermaid mindmap use?',
@@ -162,6 +199,10 @@ three themes\`"]
     {
       q: 'How do you add a line break inside a mindmap node?',
       a: 'In a regular label, write `<br/>` where the line should break, as in “Ownership<br/>and borrowing” in the study map example. In a markdown string, the label wrapped in a double quote and a backtick at each end, press Enter inside the label and the new line carries into the node. Markdown strings also wrap long text automatically, so you rarely need manual breaks there.',
+    },
+    {
+      q: 'Can you convert a Markdown list to a Mermaid mindmap?',
+      a: 'Yes, by hand in three steps, because the two formats share one rule: indentation means hierarchy. Put `mindmap` on the first line, make the one top-level bullet the root (or add a root line above several), and delete the `- ` marker from every line while keeping its indentation. Then quote any text with parentheses or brackets inside a shape, such as `a1["Review (legal)"]`, and strip inline Markdown such as bold or links, or keep it in a markdown string. The outline example on this page shows the list and the resulting map side by side.',
     },
     {
       q: 'Does GitHub render Mermaid mindmaps?',

@@ -51,7 +51,7 @@ export default function GithubRepoForm() {
         {EXAMPLES.map((x, i) => (
           <span key={x.href}>
             {i > 0 ? ' · ' : ''}
-            <a href={x.href} className="font-mono text-indigo-700 underline">
+            <a href={x.href} rel="nofollow" className="font-mono text-indigo-700 underline">
               {x.label}
             </a>
           </span>

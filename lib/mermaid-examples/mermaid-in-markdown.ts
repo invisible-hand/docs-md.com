@@ -4,7 +4,7 @@ export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-in-markdown',
   title: 'Mermaid in Markdown: GitHub, GitLab, Obsidian, Notion',
   description:
-    'How to add a Mermaid diagram to a Markdown file with a mermaid code block, and where it renders: GitHub, GitLab, Obsidian, Notion, VS Code and Docs MD.',
+    'Add a Mermaid diagram to Markdown with a mermaid code block, and where it renders: GitHub, GitLab, Obsidian, Notion, VS Code, Confluence and Docs MD.',
   h1: 'How to use Mermaid diagrams in Markdown',
   label: 'Mermaid in Markdown',
   updated: '2026-11-03',
@@ -118,6 +118,13 @@ export const PAGE: MermaidExamplesPage = {
       ],
     },
     {
+      h2: 'Does GitHub support Mermaid?',
+      paragraphs: [
+        'Yes. GitHub’s documentation page Creating diagrams says diagram rendering is available in GitHub Issues, GitHub Discussions, pull requests, wikis and Markdown files, which includes every README. You write a fenced code block with the `mermaid` language identifier, as on this page, and GitHub draws it when the file, issue or comment is viewed. Mermaid is one of four diagram syntaxes GitHub renders this way; the other three are GeoJSON and TopoJSON maps and ASCII STL 3D models, each with its own code block language.',
+        'For diagram types, GitHub’s page names flow charts, sequence diagrams and pie charts, then refers to the Mermaid documentation for the rest: whatever the Mermaid version GitHub runs can draw, GitHub draws, which with any Mermaid from 9.4 onwards includes the Gantt chart, timeline, mindmap and git graph above. GitHub does not publish that version, so render the `info` block from this page in an issue to see it, and expect a recently added option to lag there for a while. The same page warns that a third-party Mermaid browser plugin can cause errors on GitHub.',
+      ],
+    },
+    {
       h2: 'Which platforms render Mermaid in Markdown?',
       paragraphs: [
         'All of these use the same diagram code. What differs is how you insert it and which Mermaid version draws it, so a diagram that uses a recent option can render on one platform and fail on another.',
@@ -129,10 +136,18 @@ export const PAGE: MermaidExamplesPage = {
           ['GitLab', 'A fenced block tagged `mermaid`', 'Repository Markdown files, issues, merge requests, epics, comments, wiki pages, milestones, releases and `.md` snippets; GitLab’s documentation says it supports Mermaid version 12'],
           ['Obsidian', 'A fenced block tagged `mermaid`', 'Notes; the `internal-link` class on flowchart nodes links them to other notes'],
           ['Notion', 'A code block (type `/code`) with Mermaid chosen as its language', 'The block itself: switch its view to Preview for the diagram, or Split for code and diagram side by side'],
+          ['Confluence', 'A Marketplace app’s macro; Confluence has no Mermaid rendering of its own', 'Pages, once an app such as Atlassian Labs’ Mermaid diagrams viewer or Mermaid Chart for Confluence is installed on the site'],
           ['VS Code', 'A fenced block tagged `mermaid`', 'The built-in Markdown preview from version 1.121 (May 2026); older versions need an extension such as Markdown Preview Mermaid Support'],
           ['Docs MD', 'A fenced block tagged `mermaid`', 'The [editor](/), the [Markdown viewer](/markdown-viewer) and shared links, drawn with Mermaid 11'],
         ],
       },
+    },
+    {
+      h2: 'Confluence and Mermaid',
+      paragraphs: [
+        'Confluence does not render Mermaid on its own. Its code block element highlights source code but has no Mermaid language, so a pasted fenced `mermaid` block stays text, and Atlassian’s guide to importing from Notion lists Notion’s Mermaid code blocks as arriving in Confluence as plain text.',
+        'Rendering comes from Atlassian Marketplace apps, which add a macro that takes Mermaid source, or a link to it, and draws the diagram on the page. Atlassian Labs publishes Mermaid diagrams viewer, which renders the Mermaid code found in a code block on the same page; Mermaid Chart, the company behind Mermaid, publishes Mermaid Chart for Confluence; and several other vendors list Mermaid macros for Confluence Cloud and Data Center. Apps are installed per site by a Confluence admin, so check which one your site has before writing a page around a diagram, then paste the same code you would use on GitHub into the macro.',
+      ],
     },
     {
       h2: 'Why does my Mermaid block show as code instead of a diagram?',
@@ -180,6 +195,9 @@ export const PAGE: MermaidExamplesPage = {
     { label: 'Notion release notes, December 23, 2021: Mermaid diagrams in code blocks', url: 'https://www.notion.com/releases/2021-12-23' },
     { label: 'VS Code documentation: Markdown and Visual Studio Code', url: 'https://code.visualstudio.com/docs/languages/markdown' },
     { label: 'VS Code 1.121 release notes (built-in Mermaid preview)', url: 'https://code.visualstudio.com/updates/v1_121' },
+    { label: 'Atlassian Marketplace: Mermaid diagrams viewer (Atlassian Labs)', url: 'https://marketplace.atlassian.com/apps/1232887/mermaid-diagrams-viewer' },
+    { label: 'Atlassian Marketplace: Mermaid Chart for Confluence', url: 'https://marketplace.atlassian.com/apps/1234056/mermaid-chart-for-confluence' },
+    { label: 'Atlassian Support: FAQ, import data from Notion to Confluence', url: 'https://support.atlassian.com/confluence-cloud/docs/faq-import-data-from-notion-to-confluence' },
   ],
   related: ['/github-flavored-markdown', '/obsidian-markdown', '/notion-markdown', '/markdown-viewer', '/markdown-to-pdf', '/share-architecture-diagram'],
 };

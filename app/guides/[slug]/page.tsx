@@ -105,7 +105,7 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
         </time>
       </p>
       <article className="mt-8 guide-article">
-        <MarkdownRenderer content={guide.body} />
+        <MarkdownRenderer content={guide.body} demoteH1 />
       </article>
       <section className="mt-12 rounded-2xl border border-indigo-100 bg-indigo-50/50 p-6">
         <h2 className="text-base font-semibold text-gray-950">Keep going</h2>

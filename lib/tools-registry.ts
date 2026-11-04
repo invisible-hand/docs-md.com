@@ -110,7 +110,7 @@ export const TOOLS: Tool[] = [
     title: 'JSON to markdown table converter',
     description:
       'Paste a JSON array or object and get a markdown table — nested keys flattened to dot paths, pipes escaped, columns reorderable — or turn a table back into JSON.',
-    metaTitle: 'JSON to Markdown Table Converter — Free Online Tool',
+    metaTitle: 'JSON to Markdown Table Converter — Free Online',
     metaDescription:
       'Convert JSON to a markdown table in your browser: arrays of objects, nested keys flattened, null and arrays handled, column order, alignment. Reverse too.',
     category: 'convert',
@@ -123,7 +123,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown to Slack converter',
     description:
       'Turn standard markdown into Slack mrkdwn — *bold*, _italic_, <url|text> links, headings as bold lines, tables as code grids — with a list of what was approximated.',
-    metaTitle: 'Markdown to Slack Converter — mrkdwn Formatting, Free',
+    metaTitle: 'Markdown to Slack Converter — mrkdwn Formatting',
     metaDescription:
       'Convert markdown to Slack mrkdwn in your browser: *bold*, _italic_, ~strike~, <url|text> links, code blocks. Headings and tables approximated and reported.',
     category: 'convert',
@@ -135,9 +135,9 @@ export const TOOLS: Tool[] = [
     title: 'Markdown to Discord converter',
     description:
       'Turn standard markdown into Discord markdown — headings to ###, masked links, code blocks with languages, tables as code grids — with every approximation listed.',
-    metaTitle: 'Markdown to Discord Converter — Message Formatting, Free',
+    metaTitle: 'Markdown to Discord Converter — Message Formatting',
     metaDescription:
-      'Convert markdown to Discord markdown in your browser: headings to ###, **bold**, masked links, highlighted code blocks. Tables and h4+ approximated, listed.',
+      'Convert markdown to Discord markdown in your browser: headings to ###, **bold**, masked links, highlighted code blocks. Tables and h4+ approximated.',
     category: 'convert',
     updated: '2026-10-15',
   },
@@ -147,7 +147,7 @@ export const TOOLS: Tool[] = [
     title: 'Discord timestamp generator',
     description:
       'Pick a date, time and time zone and get every Discord <t:…> timestamp code with a preview of what readers see, plus a decoder for existing codes.',
-    metaTitle: 'Discord Timestamp Generator — All 9 <t:> Formats, Free',
+    metaTitle: 'Discord Timestamp Generator — All 9 <t:> Formats',
     metaDescription:
       'Make Discord timestamps that show in every reader\'s time zone: pick a date and time, copy any of the 9 <t:unix:style> formats, or decode an existing one.',
     category: 'generate',
@@ -159,7 +159,7 @@ export const TOOLS: Tool[] = [
     title: 'Discord colored text generator',
     description:
       'Build coloured Discord messages with ANSI code blocks: pick text and background colours, bold and underline per part, preview it, copy it ready to paste.',
-    metaTitle: 'Discord Colored Text Generator — ANSI Code Blocks, Free',
+    metaTitle: 'Discord Colored Text Generator — ANSI Code Blocks',
     metaDescription:
       'Write coloured text in Discord: choose text and background colours, bold or underline for each part, preview the ansi code block, and copy it to paste.',
     category: 'generate',
@@ -171,7 +171,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown to Jira converter',
     description:
       'Turn standard markdown into Jira wiki markup — h1. headings, *bold*, {code:lang} blocks, ||header|| tables, [text|url] links, ** nested lists — ready for issue fields.',
-    metaTitle: 'Markdown to Jira Converter — Wiki Markup Formatting, Free',
+    metaTitle: 'Markdown to Jira Converter — Wiki Markup, Free',
     metaDescription:
       'Convert markdown to Jira wiki markup in your browser: h1. headings, *bold*, {code:lang} blocks, ||header|| tables, [text|url] links, nested * and # lists.',
     category: 'convert',
@@ -183,7 +183,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown to plain text converter',
     description:
       'Strip every markdown marker and keep the words, lists, code and paragraph structure — links optionally kept as "text (url)". For email, SMS, and form fields.',
-    metaTitle: 'Markdown to Plain Text — Strip Markdown Online, Free',
+    metaTitle: 'Markdown to Plain Text — Strip Markdown Online',
     metaDescription:
       'Strip markdown to plain text in your browser: remove heading, emphasis, code, link and table syntax while keeping the words, lists and structure.',
     category: 'convert',
@@ -209,9 +209,9 @@ export const TOOLS: Tool[] = [
     title: 'GitHub README and docs viewer',
     description:
       'Paste a repository URL and read its README and docs folder as a clean, linked site — relative links and images resolved, no cloning.',
-    metaTitle: 'GitHub README Viewer — Read a Repo\'s Docs as a Site',
+    metaTitle: 'GitHub README Viewer — Read Repo Docs as a Site',
     metaDescription:
-      'Open any public GitHub repository and read its README and docs/ folder as a formatted, navigable site. Relative links and images resolved. Free, nothing to install.',
+      'Open any public GitHub repository and read its README and docs/ folder as a formatted, navigable site. Relative links and images resolved. Free.',
     category: 'edit',
     updated: '2026-10-13',
   },
@@ -245,7 +245,7 @@ export const TOOLS: Tool[] = [
     title: 'Table of contents generator',
     description:
       'Paste a document, get a linked TOC with GitHub-exact anchor slugs — choose depth, insert it under your title.',
-    metaTitle: 'Markdown Table of Contents Generator — Free TOC Tool',
+    metaTitle: 'Markdown Table of Contents Generator — Free Tool',
     metaDescription:
       'Generate a markdown table of contents from your headings with correct GitHub anchor links. Choose depth, numbered or bulleted, and insert it in the doc.',
     category: 'generate',
@@ -257,7 +257,7 @@ export const TOOLS: Tool[] = [
     title: 'Link, image & code block generator',
     description:
       'Fill in a form, get correct markdown for links (with tooltips and reference style), sized images, and fenced code.',
-    metaTitle: 'Markdown Link, Image & Code Block Generator — Free Tool',
+    metaTitle: 'Markdown Link, Image & Code Block Generator',
     metaDescription:
       'Generate correct markdown for links, images, and fenced code blocks: fill in the fields, preview live, copy the snippet. Tooltips and reference links too.',
     category: 'generate',
@@ -269,7 +269,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown badge generator',
     description:
       'Design shields.io badges with a live preview — label, message, color, style, logo — and copy them as markdown, HTML, or reStructuredText.',
-    metaTitle: 'Markdown Badge Generator — shields.io Badges for READMEs',
+    metaTitle: 'Markdown Badge Generator — shields.io for READMEs',
     metaDescription:
       'Generate README badges with a live preview: static or dynamic shields.io badges for version, license, CI, downloads, and stars. Copy as markdown or HTML.',
     category: 'generate',
@@ -281,7 +281,7 @@ export const TOOLS: Tool[] = [
     title: 'Changelog generator',
     description:
       'Build a CHANGELOG.md in Keep a Changelog format — or paste your git log and let conventional commits sort themselves into Added, Fixed, and Changed.',
-    metaTitle: 'Changelog Generator — Keep a Changelog Markdown, Free',
+    metaTitle: 'Changelog Generator — Keep a Changelog Markdown',
     metaDescription:
       'Generate a CHANGELOG.md in Keep a Changelog format: versions, dates, Added/Changed/Fixed sections, compare links. Paste a git log to group commits.',
     category: 'generate',
@@ -293,7 +293,7 @@ export const TOOLS: Tool[] = [
     title: 'Front matter generator',
     description:
       'Generate valid YAML, TOML, or JSON front matter for Jekyll, Hugo, Astro, Docusaurus, or Obsidian — dates, tags, slugs, and custom fields, escaped correctly.',
-    metaTitle: 'Front Matter Generator — YAML for Jekyll, Hugo, Astro',
+    metaTitle: 'YAML Front Matter Generator — Jekyll, Hugo, Astro',
     metaDescription:
       'Generate YAML, TOML, or JSON front matter for Jekyll, Hugo, Astro, Docusaurus, and Obsidian: title, date, slug, tags, draft, custom fields, quoted right.',
     category: 'generate',
@@ -307,7 +307,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown linter',
     description:
       'Find heading, list, spacing, and link problems in a document — every finding explained, most of them fixable with one click.',
-    metaTitle: 'Markdown Linter — Check and Fix Markdown Online, Free',
+    metaTitle: 'Markdown Linter — Check and Fix Markdown Online',
     metaDescription:
       'Lint markdown in your browser: heading levels, list markers, trailing spaces, hard tabs, bare URLs, missing alt text, duplicate headings. One-click fixes.',
     category: 'check',
@@ -319,7 +319,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown diff checker',
     description:
       'Compare two versions of a document side by side or as a unified patch, with word-level highlights inside changed lines.',
-    metaTitle: 'Markdown Diff — Compare Two Markdown Files Online, Free',
+    metaTitle: 'Markdown Diff — Compare Two Markdown Files Online',
     metaDescription:
       'Compare two markdown or text documents in your browser: side-by-side or unified view, word-level highlights, change counts, and a copyable patch.',
     category: 'check',
@@ -331,7 +331,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown link checker',
     description:
       'Extract every link from a document and check it — dead pages, redirects, and broken #anchors — with the line each one is on.',
-    metaTitle: 'Markdown Link Checker — Find Broken Links in a README',
+    metaTitle: 'Markdown Link Checker — Find Broken README Links',
     metaDescription:
       'Check every link in a markdown document: HTTP status for external URLs, broken heading anchors, duplicate links, and where each one sits. Free, no signup.',
     category: 'check',
@@ -343,7 +343,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown word counter',
     description:
       'Word, character, sentence, and paragraph counts that ignore markdown syntax and code — plus reading time and heading, link, and image totals.',
-    metaTitle: 'Markdown Word Counter — Words, Characters, Reading Time',
+    metaTitle: 'Markdown Word Counter — Words, Chars, Reading Time',
     metaDescription:
       'Count words, characters, sentences, and paragraphs in markdown without the syntax and code blocks skewing the numbers. Reading time and structure stats.',
     category: 'check',
@@ -357,7 +357,7 @@ export const TOOLS: Tool[] = [
     title: 'Markdown viewer',
     description:
       'Open a .md file — drag it in, paste, or load from a URL — and read it rendered with tables, code highlighting, and mermaid diagrams. Print or share it.',
-    metaTitle: 'Markdown Viewer — MD File Viewer, Read .md Files Online',
+    metaTitle: 'Markdown Viewer — MD File Viewer, Read .md Online',
     metaDescription:
       'Free md file viewer: open a .md file in your browser and read it rendered, with tables, highlighted code, and diagrams. Drag in, paste, or load a URL.',
     category: 'edit',
@@ -369,9 +369,9 @@ export const TOOLS: Tool[] = [
     title: 'Markdown formatter (md formatter)',
     description:
       'Prettify messy markdown: uniform list markers, one emphasis style, aligned tables. Semantic — rendered output never changes.',
-    metaTitle: 'Markdown Formatter (MD Formatter) — Prettify Online, Free',
+    metaTitle: 'Markdown Formatter (MD Formatter) — Prettify, Free',
     metaDescription:
-      'Free md formatter: prettify markdown online — normalize list markers, emphasis style, table alignment, and spacing. Semantic formatting that never changes output.',
+      'Free md formatter: prettify markdown online — normalize list markers, emphasis style, table alignment and spacing. Semantic: rendered output never changes.',
     category: 'edit',
     updated: '2026-09-16',
   },

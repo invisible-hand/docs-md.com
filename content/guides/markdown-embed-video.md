@@ -33,7 +33,7 @@ Here is the feature in action:
 https://github.com/user-attachments/assets/3f1c2d4e-....mp4
 ```
 
-Two things do not work. Raw `<video>` and `<iframe>` tags are removed by GitHub's HTML sanitiser (`video` and `iframe` are not on the allowlist), so a YouTube embed snippet renders as nothing. And a video file committed into the repository does not play from a `blob` or `raw` URL in the same way; only the uploaded asset URL gets the player. The upload has to happen through a comment or editor box, after which the URL is reusable in any file.
+Two things do not work. Raw `<video>` and `<iframe>` tags are removed by GitHub's HTML sanitiser (`video` and `iframe` are not on the allowlist), so a YouTube embed snippet renders as nothing. And a video file committed into the repository does not play from a `blob` or `raw` URL in the same way; only the uploaded asset URL gets the player. The upload has to happen through a comment or editor box, after which the URL is reusable in any file. For the README-specific checklist, including the `<video>` tag and which hosts GitHub's page policy lets play, see [embedding a video in a GitHub README](/github-readme-viewer/embed-video-in-readme).
 
 ## Can you embed a video on GitLab?
 

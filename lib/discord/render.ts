@@ -32,7 +32,7 @@ const PAIRED: Array<{ marker: string; kind: 'bold' | 'italic' | 'underline' | 's
 const TIMESTAMP = /^<t:(-?\d{1,13})(?::([tTdDfFsSR]))?>/;
 const MASKED = /^\[([^\]\n]+)\]\(<?(https?:\/\/[^\s)>]+)>?\)/;
 const BARE_URL = /^<?(https?:\/\/[^\s<>]+[^\s<>.,:;"')\]])>?/;
-const ESCAPABLE = '\\*_~`|>#-[]()<:';
+const ESCAPABLE = '\\*_~`|>#-[]()<:@';
 
 /** Parses inline markdown. `depth` stops runaway recursion on hostile input. */
 export function parseInline(src: string, depth = 0): Inline[] {

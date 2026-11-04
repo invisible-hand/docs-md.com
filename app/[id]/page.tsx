@@ -155,8 +155,11 @@ export async function generateMetadata({ params }: PageProps) {
   const cached = await getCachedShare(id);
 
   if (!cached) {
+    // Unknown ids (and every unmatched URL) render the 404: no index, no canonical.
     return {
-      title: 'Shared Markdown Not Found',
+      title: 'Page not found',
+      robots: { index: false, follow: false },
+      alternates: { canonical: null },
     };
   }
 
@@ -178,11 +181,16 @@ export async function generateMetadata({ params }: PageProps) {
   });
 }
 
-/** First paragraph of prose, stripped of markdown syntax, for the description and link card. */
-function excerpt(content: string | null, max = 155): string {
+/**
+ * Opening prose for the description and link card: the first paragraph, extended with the
+ * following paragraphs while it is shorter than `min`, cut at a word boundary at `max`.
+ */
+function excerpt(content: string | null, min = 100, max = 155): string {
   if (!content) return '';
   const lines = content.replace(/^---[\s\S]*?\n---\n/, '').split('\n');
   let inFence = false;
+  const parts: string[] = [];
+  let length = 0;
   for (const raw of lines) {
     const line = raw.trim();
     if (line.startsWith('```') || line.startsWith('~~~')) {
@@ -197,7 +205,11 @@ function excerpt(content: string | null, max = 155): string {
       .replace(/\s+/g, ' ')
       .trim();
     if (text.length < 20) continue;
-    return text.length > max ? `${text.slice(0, max - 1).replace(/\s+\S*$/, '')}…` : text;
+    parts.push(text);
+    length += text.length + 1;
+    if (length >= min) break;
   }
-  return '';
+  const joined = parts.join(' ');
+  if (!joined) return '';
+  return joined.length > max ? `${joined.slice(0, max - 1).replace(/\s+\S*$/, '')}…` : joined;
 }

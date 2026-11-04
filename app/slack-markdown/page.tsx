@@ -4,22 +4,32 @@ import { SECTIONS } from '@/lib/platform-sheets/slack-markdown';
 import UpdatedLine from '@/components/UpdatedLine';
 import { pageMetadata } from '@/lib/page-metadata';
 
-const UPDATED = '2026-10-15';
+const UPDATED = '2026-11-03';
 
 const SLACK_MARKUP = 'https://slack.com/help/articles/360039953113-Format-your-messages-in-Slack-with-markup';
 const SLACK_FORMAT = 'https://slack.com/help/articles/202288908-Format-your-messages';
 const SLACK_API = 'https://docs.slack.dev/messaging/formatting-message-text';
+const SLACK_CANVAS = 'https://slack.com/help/articles/203950418-Use-a-canvas-in-Slack';
+const SLACK_TABLE_BLOCK = 'https://docs.slack.dev/changelog/2025/08/14/block-kit-table-block';
 
 export const metadata = pageMetadata({
-  title: 'Slack Markdown — Message Formatting Cheat Sheet',
+  title: 'Slack Formatting Cheat Sheet: mrkdwn vs Markdown',
   description:
-    'Slack formatting is not real markdown: *asterisks* bold, _underscores_ italicize, ~tildes~ strike through. Full mrkdwn syntax, gaps, and API differences.',
+    'Does Slack support Markdown? No — mrkdwn: *asterisks* bold, _underscores_ italic, ~tildes~ strike, no headings or tables. Syntax, gaps, table workarounds.',
   path: '/slack-markdown',
   type: 'article',
   kicker: 'Reference',
 });
 
+const SUPPORTS_Q = 'Does Slack support Markdown?';
+const SUPPORTS_A =
+  'No. Slack messages use mrkdwn, which Slack\'s developer documentation describes as "Slack\'s custom text formatting syntax … inspired by markdown, but uses different rules". Bold is *one asterisk*, italic is _underscores_, strikethrough is ~one tilde~; `code`, ```code blocks``` and > quotes match Markdown. There is no syntax for headings, tables, images, horizontal rules or task lists, and in the composer the markup is only interpreted when "Format messages with markup" is enabled in Preferences → Advanced; by default you use the formatting toolbar instead.';
+
 const FAQ: Array<{ q: string; a: string }> = [
+  {
+    q: 'How do you make a table in Slack?',
+    a: 'Messages have no table formatting: Slack\'s help lists bold, italic, underline, strikethrough, code, block quote, code block and ordered and bulleted lists as the toolbar options, and the markup page adds links. The workarounds are a space-aligned grid inside a code block, a canvas (its toolbar has "Create a table"), a Block Kit table block if an app posts the message (added 14 August 2025), or a link to the rendered table.',
+  },
   {
     q: 'Why does pasted markdown break in Slack?',
     a: 'Because Slack\'s mrkdwn uses different characters for the basics: *single asterisks* are bold (so **double asterisks** arrive as a bold word wrapped in stray asterisks), _underscores_ are italic, and ~single tildes~ strike through while ~~double tildes~~ show literally. Headings, tables, images, horizontal rules and task lists have no Slack equivalent at all, so a pasted README degrades to plain text with its # and | characters showing.',
@@ -67,7 +77,7 @@ export default function SlackMarkdownPage() {
     '@graph': [
       {
         '@type': 'Article',
-        headline: 'Slack markdown (mrkdwn) formatting cheat sheet',
+        headline: 'Slack formatting cheat sheet: mrkdwn vs Markdown',
         description: metadata.description,
         dateModified: UPDATED,
         author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
@@ -75,7 +85,7 @@ export default function SlackMarkdownPage() {
       },
       {
         '@type': 'FAQPage',
-        mainEntity: FAQ.map((f) => ({
+        mainEntity: [{ q: SUPPORTS_Q, a: SUPPORTS_A }, ...FAQ].map((f) => ({
           '@type': 'Question',
           name: f.q,
           acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -88,7 +98,7 @@ export default function SlackMarkdownPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="mb-10 max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          Slack markdown cheat sheet
+          Slack formatting cheat sheet: mrkdwn vs Markdown
         </h1>
         <UpdatedLine date={UPDATED} />
         <p className="mt-4 text-base text-gray-600">
@@ -110,6 +120,34 @@ export default function SlackMarkdownPage() {
         </p>
         <SectionNav sections={SECTIONS} className="no-print mt-5 flex flex-wrap gap-2 text-xs" />
       </div>
+
+      <section id="supports-markdown" className="mb-12 scroll-mt-8 space-y-3">
+        <h2 className="text-2xl font-semibold tracking-tight text-gray-950">{SUPPORTS_Q}</h2>
+        <p className="text-base text-gray-600">{SUPPORTS_A}</p>
+        <ul className="list-disc space-y-1 pl-5 text-base text-gray-600">
+          <li>
+            <strong>Bold:</strong> <code className="rounded bg-gray-100 px-1">*text*</code> — one asterisk, where Markdown
+            needs two.
+          </li>
+          <li>
+            <strong>Italic:</strong> <code className="rounded bg-gray-100 px-1">_text_</code> — underscores only; single
+            asterisks mean bold.
+          </li>
+          <li>
+            <strong>Strikethrough:</strong> <code className="rounded bg-gray-100 px-1">~text~</code> — one tilde; the GFM{' '}
+            <code className="rounded bg-gray-100 px-1">~~text~~</code> shows literally.
+          </li>
+          <li>
+            <strong>Same as Markdown:</strong> <code className="rounded bg-gray-100 px-1">`code`</code>,{' '}
+            <code className="rounded bg-gray-100 px-1">```blocks```</code> and{' '}
+            <code className="rounded bg-gray-100 px-1">&gt;</code> quotes.
+          </li>
+          <li>
+            <strong>Missing:</strong> headings, tables, images, horizontal rules, task lists and, in app-published text, any
+            list syntax.
+          </li>
+        </ul>
+      </section>
 
       <CheatSheet sections={SECTIONS} />
 
@@ -145,6 +183,60 @@ export default function SlackMarkdownPage() {
             markdown flavors comparison
           </Link>{' '}
           puts Slack next to Discord, Notion, Reddit and GitHub.
+        </p>
+      </section>
+
+      <section id="tables" className="mt-16 space-y-4">
+        <h2 className="text-2xl font-semibold tracking-tight text-gray-950">Tables in Slack</h2>
+        <p className="text-gray-700">
+          A Markdown table pasted into a Slack message arrives as lines of pipes and dashes. Slack&apos;s{' '}
+          <a href={SLACK_FORMAT} className="text-indigo-700 underline" rel="noopener noreferrer">
+            formatting help
+          </a>{' '}
+          lists bold, italic, underline, strikethrough, code, block quote, code block and ordered and
+          bulleted lists as the options for messages; neither it nor the{' '}
+          <a href={SLACK_MARKUP} className="text-indigo-700 underline" rel="noopener noreferrer">
+            markup page
+          </a>{' '}
+          has a table. Four ways around it:
+        </p>
+        <ol className="list-decimal space-y-2 pl-5 text-gray-700">
+          <li>
+            <strong>Code block.</strong> Pad the columns with spaces and wrap the grid in ```; the monospace font keeps the
+            columns aligned. Fine for a few rows.
+          </li>
+          <li>
+            <strong>Canvas.</strong> A{' '}
+            <a href={SLACK_CANVAS} className="text-indigo-700 underline" rel="noopener noreferrer">
+              canvas
+            </a>{' '}
+            has real tables (&quot;Create a table&quot; in its toolbar) plus headings and checklists; share it in the channel.
+          </li>
+          <li>
+            <strong>Block Kit table block.</strong> Apps and bots can post a structured table since Slack added the{' '}
+            <a href={SLACK_TABLE_BLOCK} className="text-indigo-700 underline" rel="noopener noreferrer">
+              table block
+            </a>{' '}
+            on 14 August 2025. Not available from the message composer.
+          </li>
+          <li>
+            <strong>Link to the rendered table.</strong> Paste the Markdown into the{' '}
+            <Link href="/" className="text-indigo-700 underline">
+              editor
+            </Link>{' '}
+            and share the link; readers see a real table.
+          </li>
+        </ol>
+        <p className="text-sm text-gray-600">
+          Step-by-step with examples:{' '}
+          <Link href="/markdown-table-generator/markdown-table-in-discord-and-slack" className="text-indigo-700 underline">
+            How do you make a table in Discord or Slack?
+          </Link>{' '}
+          Build the Markdown first with the{' '}
+          <Link href="/markdown-table-generator" className="text-indigo-700 underline">
+            table generator
+          </Link>
+          .
         </p>
       </section>
 

@@ -5,6 +5,8 @@ export const SECTIONS: Section[] = [
   {
     id: 'emphasis',
     title: 'Emphasis, spoilers, superscript',
+    intro:
+      'Reddit formatting is Markdown: the same syntax works in comments and posts (in the Markdown editor), wikis, sidebars and rules. Emphasis is standard; spoilers and superscript are Reddit\'s own additions.',
     snippets: [
       {
         label: 'Bold, italic, strikethrough',

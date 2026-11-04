@@ -5,9 +5,9 @@ import { pageMetadata } from '@/lib/page-metadata';
 const UPDATED = '2026-10-13';
 
 export const metadata = pageMetadata({
-  title: 'MCP Server List 2026 — Best Servers by Category, With Install Commands',
+  title: 'MCP Server List 2026 — Best Servers by Category',
   description:
-    'A curated 2026 MCP server list: the seven reference servers, official servers from GitHub, Microsoft, Google, Sentry, Stripe, Notion, Linear, Atlassian, AWS, Azure, Cloudflare and more, with what each does and how to install it.',
+    'A curated 2026 MCP server list: reference servers plus official ones from GitHub, Microsoft, Google, Stripe, Notion, AWS and more, with install commands.',
   path: '/mcp-servers',
   type: 'article',
   extra: { other: { 'last-modified': UPDATED } },

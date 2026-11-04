@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import CopyButton from '@/components/CopyButton';
+import UpdatedLine from '@/components/UpdatedLine';
+import { pageDate } from '@/lib/page-dates';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
@@ -197,7 +199,7 @@ export default function ReadmeTemplatesPage() {
     '@type': 'Article',
     headline: 'README templates you can copy',
     description: metadata.description,
-    dateModified: '2026-08-29',
+    dateModified: pageDate('/readme-templates'),
     author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
     mainEntityOfPage: 'https://docs-md.com/readme-templates',
   };
@@ -207,6 +209,7 @@ export default function ReadmeTemplatesPage() {
       <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
         README templates
       </h1>
+      <UpdatedLine date={pageDate('/readme-templates')} />
       <p className="mt-4 max-w-3xl text-base text-gray-600">
         Four templates for the four READMEs people actually write. Copy one, replace the
         placeholders, delete the sections you don&apos;t need — a README that omits a section beats

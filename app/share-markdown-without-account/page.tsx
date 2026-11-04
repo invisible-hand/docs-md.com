@@ -5,7 +5,7 @@ import { pageMetadata } from '@/lib/page-metadata';
 const UPDATED = '2026-09-06';
 
 export const metadata = pageMetadata({
-  title: 'Share Markdown Without an Account: Free Options Compared',
+  title: 'Share Markdown Without an Account: Free Services',
   description:
     'Paste markdown, get a rendered link, no signup: Docs MD, yeet.md, JotBird, Rentry, HackMD and more compared on link lifetime, editing, Mermaid, and API.',
   path: '/share-markdown-without-account',

@@ -2,7 +2,7 @@
 title: Markdown Indentation — Nested Lists, Paragraphs, Code, Tabs
 h1: How to indent in markdown
 description: Indentation in markdown is syntax: 2 spaces nests a bullet, 3 nests under 1., 4 spaces makes a code block. Paragraph indents with &nbsp;, continuation lines, tabs vs spaces, and per-app rules.
-updated: 2026-10-15
+updated: 2026-11-03
 related: markdown-nested-list, markdown-numbered-list, markdown-bullet-points, markdown-code-block, markdown-new-line, markdown-quote
 ---
 In markdown, indentation is syntax, not styling: leading spaces change what an element *is*. Two rules cover most cases. Indent **2 spaces** to nest a list item under a `-` bullet (3 under a `1.` item), and never indent a normal paragraph by 4 or more spaces, because **4 spaces turns text into a code block**.
@@ -92,6 +92,22 @@ The fence keeps the code's own indentation intact relative to the fence. GitHub'
 ## Should you indent with tabs or spaces?
 
 Spaces. CommonMark treats a tab as advancing to the next multiple of four columns, which silently over-indents nested bullets (a tab under `- ` lands at column 4, not 2) and triggers code blocks in paragraphs. Editors also display tabs at different widths, so a file that looks right in one editor nests differently in another. markdownlint's rule MD010 flags hard tabs and every mainstream style guide defaults to spaces. Set the editor to insert spaces for `.md` files, and 2 as the tab width if most of your lists use `-`.
+
+## How do you tab in Markdown?
+
+Pressing Tab inserts a tab character, and markdown treats it as whitespace rather than as a visible indent. Where spaces define structure, a tab counts as four: a tab before a paragraph line turns it into a code block, and a tab under a `-` bullet over-indents the nested item. To nest a list, indent with 2 or 3 spaces; to indent prose visibly, use `&nbsp;` or `&emsp;` where HTML entities are allowed.
+
+The [CommonMark spec](https://spec.commonmark.org/0.31.2/#tabs) states the rule: tabs "are not expanded to spaces", but "in contexts where spaces help to define block structure, tabs behave as if they were replaced by spaces with a tab stop of 4 characters". So a tab can stand in for four spaces in an indented code block, and inside a code block the tab itself is kept, not converted. That is also why pressing Tab to nest a bullet misfires: `- ` wants 2 spaces, and the tab delivers 4, which some renderers accept as a sloppy nested item and others read as code.
+
+For an indent you can see in the rendered text, markdown has nothing, so borrow from HTML. `&nbsp;` is a non-breaking space and `&emsp;` is an em space, about the width of the letter M; GFM passes entity references through, and in a check on GitHub on 2026-11-03 a paragraph starting with `&emsp;&emsp;` kept its leading spaces, while ordinary leading spaces are stripped from a paragraph. Each entity is one character of indent, so a first-line indent is `&emsp;` or `&nbsp;&nbsp;&nbsp;&nbsp;` at the start of the paragraph:
+
+```markdown
+&emsp;This paragraph starts with one em space.
+
+&nbsp;&nbsp;&nbsp;&nbsp;This one uses four non-breaking spaces.
+```
+
+Entities render on GitHub, GitLab, Obsidian and the docs generators, and print literally in Slack and Discord, as the per-app table below shows. In a code block, type a tab or spaces as you like; both are preserved exactly.
 
 ## How does indentation differ per app?
 

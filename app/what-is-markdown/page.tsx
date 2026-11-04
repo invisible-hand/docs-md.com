@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import UpdatedLine from '@/components/UpdatedLine';
 import { pageMetadata } from '@/lib/page-metadata';
 
+const UPDATED = '2026-11-03';
+
 export const metadata = pageMetadata({
-  title: 'What Is Markdown? The .md File Format Explained',
+  title: 'What Is Markdown? Markdown Files and .md Format Explained',
   description:
     'A .md file is a plain-text file written in Markdown. Learn what Markdown is, how to open a .md file, and how .md, .markdown and .mdx differ.',
   path: '/what-is-markdown',
@@ -41,6 +44,22 @@ const FAQ = [
     q: 'Is markdown the same everywhere?',
     a: 'The core (headings, emphasis, lists, links, code) is universal, standardized as CommonMark. Most sites add GitHub Flavored Markdown extensions — tables, task lists, strikethrough. Chat apps like Slack and Discord use their own dialects.',
   },
+  {
+    q: 'Is plain text valid Markdown?',
+    a: 'Yes. A paragraph of ordinary text with no symbols at all is valid Markdown: the CommonMark specification defines a paragraph as a sequence of non-blank lines that cannot be interpreted as any other kind of block. Markdown only adds meaning to a few characters (#, *, -, >, backticks, brackets); everything else passes through unchanged.',
+  },
+  {
+    q: 'Who created Markdown?',
+    a: 'John Gruber published Markdown on his site Daring Fireball on 15 March 2004, as a plain-text formatting syntax and a Perl script that converts it to HTML. Aaron Swartz worked with him on the syntax and wrote html2text, the reverse converter. Version 1.0.1, still the reference release, is dated 17 December 2004.',
+  },
+  {
+    q: 'How do you create a Markdown file?',
+    a: 'Open any text editor, type the text with Markdown symbols where you want formatting, and save the file with the .md extension (for example notes.md). There is no special program to install. To see it rendered, open the file in a Markdown viewer, a code editor with preview, or on GitHub.',
+  },
+  {
+    q: 'Why do AI tools answer in Markdown?',
+    a: 'Because Markdown is plain text, so a model can produce it one token at a time and a chat window can render it as it streams. Headings, lists, bold text and code fences give an answer structure with a few characters, and the same text pastes cleanly into editors, issues and notes. Models also learned the syntax from the READMEs, forums and documentation in their training data, where it is the dominant lightweight format.',
+  },
 ];
 
 export default function WhatIsMarkdownPage() {
@@ -49,9 +68,9 @@ export default function WhatIsMarkdownPage() {
     '@graph': [
       {
         '@type': 'Article',
-        headline: 'What is Markdown? The .md file format explained',
+        headline: 'What is Markdown? Markdown files and the .md format explained',
         description: metadata.description,
-        dateModified: '2026-10-11',
+        dateModified: UPDATED,
         author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
         mainEntityOfPage: 'https://docs-md.com/what-is-markdown',
       },
@@ -71,6 +90,7 @@ export default function WhatIsMarkdownPage() {
       description="A .md file is a plain-text file written in Markdown. It opens in any text editor and renders as formatted text on GitHub, in editors and in viewers. Markdown itself is the syntax inside: asterisks for bold, # for headings, dashes for lists."
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <UpdatedLine date={UPDATED} className="text-sm text-gray-500" />
       <section className="space-y-4">
         <p>
           A <strong>.md file</strong> is a plain text file written in Markdown, and Markdown is
@@ -100,6 +120,29 @@ export default function WhatIsMarkdownPage() {
           preview, and in Markdown viewers. There&apos;s no special format to decode and no app that
           owns it. Every repository&apos;s <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">README.md</code> is one, and
           .md files diff cleanly in version control. A .md file from 2004 still opens today.
+        </p>
+      </section>
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold text-gray-950">Is plain text valid Markdown?</h2>
+        <p>
+          Yes. A paragraph of ordinary text with no symbols in it is already valid Markdown. The{' '}
+          <a href="https://spec.commonmark.org/0.31.2/#paragraphs" className="text-indigo-700 underline" rel="noopener">
+            CommonMark specification
+          </a>{' '}
+          defines a paragraph as &quot;a sequence of non-blank lines that cannot be interpreted as other
+          kinds of blocks&quot;, so a plain sentence renders as a plain sentence. Markdown attaches meaning
+          to only a handful of characters — <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">#</code>,{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">*</code>,{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">-</code>,{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">&gt;</code>, backticks and brackets — and
+          leaves everything else alone. That is why any .txt file can be renamed .md and nothing breaks,
+          and why a Markdown file is readable in an editor with no preview at all. The one thing to know:
+          a single line break inside a paragraph does not start a new line; leave a blank line between
+          paragraphs (see the{' '}
+          <Link href="/guides/markdown-new-line" className="text-indigo-700 underline">
+            new line guide
+          </Link>
+          ).
         </p>
       </section>
       <section className="space-y-3">
@@ -154,6 +197,56 @@ export default function WhatIsMarkdownPage() {
         </p>
       </section>
       <section className="space-y-3">
+        <h2 className="text-xl font-semibold text-gray-950">How do you create a Markdown file?</h2>
+        <p>
+          Open any text editor — Notepad, TextEdit in plain-text mode, VS Code, or the{' '}
+          <Link href="/" className="text-indigo-700 underline">
+            editor on this site
+          </Link>{' '}
+          — type your text with Markdown symbols where you want formatting, and save the file with
+          the <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.md</code> extension, for example{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">notes.md</code>. There is nothing to
+          install and no template to start from; the sample at the top of this page is a complete
+          Markdown file. To check the result, open it in the{' '}
+          <Link href="/markdown-viewer" className="text-indigo-700 underline">
+            Markdown viewer
+          </Link>
+          , and if a tool wants a different format,{' '}
+          <Link href="/markdown-to-word" className="text-indigo-700 underline">
+            convert it to Word
+          </Link>{' '}
+          or PDF. Many apps also create the file for you: Google Docs (File → Download → Markdown),
+          Notion and Apple Notes have an{' '}
+          <Link href="/guides/export-as-markdown" className="text-indigo-700 underline">
+            Export as Markdown
+          </Link>{' '}
+          option, and every Obsidian note is a .md file on disk.
+        </p>
+      </section>
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold text-gray-950">Who created Markdown?</h2>
+        <p>
+          John Gruber, who announced it on his site Daring Fireball on 15 March 2004 in{' '}
+          <a href="https://daringfireball.net/2004/03/introducing_markdown" className="text-indigo-700 underline" rel="noopener">
+            &quot;Introducing Markdown&quot;
+          </a>
+          : a plain-text formatting syntax plus a Perl script that converts it to HTML, inspired by the
+          conventions of plain-text email. Aaron Swartz worked with him on the syntax — in his own words,
+          the two &quot;pored over the syntax details from top to bottom&quot; — and wrote html2text, the
+          converter that runs the other way. The{' '}
+          <a href="https://daringfireball.net/projects/markdown/" className="text-indigo-700 underline" rel="noopener">
+            Markdown project page
+          </a>{' '}
+          still hosts the original syntax description and version 1.0.1 from 17 December 2004. Gruber
+          never versioned the syntax further; the ambiguities were pinned down later by the CommonMark
+          specification, and GitHub, Slack, Discord and others added their own{' '}
+          <Link href="/markdown-flavors" className="text-indigo-700 underline">
+            flavors
+          </Link>{' '}
+          on top.
+        </p>
+      </section>
+      <section className="space-y-3">
         <h2 className="text-xl font-semibold text-gray-950">Why did developers and AI tools standardize on markdown?</h2>
         <p>
           Because plain text wins everywhere it matters: it works in git, survives every platform,
@@ -162,6 +255,20 @@ export default function WhatIsMarkdownPage() {
           AI IDEs read and write <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.md</code> context files. Writing,
           docs sites, note apps (Obsidian, Notion), forums (Reddit, Discord in dialect form), and
           READMEs all converged on the same syntax — learn it once, use it everywhere.
+        </p>
+      </section>
+      <section className="space-y-3">
+        <h2 className="text-xl font-semibold text-gray-950">Why do AI tools answer in Markdown?</h2>
+        <p>
+          Because it is plain text: a model can produce it one token at a time and the chat window can
+          render headings, lists, bold text and code fences as they stream in, with only a few extra
+          characters. The same text pastes cleanly into editors, issues and notes, and the models learned
+          the syntax from the READMEs, forums and documentation in their training data, where it is the
+          dominant lightweight format. If you want the answer without the symbols, the{' '}
+          <Link href="/markdown-for-ai-output" className="text-indigo-700 underline">
+            Markdown for AI output
+          </Link>{' '}
+          sheet shows how to read, strip or keep it.
         </p>
       </section>
       <section className="space-y-3">

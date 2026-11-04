@@ -6,19 +6,20 @@ import { SECTIONS } from '@/lib/platform-sheets/obsidian-markdown';
 import UpdatedLine from '@/components/UpdatedLine';
 import { pageMetadata } from '@/lib/page-metadata';
 
-const UPDATED = '2026-10-15';
+const UPDATED = '2026-11-03';
 const PATH = '/obsidian-markdown';
 
 export const metadata = pageMetadata({
   title: 'Obsidian Markdown Cheat Sheet: Wikilinks, Callouts',
   description:
-    'Obsidian markdown: [[wikilinks]], ![[embeds]], 13 callout types with fold +/-, ==highlight==, %%comments%%, properties, tags, math. From Obsidian Help.',
+    'Does Obsidian support Markdown? Yes: CommonMark + GFM + Obsidian extensions — [[wikilinks]], ![[embeds]], callouts, ==highlight==, properties, tags.',
   path: PATH,
   type: 'article',
   kicker: 'Reference',
 });
 
 const SOURCES = [
+  { href: 'https://help.obsidian.md/obsidian-flavored-markdown', label: 'Obsidian Help: Obsidian Flavored Markdown' },
   { href: 'https://help.obsidian.md/syntax', label: 'Obsidian Help: Basic formatting syntax' },
   { href: 'https://help.obsidian.md/advanced-syntax', label: 'Obsidian Help: Advanced formatting syntax' },
   { href: 'https://help.obsidian.md/links', label: 'Obsidian Help: Internal links' },
@@ -26,6 +27,17 @@ const SOURCES = [
   { href: 'https://help.obsidian.md/callouts', label: 'Obsidian Help: Callouts' },
   { href: 'https://help.obsidian.md/properties', label: 'Obsidian Help: Properties' },
   { href: 'https://help.obsidian.md/tags', label: 'Obsidian Help: Tags' },
+];
+
+const SUPPORTS_Q = 'Does Obsidian support Markdown?';
+const SUPPORTS_A =
+  'Yes. Obsidian notes are plain Markdown files (.md) stored in a folder on your disk, and Obsidian Help states that the app supports CommonMark, GitHub Flavored Markdown and LaTeX, combined into what it calls Obsidian Flavored Markdown. On top of the standard syntax it adds [[wikilinks]], ![[embeds]] and block references, ==highlights==, %%comments%%, > [!note] callouts, #tags and YAML properties. Those extensions are Obsidian-specific; other Markdown apps show them as plain text.';
+
+const OFM: Array<{ layer: string; what: string; example: string }> = [
+  { layer: 'CommonMark', what: 'Headings, emphasis, lists, links, images, code, quotes, horizontal rules', example: '# Heading, **bold**, - item, [text](url), ```code' },
+  { layer: 'GitHub Flavored Markdown', what: 'Tables, task lists, strikethrough, footnotes', example: '| a | b |, - [x] done, ~~struck~~, [^1]' },
+  { layer: 'LaTeX (MathJax)', what: 'Inline and block math', example: '$e^{i\\pi}$ and $$ … $$' },
+  { layer: 'Obsidian extensions', what: 'Wikilinks, embeds, block refs, highlights, comments, callouts, tags, properties', example: '[[Note]], ![[Note#^id]], ==text==, %%hidden%%, > [!tip], #tag, --- YAML ---' },
 ];
 
 const CALLOUTS: Array<{ type: string; aliases: string; use: string }> = [
@@ -148,7 +160,7 @@ export default function ObsidianMarkdownPage() {
       },
       {
         '@type': 'FAQPage',
-        mainEntity: FAQ.map((f) => ({
+        mainEntity: [{ q: SUPPORTS_Q, a: SUPPORTS_A }, ...FAQ].map((f) => ({
           '@type': 'Question',
           name: f.q,
           acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -179,6 +191,41 @@ export default function ObsidianMarkdownPage() {
         </p>
         <SectionNav sections={SECTIONS} className="mt-5 flex flex-wrap gap-2 text-xs" />
       </div>
+
+      <section id="supports-markdown" className="mb-12 scroll-mt-8 space-y-3">
+        <h2 className="text-2xl font-semibold tracking-tight text-gray-950">{SUPPORTS_Q}</h2>
+        <p className="text-base text-gray-600">{SUPPORTS_A}</p>
+        <p className="text-base text-gray-600">
+          The layers, as Obsidian Help lays them out. The first three render the same in GitHub and most
+          editors; the fourth is covered section by section below —{' '}
+          <a href="#wikilinks" className="text-indigo-700 underline">wikilinks</a>,{' '}
+          <a href="#embeds" className="text-indigo-700 underline">embeds</a>,{' '}
+          <a href="#callouts" className="text-indigo-700 underline">callouts</a> and{' '}
+          <a href="#properties" className="text-indigo-700 underline">properties</a>.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px] border-collapse text-sm">
+            <thead>
+              <tr className="border-b border-gray-300">
+                <Th>Layer</Th>
+                <Th>What it covers</Th>
+                <Th>Examples</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {OFM.map((r) => (
+                <tr key={r.layer} className="border-b border-gray-100">
+                  <Td>
+                    <span className="font-medium text-gray-900">{r.layer}</span>
+                  </Td>
+                  <Td>{r.what}</Td>
+                  <Td mono>{r.example}</Td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       <CheatSheet sections={SECTIONS} />
 

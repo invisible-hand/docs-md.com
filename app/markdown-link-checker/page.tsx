@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ToolGuideLinks } from '@/components/ToolGuidePage';
 import LinkChecker from '@/components/tools/LinkChecker';
 import ToolPage, { CODE, H2, toolMetadata } from '@/components/tools/ToolPage';
 
@@ -105,6 +106,8 @@ export default function MarkdownLinkCheckerPage() {
           commit.
         </p>
       </section>
+
+      <ToolGuideLinks tool="markdown-link-checker" />
     </ToolPage>
   );
 }

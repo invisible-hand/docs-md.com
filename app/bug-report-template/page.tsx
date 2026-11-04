@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/page-metadata';
 const UPDATED = '2026-09-07';
 
 export const metadata = pageMetadata({
-  title: 'Bug Report Template in Markdown (with Filled-In Example)',
+  title: 'Bug Report Template in Markdown, with Example',
   description:
     'Markdown bug report template + filled-in example: environment, steps to reproduce, expected vs actual, evidence, scope, workaround. GitHub issue form too.',
   path: '/bug-report-template',

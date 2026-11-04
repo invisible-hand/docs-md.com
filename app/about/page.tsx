@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageDate } from '@/lib/page-dates';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
-  title: 'About Docs MD — Markdown Sharing with Expiring Links',
+  title: 'About Docs MD — Share Markdown with Expiring Links',
   description:
     'Learn what Docs MD is, why it exists, and how it helps developers share markdown in AI-native workflows.',
   path: '/about',
@@ -14,6 +15,8 @@ export default function AboutPage() {
   return (
     <ContentPage
       title="About Docs MD"
+      updated={pageDate('/about')}
+      path="/about"
       description="Docs MD is a focused markdown sharing product for modern developer and AI-assisted workflows."
     >
       <section className="space-y-4">

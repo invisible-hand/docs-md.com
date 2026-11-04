@@ -3,7 +3,7 @@ title: How to Preview Markdown in VS Code (Shortcuts and Fixes)
 h1: How do I preview markdown in VS Code?
 description: Press Ctrl+Shift+V (Cmd+Shift+V on Mac) for the preview, or Ctrl+K V side by side. Preview locking, scroll sync, blocked images and styling.
 tool: markdown-viewer
-updated: 2026-10-20
+updated: 2026-11-03
 related: /markdown-to-pdf/vs-code-markdown-to-pdf, /markdown-toc-generator/vs-code-markdown-toc, /github-readme-viewer/preview-readme-before-push, /markdown-viewer/md-file-reader-vs-editor
 ---
 Open the .md file and press Ctrl+Shift+V (Cmd+Shift+V on a Mac) to switch to the rendered preview. To see source and preview side by side, press Ctrl+K, release, then press V (Cmd+K V on a Mac). The preview is built into VS Code, so no extension is needed, and it updates as you type.
@@ -46,6 +46,18 @@ Yes, through editor associations. Add this to your `settings.json`, and opening 
 ```
 
 Use **View: Reopen Editor With...** from the Command Palette to switch a single file back to the text editor. The same documentation describes a `workbench.diffEditorAssociations` setting that renders markdown diffs from Source Control as a preview, with changes highlighted, which is useful when reviewing a documentation pull request.
+
+## How do you view a markdown file in VS Code without editing it?
+
+Open the preview and leave the source closed: with the file active, press **Ctrl+Shift+V** (**Cmd+Shift+V**) and the tab switches to the rendered view, which reads like a web page and cannot be typed into. The editor association above makes that the default for every `.md` file you open from the Explorer. The [VS Code Markdown documentation](https://code.visualstudio.com/docs/languages/markdown) also describes an experimental **Markdown Editor** that renders the document in place: select the editor type dropdown in the breadcrumbs bar and choose **Markdown Editor**, or use **More Actions (...) → Reopen Editor With → Markdown Editor**. It has a **Locked** mode, in which the document is rendered and read-only, and an **Editing** mode, in which you type directly into the rendered text; hovering a code block shows a **Copy** button. The documentation marks it experimental and says it might change or be removed, so treat the standard preview as the stable way to read. Choose **Text Editor** from the same dropdown to get back to the raw markdown.
+
+## Does the preview render Mermaid diagrams and math?
+
+Yes, both are built in. The documentation states that "VS Code's built-in Markdown preview renders Mermaid diagrams in mermaid fenced code blocks" and that it "renders math equations using KaTeX". For a diagram, open a code fence with the language `mermaid`; in the preview you can pan and zoom a large diagram by holding Alt (Option on macOS) while dragging or scrolling, use the controls that appear when you hover it, or right-click it and choose **Copy Diagram Source**. For math, wrap an inline expression in single dollar signs (`$x^2$`) and a block in double dollar signs on their own lines; `"markdown.math.enabled": false` turns the rendering off if dollar amounts in your text are being read as formulas. Before Mermaid was built in, the Marketplace extension **Markdown Preview Mermaid Support** by Matt Bierner added it, and the extension is still available; you do not need it for current VS Code. Both features also appear in this site's [markdown viewer](/markdown-viewer), so a document checked there and in VS Code should match.
+
+## Can VS Code check the links in a markdown file?
+
+Only local ones. Link validation is off by default; set `"markdown.validate.enabled": true` and VS Code reports links to headers, images and other local files that do not exist, as warnings or errors in the editor. The documentation is explicit that "all link validation happens locally and there is no checking of external http(s) links". Separate settings control file links, fragment links within the file, fragment links into other markdown files, reference links, and a list of link globs to ignore for paths that exist only after publishing. To test the external URLs in a README, paste it into the [markdown link checker](/markdown-link-checker), which requests each one and reports dead pages and redirects.
 
 ## Does the VS Code preview look like GitHub?
 

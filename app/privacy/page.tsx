@@ -4,7 +4,7 @@ import { LegalMeta, LegalSection, legalLinkClass } from '@/components/LegalSecti
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
-  title: 'Privacy Policy',
+  title: 'Privacy Policy — how Docs MD stores shares',
   description:
     'What Docs MD stores when you share markdown, how long it keeps it, which services process it, and how to get content removed.',
   path: '/privacy',

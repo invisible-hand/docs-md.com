@@ -80,7 +80,7 @@ export default function MarkdownFormatter() {
       <div className="grid gap-6 lg:grid-cols-2">
         <div>
           <div className="mb-2 flex min-h-8 items-center justify-between">
-            <h3 className="text-sm font-semibold text-gray-900">Input</h3>
+            <p className="text-sm font-semibold text-gray-900">Input</p>
             <span className="text-xs text-gray-500">{input.split('\n').length} lines</span>
           </div>
           <textarea
@@ -93,7 +93,7 @@ export default function MarkdownFormatter() {
         </div>
         <div>
           <div className="mb-2 flex min-h-8 flex-wrap items-center justify-between gap-2">
-            <h3 className="text-sm font-semibold text-gray-900">Formatted</h3>
+            <p className="text-sm font-semibold text-gray-900">Formatted</p>
             <div className="flex gap-2">
               <button onClick={() => copy(output)} className={BTN_DARK}>
                 {copied ? '✓ Copied' : 'Copy'}

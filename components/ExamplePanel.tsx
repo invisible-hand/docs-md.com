@@ -39,7 +39,7 @@ export default function ExamplePanel({ example }: { example: Example }) {
         </div>
       </div>
       <div className="px-5 py-5 md:px-8">
-        <MarkdownRenderer content={example.body} />
+        <MarkdownRenderer content={example.body} headingOffset={1} />
       </div>
     </div>
   );

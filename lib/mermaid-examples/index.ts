@@ -9,10 +9,32 @@ import { PAGE as GANTT } from './mermaid-gantt-chart-examples';
 import { PAGE as MINDMAP } from './mermaid-mindmap-examples';
 import { PAGE as GITGRAPH } from './mermaid-gitgraph-examples';
 import { PAGE as IN_MARKDOWN } from './mermaid-in-markdown';
+import { PAGE as BAR } from './mermaid-bar-chart-examples';
+import { PAGE as QUADRANT } from './mermaid-quadrant-chart-examples';
+import { PAGE as SANKEY } from './mermaid-sankey-diagram-examples';
+import { PAGE as KANBAN } from './mermaid-kanban-examples';
+import { PAGE as RADAR } from './mermaid-radar-chart-examples';
+import { PAGE as JOURNEY } from './mermaid-user-journey-examples';
+import { PAGE as WHAT_IS } from './what-is-a-mermaid-diagram';
+import { PAGE as HUB } from './mermaid-diagram-examples';
 
 export type { MermaidExamplesPage } from './types';
 
-export const MERMAID_PAGES: MermaidExamplesPage[] = [PIE, GANTT, MINDMAP, GITGRAPH, IN_MARKDOWN];
+export const MERMAID_PAGES: MermaidExamplesPage[] = [
+  PIE,
+  GANTT,
+  MINDMAP,
+  GITGRAPH,
+  IN_MARKDOWN,
+  BAR,
+  QUADRANT,
+  SANKEY,
+  KANBAN,
+  RADAR,
+  JOURNEY,
+  WHAT_IS,
+  HUB,
+];
 
 export function getMermaidPage(slug: string): MermaidExamplesPage {
   const p = MERMAID_PAGES.find((x) => x.slug === slug);

@@ -13,11 +13,29 @@ import { GUIDE as HYPERLINK } from './hyperlink';
 import { GUIDE as BULLET_POINTS } from './bullet-points';
 import { GUIDE as HEADERS } from './headers';
 import { GUIDE as BLOCK_QUOTE } from './block-quote';
+import { GUIDE as BIG_TEXT } from './big-text';
+import { GUIDE as COLORED_TEXT } from './colored-text';
+import { GUIDE as TIMESTAMPS } from './timestamps';
+import { GUIDE as ESCAPE_CHARACTERS } from './escape-characters';
 
 export type { DiscordGuide } from './types';
 
 /** Hub order: the most-searched formats first. */
-export const DISCORD_GUIDES: DiscordGuide[] = [STRIKETHROUGH, SMALL_TEXT, CODE_BLOCK, SPOILER, BOLD_ITALICS_UNDERLINE, HYPERLINK, BULLET_POINTS, HEADERS, BLOCK_QUOTE];
+export const DISCORD_GUIDES: DiscordGuide[] = [
+  STRIKETHROUGH,
+  SMALL_TEXT,
+  BIG_TEXT,
+  CODE_BLOCK,
+  COLORED_TEXT,
+  SPOILER,
+  BOLD_ITALICS_UNDERLINE,
+  HYPERLINK,
+  BULLET_POINTS,
+  HEADERS,
+  TIMESTAMPS,
+  BLOCK_QUOTE,
+  ESCAPE_CHARACTERS,
+];
 
 export function getDiscordGuide(slug: string): DiscordGuide | undefined {
   return DISCORD_GUIDES.find((g) => g.slug === slug);

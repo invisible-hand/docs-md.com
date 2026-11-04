@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageDate } from '@/lib/page-dates';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
@@ -45,7 +46,7 @@ export default function WhatIsAnMcpServerPage() {
         '@type': 'Article',
         headline: 'What is an MCP server?',
         description: metadata.description,
-        dateModified: '2026-10-13',
+        dateModified: pageDate('/what-is-an-mcp-server'),
         author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
         mainEntityOfPage: 'https://docs-md.com/what-is-an-mcp-server',
       },
@@ -62,6 +63,7 @@ export default function WhatIsAnMcpServerPage() {
   return (
     <ContentPage
       title="What is an MCP server?"
+      updated={pageDate('/what-is-an-mcp-server')}
       description="The two-minute version: an MCP server is a small program that gives an AI assistant a set of tools it can call — with examples you can run today."
     >
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

@@ -5,7 +5,7 @@ import { pageMetadata } from '@/lib/page-metadata';
 const UPDATED = '2026-09-07';
 
 export const metadata = pageMetadata({
-  title: 'GitHub Action to Publish Markdown as a Shareable Link',
+  title: 'GitHub Action to Publish Markdown as a Link',
   description:
     'Publish a markdown file from GitHub Actions as a rendered, expiring link and get the URL as a step output. No account needed. Inputs, outputs, examples.',
   path: '/github-action',

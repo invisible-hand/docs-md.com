@@ -2,7 +2,7 @@
 title: Markdown Escape Characters — Backslash Escapes
 h1: Markdown escape characters: how to show * _ # and | literally
 description: Markdown escape characters: put a backslash before a symbol to show it literally. Full CommonMark escape list, escaping pipes in tables, backticks, < and >, HTML entities, Discord and Slack.
-updated: 2026-10-07
+updated: 2026-11-03
 related: markdown-code-block, markdown-bullet-points, markdown-quote, markdown-math, markdown-footnotes
 ---
 To show a markdown symbol literally instead of letting it format text, put a backslash in front of it: `\*` prints an asterisk, `\_` an underscore, `\#` a hash sign. The backslash is markdown's escape character:
@@ -102,6 +102,8 @@ Entities work wherever HTML is rendered. In a code span or code block they are s
 ## How do you escape characters in Discord and Slack?
 
 Discord uses the same backslash: `\*text\*`, `\_`, `\~`, `\|\|` and `\>` show the characters. Discord's own markdown also uses a code span or a code block to disable everything inside it.
+
+On Discord specifically, the [Discord escape characters page](/discord-markdown/escape-characters) shows each case with a live preview: the backslash before `* _ ~ | > # -`, inline code as the method Discord's own help article gives, `<https://…>` to post a link without its preview card, and `\@everyone` to write a mention without pinging anyone.
 
 Slack does not honour backslashes. To show formatting characters literally in Slack, put the text in backticks, or break the pairing with a zero-width space after the opening asterisk or underscore. In the Slack API, the three characters `&`, `<` and `>` must be written as `&amp;`, `&lt;` and `&gt;` because Slack uses `<…>` for links and mentions. Details are in the [Slack markdown guide](/slack-markdown) and the [Discord markdown guide](/discord-markdown).
 

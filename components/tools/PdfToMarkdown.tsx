@@ -202,7 +202,7 @@ export default function PdfToMarkdown() {
               className="h-[28rem] w-full resize-y rounded-2xl border border-gray-200 bg-gray-50 p-4 font-mono text-sm text-gray-900 focus:border-indigo-400 focus:outline-none"
             />
             <div className="h-[28rem] overflow-auto rounded-2xl border border-gray-200 p-4">
-              <MarkdownRenderer content={markdown} />
+              <MarkdownRenderer content={markdown} headingOffset={1} />
             </div>
           </div>
         </div>

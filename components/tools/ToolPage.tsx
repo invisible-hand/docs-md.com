@@ -25,6 +25,8 @@ interface ToolPageProps {
   related?: string[];
   /** Width of the tool area. */
   width?: 'wide' | 'narrow';
+  /** Hide the page chrome when printing (tools whose output is the browser's print dialog). */
+  printOnlyTool?: boolean;
 }
 
 export function toolMetadata(slug: string): Metadata {
@@ -45,10 +47,11 @@ export const CODE = 'rounded bg-gray-100 px-1.5 py-0.5 text-sm';
  * and FAQPage JSON-LD, the tool itself, prose sections, the FAQ, and cross-links.
  * Everything a page needs to pass the extractability checklist lives here.
  */
-export default function ToolPage({ slug, intro, tool, children, faq, related, width = 'wide' }: ToolPageProps) {
+export default function ToolPage({ slug, intro, tool, children, faq, related, width = 'wide', printOnlyTool = false }: ToolPageProps) {
   const t = getTool(slug);
   const url = `https://docs-md.com/${slug}`;
   const more = related ? related.map(getTool) : relatedTools(slug);
+  const chrome = printOnlyTool ? 'no-print' : '';
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -86,13 +89,13 @@ export default function ToolPage({ slug, intro, tool, children, faq, related, wi
   return (
     <div className={`mx-auto w-full px-4 py-12 md:py-16 ${width === 'wide' ? 'max-w-6xl' : 'max-w-4xl'}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <nav className="mb-4 text-sm text-gray-500">
+      <nav className={`mb-4 text-sm text-gray-500 ${chrome}`}>
         <Link href="/tools" className="text-indigo-700 underline">
           Markdown tools
         </Link>{' '}
         / {t.title}
       </nav>
-      <div className="mb-8 max-w-3xl">
+      <div className={`mb-8 max-w-3xl ${chrome}`}>
         <div className="flex items-start gap-4">
           <ToolIconTile slug={slug} size="lg" />
           <div>
@@ -105,7 +108,7 @@ export default function ToolPage({ slug, intro, tool, children, faq, related, wi
 
       {tool}
 
-      <div className="mx-auto mt-16 max-w-3xl space-y-10 text-gray-700">
+      <div className={`mx-auto mt-16 max-w-3xl space-y-10 text-gray-700 ${chrome}`}>
         {children}
 
         {faq.map((f) => (

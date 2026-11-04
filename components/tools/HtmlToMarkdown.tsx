@@ -262,7 +262,7 @@ export default function HtmlToMarkdown() {
             />
           ) : (
             <div className="flex-1 overflow-auto p-4">
-              {markdown ? <MarkdownRenderer content={markdown} /> : <p className="text-sm text-gray-400">Nothing to preview yet.</p>}
+              {markdown ? <MarkdownRenderer content={markdown} headingOffset={1} /> : <p className="text-sm text-gray-400">Nothing to preview yet.</p>}
             </div>
           )}
         </div>

@@ -115,7 +115,7 @@ export default function MarkdownWord() {
               </button>
             </div>
             <div className="flex-1 overflow-auto p-4">
-              <MarkdownRenderer content={markdown} />
+              <MarkdownRenderer content={markdown} headingOffset={1} />
             </div>
           </div>
         </div>

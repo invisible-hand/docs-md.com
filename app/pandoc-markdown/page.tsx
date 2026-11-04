@@ -9,7 +9,7 @@ const UPDATED = '2026-10-15';
 const PANDOC_OPTIONS = 'https://pandoc.org/MANUAL.html#options';
 
 export const metadata = pageMetadata({
-  title: 'Pandoc Markdown Cheat Sheet (R Markdown and Quarto)',
+  title: 'Pandoc Markdown Cheat Sheet (R Markdown, Quarto)',
   description:
     'Pandoc markdown extensions: fenced divs, attributes, definition lists, citations, footnotes, grid tables, math, YAML, conversion commands.',
   path: '/pandoc-markdown',

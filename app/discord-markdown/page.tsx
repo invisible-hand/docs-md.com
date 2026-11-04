@@ -12,9 +12,9 @@ const DISCORD_SPOILERS = 'https://support.discord.com/hc/en-us/articles/36002232
 const DISCORD_DEV = 'https://docs.discord.com/developers/reference';
 
 export const metadata = pageMetadata({
-  title: 'Discord Markdown — Text Formatting Cheat Sheet',
+  title: 'Discord Text Formatting: Markdown Cheat Sheet (2026)',
   description:
-    'Every Discord text format with the syntax and rendered result: bold, italic, underline, strikethrough, spoilers, headers, subtext, lists, quotes, code blocks, masked links, timestamps.',
+    'Discord text formatting cheat sheet: every markdown syntax and its rendered result — bold, spoilers, headers, code blocks, colored text, timestamps.',
   path: '/discord-markdown',
   type: 'article',
   kicker: 'Reference',
@@ -66,7 +66,7 @@ export default function DiscordMarkdownPage() {
     '@graph': [
       {
         '@type': 'Article',
-        headline: 'Discord markdown formatting cheat sheet',
+        headline: 'Discord text formatting: markdown cheat sheet',
         description: metadata.description,
         dateModified: UPDATED,
         author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
@@ -87,7 +87,7 @@ export default function DiscordMarkdownPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="mb-10 max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-          Discord markdown cheat sheet
+          Discord text formatting: markdown cheat sheet
         </h1>
         <UpdatedLine date={UPDATED} />
         <p className="mt-4 text-base text-gray-600">

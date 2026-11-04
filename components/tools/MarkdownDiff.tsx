@@ -156,7 +156,7 @@ export default function MarkdownDiff() {
         ).map(([label, val, set, name]) => (
           <div key={label}>
             <div className="mb-2 flex min-h-8 items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-900">{label}</h3>
+              <p className="text-sm font-semibold text-gray-900">{label}</p>
               <div className="flex items-center gap-2 text-xs text-gray-500">
                 {val.split('\n').length} lines
                 <label className={`${BTN_GHOST} cursor-pointer`}>
@@ -331,7 +331,7 @@ export default function MarkdownDiff() {
           ].map(([label, val]) => (
             <div key={label} className="rounded-2xl border border-gray-200 bg-white p-5">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">{label}, rendered</p>
-              <MarkdownRenderer content={val} />
+              <MarkdownRenderer content={val} headingOffset={1} />
             </div>
           ))}
         </div>

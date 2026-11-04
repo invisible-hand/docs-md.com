@@ -299,7 +299,7 @@ export default function HandoffGenerator() {
         </div>
         {view === 'preview' ? (
           <div className="h-[760px] overflow-y-auto rounded-2xl border border-gray-200 bg-white px-6 py-5">
-            <MarkdownRenderer content={markdown} />
+            <MarkdownRenderer content={markdown} headingOffset={1} />
           </div>
         ) : (
           <pre className="h-[760px] overflow-auto rounded-2xl bg-gray-950 p-4 text-sm text-gray-200">

@@ -6,13 +6,13 @@ import { SECTIONS } from '@/lib/platform-sheets/reddit-markdown';
 import UpdatedLine from '@/components/UpdatedLine';
 import { pageMetadata } from '@/lib/page-metadata';
 
-const UPDATED = '2026-10-15';
+const UPDATED = '2026-11-03';
 const PATH = '/reddit-markdown';
 
 export const metadata = pageMetadata({
-  title: 'Reddit Markdown Formatting Cheat Sheet',
+  title: 'Reddit Formatting Guide: Markdown Cheat Sheet',
   description:
-    'Reddit markdown: >!spoilers!<, ^superscript, tables, code, line breaks, escaping, r/ links — plus Rich Text vs Markdown editor and old vs new Reddit.',
+    'Reddit formatting is Markdown: >!spoilers!<, ^superscript, tables, code, line breaks, r/ links, comments vs posts, Fancy Pants vs Markdown editor.',
   path: PATH,
   type: 'article',
   kicker: 'Reference',
@@ -82,6 +82,22 @@ const OLD_NEW: Array<{ feature: string; newReddit: string; oldReddit: string }> 
 ];
 
 
+const WHERE: Array<{ where: string; def: string; how: string }> = [
+  { where: 'Comments', def: 'Rich Text editor', how: 'Click "Markdown Editor" / "Switch to Markdown" in the comment box, then type the syntax' },
+  { where: 'Text posts', def: 'Rich Text editor', how: 'Click "Markdown Editor" on the post screen; the same dialect as comments' },
+  { where: 'Community wikis', def: 'Markdown', how: 'Written directly in Markdown' },
+  { where: 'Sidebar, community rules, submission text', def: 'Markdown', how: 'Written directly in Markdown in the community settings' },
+  { where: 'Profile card text', def: 'Markdown (simple)', how: 'Simple formatting only' },
+  { where: 'Bots and the API', def: 'Markdown', how: 'Always Markdown; see the compatibility notes for old Reddit' },
+];
+
+const SPECIALS: Array<{ effect: string; syntax: string; rule: string }> = [
+  { effect: 'Spoiler', syntax: '>!hidden text!<', rule: 'Reddit-only. Opens with >! and closes with !<; the text is blacked out until tapped. Works on both old and new Reddit' },
+  { effect: 'Superscript, one word', syntax: '^word', rule: 'A caret before the word; ends at the next space. No subscript on Reddit' },
+  { effect: 'Superscript, several words', syntax: '^(a whole phrase)  or  ^each ^word', rule: '^(…) works on www.reddit.com but is often misparsed on old Reddit; Reddit recommends a caret per word, joined with &#x2005; for even spacing' },
+  { effect: 'Table', syntax: '| Ticker | Profit |\n|:-------|-------:|\n| BTC    | $-50   |', rule: 'Header row, then a marker row of dashes, then data rows. Colons set alignment (:-- left, --: right, :-: center). Keep the outer pipes' },
+];
+
 const FAQ: Array<{ q: string; a: string; href?: { path: string; label: string } }> = [
   {
     q: 'Does Reddit use markdown?',
@@ -134,7 +150,7 @@ export default function RedditMarkdownPage() {
     '@graph': [
       {
         '@type': 'Article',
-        headline: 'Reddit markdown formatting cheat sheet',
+        headline: 'Reddit formatting guide: Markdown cheat sheet',
         description: metadata.description,
         dateModified: UPDATED,
         author: { '@type': 'Organization', name: 'Docs MD', url: 'https://docs-md.com' },
@@ -158,13 +174,15 @@ export default function RedditMarkdownPage() {
         <div className="flex items-start gap-4">
           <ToolIconTile slug="reddit-markdown" size="lg" />
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">Reddit markdown formatting cheat sheet</h1>
+            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">Reddit formatting guide: Markdown cheat sheet</h1>
             <UpdatedLine date={UPDATED} />
           </div>
         </div>
         <p className="mt-4 text-base text-gray-600">
-          Reddit parses a dialect of markdown in the Markdown editor, wikis, sidebars and rules.
-          It is standard markdown plus spoilers (<code className="rounded bg-gray-100 px-1">&gt;!text!&lt;</code>),
+          <strong>Reddit formatting is Markdown.</strong> Comments and posts are formatted either with
+          the buttons of the Rich Text editor (formerly Fancy Pants) or by typing Markdown in the
+          Markdown editor; wikis, sidebars and community rules take Markdown only. The dialect is
+          standard markdown plus spoilers (<code className="rounded bg-gray-100 px-1">&gt;!text!&lt;</code>),
           superscript (<code className="rounded bg-gray-100 px-1">^word</code>) and automatic{' '}
           <code className="rounded bg-gray-100 px-1">r/</code> and <code className="rounded bg-gray-100 px-1">u/</code> links,
           minus images and HTML. The first table is the whole syntax; the last two cover the Rich
@@ -199,7 +217,88 @@ export default function RedditMarkdownPage() {
         </div>
       </section>
 
+      <section id="comments-vs-posts" className="mb-12 scroll-mt-8 space-y-3">
+        <h2 className="text-2xl font-semibold tracking-tight text-gray-950">Comment formatting vs post formatting</h2>
+        <p className="text-base text-gray-600">
+          Comments and text posts use the same Markdown and the same two editors, so every row of the
+          syntax table above works in both. What differs is where the Markdown is accepted directly and
+          where an editor sits in front of it, according to Reddit&apos;s formatting guide.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px] border-collapse text-sm">
+            <thead>
+              <tr className="border-b border-gray-300">
+                <Th>Where</Th>
+                <Th>Default</Th>
+                <Th>How to write Markdown</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {WHERE.map((r) => (
+                <tr key={r.where} className="border-b border-gray-100">
+                  <Td>
+                    <span className="font-medium text-gray-900">{r.where}</span>
+                  </Td>
+                  <Td>{r.def}</Td>
+                  <Td>{r.how}</Td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="spoilers-superscript-tables" className="mb-12 scroll-mt-8 space-y-3">
+        <h2 className="text-2xl font-semibold tracking-tight text-gray-950">Spoilers, superscript and tables on Reddit</h2>
+        <p className="text-base text-gray-600">
+          The three pieces of Reddit formatting that are not plain Markdown, or that trip people up most,
+          in the exact forms Reddit&apos;s guide gives.
+        </p>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[680px] border-collapse text-sm">
+            <thead>
+              <tr className="border-b border-gray-300">
+                <Th>Effect</Th>
+                <Th>Type this</Th>
+                <Th>Rule</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {SPECIALS.map((r) => (
+                <tr key={r.effect} className="border-b border-gray-100">
+                  <Td>
+                    <span className="font-medium text-gray-900">{r.effect}</span>
+                  </Td>
+                  <Td mono>{r.syntax}</Td>
+                  <Td>{r.rule}</Td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-sm text-gray-600">
+          Tables need the Markdown editor (the Rich Text table button has no alignment control); build one
+          in the{' '}
+          <Link href="/markdown-table-generator" className="text-indigo-700 underline">table generator</Link> and paste it in.
+        </p>
+      </section>
+
       <CheatSheet sections={SECTIONS} />
+
+      <section id="fancy-pants" className="mt-12 scroll-mt-8 space-y-3">
+        <h2 className="text-2xl font-semibold tracking-tight text-gray-950">Fancy Pants editor vs Markdown mode</h2>
+        <p className="text-base text-gray-600">
+          &quot;Fancy Pants&quot; is the old name of Reddit&apos;s Rich Text editor, the toolbar editor you get by
+          default when you write a post or comment on reddit.com. In that mode Reddit submits rich text,
+          not Markdown: typing <code className="rounded bg-gray-100 px-1">**bold**</code> leaves the asterisks
+          on screen, and pasted Markdown shows its symbols. To write Markdown, click{' '}
+          <strong>Markdown Editor</strong> (the &quot;Switch to Markdown&quot; control in the composer); the
+          text area then takes the syntax on this page and renders it when you submit. Reddit&apos;s guide
+          calls itself optional for Rich Text users and &quot;useful for users who want more control over
+          their text formatting&quot;. Switching from Rich Text to Markdown keeps what you have written as
+          syntax; the table below compares the two modes feature by feature.
+        </p>
+      </section>
 
       <section id="editors" className="mt-12 scroll-mt-8 space-y-3">
         <h2 className="text-2xl font-semibold tracking-tight text-gray-950">Rich Text (Fancy Pants) editor vs Markdown editor</h2>

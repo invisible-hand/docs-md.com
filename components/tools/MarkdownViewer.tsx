@@ -327,7 +327,7 @@ export default function MarkdownViewer({ labels, starter = STARTER }: MarkdownVi
         >
           <div className={`mx-auto ${wide ? 'max-w-none' : 'max-w-3xl'}`}>
             {content.trim() ? (
-              <MarkdownRenderer content={content} />
+              <MarkdownRenderer content={content} headingOffset={1} />
             ) : (
               <p className="text-sm text-gray-400">{L.empty}</p>
             )}

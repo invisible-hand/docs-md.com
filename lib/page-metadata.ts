@@ -44,6 +44,14 @@ export function pageMetadata({
   kicker,
   extra,
 }: PageMetadataInput): Metadata {
+  if (process.env.NODE_ENV !== 'production') {
+    // Search engines truncate titles at ~60 characters (the layout adds " | Docs MD") and
+    // descriptions at ~155. Warn, do not throw: a long title is a defect, not an outage.
+    const bare = title.length;
+    if (!absoluteTitle && bare > 50) console.warn(`[page-metadata] ${path}: title is ${bare} chars (max 50 before the site suffix)`);
+    if (absoluteTitle && bare > 60) console.warn(`[page-metadata] ${path}: absolute title is ${bare} chars (max 60)`);
+    if (description.length > 155) console.warn(`[page-metadata] ${path}: description is ${description.length} chars (max 155)`);
+  }
   const image = { url: ogImageUrl(title, kicker), width: 1200, height: 630, alt: title };
   return {
     title: absoluteTitle ? { absolute: title } : title,

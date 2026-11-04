@@ -69,17 +69,20 @@ export const PAGE: MermaidExamplesPage = {
       id: 'milestones',
       title: 'Milestones',
       intro:
-        'Add the `milestone` tag and a zero duration to mark a single moment such as a deadline or a launch. Mermaid places the marker at the start date plus half the duration, so `0d` puts it exactly on the date.',
+        'Add the `milestone` tag and a zero duration to mark a single moment such as a deadline or a launch. Mermaid places the marker at the start date plus half the duration, so `0d` puts it exactly on the date. A chart made only of milestones, with a `section` per phase, is a timeline-style Gantt: one marker per event on a real date axis and no bars at all.',
       code: `gantt
-    title Conference talk
+    title Release timeline (milestones only)
     dateFormat YYYY-MM-DD
-    section Proposal
-        Write abstract        :abs, 2026-04-01, 6d
-        Submission deadline   :milestone, cfp, 2026-04-10, 0d
-    section Talk
-        Draft slides          :slides, after cfp, 14d
-        Rehearsals            :reh, after slides, 5d
-        Talk day              :milestone, after reh, 0d`,
+    axisFormat %b %d
+    section Discovery
+        Kickoff               :milestone, m1, 2026-01-12, 0d
+        Research complete     :milestone, m2, 2026-02-02, 0d
+    section Build
+        Alpha                 :milestone, m3, 2026-03-02, 0d
+        Beta                  :milestone, m4, 2026-04-06, 0d
+    section Launch
+        General availability  :milestone, m5, 2026-05-04, 0d
+        Retrospective         :milestone, m6, 2026-05-18, 0d`,
     },
     {
       id: 'excludes-weekends',
@@ -221,7 +224,7 @@ export const PAGE: MermaidExamplesPage = {
     {
       h2: 'Should you use a Gantt chart or a timeline?',
       paragraphs: [
-        'Use a Gantt chart when dates, durations and dependencies matter: a project plan, a release schedule, a sprint. Use Mermaid’s [timeline](/mermaid-timeline-examples) when you only need the order of events grouped by period, such as a product history, because it needs no dates or durations at all. To show how a total splits into parts rather than how work is scheduled, a [pie chart](/mermaid-pie-chart-examples) is the better fit.',
+        'Use a Gantt chart when dates, durations and dependencies matter: a project plan, a release schedule, a sprint. Use Mermaid’s [timeline](/mermaid-timeline-examples) when you only need the order of events grouped by period, such as a product history, because it needs no dates or durations at all. A Gantt chart made only of milestones, as in the Milestones example above, sits between the two: it keeps the one-marker-per-event look of a timeline but spaces the events by their real dates. To show how a total splits into parts rather than how work is scheduled, a [pie chart](/mermaid-pie-chart-examples) is the better fit.',
       ],
     },
   ],
@@ -237,6 +240,10 @@ export const PAGE: MermaidExamplesPage = {
     {
       q: 'Does Mermaid mark tasks as done automatically?',
       a: 'No. `done` and `active` are tags you write yourself; Mermaid does not compare them with today’s date. What it does draw automatically is the today marker, a vertical line at the current date whenever today falls inside the chart. You can restyle that line with `todayMarker` followed by CSS properties or hide it with `todayMarker off`, but updating task status stays a manual edit.',
+    },
+    {
+      q: 'Can a Gantt chart work as a timeline?',
+      a: 'Yes, when the events have real dates. Give every row the `milestone` tag and a `0d` duration and use a `section` per phase, as in the Milestones example above: Mermaid draws one marker per event on a date axis and no bars, so two launches a week apart sit close together and a six-month gap shows as a gap. For events without dates, such as eras or numbered steps, use Mermaid’s [timeline diagram](/mermaid-timeline-examples) instead: it needs no `dateFormat`, gives every period the same width and lists several events under one period with extra colons.',
     },
     {
       q: 'Does GitHub render Mermaid Gantt charts?',

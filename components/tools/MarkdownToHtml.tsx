@@ -45,7 +45,7 @@ export default function MarkdownToHtml() {
     <div className="grid gap-6 lg:grid-cols-2">
       <div>
         <div className="mb-2 flex min-h-8 flex-wrap items-center justify-between gap-2">
-          <h3 className="text-sm font-semibold text-gray-900">Markdown input</h3>
+          <p className="text-sm font-semibold text-gray-900">Markdown input</p>
           <span className="text-xs text-gray-500">{markdown.length.toLocaleString()} chars</span>
         </div>
         <textarea
@@ -112,7 +112,7 @@ export default function MarkdownToHtml() {
           </pre>
         ) : (
           <div className="h-[480px] overflow-y-auto rounded-2xl border border-gray-200 bg-white px-6 py-5">
-            <MarkdownRenderer content={markdown} />
+            <MarkdownRenderer content={markdown} headingOffset={1} />
           </div>
         )}
         <p className="mt-2 text-xs text-gray-500">

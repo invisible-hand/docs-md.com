@@ -1,6 +1,7 @@
 'use client';
 
-import { useDeferredValue, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { BTN_GHOST, BTN_PRIMARY, wordCount } from '@/components/tools/toolkit';
 
@@ -26,7 +27,16 @@ export default function MarkdownToPdf() {
   const [content, setContent] = useState(STARTER);
   const [filename, setFilename] = useState('document');
   const [dragging, setDragging] = useState(false);
+  // The full-width print copy is mounted on the first interaction (or right before printing),
+  // so the page served to crawlers has one <h1>: its own, not the sample document's title.
+  const [printCopy, setPrintCopy] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const onBeforePrint = () => flushSync(() => setPrintCopy(true));
+    window.addEventListener('beforeprint', onBeforePrint);
+    return () => window.removeEventListener('beforeprint', onBeforePrint);
+  }, []);
 
   // Defer the preview (and the hidden print copy) so keystrokes never wait on
   // a full markdown re-render of a large document.
@@ -34,6 +44,7 @@ export default function MarkdownToPdf() {
   const stats = wordCount(content);
 
   const handleDownload = () => {
+    flushSync(() => setPrintCopy(true));
     const originalTitle = document.title;
     document.title = filename.trim() || 'document';
     window.print();
@@ -48,11 +59,11 @@ export default function MarkdownToPdf() {
   };
 
   return (
-    <div>
+    <div onPointerDown={() => setPrintCopy(true)} onFocus={() => setPrintCopy(true)}>
       <div className="no-print grid gap-6 lg:grid-cols-2">
         <div>
           <div className="mb-2 flex min-h-8 flex-wrap items-center justify-between gap-2">
-            <h3 className="text-sm font-semibold text-gray-900">Markdown input</h3>
+            <p className="text-sm font-semibold text-gray-900">Markdown input</p>
             <div className="flex items-center gap-3">
               <span className="text-xs text-gray-500">
                 {stats.words.toLocaleString()} words
@@ -92,7 +103,7 @@ export default function MarkdownToPdf() {
         </div>
         <div>
           <div className="mb-2 flex min-h-8 flex-wrap items-center justify-between gap-2">
-            <h3 className="text-sm font-semibold text-gray-900">Preview (this becomes the PDF)</h3>
+            <p className="text-sm font-semibold text-gray-900">Preview (this becomes the PDF)</p>
             <div className="flex items-center gap-2">
               <input
                 value={filename}
@@ -107,7 +118,7 @@ export default function MarkdownToPdf() {
             </div>
           </div>
           <div className="h-[480px] overflow-y-auto rounded-2xl border border-gray-200 bg-white px-6 py-5">
-            <MarkdownRenderer content={deferredContent} />
+            <MarkdownRenderer content={deferredContent} headingOffset={1} />
           </div>
           <p className="mt-2 text-xs text-gray-500">
             Your browser&apos;s print dialog opens — choose <strong>Save as PDF</strong> as the
@@ -117,9 +128,11 @@ export default function MarkdownToPdf() {
       </div>
 
       {/* Print-only rendering: expands to full width when the print dialog opens */}
-      <div className="print-only hidden">
-        <MarkdownRenderer content={deferredContent} />
-      </div>
+      {printCopy ? (
+        <div className="print-only hidden">
+          <MarkdownRenderer content={deferredContent} />
+        </div>
+      ) : null}
     </div>
   );
 }

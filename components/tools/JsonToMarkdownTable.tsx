@@ -371,7 +371,7 @@ export default function JsonToMarkdownTable() {
             <textarea value={markdownOut} readOnly spellCheck={false} aria-label="Markdown table output" className={TEXTAREA} />
           ) : (
             <div className="flex-1 overflow-auto p-4">
-              {markdownOut ? <MarkdownRenderer content={markdownOut} /> : <p className="text-sm text-gray-400">Nothing to preview yet.</p>}
+              {markdownOut ? <MarkdownRenderer content={markdownOut} headingOffset={1} /> : <p className="text-sm text-gray-400">Nothing to preview yet.</p>}
             </div>
           )}
         </div>

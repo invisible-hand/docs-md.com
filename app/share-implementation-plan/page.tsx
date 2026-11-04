@@ -7,7 +7,7 @@ import { pageMetadata } from '@/lib/page-metadata';
 const UPDATED = '2026-09-06';
 
 export const metadata = pageMetadata({
-  title: 'Share an Implementation Plan from Cursor or Claude Code',
+  title: 'Share a Cursor or Claude Code Implementation Plan',
   description:
     'Turn an AI-generated implementation plan into a rendered link a teammate can review, from Cursor or Claude Code via MCP or with curl. Example included.',
   path: '/share-implementation-plan',

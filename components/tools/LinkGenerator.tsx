@@ -139,7 +139,7 @@ export default function LinkGenerator() {
           </div>
           <div className="rounded-2xl border border-gray-200 p-4">
             <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">Preview</p>
-            <MarkdownRenderer content={snippet} />
+            <MarkdownRenderer content={snippet} headingOffset={1} />
           </div>
         </div>
       </div>

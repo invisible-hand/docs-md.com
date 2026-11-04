@@ -1,12 +1,12 @@
 ---
-title: Lists and Images in a Markdown Table Cell: What Works
-h1: Can a Markdown table cell contain a list or an image?
-description: An image, yes: it is inline content. A real list, no: pipe-table cells cannot hold block elements. The workarounds, and when to change the layout instead.
+title: Bullet List in a Markdown Table Cell: Multi-Line Cells
+h1: How do you put a bullet list or multiple lines in a Markdown table cell?
+description: Markdown lists do not work in a cell. Make a multi-line cell with <br> and bullet characters, or <ul> HTML where allowed (GitHub). Images work as they are.
 tool: markdown-table-generator
-updated: 2026-10-17
+updated: 2026-11-03
 related: /guides/markdown-table, /guides/markdown-table-line-break, /guides/markdown-image, /markdown-to-word/markdown-table-to-word-table
 ---
-An image, yes. A real list, no. In GitHub Flavored Markdown a table cell holds inline content only, and an image is inline, so `![alt](url)` works in a cell. A list is a block element, so `- item` stays literal text. Fake a list with `•` and `<br>`, or use HTML or a different layout.
+Put `<br>` between the lines and a bullet character such as `•` in front of each item, all on one source line: `• Fast<br>• Free<br>• Offline`. Markdown list syntax does not work inside a pipe-table cell, because GFM allows only inline content there. Where raw HTML is allowed, as on GitHub, `<ul><li>` gives a real list. Images work as they are.
 
 The rule behind both answers is short. A pipe table is one line per row, and each cell is the text between two pipes on that line. The [GFM specification](https://github.github.com/gfm/#tables-extension-) says the cells contain text "in which inlines are parsed" and that "block-level elements cannot be inserted in a table". Inline means anything that can sit inside a sentence: emphasis, links, inline code, images, line breaks written as HTML. Block means anything that needs lines of its own: paragraphs, lists, fenced code, quotes, headings.
 
@@ -49,6 +49,28 @@ Images in cells follow the same rules as images anywhere else, which the [image 
 Use a bullet character and `<br>` between items: `• Fast<br>• Free<br>• Offline`. It is plain text plus one HTML tag, so it renders wherever `<br>` is allowed and degrades to a single readable line where it is not. Writing `- item` with `<br>` looks similar in the source, but the hyphens show as hyphens and some editors escape them. For a numbered list, type the numbers: `1. Install<br>2. Configure`.
 
 This is the right choice when a few cells need two to four short items. The source stays readable, the table still works in a plain text editor, and the [table generator](/markdown-table-generator) handles it: type the items into a cell with `<br>` between them and the generated Markdown keeps them on one line, with any pipes escaped for you.
+
+## How do you write a multi-line cell step by step?
+
+Keep the whole cell on one line of source and put `<br>` at every point where a new line should start. Nothing else changes: the pipes still mark the cell boundaries, and the text between two pipes is one cell however many `<br>` tags it holds.
+
+```markdown
+| Plan | Includes |
+|---|---|
+| Basic | 1 project<br>Email support |
+| Team | 10 projects<br>Priority support<br>SSO |
+```
+
+| Plan | Includes |
+|---|---|
+| Basic | 1 project<br>Email support |
+| Team | 10 projects<br>Priority support<br>SSO |
+
+Pressing Enter inside a cell does not work, because a line break in the source ends the row; the GFM specification treats each row as a single line. Two trailing spaces and a backslash, which make line breaks in paragraphs, do nothing inside a cell either. If you type the cell in the [table generator](/markdown-table-generator), press Enter freely: it converts each newline in a cell into `<br>` and escapes any pipes when it writes the Markdown. We rendered the table above through GitHub's Markdown API and through this site's own renderer on 2026-11-03, and both kept the `<br>` tags and showed the stacked lines.
+
+## Does a ul list inside a table cell render on GitHub?
+
+Yes. In our check through GitHub's Markdown API on 2026-11-03, a cell written as `<ul><li>one</li><li>two</li></ul>` came back unchanged inside its `<td>`, and so did the `• one<br>• two` form; this site's viewer passes both through as well. The tags have to stay on the cell's single source line, and the text inside the `<li>` elements is treated as HTML, so Markdown such as `**bold**` or a `[link](url)` inside the list items is not converted. Renderers that strip raw HTML show the tags as text or drop the list entirely, which is the reason the `•` and `<br>` form is the safer default when you do not know where the table will be read. GitHub's table styling also gives the nested list no extra indentation, so the two forms look much the same there.
 
 ## When should I use an HTML table instead?
 

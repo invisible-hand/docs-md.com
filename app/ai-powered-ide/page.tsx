@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageDate } from '@/lib/page-dates';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
@@ -25,6 +26,8 @@ export default function AiPoweredIdePage() {
   return (
     <ContentPage
       title="Share markdown from Cursor and Claude with MCP"
+      updated={pageDate('/ai-powered-ide')}
+      path="/ai-powered-ide"
       description="The Docs MD MCP server publishes rendered markdown at a public link, with an expiry you choose and update/delete through an edit token. Setup for Cursor, Claude Code, Windsurf, VS Code, and Zed, plus the workflows it is for."
     >
       <section className="space-y-4">

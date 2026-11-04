@@ -11,7 +11,7 @@ const MDX_V3 = 'https://mdxjs.com/migrating/v3/';
 const MDX_V2 = 'https://mdxjs.com/migrating/v2/';
 
 export const metadata = pageMetadata({
-  title: 'MDX Cheat Sheet — JSX, Imports, Expressions, Gotchas',
+  title: 'MDX Cheat Sheet — JSX, Imports, Expressions',
   description:
     'MDX syntax in one page: JSX in markdown, import/export, {expressions}, layouts, escaping < and {, what differs from markdown, MDX 2 vs 3, Next.js.',
   path: '/mdx-cheat-sheet',

@@ -158,7 +158,7 @@ export default function MarkdownLint() {
       <div className="grid gap-6 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
         <div>
           <div className="mb-2 flex min-h-8 items-center justify-between">
-            <h3 className="text-sm font-semibold text-gray-900">Document</h3>
+            <p className="text-sm font-semibold text-gray-900">Document</p>
             <label className="flex items-center gap-2 text-xs text-gray-600">
               <input type="checkbox" checked={allowBr} onChange={(e) => setAllowBr(e.target.checked)} />
               Allow two trailing spaces (hard line break)
@@ -206,7 +206,7 @@ export default function MarkdownLint() {
 
         <div>
           <div className="mb-2 flex min-h-8 items-center justify-between">
-            <h3 className="text-sm font-semibold text-gray-900">Findings</h3>
+            <p className="text-sm font-semibold text-gray-900">Findings</p>
             <span className="text-xs text-gray-500">{RULES.length - disabled.size} of {RULES.length} rules on</span>
           </div>
           <div className="h-[520px] space-y-3 overflow-auto rounded-2xl border border-gray-200 bg-white p-3">

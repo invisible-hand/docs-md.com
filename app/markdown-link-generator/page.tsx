@@ -1,63 +1,50 @@
 import Link from 'next/link';
-import { ToolIconTile } from '@/components/tools/ToolIcon';
 import LinkGenerator from '@/components/tools/LinkGenerator';
-import { pageMetadata } from '@/lib/page-metadata';
+import ToolPage, { CODE, H2, toolMetadata } from '@/components/tools/ToolPage';
 
-export const metadata = pageMetadata({
-  title: 'Markdown Link, Image & Code Block Generator',
-  description:
-    'Generate correct markdown for links, images, and fenced code blocks: fill in the fields, preview live, copy the snippet. Tooltips and reference links too.',
-  path: '/markdown-link-generator',
-  kicker: 'Free markdown tool',
-});
+export const metadata = toolMetadata('markdown-link-generator');
 
 export default function LinkGeneratorPage() {
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
-      <div className="mb-8 max-w-3xl">
-        <div className="flex items-start gap-4">
-          <ToolIconTile slug="markdown-link-generator" size="lg" />
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">
-              Markdown link &amp; image generator
-            </h1>
-          </div>
-        </div>
-        <p className="mt-4 text-base text-gray-600">
-          The three snippets people most often get slightly wrong — links, images, and fenced code
-          blocks — generated correctly from a form, with a live preview. It handles the edge cases
-          for you: tooltip titles, reference-style links, sized images (which need HTML), clickable
-          images, and code that itself contains backtick fences.
+    <ToolPage
+      slug="markdown-link-generator"
+      intro="The three snippets people most often get slightly wrong — links, images, and fenced code blocks — generated correctly from a form, with a live preview. It handles the edge cases for you: tooltip titles, reference-style links, sized images (which need HTML), clickable images, and code that itself contains backtick fences."
+      tool={<LinkGenerator />}
+      related={['markdown-table-generator', 'markdown-toc-generator', 'markdown-badge-generator', 'markdown-cheat-sheet']}
+      faq={[
+        {
+          q: 'How do I add a tooltip to a markdown link?',
+          a: 'Put the title in quotes after the URL: [text](https://example.com "Shown on hover"). The title is optional and most renderers show it as a browser tooltip; GitHub does, chat apps generally do not.',
+        },
+        {
+          q: 'How do I resize an image in markdown?',
+          a: 'Markdown has no size syntax, so the generator switches to an HTML tag when you enter a width: <img src="…" alt="…" width="400">. That works on GitHub and in most documentation sites; renderers that strip HTML show the image at full size.',
+        },
+        {
+          q: 'How do I make an image clickable?',
+          a: 'Wrap the image in a link: [![alt text](image.png)](https://example.com). The outer brackets are the link, the inner ![…](…) is the image. Fill in the target field in the image tab and the generator produces exactly that.',
+        },
+        {
+          q: 'How do I put backticks inside a code block?',
+          a: 'Open and close the block with four backticks instead of three (or use ~~~). The generator checks your code for a triple-backtick fence and lengthens the outer fence automatically.',
+        },
+      ]}
+    >
+      <section className="space-y-3">
+        <h2 className={H2}>The syntax being generated</h2>
+        <p>
+          Links are <code className={CODE}>[text](url &quot;title&quot;)</code> — no space
+          between the brackets and parenthesis. Images are the same with a leading{' '}
+          <code className={CODE}>!</code>, and sizing requires switching to an HTML{' '}
+          <code className={CODE}>&lt;img width&gt;</code> tag. Code blocks are fenced with
+          three backticks plus a language tag — or four backticks when the code contains a fence.
+          Full details in the guides:{' '}
+          <Link href="/guides/markdown-link" className="text-indigo-700 underline">links</Link>,{' '}
+          <Link href="/guides/markdown-image" className="text-indigo-700 underline">images</Link>,{' '}
+          <Link href="/guides/markdown-code-block" className="text-indigo-700 underline">code blocks</Link>.
+          When the document is done, <Link href="/" className="text-indigo-700 underline">share it as a link</Link>.
         </p>
-      </div>
-
-      <LinkGenerator />
-
-      <div className="mx-auto mt-16 max-w-3xl space-y-10 text-gray-700">
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold text-gray-950">The syntax being generated</h2>
-          <p>
-            Links are <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">[text](url &quot;title&quot;)</code> — no space
-            between the brackets and parenthesis. Images are the same with a leading{' '}
-            <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">!</code>, and sizing requires switching to an HTML{' '}
-            <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">&lt;img width&gt;</code> tag. Code blocks are fenced with
-            three backticks plus a language tag — or four backticks when the code contains a fence.
-            Full details in the guides:{' '}
-            <Link href="/guides/markdown-link" className="text-indigo-700 underline">links</Link>,{' '}
-            <Link href="/guides/markdown-image" className="text-indigo-700 underline">images</Link>,{' '}
-            <Link href="/guides/markdown-code-block" className="text-indigo-700 underline">code blocks</Link>.
-          </p>
-        </section>
-        <section className="space-y-3">
-          <h2 className="text-xl font-semibold text-gray-950">Related tools</h2>
-          <p className="text-sm">
-            <Link href="/markdown-table-generator" className="text-indigo-700 underline">table generator</Link>{' · '}
-            <Link href="/markdown-toc-generator" className="text-indigo-700 underline">TOC generator</Link>{' · '}
-            <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">cheat sheet</Link>{' · '}
-            <Link href="/" className="text-indigo-700 underline">share the doc</Link>
-          </p>
-        </section>
-      </div>
-    </div>
+      </section>
+    </ToolPage>
   );
 }

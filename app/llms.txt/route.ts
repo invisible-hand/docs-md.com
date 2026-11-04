@@ -13,7 +13,8 @@ export const dynamic = 'force-static';
 const BASE = 'https://docs-md.com';
 
 const PRODUCT: [string, string, string][] = [
-  ['/', 'Share Markdown online', 'Paste markdown, get a rendered link with Mermaid diagrams and an expiry (1, 7, 30 days or never). No signup.'],
+  ['/', 'Docs MD: share markdown online for free', 'The homepage editor: paste markdown, preview it, get a rendered link with Mermaid diagrams and an expiry (1, 7, 30 days or never). No signup.'],
+  ['/tools', 'Free markdown tools', 'Every browser-side tool on one page: converters, generators, checkers, the viewer and the formatter, grouped by what they do.'],
   ['/about', 'About Docs MD', 'What the service is, who runs it, what it stores.'],
   ['/agents', 'Docs MD for AI agents', 'Publish markdown from any agent in one curl line, read any share as markdown (/<id>.md), MCP setup for every client, a Claude Code plugin and skill, an AGENTS.md snippet.'],
   ['/api-docs', 'REST API', 'POST /api/share to publish, PATCH/DELETE with an edit token, GET /raw/<id> for the markdown. Includes a GitHub Actions recipe.'],

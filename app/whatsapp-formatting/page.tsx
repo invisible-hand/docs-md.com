@@ -10,7 +10,7 @@ const WA_TEMPLATES = 'https://developers.facebook.com/documentation/business-mes
 const WA_TEXT = 'https://developers.facebook.com/docs/whatsapp/cloud-api/messages/text-messages';
 
 export const metadata = pageMetadata({
-  title: 'WhatsApp Text Formatting: Bold, Italic, Strikethrough, Mono',
+  title: 'WhatsApp Text Formatting: Bold, Italic and More',
   description:
     'WhatsApp formatting codes: *bold*, _italic_, ~strikethrough~, ```monospace```, lists, quotes, inline code, what WhatsApp cannot do, and Business API notes.',
   path: '/whatsapp-formatting',

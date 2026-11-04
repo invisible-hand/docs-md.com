@@ -5,7 +5,7 @@ import { TOOL_CATEGORIES, TOOLS, toolsInCategory } from '@/lib/tools-registry';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
-  title: 'Free Markdown Tools — Converters, Generators, Checkers',
+  title: 'Free Markdown Tools — Convert, Generate, Check',
   description:
     'Free browser-based markdown tools: converters (HTML, PDF, Word, CSV), generators (tables, README, badges, changelog), a linter, diff, link checker, viewer.',
   path: '/tools',

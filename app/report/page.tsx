@@ -5,7 +5,7 @@ import { LegalMeta, LegalSection, legalLinkClass } from '@/components/LegalSecti
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
-  title: 'Report Content',
+  title: 'Report content hosted on Docs MD',
   description:
     'Report a share on Docs MD that breaks the rules, send a copyright (DMCA) notice, or ask for your personal data to be removed.',
   path: '/report',

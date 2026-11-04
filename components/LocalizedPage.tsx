@@ -1,5 +1,6 @@
 import CheatSheet, { SectionNav } from '@/components/CheatSheet';
 import GlanceTable from '@/components/GlanceTable';
+import HtmlLang from '@/components/HtmlLang';
 import LanguageLinks from '@/components/LanguageLinks';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import MarkdownViewer from '@/components/tools/MarkdownViewer';
@@ -51,6 +52,7 @@ export default function LocalizedPage({ content }: { content: LocalizedContent }
 
   return (
     <div lang={info.hreflang} className="mx-auto w-full max-w-5xl px-4 py-12 md:py-16">
+      <HtmlLang lang={info.hreflang} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <header className="mb-8 max-w-3xl space-y-3">
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">{content.h1}</h1>

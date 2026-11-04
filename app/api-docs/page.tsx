@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageDate } from '@/lib/page-dates';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
@@ -21,6 +22,8 @@ export default function ApiDocsPage() {
   return (
     <ContentPage
       title="API Documentation"
+      updated={pageDate('/api-docs')}
+      path="/api-docs"
       description="Share, update, and delete markdown programmatically. No API key required — an edit token returned at creation authorizes changes to each share."
     >
       <section className="space-y-4">

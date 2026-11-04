@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageDate } from '@/lib/page-dates';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
@@ -26,6 +27,8 @@ export default function WhatIsMcpPage() {
   return (
     <ContentPage
       title="What is MCP (Model Context Protocol)?"
+      updated={pageDate('/what-is-mcp')}
+      path="/what-is-mcp"
       description="MCP is an open protocol that lets AI assistants discover and call external tools in a structured, predictable way — the USB standard for connecting models to the outside world."
     >
       <section className="space-y-4">

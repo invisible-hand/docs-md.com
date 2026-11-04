@@ -48,7 +48,7 @@ export function SnippetBlock({ snippet, copyLabels }: { snippet: Snippet; copyLa
         </pre>
         {renderable ? (
           <div className="overflow-x-auto rounded-xl border border-dashed border-gray-200 px-4 py-3">
-            <MarkdownRenderer content={snippet.preview ?? snippet.syntax} />
+            <MarkdownRenderer content={snippet.preview ?? snippet.syntax} headingOffset={1} />
           </div>
         ) : null}
       </div>

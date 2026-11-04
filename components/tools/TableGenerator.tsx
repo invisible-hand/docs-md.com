@@ -231,7 +231,7 @@ export default function TableGenerator() {
       <div className="grid gap-6 lg:grid-cols-2">
         <div>
           <div className="mb-2 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-gray-900">Markdown</h3>
+            <p className="text-sm font-semibold text-gray-900">Markdown</p>
             <div className="flex gap-2">
               <button onClick={() => copy(markdown)} className={BTN_DARK}>
                 {copied ? '✓ Copied' : 'Copy markdown'}
@@ -258,9 +258,9 @@ export default function TableGenerator() {
           ) : null}
         </div>
         <div>
-          <h3 className="mb-2 text-sm font-semibold text-gray-900">Preview</h3>
+          <p className="mb-2 text-sm font-semibold text-gray-900">Preview</p>
           <div className="h-64 overflow-auto rounded-2xl border border-gray-200 bg-white px-5 py-4">
-            <MarkdownRenderer content={markdown} />
+            <MarkdownRenderer content={markdown} headingOffset={1} />
           </div>
         </div>
       </div>

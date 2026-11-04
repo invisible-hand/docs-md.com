@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
+import { pageDate } from '@/lib/page-dates';
 import { pageMetadata } from '@/lib/page-metadata';
 
 export const metadata = pageMetadata({
@@ -50,6 +51,8 @@ export default function UseCasesPage() {
   return (
     <ContentPage
       title="Use cases for Docs MD"
+      updated={pageDate('/use-cases')}
+      path="/use-cases"
       description="Six patterns where a markdown share link beats a wiki page, a Google Doc, or a paste into chat — each with the expiry setting that fits it."
     >
       <section className="space-y-5">

@@ -2,13 +2,14 @@ import Link from 'next/link';
 import ContentPage from '@/components/ContentPage';
 import CopyButton from '@/components/CopyButton';
 import { CODE, H2, LINK } from '@/components/WalkthroughPage';
+import { pageDate } from '@/lib/page-dates';
 import { pageMetadata } from '@/lib/page-metadata';
 import { DAILY_SHARE_LIMIT_PER_IP } from '@/lib/quota';
 
 export const metadata = pageMetadata({
-  title: 'Docs MD for AI Agents: Publish and Read Markdown Links',
+  title: 'Docs MD for AI Agents: Publish Markdown Links',
   description:
-    'Let Claude Code, Cursor, Codex or any AI agent publish markdown at a link: one curl line, an MCP server, a Claude Code plugin, a CLI and an OpenAPI spec. No key.',
+    'Let Claude Code, Cursor, Codex or any AI agent publish markdown at a link: one curl line, an MCP server, a Claude Code plugin and an OpenAPI spec. No key.',
   path: '/agents',
   kicker: 'For AI agents',
 });
@@ -94,6 +95,8 @@ export default function AgentsPage() {
   return (
     <ContentPage
       title="Docs MD for AI agents"
+      updated={pageDate('/agents')}
+      path="/agents"
       description="Your agent writes a plan, a report or a handoff. Docs MD turns it into a clean link a person, or another agent, can open. No account, no API key, nothing to install unless you want to."
     >
       <section className="space-y-4">

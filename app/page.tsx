@@ -299,7 +299,7 @@ export default function Home() {
               <div className={mobileTab === 'write' ? 'hidden md:block' : 'block'}>
                 <p className="mb-2 block text-sm font-medium text-gray-700">Live Preview</p>
                 <div className="h-[560px] overflow-y-auto rounded-2xl border border-gray-200 bg-white px-5 py-4">
-                  <MarkdownRenderer content={content || '_Your preview appears here..._'} />
+                  <MarkdownRenderer content={content || '_Your preview appears here..._'} headingOffset={1} />
                 </div>
               </div>
             </div>

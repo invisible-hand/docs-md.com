@@ -1,4 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+// A 404 is not a page to index or to point a canonical at (the root layout's "./" would
+// otherwise canonicalize every unknown URL to itself).
+export const metadata: Metadata = {
+  title: 'Page not found',
+  robots: { index: false, follow: false },
+  alternates: { canonical: null },
+};
 
 export default function NotFound() {
   return (

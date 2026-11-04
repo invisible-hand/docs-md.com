@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/page-metadata';
 const UPDATED = '2026-10-15';
 
 export const metadata = pageMetadata({
-  title: 'Markdown in ChatGPT and Claude Answers: Read, Strip, Keep',
+  title: 'Markdown in ChatGPT and Claude Answers, Explained',
   description:
     'What **, #, -, ``` and | mean in an AI answer, prompt phrases to request or suppress markdown, and which converter to use for Word, Docs, Gmail, Notion.',
   path: '/markdown-for-ai-output',

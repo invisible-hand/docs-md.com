@@ -361,7 +361,7 @@ export const TOOLS: Tool[] = [
     metaDescription:
       'Free md file viewer: open a .md file in your browser and read it rendered, with tables, highlighted code, and diagrams. Drag in, paste, or load a URL.',
     category: 'edit',
-    updated: '2026-10-05',
+    updated: '2026-11-08',
   },
   {
     slug: 'markdown-formatter',
@@ -387,7 +387,7 @@ export const TOOLS: Tool[] = [
     metaDescription:
       'Every markdown element with live rendered examples: headings, emphasis, lists, links, images, code, tables, task lists, footnotes, mermaid. Copy a snippet.',
     category: 'reference',
-    updated: '2026-10-20',
+    updated: '2026-11-08',
   },
 ];
 

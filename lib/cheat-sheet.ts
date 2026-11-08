@@ -293,3 +293,11 @@ export const CHEAT_SHEET_GLANCE: GlanceRow[] = [
   { element: 'Escape a character', syntax: '\\*not italic\\*', note: 'A backslash before any markdown symbol.' },
   { element: 'Diagram', syntax: '```mermaid\nflowchart LR\n  A --> B\n```', note: 'Renders on GitHub, GitLab and Docs MD.' },
 ];
+
+/** The compact first-screen quick reference on /markdown-cheat-sheet: ten rows from the glance table. */
+const QUICK_ELEMENTS = ['Heading', 'Bold', 'Italic', 'Link', 'Image', 'Bulleted list', 'Numbered list', 'Inline code', 'Code block', 'Table'];
+export const CHEAT_SHEET_QUICK: GlanceRow[] = QUICK_ELEMENTS.map((element) => {
+  const row = CHEAT_SHEET_GLANCE.find((r) => r.element === element);
+  if (!row) throw new Error(`cheat sheet quick reference: no glance row for ${element}`);
+  return row;
+});

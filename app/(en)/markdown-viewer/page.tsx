@@ -44,6 +44,21 @@ export default function MarkdownViewerPage() {
       ]}
     >
       <section className="space-y-3">
+        <h2 className={H2}>MD file viewer</h2>
+        <p>
+          An MD file viewer is a tool that opens a markdown (<code className={CODE}>.md</code>) file
+          and shows it rendered — headings, lists, tables, links, and highlighted code — instead of
+          raw text full of <code className={CODE}>#</code> and <code className={CODE}>*</code>{' '}
+          characters. The viewer above is a free md file reader that runs in your browser: drag a
+          .md file onto it, pick one with <em>Open .md file</em>, paste the text, or load it from a
+          GitHub URL. Opened files are read locally and not uploaded — only <em>Share as link</em>{' '}
+          publishes the document — and <code className={CODE}>.markdown</code>,{' '}
+          <code className={CODE}>.mdx</code>, and <code className={CODE}>.txt</code> files open the
+          same way. If you would rather have an md reader inside your editor, VS Code&apos;s built-in
+          preview (<code className={CODE}>Ctrl+Shift+V</code>) does the same job for local files.
+        </p>
+      </section>
+      <section className="space-y-3">
         <h2 className={H2}>How do I read an md file online?</h2>
         <p>
           Open this page and give the viewer the file in whichever way is easiest — it renders as

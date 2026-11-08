@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import { ToolIconTile } from '@/components/tools/ToolIcon';
 import CheatSheet, { SectionNav } from '@/components/CheatSheet';
-import { CHEAT_SHEET_FAQ as FAQ, CHEAT_SHEET_GLANCE, CHEAT_SHEET_SECTIONS as SECTIONS } from '@/lib/cheat-sheet';
+import { CHEAT_SHEET_FAQ as FAQ, CHEAT_SHEET_GLANCE, CHEAT_SHEET_QUICK, CHEAT_SHEET_SECTIONS as SECTIONS } from '@/lib/cheat-sheet';
 import GlanceTable from '@/components/GlanceTable';
 import LanguageLinks from '@/components/LanguageLinks';
 import { languageAlternates, otherLanguageLinks } from '@/lib/i18n';
 import UpdatedLine from '@/components/UpdatedLine';
 import { pageMetadata } from '@/lib/page-metadata';
 
-const UPDATED = '2026-10-20';
+const UPDATED = '2026-11-08';
 
 export const metadata = pageMetadata({
   title: 'Markdown Cheat Sheet — Complete Syntax Reference',
@@ -118,6 +118,30 @@ export default function MarkdownCheatSheetPage() {
           Covers core markdown, GitHub Flavored Markdown (GFM), alerts, emoji, anchor links and
           mermaid diagrams. Click <em>Copy</em> on any block to grab the snippet.
         </p>
+        <section id="quick-reference" className="mt-6 space-y-3">
+          <h2 className="text-xl font-semibold text-gray-950">Markdown cheat sheet</h2>
+          <p className="text-sm text-gray-600">The ten elements you will type most, element → syntax:</p>
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
+                <tr>
+                  <th scope="col" className="px-4 py-2 font-semibold">Element</th>
+                  <th scope="col" className="px-4 py-2 font-semibold">Markdown syntax</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {CHEAT_SHEET_QUICK.map((row) => (
+                  <tr key={row.element} className="align-top">
+                    <th scope="row" className="px-4 py-2 font-medium text-gray-950">{row.element}</th>
+                    <td className="px-4 py-2">
+                      <code className="whitespace-pre-wrap font-mono text-xs text-gray-800">{row.syntax}</code>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
         <div className="no-print mt-5 flex flex-wrap items-center gap-3">
           <a
             href="/markdown-cheat-sheet.pdf"

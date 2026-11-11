@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Metadata (<title>, canonical, robots) always in <head>, never streamed into <body>. Next 15.2+
+  // streams it for dynamic pages unless the user agent is on its "HTML-limited bots" list, which
+  // excludes Googlebot: /report?share=<id> shipped its canonical after </head>, and GSC counted 79
+  // of them as "Duplicate without user-selected canonical" (2026-11-06). /.*/ = every client.
+  htmlLimitedBots: /.*/,
   async redirects() {
     return [
       // Bare /raw (no share id) is what crawlers extract from "https://docs-md.com/raw/<id>"

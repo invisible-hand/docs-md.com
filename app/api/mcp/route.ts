@@ -2,6 +2,7 @@ import { createMcpHandler } from 'mcp-handler';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { clientIp, platformOfIp, registerTools } from '@/lib/mcp/server';
 import { SERVER_INFO, SERVER_INSTRUCTIONS } from '@/lib/mcp/tools';
+import { withRequestScope } from '@/lib/share-cache';
 
 // The Docs MD MCP server (docs/agent-protocol.md). Reached as /mcp (rewrite in next.config.ts)
 // and /api/mcp. Stateless Streamable HTTP: mcp-handler serves the 2026-07-28 revision natively
@@ -44,7 +45,7 @@ async function handle(request: Request): Promise<Response> {
       }
     }
   }
-  const response = await mcp(request);
+  const response = await mcp(withRequestScope(request));
   const headers = new Headers(response.headers);
   for (const [k, v] of Object.entries(CORS)) headers.set(k, v);
   return new Response(response.body, { status: response.status, statusText: response.statusText, headers });

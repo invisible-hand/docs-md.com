@@ -4,7 +4,7 @@ import { isExpired } from '@/lib/db';
 import { userAgentFamily } from '@/lib/client-info';
 import type { z } from 'zod';
 import { TOOLS, type ToolDoc } from '@/lib/mcp/tools';
-import { getCachedShare } from '@/lib/share-cache';
+import { getCachedShare, invalidateShareFor } from '@/lib/share-cache';
 import {
   authenticateAgent,
   BASE_URL,
@@ -149,6 +149,7 @@ export function registerTools(server: McpServer): void {
     try {
       const agent = await authenticateAgent(args.agent_key);
       const share = await publishAsAgent(agent, args, await callerFrom(ctx.http?.req));
+      invalidateShareFor(ctx.http?.req, share.id);
       const lines = [
         share.duplicate ? `Already published: ${share.url}` : `Published: ${share.url}`,
         `Raw markdown: ${share.raw_url}`,
@@ -165,17 +166,19 @@ export function registerTools(server: McpServer): void {
     try {
       const credential = await credentialFrom(args);
       const updated = await updateOwnedShare(shareIdFrom(args.id), credential, args, await callerFrom(ctx.http?.req));
+      invalidateShareFor(ctx.http?.req, updated.id);
       return ok([`Updated: ${updated.url}`, ...updated.notices.map((n) => `Note: ${n}`)].join('\n'), { ...updated });
     } catch (error) {
       return fail(error);
     }
   });
 
-  server.registerTool(TOOLS.delete_share.name, cfg(TOOLS.delete_share), async (args) => {
+  server.registerTool(TOOLS.delete_share.name, cfg(TOOLS.delete_share), async (args, ctx: ToolCtx) => {
     try {
       const credential = await credentialFrom(args);
       const id = shareIdFrom(args.id);
       await deleteOwnedShare(id, credential);
+      invalidateShareFor(ctx.http?.req, id);
       return ok(`Deleted ${id}.`, { id, deleted: true });
     } catch (error) {
       return fail(error);

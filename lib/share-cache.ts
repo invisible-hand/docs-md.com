@@ -1,3 +1,4 @@
+import { AsyncLocalStorage } from 'node:async_hooks';
 import { revalidateTag, unstable_cache } from 'next/cache';
 import { cache } from 'react';
 import { dbOperations, type Share } from '@/lib/db';
@@ -70,6 +71,32 @@ class BlobUnreadableError extends Error {
   constructor(id: string) {
     super(`Markdown for share ${id} could not be read`);
   }
+}
+
+// Cache invalidation needs the Next.js request context. The MCP SDK runs tool handlers outside it
+// (seen live on 2026-11-14: an updated and a deleted document kept being served from the cache),
+// so the MCP route captures the context of each request (AsyncLocalStorage.snapshot) under an id
+// it puts in a request header, and tool handlers invalidate through that captured context.
+const SCOPE_HEADER = 'x-docsmd-scope';
+type Runner = <T>(fn: () => T) => T;
+const requestScopes = new Map<string, Runner>();
+
+/** Called by the MCP route inside the request: returns the request to hand to the MCP handler. */
+export function withRequestScope(request: Request): Request {
+  const id = crypto.randomUUID();
+  requestScopes.set(id, AsyncLocalStorage.snapshot() as Runner);
+  // A tool call is answered within seconds; drop the captured context afterwards.
+  setTimeout(() => requestScopes.delete(id), 120_000).unref?.();
+  const headers = new Headers(request.headers);
+  headers.set(SCOPE_HEADER, id);
+  return new Request(request, { headers });
+}
+
+/** Invalidate from a tool handler, inside the context captured for its HTTP request. */
+export function invalidateShareFor(request: Request | undefined, id: string): void {
+  const run = requestScopes.get(request?.headers.get(SCOPE_HEADER) ?? '');
+  if (run) run(() => invalidateShare(id));
+  else invalidateShare(id);
 }
 
 /** Drop the cached copy right away (expire: 0, not stale-while-revalidate). Call after any write to a share. */

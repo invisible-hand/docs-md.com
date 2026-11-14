@@ -23,6 +23,8 @@ const CORS = {
 const mcp = createMcpHandler((server) => registerTools(server), {
   serverInfo: SERVER_INFO,
   instructions: SERVER_INSTRUCTIONS,
+  // No server-initiated streams: every reply is read in full before it is returned (see handle()).
+  maxSubscriptions: 0,
 });
 
 function rpcError(status: number, code: number, message: string, headers: Record<string, string> = {}): Response {
@@ -48,7 +50,15 @@ async function handle(request: Request): Promise<Response> {
   const response = await mcp(withRequestScope(request));
   const headers = new Headers(response.headers);
   for (const [k, v] of Object.entries(CORS)) headers.set(k, v);
-  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+  // Read the whole reply before returning. The SDK answers a tool call through a stream, so the
+  // tool can still be running when the Response object exists; Next.js applies cache invalidations
+  // (revalidateTag after publish, update, delete) when the handler returns, and anything recorded
+  // after that point is lost (seen live on 2026-11-14: updated and deleted documents stayed cached).
+  // Replies are single messages, so nothing is lost by not streaming; long-lived subscription
+  // streams are switched off below.
+  const body = await response.arrayBuffer();
+  headers.delete('content-length');
+  return new Response(body.byteLength ? body : null, { status: response.status, statusText: response.statusText, headers });
 }
 
 export { handle as GET, handle as POST, handle as DELETE };

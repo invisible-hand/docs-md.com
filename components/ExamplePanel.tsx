@@ -3,9 +3,9 @@ import MarkdownRenderer from '@/components/MarkdownRenderer';
 import type { Example } from '@/lib/examples';
 
 // Renders a worked example from content/examples with the actions the
-// walkthrough pages promise: view raw, download, open in the viewer, open in
-// the editor. Nothing here publishes anything — sharing is always a separate,
-// explicit click in the homepage editor.
+// walkthrough pages promise: view raw, download, open in the viewer. Nothing
+// here publishes anything: posting is done by an agent through the MCP server
+// (the homepage editor this panel used to link to was removed on 2026-11-13).
 const ACTION =
   'rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700';
 
@@ -29,12 +29,6 @@ export default function ExamplePanel({ example }: { example: Example }) {
           </a>
           <Link href={`/markdown-viewer?example=${example.slug}`} className={ACTION}>
             Open in viewer
-          </Link>
-          <Link
-            href={`/?example=${example.slug}`}
-            className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-indigo-500"
-          >
-            Open in editor
           </Link>
         </div>
       </div>

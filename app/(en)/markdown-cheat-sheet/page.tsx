@@ -280,11 +280,11 @@ export default function MarkdownCheatSheetPage() {
             <Link href="/readme-generator" className="text-indigo-700 underline">
               README generator
             </Link>
-            , or{' '}
-            <Link href="/" className="text-indigo-700 underline">
-              share markdown as a link
+            , or ask your AI agent to{' '}
+            <Link href="/agents" className="text-indigo-700 underline">
+              publish markdown to Docs MD
             </Link>{' '}
-            that renders everything on this page — including the mermaid diagrams.
+            as a link that renders everything on this page — including the mermaid diagrams.
           </p>
         </section>
       </div>

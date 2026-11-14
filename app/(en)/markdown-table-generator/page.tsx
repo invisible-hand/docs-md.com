@@ -37,7 +37,7 @@ export default function MarkdownTableGeneratorPage() {
       {
         '@type': 'FAQPage',
         mainEntity: [
-          { '@type': 'Question', name: 'Does my data leave the browser?', acceptedAnswer: { '@type': 'Answer', text: 'No — the table is built entirely client-side. Nothing is uploaded unless you click Share as link, which publishes the markdown to a URL you control (it comes with an edit token and expires after 30 days).' } },
+          { '@type': 'Question', name: 'Does my data leave the browser?', acceptedAnswer: { '@type': 'Answer', text: 'No — the table is built entirely client-side and nothing is uploaded. Copy the markdown or download it as a .md file; to get a link, ask your AI agent to publish it to Docs MD.' } },
           { '@type': 'Question', name: 'Can I convert an Excel or Google Sheets range?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Copy the range in your spreadsheet, click Paste CSV / TSV, and paste — spreadsheet copies are tab-separated, which the parser detects automatically. The first row becomes the header.' } },
           { '@type': 'Question', name: 'Do GitHub and GitLab render these tables?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — tables are part of GitHub Flavored Markdown (GFM) and supported by GitHub, GitLab, Bitbucket, Discord (partially), Notion, and most documentation tools. See the markdown cheat sheet for the full GFM reference.' } },
         ],
@@ -121,9 +121,12 @@ export default function MarkdownTableGeneratorPage() {
             <div>
               <h2 className="text-lg font-semibold text-gray-950">Does my data leave the browser?</h2>
               <p>
-                No — the table is built entirely client-side. Nothing is uploaded unless you click{' '}
-                <em>Share as link</em>, which publishes the markdown to a URL you control (it comes
-                with an edit token and expires after 30 days).
+                No — the table is built entirely client-side and nothing is uploaded. Copy the
+                markdown or download it as a .md file; to get a link, ask your AI agent to{' '}
+                <Link href="/agents" className="text-indigo-700 underline">
+                  publish it to Docs MD
+                </Link>
+                .
               </p>
             </div>
             <div>
@@ -158,7 +161,7 @@ export default function MarkdownTableGeneratorPage() {
             <Link href="/markdown-formatter" className="text-indigo-700 underline">Markdown formatter</Link>{' · '}
             <Link href="/markdown-to-html" className="text-indigo-700 underline">Markdown to HTML</Link>{' · '}
             <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">Markdown cheat sheet</Link>{' · '}
-            <Link href="/" className="text-indigo-700 underline">Share markdown as a link</Link>
+            <Link href="/agents" className="text-indigo-700 underline">Publish markdown through your AI agent</Link>
           </p>
         </section>
       </div>

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/check-guides.mjs && node scripts/check-tool-guides.mjs && node scripts/check-discord-guides.mjs && node scripts/check-mermaid-examples.mjs && node scripts/check-i18n.mjs && next build && node scripts/indexnow-ping.mjs",
+    "build": "node scripts/check-guides.mjs && node scripts/check-tool-guides.mjs && node scripts/check-discord-guides.mjs && node scripts/check-mermaid-examples.mjs && node scripts/check-i18n.mjs && node scripts/check-agent-pages.mjs && node scripts/check-llms.mjs && next build && node scripts/indexnow-ping.mjs",
     "start": "next start",
     "lint": "eslint",
     "check:tool-guides": "node scripts/check-tool-guides.mjs",
@@ -14,15 +14,22 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:discord-guides": "node scripts/check-discord-guides.mjs",
     "check:mermaid-examples": "node scripts/check-mermaid-examples.mjs",
-    "check:guides": "node scripts/check-guides.mjs"
+    "check:guides": "node scripts/check-guides.mjs",
+    "check:agent-pages": "node scripts/check-agent-pages.mjs",
+    "check:llms": "node scripts/check-llms.mjs",
+    "test": "tsx scripts/test-agent-policy.ts && tsx scripts/test-url-safety.ts && tsx scripts/test-handoff.ts && tsx scripts/test-json-table.ts && tsx scripts/test-markdown-dialects.ts && tsx scripts/test-inert-links.tsx",
+    "test:e2e": "tsx scripts/test-agents-e2e.ts",
+    "db:migrate-agents": "tsx scripts/migrate-agents.ts",
+    "test:conformance": "conformance server --url ${MCP_URL:-http://localhost:3000/mcp} --scenario server-initialize && conformance server --url ${MCP_URL:-http://localhost:3000/mcp} --scenario ping && conformance server --url ${MCP_URL:-http://localhost:3000/mcp} --scenario tools-list"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.20.2",
+    "@modelcontextprotocol/server": "^2.4.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/blob": "^2.0.0",
     "@vercel/postgres": "^0.10.0",
     "github-slugger": "^2.0.0",
     "jspdf": "^3.0.3",
+    "mcp-handler": "^2.4.0",
     "mermaid": "^11.16.1",
     "nanoid": "^5.1.6",
     "next": "16.0.10",
@@ -40,17 +47,20 @@
     "turndown": "^7.2.4",
     "turndown-plugin-gfm": "^1.0.2",
     "unified": "^11.0.5",
-    "zod": "^3.25.76"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@modelcontextprotocol/conformance": "^0.1.16",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/turndown": "^5.0.6",
     "baseline-browser-mapping": "^2.10.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.0",
+    "pg": "^8.23.1",
     "tailwindcss": "^4",
     "tsx": "^4.20.6",
     "typescript": "^5"

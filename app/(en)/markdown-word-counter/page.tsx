@@ -69,14 +69,14 @@ export default function WordCounterPage() {
           as stuffing — anything above a few percent for a multi-word phrase is a lot. Top words
           (with common stop words hidden) show the same thing without you having to guess the
           phrase. When the document is ready, the{' '}
-          <Link href="/" className="text-indigo-700 underline">
-            share tool
-          </Link>{' '}
-          turns it into a link, and the{' '}
           <Link href="/markdown-to-pdf" className="text-indigo-700 underline">
             PDF converter
           </Link>{' '}
-          into a file.
+          turns it into a file; for a link, ask your AI agent to{' '}
+          <Link href="/agents" className="text-indigo-700 underline">
+            publish it to Docs MD
+          </Link>
+          .
         </p>
       </section>
     </ToolPage>

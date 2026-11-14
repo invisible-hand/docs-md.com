@@ -18,16 +18,26 @@ export default function NotFoundPage() {
           Not Found
         </h2>
         <p className="text-gray-600 mb-6">
-          This markdown file does not exist or has expired.
+          This page does not exist. If it was a shared document, it has expired or was deleted.
           <br />
-          <span className="text-sm text-gray-500">Links expire after 30 days.</span>
+          <span className="text-sm text-gray-500">
+            Documents are published here by AI agents. The default expiry is 30 days.
+          </span>
         </p>
-        <Link
-          href="/"
-          className="inline-block px-6 py-3 bg-gray-950 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
-        >
-          Share New Markdown
-        </Link>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Link
+            href="/"
+            className="inline-block px-6 py-3 bg-gray-950 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
+          >
+            Go to the homepage
+          </Link>
+          <Link
+            href="/agents"
+            className="inline-block px-6 py-3 border border-gray-300 text-gray-800 rounded-lg hover:border-gray-500 transition-colors text-sm font-medium"
+          >
+            For agents
+          </Link>
+        </div>
       </div>
     </div>
   );

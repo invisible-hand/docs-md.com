@@ -143,7 +143,7 @@ radar-beta
       h2: 'Which platforms render a Mermaid radar chart?',
       paragraphs: [
         'Only renderers on Mermaid 11.6.0 or later. The type is young, and platforms embed their own copy of Mermaid: docs-md.com runs 11.16, GitLab’s Markdown documentation states the Mermaid major version it supports, and GitHub’s documentation suggests rendering the one-word `info` diagram to see the version it uses. The [Mermaid in Markdown](/mermaid-in-markdown) page shows that check and how GitHub, GitLab, Obsidian, Notion and VS Code embed diagrams.',
-        'Where the renderer is too old, readers see the code, which for a radar chart is still a readable table of axes and values. To share the drawn chart with people outside those platforms, paste the Markdown into the [Docs MD editor](/) and send the link, or [convert the document to PDF](/markdown-to-pdf).',
+        'Where the renderer is too old, readers see the code, which for a radar chart is still a readable table of axes and values. To share the drawn chart with people outside those platforms, have your AI agent publish the Markdown to [Docs MD](/agents) and send the link, or [convert the document to PDF](/markdown-to-pdf).',
       ],
     },
     {

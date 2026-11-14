@@ -37,7 +37,7 @@ async function runCleanup(request: NextRequest) {
     let failedCount = 0;
     for (let i = 0; i < expiredShares.length; i += CLEANUP_BATCH_SIZE) {
       const batch = expiredShares.slice(i, i + CLEANUP_BATCH_SIZE);
-      const blobsDeleted = await storageOperations.deleteMarkdownBatch(batch.map((s) => s.blob_url));
+      const blobsDeleted = await storageOperations.deleteMarkdownBatch(batch.map((s) => s.blob_url).filter((u): u is string => Boolean(u)));
       if (!blobsDeleted) {
         failedCount += batch.length;
         continue;
@@ -51,11 +51,18 @@ async function runCleanup(request: NextRequest) {
       return 0;
     });
 
+    // Minute-level write counters are only read inside their own minute; keep an hour for inspection.
+    const prunedRateWindows = await dbOperations.pruneRateWindows(Date.now() - 60 * 60 * 1000).catch((error) => {
+      console.error('Error pruning rate windows:', error);
+      return 0;
+    });
+
     return NextResponse.json({
       success: failedCount === 0,
       deletedCount,
       failedCount,
       prunedQuotaRows,
+      prunedRateWindows,
       message: `Cleaned up ${deletedCount} expired shares`,
     });
   } catch (error) {

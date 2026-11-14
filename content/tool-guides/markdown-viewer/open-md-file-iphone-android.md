@@ -43,7 +43,7 @@ Wide content does not fit a phone screen. Tables with many columns, long code li
 
 ## Can I send someone a .md file to read on their phone?
 
-You can, but they will probably see raw text, for the reasons above. If the reader is not technical, send something their phone renders on its own: a PDF, or a link to a rendered web page. The viewer's **Share as link** button publishes the document to a short address that opens as a formatted page in any mobile browser. Treat that link as public to anyone who has it. The [guide to sharing a rendered markdown file](/markdown-viewer/render-markdown-to-pdf-or-link) compares the PDF and link routes.
+You can, but they will probably see raw text, for the reasons above. If the reader is not technical, send something their phone renders on its own: a PDF, or a link to a rendered web page. For a link, ask your AI agent to [publish the file to Docs MD](/agents); the short address it returns opens as a formatted page in any mobile browser. Treat that link as public to anyone who has it. The [guide to sharing a rendered markdown file](/markdown-viewer/render-markdown-to-pdf-or-link) compares the PDF and link routes.
 
 ## Is it safe to open a .md file on my phone?
 

@@ -159,7 +159,7 @@ xychart-beta
       h2: 'Where do Mermaid diagrams render?',
       paragraphs: [
         'In more places each year, which is the main reason to learn the syntax once. GitHub renders `mermaid` blocks in issues, pull requests, discussions, wikis and Markdown files. GitLab renders them in its Markdown and states in its documentation which Mermaid major version it supports. Notion added Mermaid to its code block in December 2021: choose Mermaid as the language and switch the block to preview. Obsidian renders `mermaid` code blocks in notes, and VS Code’s built-in Markdown preview renders them from version 1.121, where earlier versions needed an extension. Mermaid’s own integrations list marks Azure DevOps wikis as native support and lists several Marketplace apps that add Mermaid to Confluence and Jira.',
-        'The catch is the version. Each platform ships its own copy of Mermaid and updates on its own schedule, so a diagram type or option added recently, such as kanban in 11.4.0 or radar charts in 11.6.0, renders on one platform and shows as code or an error on another. GitHub’s documentation suggests rendering the one-word `info` diagram to see the version in use; the [Mermaid in Markdown](/mermaid-in-markdown) page shows that check. When the audience is outside those tools, paste the Markdown into the [Docs MD editor](/) and share the link; the shared page renders every diagram with Mermaid 11.16.',
+        'The catch is the version. Each platform ships its own copy of Mermaid and updates on its own schedule, so a diagram type or option added recently, such as kanban in 11.4.0 or radar charts in 11.6.0, renders on one platform and shows as code or an error on another. GitHub’s documentation suggests rendering the one-word `info` diagram to see the version in use; the [Mermaid in Markdown](/mermaid-in-markdown) page shows that check. When the audience is outside those tools, have your AI agent publish the Markdown to [Docs MD](/agents) and share the link; the shared page renders every diagram with Mermaid 11.16.',
       ],
     },
   ],
@@ -174,7 +174,7 @@ xychart-beta
     },
     {
       q: 'Do I need to install anything to use Mermaid?',
-      a: 'Not on a platform that already supports it. Write the diagram in a `mermaid` code block in GitHub, GitLab, Notion, Obsidian, VS Code or the Docs MD editor and it is drawn for you. You only install Mermaid, from npm or a CDN script tag, when you want diagrams on your own website or in a build pipeline. The Live Editor at mermaid.live needs nothing installed either.',
+      a: 'Not on a platform that already supports it. Write the diagram in a `mermaid` code block in GitHub, GitLab, Notion, Obsidian, VS Code or the Docs MD Markdown viewer and it is drawn for you. You only install Mermaid, from npm or a CDN script tag, when you want diagrams on your own website or in a build pipeline. The Live Editor at mermaid.live needs nothing installed either.',
     },
     {
       q: 'Which Mermaid diagram should I use?',

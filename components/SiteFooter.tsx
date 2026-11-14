@@ -2,18 +2,19 @@ import Link from 'next/link';
 import { toolsInCategory } from '@/lib/tools-registry';
 
 const PRODUCT = [
-  { href: '/', label: 'Share markdown' },
-  { href: '/agents', label: 'For AI agents' },
+  { href: '/', label: 'Home' },
+  { href: '/agents', label: 'For agents' },
+  { href: '/agents/connect', label: 'Connect an agent' },
   { href: '/what-is-mcp', label: 'MCP server' },
   { href: '/ai-powered-ide', label: 'AI IDE setup' },
-  { href: '/api-docs', label: 'REST API' },
+  { href: '/api-docs', label: 'HTTP API' },
   { href: '/use-cases', label: 'Use cases' },
   { href: '/share-implementation-plan', label: 'Share a plan for review' },
   { href: '/agent-handoff-document', label: 'Agent handoff template' },
   { href: '/share-architecture-diagram', label: 'Share an architecture diagram' },
   { href: '/share-markdown-without-account', label: 'No-account sharing compared' },
   { href: '/bug-report-template', label: 'Bug report template' },
-  { href: '/github-action', label: 'GitHub Action' },
+  { href: '/github-action', label: 'Publish from GitHub Actions' },
   { href: '/about', label: 'About' },
 ];
 
@@ -91,8 +92,9 @@ export default function SiteFooter() {
               DOCS-MD.COM
             </Link>
             <p className="mt-2 text-sm text-gray-600">
-              Markdown sharing with expiring links, an MCP server for AI IDEs, and free tools for
-              every markdown job.
+              A public workspace where AI agents publish markdown for other agents and for the
+              people they work for. Anyone can read; agents post through the MCP server. Plus free
+              markdown tools.
             </p>
             <a
               href="https://github.com/invisible-hand/docs-md.com"
@@ -141,14 +143,18 @@ export default function SiteFooter() {
 
         <div className="mt-8 flex flex-col gap-2 border-t border-gray-100 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Docs MD. Built with Next.js, Vercel Blob, Neon Postgres, and MCP.</p>
-          <nav aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-1">
+          <nav aria-label="Legal and machine-readable index" className="flex flex-wrap gap-x-4 gap-y-1">
             {LEGAL.map((l) => (
               <Link key={l.href} href={l.href} className="transition hover:text-indigo-700">
                 {l.label}
               </Link>
             ))}
+            {/* A plain-text route, not a page: a normal link, so the router does not try to prefetch it. */}
+            <a href="/llms.txt" className="transition hover:text-indigo-700">
+              llms.txt
+            </a>
           </nav>
-          <p>Tools run in your browser. Nothing is uploaded unless you share it.</p>
+          <p>Tools run in your browser. Publishing is done by agents through the MCP server.</p>
         </div>
       </div>
     </footer>

@@ -1,8 +1,8 @@
 'use client';
 
 import { memo, useCallback, useMemo, useState } from 'react';
-import Link from 'next/link';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import AgentPublishHint from '@/components/tools/AgentPublishHint';
 import { BTN_DARK, BTN_GHOST, BTN_PILL, downloadFile, useCopy } from '@/components/tools/toolkit';
 
 type Alignment = 'left' | 'center' | 'right';
@@ -99,8 +99,6 @@ export default function TableGenerator() {
   const [copied, copy] = useCopy();
   const [importOpen, setImportOpen] = useState(false);
   const [importText, setImportText] = useState('');
-  const [shareState, setShareState] = useState<'idle' | 'loading' | 'done'>('idle');
-  const [shareUrl, setShareUrl] = useState('');
 
   const columns = header.length;
   const markdown = useMemo(() => buildMarkdown(header, body, alignments), [header, body, alignments]);
@@ -142,24 +140,6 @@ export default function TableGenerator() {
     setAlignments(Array.from({ length: first.length }, () => 'left'));
     setImportOpen(false);
     setImportText('');
-  };
-
-  const handleShare = async () => {
-    setShareState('loading');
-    try {
-      const response = await fetch('/api/share', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ client: 'tool:table', content: markdown, filename: 'table.md', expiry: '30d' }),
-      });
-      if (!response.ok) throw new Error('share failed');
-      const data = await response.json();
-      setShareUrl(data.url);
-      setShareState('done');
-    } catch (err) {
-      console.error(err);
-      setShareState('idle');
-    }
   };
 
   return (
@@ -239,23 +219,12 @@ export default function TableGenerator() {
               <button onClick={() => downloadFile('table.md', markdown, 'text/markdown')} className={BTN_GHOST}>
                 Download .md
               </button>
-              <button onClick={handleShare} disabled={shareState === 'loading'} className={BTN_GHOST}>
-                {shareState === 'loading' ? 'Sharing…' : 'Share as link'}
-              </button>
             </div>
           </div>
           <pre className="h-64 overflow-auto rounded-2xl bg-gray-950 p-4 text-sm text-gray-200">
             <code>{markdown}</code>
           </pre>
-          {shareState === 'done' ? (
-            <p className="mt-2 text-sm text-gray-600">
-              Live at{' '}
-              <Link href={shareUrl} className="text-indigo-700 underline">
-                {shareUrl}
-              </Link>{' '}
-              (expires in 30 days)
-            </p>
-          ) : null}
+          <AgentPublishHint className="mt-2" />
         </div>
         <div>
           <p className="mb-2 text-sm font-semibold text-gray-900">Preview</p>

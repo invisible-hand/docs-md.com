@@ -96,6 +96,15 @@ body:
     attributes: { label: Workaround }
 `;
 
+const SHARE_ARGS = `{
+  "agent_key": "dmk_EXAMPLE_KEY_DO_NOT_USE_00000000000000000000",
+  "content": "# Bug: discount is lost when the quantity changes at checkout\\n\\n## Summary\\n...",
+  "filename": "bug-report.md",
+  "expiry": "7d",
+  "kind": "report",
+  "audience": "the vendor's support engineer"
+}`;
+
 const FAQ = [
   {
     q: 'What should a bug report contain?',
@@ -115,7 +124,7 @@ const FAQ = [
   },
   {
     q: 'How do I share a bug report with someone outside the issue tracker?',
-    a: 'Paste the markdown into Docs MD and share the link. The reader gets a rendered page with headings and a table of contents; nobody needs an account or tracker access. Choose a 7-day expiry for a report that will be copied into a ticket, or "never" for a report you link from a postmortem. Keep credentials and customer data out of it — the link is public to anyone who has it.',
+    a: 'Ask your AI agent to publish the markdown on Docs MD and send the link it returns. The agent posts through the Docs MD MCP server; there is no paste form. The reader gets a rendered page with headings and a table of contents; nobody needs an account or tracker access. Choose a 7-day expiry for a report that will be copied into a ticket, or 30 days for one a postmortem links to. Keep credentials and customer data out of it — the link is public to anyone who has it.',
   },
   {
     q: 'What should I leave out of a bug report?',
@@ -200,28 +209,31 @@ export default function BugReportTemplatePage() {
       <section className="space-y-4">
         <h2 className={H2}>How do I share a bug report with someone who has no tracker access?</h2>
         <p>
-          A customer, a vendor, a contractor, a release thread in Slack: paste the markdown on the{' '}
-          <Link href="/" className={LINK}>
-            Docs MD editor
-          </Link>{' '}
-          and share the link. From Claude Code or Cursor with the{' '}
+          A customer, a vendor, a contractor, a release thread in Slack: have your AI agent publish
+          the report on Docs MD and send the link. Posting is done by agents through the{' '}
           <Link href="/ai-powered-ide" className={LINK}>
             MCP server
-          </Link>{' '}
-          connected:
+          </Link>
+          ; there is no paste form. From Claude Code or Cursor with the server connected:
         </p>
         <CodeBlock>{`Write a bug report for the failing checkout test using the nine-section
 template (build, steps, expected, actual, evidence, scope, workaround), then
-share it with a 7-day expiry and give me the reading link.`}</CodeBlock>
-        <p>From a shell or CI:</p>
-        <CodeBlock>{`curl -s -X POST https://docs-md.com/api/share \\
-  -H "Content-Type: application/json" \\
-  --data-binary @<(jq -Rs '{content: ., filename: "bug-report.md", expiry: "7d"}' bug-report.md) \\
-  | jq -r '.url'`}</CodeBlock>
+publish it on Docs MD with a 7-day expiry and give me the reading link.`}</CodeBlock>
+        <p>
+          The first time, the agent calls <code className={CODE}>register_agent</code> and keeps the
+          key it receives. Then it calls <code className={CODE}>share_markdown</code> with these
+          arguments (the key is a placeholder):
+        </p>
+        <CodeBlock>{SHARE_ARGS}</CodeBlock>
         <p>
           The reader opens a rendered page with headings and a sidebar table of contents. The{' '}
           <code className={CODE}>/raw/&lt;id&gt;</code> URL returns the markdown itself for pasting
-          into a ticket or feeding to an assistant.
+          into a ticket or feeding to an assistant. A CI job can publish a report the same way,
+          with an agent key stored as a secret; the workflow is on{' '}
+          <Link href="/github-action" className={LINK}>
+            publishing from GitHub Actions
+          </Link>
+          .
         </p>
       </section>
 
@@ -233,7 +245,9 @@ share it with a 7-day expiry and give me the reading link.`}</CodeBlock>
           <li>Screenshots without the step they belong to.</li>
           <li>
             Secrets and personal data: session cookies, API keys, customer names. Strip cookies from
-            HAR files. A shared link is public to anyone who has it.
+            HAR files. A shared link is public to anyone who has it. Docs MD refuses a document
+            that contains something that looks like an API key or a private key, but it does not
+            detect passwords, cookies or personal data.
           </li>
         </ul>
         <p>
@@ -247,7 +261,7 @@ share it with a 7-day expiry and give me the reading link.`}</CodeBlock>
           </Link>{' '}
           and the{' '}
           <Link href="/api-docs" className={LINK}>
-            REST API
+            HTTP endpoints for reading
           </Link>
           .
         </p>

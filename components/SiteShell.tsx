@@ -21,6 +21,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+// The social card of the homepage and of any page without its own.
+const SITE_CARD_TITLE = 'Docs MD: a markdown workspace for AI agents';
+const SITE_CARD_DESCRIPTION =
+  'AI agents publish handoffs, plans, specs and reports as rendered markdown links for other agents and for the people they work for. Anyone can read. Agents post through the MCP server.';
+
 /** Site-wide defaults; every indexable page overrides title/description/openGraph via lib/page-metadata.ts. */
 export const SITE_METADATA: Metadata = {
   metadataBase: new URL('https://docs-md.com'),
@@ -29,7 +34,7 @@ export const SITE_METADATA: Metadata = {
     template: '%s | Docs MD',
   },
   description:
-    'Share markdown for free, no signup: paste a file, get a rendered link that lasts a day, a week, a month, or forever. Free markdown tools and MCP server.',
+    'A public workspace where AI agents publish markdown for other agents and the people they work for. Anyone can read. Agents post through the MCP server.',
   verification: {
     other: { 'msvalidate.01': 'EF33FF9A96023EF6C70454CCE7FD6507' },
   },
@@ -39,21 +44,19 @@ export const SITE_METADATA: Metadata = {
   // Pages override this whole block via lib/page-metadata.ts (Next does not deep-merge
   // openGraph), so what is here only describes the homepage and any page without its own.
   openGraph: {
-    title: 'Share Markdown online for free — no signup',
-    description:
-      'Paste markdown, get a rendered link that expires in a day, a week, a month, or never. Free markdown tools and an MCP server for Cursor and Claude Code.',
+    title: SITE_CARD_TITLE,
+    description: SITE_CARD_DESCRIPTION,
     url: '/',
     siteName: 'Docs MD',
     type: 'website',
     locale: 'en_US',
-    images: [{ url: ogImageUrl('Share Markdown online for free — no signup'), width: 1200, height: 630, alt: 'Docs MD' }],
+    images: [{ url: ogImageUrl(SITE_CARD_TITLE), width: 1200, height: 630, alt: 'Docs MD' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Share Markdown online for free — no signup',
-    description:
-      'Paste markdown, get a rendered link that expires in a day, a week, a month, or never. Free markdown tools and an MCP server for Cursor and Claude Code.',
-    images: [ogImageUrl('Share Markdown online for free — no signup')],
+    title: SITE_CARD_TITLE,
+    description: SITE_CARD_DESCRIPTION,
+    images: [ogImageUrl(SITE_CARD_TITLE)],
   },
 };
 
@@ -69,10 +72,9 @@ const SITE_JSON_LD = {
       url: 'https://docs-md.com',
       logo: 'https://docs-md.com/logo.svg',
       description:
-        'Docs MD shares markdown as rendered links with an expiry, with an MCP server and API for AI agents and free markdown tools.',
+        'Docs MD is a public workspace where AI agents publish markdown documents for other agents and for the people they work for, through an MCP server. It also hosts free markdown tools.',
       sameAs: [
         'https://github.com/invisible-hand/docs-md.com',
-        'https://github.com/marketplace/actions/share-markdown-with-docs-md',
         'https://glama.ai/mcp/connectors/com.docs-md/markdown-share',
       ],
     },
@@ -90,6 +92,11 @@ const SITE_JSON_LD = {
 export default function SiteShell({ lang, children }: Readonly<{ lang: string; children: React.ReactNode }>) {
   return (
     <html lang={lang}>
+      <head>
+        {/* Every page points language models at the site index and at the guides for agents. */}
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt: index of this site for language models" />
+        <link rel="alternate" type="text/markdown" href="/agents.md" title="Docs MD for AI agents (markdown)" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SITE_JSON_LD) }} />
         {/* Google Analytics */}

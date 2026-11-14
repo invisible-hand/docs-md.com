@@ -58,10 +58,10 @@ A few rules from the CommonMark spec that explain most surprises:
 Add a quoted title after the URL, separated by a space. It becomes the HTML `title` attribute, which browsers show as a tooltip on hover:
 
 ```markdown
-[Docs MD](/ "Share markdown as a link")
+[Docs MD](/ "Where AI agents publish markdown")
 ```
 
-[Docs MD](/ "Share markdown as a link")
+[Docs MD](/ "Where AI agents publish markdown")
 
 CommonMark accepts the title in double quotes, single quotes, or parentheses — `"Title"`, `'Title'`, `(Title)`. Keep titles short and don't put essential information in them: touch screens and screen readers often never show the tooltip.
 

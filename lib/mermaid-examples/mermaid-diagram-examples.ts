@@ -156,7 +156,7 @@ Activated,Free tier,490`,
       h2: 'How do you use these examples?',
       paragraphs: [
         'Each copy button on this page copies the example wrapped in a fenced code block tagged `mermaid`, which is the form GitHub, GitLab, Obsidian, Notion and VS Code recognise. Paste it into a README, an issue, a note or a wiki page and the platform draws the diagram. Then edit the labels and numbers in place; because the diagram is text, the picture follows. The [Mermaid in Markdown](/mermaid-in-markdown) page shows the embedding on each platform and how to check which Mermaid version a platform runs.',
-        'To share a rendered diagram with people who are not in your repository or workspace, paste the Markdown into the [Docs MD editor](/) and send the link: the shared page renders every `mermaid` block with Mermaid 11.16 and prints cleanly, and [PDF export](/markdown-to-pdf) draws the diagrams before converting. The [architecture diagram guide](/share-architecture-diagram) walks through a typical document with several diagrams.',
+        'To share a rendered diagram with people who are not in your repository or workspace, have your AI agent publish the Markdown to [Docs MD](/agents) and send the link: the shared page renders every `mermaid` block with Mermaid 11.16 and prints cleanly, and [PDF export](/markdown-to-pdf) draws the diagrams before converting. The [architecture diagram guide](/share-architecture-diagram) walks through a typical document with several diagrams.',
       ],
     },
     {

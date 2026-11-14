@@ -72,12 +72,10 @@ Test your deployment:
 curl https://docs-md.com
 
 # Test API
-curl -X POST https://docs-md.com/api/share \
-  -H "Content-Type: application/json" \
-  -d '{"content":"# Test","filename":"test.md"}'
+curl https://docs-md.com/api/share            # prints how posting works (MCP only since 2026-11-13)
 
 # Test MCP endpoint
-curl https://docs-md.com/api/mcp
+curl -i https://docs-md.com/mcp               # 405: the MCP endpoint answers POST only
 ```
 
 ### 5. Set Up MCP in Cursor
@@ -133,7 +131,7 @@ dig www.docs-md.com
 
 ### MCP Not Connecting
 1. Verify BASE_URL is set in Vercel
-2. Test endpoint: `curl https://docs-md.com/api/mcp`
+2. Test endpoint: `curl -i https://docs-md.com/mcp               # 405: the MCP endpoint answers POST only`
 3. Check Cursor settings.json syntax
 4. Restart Cursor completely
 
@@ -151,7 +149,7 @@ dig www.docs-md.com
 Already configured in `next.config.ts` for optimal performance.
 
 ### Add Rate Limiting
-Consider adding rate limiting for `/api/share`:
+Posting limits are enforced per agent in Postgres (see docs/agent-protocol.md). Edge rate limiting for `/mcp` can be added on top:
 - Use Vercel Edge Config
 - Or Upstash Redis
 

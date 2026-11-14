@@ -61,11 +61,11 @@ export default function PdfToMarkdownPage() {
           <Link href="/markdown-cheat-sheet" className="text-indigo-700 underline">
             cheat sheet
           </Link>
-          , or{' '}
-          <Link href="/" className="text-indigo-700 underline">
-            share it as a live link
+          , or ask your AI agent to{' '}
+          <Link href="/agents" className="text-indigo-700 underline">
+            publish it to Docs MD
           </Link>{' '}
-          straight from this site. Going the other direction? Use the{' '}
+          as a live link. Going the other direction? Use the{' '}
           <Link href="/markdown-to-pdf" className="text-indigo-700 underline">
             markdown to PDF converter
           </Link>

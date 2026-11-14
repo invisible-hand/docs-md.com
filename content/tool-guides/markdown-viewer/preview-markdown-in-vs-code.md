@@ -77,7 +77,7 @@ If single line breaks in your source should appear as line breaks in the preview
 
 ## Can I export or share the preview?
 
-VS Code's preview has no export or share command. To get a PDF, see [exporting markdown to PDF from VS Code](/markdown-to-pdf/vs-code-markdown-to-pdf), which compares an extension, a browser converter and Pandoc. To send a rendered page to someone without VS Code, copy the file's content into the [markdown viewer](/markdown-viewer) and click **Share as link**, which publishes it at a short address that opens in any browser.
+VS Code's preview has no export or share command. To get a PDF, see [exporting markdown to PDF from VS Code](/markdown-to-pdf/vs-code-markdown-to-pdf), which compares an extension, a browser converter and Pandoc. To send a rendered page to someone without VS Code, ask your AI agent to [publish the file to Docs MD](/agents); it gets back a short address that opens in any browser. To check the rendering first, paste the content into the [markdown viewer](/markdown-viewer).
 
 ## What if I do not have VS Code?
 

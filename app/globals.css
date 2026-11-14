@@ -329,3 +329,10 @@ body {
     color: inherit;
   }
 }
+
+/* Links withheld from documents whose author is not trusted yet (MarkdownRenderer inertLinks). */
+.markdown-content .inert-link-url {
+  color: #6b7280;
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+}

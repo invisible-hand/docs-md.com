@@ -126,7 +126,7 @@ kanban
       h2: 'Which Mermaid version do you need, and where does kanban render?',
       paragraphs: [
         'Kanban needs Mermaid 11.4.0 or later. That matters more than for older types, because platforms embed their own copy of Mermaid and update it on their own schedule: a board that renders on docs-md.com or in a current VS Code may show as plain code or an error in a tool that is still on Mermaid 10. GitHub renders `mermaid` blocks in issues, pull requests, discussions, wikis and Markdown files, and its documentation suggests rendering the one-word `info` diagram to see the version it runs; GitLab’s Markdown documentation states the Mermaid major version it supports. The [Mermaid in Markdown](/mermaid-in-markdown) page shows the version check and how each platform embeds a diagram.',
-        'When the reader’s platform cannot draw it, the fallback is the text itself, which for a kanban is still a legible list of columns and tasks. To share the rendered board with people outside your repository, paste the Markdown into the [Docs MD editor](/) and send the link, or [convert the document to PDF](/markdown-to-pdf).',
+        'When the reader’s platform cannot draw it, the fallback is the text itself, which for a kanban is still a legible list of columns and tasks. To share the rendered board with people outside your repository, have your AI agent publish the Markdown to [Docs MD](/agents) and send the link, or [convert the document to PDF](/markdown-to-pdf).',
       ],
     },
     {

@@ -1,9 +1,9 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Link from 'next/link';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-import { BTN_DARK, BTN_GHOST, BTN_PRIMARY, downloadFile, useCopy, wordCount } from '@/components/tools/toolkit';
+import AgentPublishHint from '@/components/tools/AgentPublishHint';
+import { BTN_GHOST, BTN_PRIMARY, downloadFile, useCopy, wordCount } from '@/components/tools/toolkit';
 import { extractToc } from '@/lib/toc';
 
 const STARTER = `# Markdown viewer
@@ -14,7 +14,7 @@ Drop a \`.md\` file onto this page, paste markdown, or load a file from a URL �
 
 - [x] Read a README without cloning the repo
 - [x] Print it or save as PDF from the browser
-- [ ] Share the rendered page as a link (30-day expiry)
+- [ ] Get a link: ask your AI agent to publish it to Docs MD
 
 | Control | Effect |
 | ------- | ------ |
@@ -26,7 +26,7 @@ Drop a \`.md\` file onto this page, paste markdown, or load a file from a URL �
 flowchart LR
   A[.md file] --> B{Viewer}
   B --> C[Print]
-  B --> D[Share link]
+  B --> D[Download .md]
 \`\`\`
 
 > Tip: link straight to a rendered file with \`?url=https://raw.githubusercontent.com/...\`
@@ -40,7 +40,7 @@ export const VIEWER_LABELS_EN = {
   loadExample: 'Load example',
   hideSource: 'Hide source',
   editSource: 'Edit source',
-  privacy: 'Files open in your browser with the File API and are not uploaded. The only network requests are the optional Load from URL fetch and, if you click it, Share as link.',
+  privacy: 'Files open in your browser with the File API and are not uploaded. The only network request is the optional Load from URL fetch.',
   openSourceBefore: 'The viewer is',
   openSource: 'open source',
   size: 'Size',
@@ -51,15 +51,10 @@ export const VIEWER_LABELS_EN = {
   copy: 'Copy',
   copied: 'Copied ✓',
   download: 'Download',
-  share: 'Share as link',
-  sharing: 'Sharing…',
-  liveAt: 'Live at',
-  expires30: '(expires in 30 days)',
   corsError:
     'Could not fetch that URL from the browser — the host does not allow cross-origin reads (CORS). Download the file and drop it here instead. GitHub raw and gist URLs work.',
   loadError: 'Could not load:',
   exampleError: 'Could not load that example.',
-  shareError: 'Sharing failed — please try again.',
   sourceAria: 'Markdown source',
   sourcePlaceholder: 'Paste markdown here, or drop a .md file anywhere on this panel.',
   outline: 'Outline',
@@ -100,8 +95,6 @@ export default function MarkdownViewer({ labels, starter = STARTER }: MarkdownVi
   const [wide, setWide] = useState(false);
   const [paper, setPaper] = useState(true);
   const [dragging, setDragging] = useState(false);
-  const [shareState, setShareState] = useState<'idle' | 'loading' | 'done'>('idle');
-  const [shareUrl, setShareUrl] = useState('');
   const [copied, copy] = useCopy();
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -166,24 +159,6 @@ export default function MarkdownViewer({ labels, starter = STARTER }: MarkdownVi
       setError('');
     });
   }, []);
-
-  const handleShare = async () => {
-    setShareState('loading');
-    try {
-      const response = await fetch('/api/share', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ client: 'tool:viewer', content, filename: fileName, expiry: '30d' }),
-      });
-      if (!response.ok) throw new Error('share failed');
-      const data = (await response.json()) as { url: string };
-      setShareUrl(data.url);
-      setShareState('done');
-    } catch {
-      setShareState('idle');
-      setError(L.shareError);
-    }
-  };
 
   const toc = useMemo(() => extractToc(content), [content]);
   const stats = useMemo(() => wordCount(content), [content]);
@@ -282,21 +257,10 @@ export default function MarkdownViewer({ labels, starter = STARTER }: MarkdownVi
         <button type="button" className={BTN_GHOST} onClick={() => downloadFile(fileName.endsWith('.md') ? fileName : `${fileName}.md`, content, 'text/markdown')}>
           {L.download}
         </button>
-        <button type="button" className={BTN_DARK} onClick={handleShare} disabled={shareState === 'loading' || !content.trim()}>
-          {shareState === 'loading' ? L.sharing : L.share}
-        </button>
       </div>
 
       {error && <p className="mb-4 rounded-xl bg-red-50 px-4 py-2 text-sm text-red-700 print:hidden">{error}</p>}
-      {shareState === 'done' && (
-        <p className="mb-4 text-sm text-gray-600 print:hidden">
-          {L.liveAt}{' '}
-          <Link href={shareUrl} className="text-indigo-700 underline">
-            {shareUrl}
-          </Link>{' '}
-          {L.expires30}
-        </p>
-      )}
+      <AgentPublishHint className="mb-4 print:hidden" />
 
       <div className={`grid gap-4 ${editing ? 'lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]' : toc.length > 1 ? 'lg:grid-cols-[200px_minmax(0,1fr)]' : ''}`}>
         {editing ? (

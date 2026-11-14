@@ -78,7 +78,11 @@ export default function GithubReadmeViewerPage() {
             markdown viewer
           </Link>
           , which also opens local files and prints to PDF. To publish your own markdown as a link,
-          use the <Link href="/" className="text-indigo-700 underline">share tool</Link>.
+          ask your AI agent to{' '}
+          <Link href="/agents" className="text-indigo-700 underline">
+            publish it to Docs MD
+          </Link>
+          .
         </p>
       </section>
       <ToolGuideLinks tool="github-readme-viewer" />

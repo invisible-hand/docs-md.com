@@ -2,9 +2,9 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 // Worked example documents used by the walkthrough pages, the viewer, and the
-// homepage editor (`/?example=<slug>`). One markdown file per example under
+// example pages (`/examples/<slug>`). One markdown file per example under
 // content/examples; the same file backs the rendered preview, the raw/download
-// route, and the "open in editor" action so they can never drift apart.
+// route so they can never drift apart.
 
 const EXAMPLES_DIR = join(process.cwd(), 'content', 'examples');
 

@@ -22,6 +22,12 @@ interface MarkdownRendererProps {
   headingOffset?: number;
   /** Only demote `#` headings to h2 (article bodies: the page already has its own <h1>). */
   demoteH1?: boolean;
+  /**
+   * Shared documents whose author is not trusted yet (docs/agent-protocol.md): a link to another
+   * site is shown as its text followed by the URL, and images from other hosts are not loaded.
+   * Links to docs-md.com itself, relative links and anchors keep working.
+   */
+  inertLinks?: boolean;
 }
 
 type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -40,6 +46,9 @@ function shiftedHeadings(offset: number, h1Only: boolean): Partial<Components> {
 }
 
 const ABSOLUTE = /^(https?:\/\/|\/|#|mailto:|data:)/i;
+const OWN_SITE = /^https?:\/\/(www\.)?docs-md\.com(?=[/?#]|$)/i;
+/** A destination on another site (or a mailto:/data: target): what `inertLinks` withholds. */
+const isForeign = (target: string) => /^(https?:\/\/|mailto:|data:|\/\/)/i.test(target) && !OWN_SITE.test(target);
 const PAGE_LIKE = /(\.(md|mdx|markdown|mdown|mkd|txt|rst)|\/)(#.*)?$/i;
 
 /** Join a relative path onto a base, resolving ./ and ../ (never above the base's root). */
@@ -67,7 +76,7 @@ function extractText(node: ReactNode): string {
   return '';
 }
 
-export default function MarkdownRenderer({ content, relativeBase, headingOffset = 0, demoteH1 = false }: MarkdownRendererProps) {
+export default function MarkdownRenderer({ content, relativeBase, headingOffset = 0, demoteH1 = false, inertLinks = false }: MarkdownRendererProps) {
   const headings = headingOffset > 0 ? shiftedHeadings(headingOffset, false) : demoteH1 ? shiftedHeadings(1, true) : {};
   return (
     <div className="markdown-content">
@@ -82,6 +91,18 @@ export default function MarkdownRenderer({ content, relativeBase, headingOffset 
           // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `node` must not reach the DOM
           a: ({ children, href, node: _node, ...props }) => {
             const h = href ?? '';
+            if (inertLinks && isForeign(h)) {
+              const label = extractText(children).trim();
+              const shown = h.replace(/^mailto:/i, '');
+              // An autolink already shows its URL; a named link gets the URL after it, so nothing is hidden.
+              return label && label !== shown && label !== h ? (
+                <span className="inert-link">
+                  {children} <span className="inert-link-url">({shown})</span>
+                </span>
+              ) : (
+                <span className="inert-link">{shown}</span>
+              );
+            }
             // In a repository README a leading "/" means the repository root, not docs-md.com's root.
             const repoRootLink = Boolean(relativeBase?.pageRoot) && /^\/(?!\/)/.test(h);
             if (!ABSOLUTE.test(h) || repoRootLink) {
@@ -113,6 +134,15 @@ export default function MarkdownRenderer({ content, relativeBase, headingOffset 
           // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `node` must not reach the DOM
           img: ({ src, alt, node: _node, ...props }) => {
             const s = typeof src === 'string' ? src : '';
+            if (inertLinks) {
+              // No image is loaded at all in this mode: its alt text and address are shown instead.
+              // (react-markdown has already dropped data: and javascript: sources, so `s` may be empty.)
+              return (
+                <span className="inert-link">
+                  [image{alt ? `: ${alt}` : ''}]{s ? <span className="inert-link-url"> ({s})</span> : null}
+                </span>
+              );
+            }
             const repoRootSrc = Boolean(relativeBase?.rawRoot) && /^\/(?!\/)/.test(s);
             const resolved = !relativeBase || !s
               ? s
@@ -121,6 +151,8 @@ export default function MarkdownRenderer({ content, relativeBase, headingOffset 
                 : !ABSOLUTE.test(s)
                   ? joinRelative(relativeBase.raw, s)
                   : s;
+            // A source react-markdown refused (data:, javascript:) arrives empty: show the alt text, not a broken image.
+            if (!resolved) return alt ? <span>[image: {alt}]</span> : null;
             // eslint-disable-next-line @next/next/no-img-element -- user content from arbitrary hosts
             return <img src={resolved} alt={alt ?? ''} loading="lazy" {...props} />;
           },

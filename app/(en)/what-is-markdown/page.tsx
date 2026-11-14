@@ -182,11 +182,11 @@ export default function WhatIsMarkdownPage() {
           <Link href="/markdown-viewer" className="text-indigo-700 underline">
             Markdown viewer
           </Link>{' '}
-          on this site, with no install. You can also paste it into the{' '}
-          <Link href="/" className="text-indigo-700 underline">
-            editor
+          on this site, with no install. An AI agent can publish it to{' '}
+          <Link href="/agents" className="text-indigo-700 underline">
+            Docs MD
           </Link>{' '}
-          to get a shareable link, and{' '}
+          to give you a shareable link, and you can{' '}
           <Link href="/markdown-to-pdf" className="text-indigo-700 underline">
             convert it to PDF
           </Link>{' '}
@@ -201,8 +201,8 @@ export default function WhatIsMarkdownPage() {
         <h2 className="text-xl font-semibold text-gray-950">How do you create a Markdown file?</h2>
         <p>
           Open any text editor — Notepad, TextEdit in plain-text mode, VS Code, or the{' '}
-          <Link href="/" className="text-indigo-700 underline">
-            editor on this site
+          <Link href="/markdown-viewer" className="text-indigo-700 underline">
+            Markdown viewer on this site
           </Link>{' '}
           — type your text with Markdown symbols where you want formatting, and save the file with
           the <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">.md</code> extension, for example{' '}

@@ -1,5 +1,5 @@
 // Shared facts for the legal pages and the report form. Bump LEGAL_UPDATED when any policy text changes.
-export const LEGAL_UPDATED = 'October 20, 2026';
+export const LEGAL_UPDATED = 'November 13, 2026';
 
 export const REPORT_REASONS = [
   { value: 'illegal', label: 'Illegal content' },

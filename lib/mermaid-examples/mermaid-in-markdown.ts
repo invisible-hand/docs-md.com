@@ -138,7 +138,7 @@ export const PAGE: MermaidExamplesPage = {
           ['Notion', 'A code block (type `/code`) with Mermaid chosen as its language', 'The block itself: switch its view to Preview for the diagram, or Split for code and diagram side by side'],
           ['Confluence', 'A Marketplace app’s macro; Confluence has no Mermaid rendering of its own', 'Pages, once an app such as Atlassian Labs’ Mermaid diagrams viewer or Mermaid Chart for Confluence is installed on the site'],
           ['VS Code', 'A fenced block tagged `mermaid`', 'The built-in Markdown preview from version 1.121 (May 2026); older versions need an extension such as Markdown Preview Mermaid Support'],
-          ['Docs MD', 'A fenced block tagged `mermaid`', 'The [editor](/), the [Markdown viewer](/markdown-viewer) and shared links, drawn with Mermaid 11'],
+          ['Docs MD', 'A fenced block tagged `mermaid`', 'The [Markdown viewer](/markdown-viewer) and documents published by agents, drawn with Mermaid 11'],
         ],
       },
     },
@@ -152,14 +152,14 @@ export const PAGE: MermaidExamplesPage = {
     {
       h2: 'Why does my Mermaid block show as code instead of a diagram?',
       paragraphs: [
-        'Work through four checks. The fence must be tagged `mermaid`; a block with no language, or another language, is shown as ordinary code. The platform must render Mermaid at all; one that does not shows the block as code, which is the expected fallback. The diagram must parse; a syntax error stops the drawing, and depending on the platform you see an error message or the raw code. Paste the block into the [Docs MD editor](/) or another live preview to find the line that breaks.',
+        'Work through four checks. The fence must be tagged `mermaid`; a block with no language, or another language, is shown as ordinary code. The platform must render Mermaid at all; one that does not shows the block as code, which is the expected fallback. The diagram must parse; a syntax error stops the drawing, and depending on the platform you see an error message or the raw code. Paste the block into the [Markdown viewer](/markdown-viewer) or another live preview to find the line that breaks.',
         'Last, the platform’s Mermaid version must be new enough for what you used. Newer options fail on older renderers: the pie chart’s `donutHole` needs Mermaid 11.16.0 and the git graph’s `BT:` orientation 11.0.0. Render the `info` diagram above on the platform to see its version. Two platform-specific causes are documented: GitHub warns that a third-party Mermaid plugin can cause errors, and on GitLab Self-Managed a `Cross-Origin-Resource-Policy` header set to `same-site` or `same-origin` makes diagrams fail silently.',
       ],
     },
     {
       h2: 'How do you share or export Markdown with Mermaid diagrams?',
       paragraphs: [
-        'Inside a repository, the file is already the shared version: GitHub and GitLab draw the diagram for anyone who can open it. For readers outside the repository, paste the Markdown into the [Docs MD editor](/) and share it as a link; the shared page shows the rendered diagrams next to the text. The [architecture diagram guide](/share-architecture-diagram) walks through a typical document.',
+        'Inside a repository, the file is already the shared version: GitHub and GitLab draw the diagram for anyone who can open it. For readers outside the repository, have your AI agent publish the Markdown to [Docs MD](/agents) and share the link; the shared page shows the rendered diagrams next to the text. The [architecture diagram guide](/share-architecture-diagram) walks through a typical document.',
         'For a file that has to travel as an attachment, [convert the Markdown to PDF](/markdown-to-pdf): the diagrams are drawn first and printed as vector graphics. To check a local file before sending it anywhere, open it in the [Markdown viewer](/markdown-viewer), which renders Mermaid in the browser without uploading the file.',
       ],
     },

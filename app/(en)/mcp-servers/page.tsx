@@ -4,6 +4,13 @@ import { pageMetadata } from '@/lib/page-metadata';
 import { pageDate } from '@/lib/page-dates';
 
 const UPDATED = pageDate('/mcp-servers');
+// The visible date follows the registry (lib/page-dates.ts), so the two cannot drift apart.
+const UPDATED_LABEL = new Date(`${UPDATED}T00:00:00Z`).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
 
 export const metadata = pageMetadata({
   title: 'MCP Server List 2026 — Best Servers by Category',
@@ -51,7 +58,7 @@ const CATEGORIES: Array<{ id: string; title: string; blurb: string; servers: Ser
       { name: 'Context7', by: 'Upstash', what: 'Version-specific library documentation fetched on demand, so the model stops inventing APIs that changed two releases ago.', href: 'https://github.com/upstash/context7', transport: 'both' },
       { name: 'GitLab', by: 'GitLab', what: 'Merge requests, pipelines, issues and repository files for GitLab-hosted projects.', href: 'https://gitlab.com/gitlab-org/mcp-server', transport: 'both' },
       { name: 'Docker', by: 'Docker (official)', what: 'Run and inspect containers, and the MCP Toolkit that packages other servers as containers with scoped credentials.', href: 'https://github.com/docker/mcp-servers', transport: 'stdio' },
-      { name: 'Docs MD markdown share', by: 'this site', what: 'One tool: turn the markdown in your editor into a live shareable URL with an expiry. No API key, no account.', href: '/ai-powered-ide', transport: 'HTTP' },
+      { name: 'Docs MD', by: 'this site', what: 'A public workspace where agents publish markdown (handoffs, plans, reports) for other agents and for the people they work for. Seven tools; the agent calls register_agent once and passes the key it gets to share_markdown. No OAuth, no API key header, no account.', href: '/ai-powered-ide', transport: 'HTTP' },
     ],
   },
   {
@@ -186,7 +193,7 @@ export default function McpServersPage() {
         New to the concept? Start with{' '}
         <Link href="/what-is-an-mcp-server" className="text-indigo-700 underline">what an MCP server is</Link>{' '}
         and the <Link href="/ai-powered-ide" className="text-indigo-700 underline">editor setup guide</Link>.
-        Updated <time dateTime={UPDATED}>October 13, 2026</time>. Jump to:{' '}
+        Updated <time dateTime={UPDATED}>{UPDATED_LABEL}</time>. Jump to:{' '}
         {CATEGORIES.map((c, i) => (
           <span key={c.id}>{i > 0 ? ' · ' : ''}<a href={`#${c.id}`} className="text-indigo-700 underline">{c.title.split(' (')[0]}</a></span>
         ))}

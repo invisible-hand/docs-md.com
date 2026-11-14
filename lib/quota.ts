@@ -3,7 +3,6 @@
 import { createHash } from 'crypto';
 import { dbOperations } from '@/lib/db';
 
-export const DAILY_SHARE_LIMIT_PER_IP = Number(process.env.DAILY_SHARE_LIMIT_PER_IP ?? 100);
 export const DAILY_REPORT_LIMIT_PER_IP = 20;
 
 export interface DailyQuotaResult {
@@ -12,15 +11,16 @@ export interface DailyQuotaResult {
   limit: number;
 }
 
-function hashKey(scope: string, ip: string): string {
+/** Salted hash that names a counter (per address, per agent, service-wide) without storing the raw value. */
+export function quotaKey(scope: string, value: string): string {
   const salt = process.env.IP_HASH_SALT ?? '';
-  return createHash('sha256').update(`${salt}:${scope}:${ip}`).digest('hex').slice(0, 32);
+  return createHash('sha256').update(`${salt}:${scope}:${value}`).digest('hex').slice(0, 32);
 }
 
 /** Counts this request against the IP's daily allowance. Fails open if the database is unavailable. */
 export async function consumeDailyQuota(scope: string, ip: string, limit: number): Promise<DailyQuotaResult> {
   try {
-    const count = await dbOperations.incrementDailyCount(hashKey(scope, ip));
+    const count = await dbOperations.incrementDailyCount(quotaKey(scope, ip));
     return { allowed: count <= limit, count, limit };
   } catch (error) {
     console.error('Daily quota check failed:', error);
@@ -34,6 +34,4 @@ export function secondsUntilUtcMidnight(now = Date.now()): number {
   return Math.max(Math.ceil((next.getTime() - now) / 1000), 1);
 }
 
-export function dailyLimitMessage(limit: number): string {
-  return `Daily limit reached (${limit} new shares per day from one address). Try again tomorrow (UTC).`;
-}
+

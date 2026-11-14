@@ -42,7 +42,8 @@ export default function LinkGeneratorPage() {
           <Link href="/guides/markdown-link" className="text-indigo-700 underline">links</Link>,{' '}
           <Link href="/guides/markdown-image" className="text-indigo-700 underline">images</Link>,{' '}
           <Link href="/guides/markdown-code-block" className="text-indigo-700 underline">code blocks</Link>.
-          When the document is done, <Link href="/" className="text-indigo-700 underline">share it as a link</Link>.
+          When the document is done, ask your AI agent to{' '}
+          <Link href="/agents" className="text-indigo-700 underline">publish it to Docs MD</Link> for a link.
         </p>
       </section>
     </ToolPage>

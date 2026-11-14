@@ -14,7 +14,7 @@ export default function MarkdownViewerPage() {
   return (
     <ToolPage
       slug="markdown-viewer"
-      intro="To read an md file online, drop the .md file onto the viewer below — or paste its text, or load it from a GitHub URL — and it renders instantly as a formatted document: headings, tables, highlighted code, task lists, footnotes, and mermaid diagrams. This md file viewer is free and runs in your browser; opened files are read locally, not uploaded. Adjust the type size, jump around with the outline, print to PDF, or publish it as a link. To read a whole repository's README and docs folder with working links, use the GitHub README viewer."
+      intro="To read an md file online, drop the .md file onto the viewer below — or paste its text, or load it from a GitHub URL — and it renders instantly as a formatted document: headings, tables, highlighted code, task lists, footnotes, and mermaid diagrams. This md file viewer is free and runs in your browser; opened files are read locally, not uploaded. Adjust the type size, jump around with the outline, print to PDF, or download the file. To read a whole repository's README and docs folder with working links, use the GitHub README viewer."
       tool={<MarkdownViewer />}
       faq={[
         {
@@ -23,7 +23,7 @@ export default function MarkdownViewerPage() {
         },
         {
           q: 'Is this md file reader free and private?',
-          a: 'Yes. It is free with no signup. A file you open or drop in is read by your browser with the File API and is not sent to a server; only the Share as link button publishes the document.',
+          a: 'Yes. It is free with no signup. A file you open or drop in is read by your browser with the File API and is not sent to a server; the viewer never publishes it.',
         },
         {
           q: 'Can I view a README from GitHub without cloning?',
@@ -51,8 +51,8 @@ export default function MarkdownViewerPage() {
           raw text full of <code className={CODE}>#</code> and <code className={CODE}>*</code>{' '}
           characters. The viewer above is a free md file reader that runs in your browser: drag a
           .md file onto it, pick one with <em>Open .md file</em>, paste the text, or load it from a
-          GitHub URL. Opened files are read locally and not uploaded — only <em>Share as link</em>{' '}
-          publishes the document — and <code className={CODE}>.markdown</code>,{' '}
+          GitHub URL. Opened files are read locally and not uploaded, and{' '}
+          <code className={CODE}>.markdown</code>,{' '}
           <code className={CODE}>.mdx</code>, and <code className={CODE}>.txt</code> files open the
           same way. If you would rather have an md reader inside your editor, VS Code&apos;s built-in
           preview (<code className={CODE}>Ctrl+Shift+V</code>) does the same job for local files.
@@ -104,7 +104,8 @@ export default function MarkdownViewerPage() {
           install, and the rendering follows GitHub&apos;s rules, so a README looks the way it will
           on GitHub. If you edit markdown every day, an editor with a live preview (VS Code,
           Obsidian, Typora) is the better fit. If you need to send the rendered document to someone
-          who doesn&apos;t have any of those, share it as a link — they just open a web page.
+          who doesn&apos;t have any of those, send a PDF, or ask your AI agent to publish it to Docs MD
+          and share the link — they just open a web page.
         </p>
       </section>
       <section className="space-y-3">
@@ -125,14 +126,14 @@ export default function MarkdownViewerPage() {
       <section className="space-y-3">
         <h2 className={H2}>How do I share a rendered markdown file?</h2>
         <p>
-          Click <em>Share as link</em>. The document is published to a short URL that renders exactly
-          as it does here — diagrams included — and expires after 30 days. The link is public to
-          anyone who has it. For other expiry options, edit tokens, raw endpoints, and an MCP server
-          that shares from Cursor or Claude Code, use the{' '}
-          <Link href="/" className="text-indigo-700 underline">
-            main sharing page
+          The viewer itself does not publish anything. To get a link, ask your AI agent (Claude,
+          ChatGPT, Cursor, or Claude Code) to publish the document to Docs MD through the MCP
+          server: it gets a short URL that renders as it does here — diagrams included — plus a raw
+          markdown URL. The link is public to anyone who has it. See{' '}
+          <Link href="/agents" className="text-indigo-700 underline">
+            how agents publish to Docs MD
           </Link>
-          . For a worked example of a diagram-heavy document, see{' '}
+          . To send a file instead, click <em>Print / PDF</em>. For a worked example of a diagram-heavy document, see{' '}
           <Link href="/share-architecture-diagram" className="text-indigo-700 underline">
             sharing an architecture diagram with notes
           </Link>

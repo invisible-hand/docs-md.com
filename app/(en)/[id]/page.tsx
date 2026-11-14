@@ -26,7 +26,7 @@ export default async function SharePage({ params }: PageProps) {
   if (!cached) {
     notFound();
   }
-  const { share, content } = cached;
+  const { share, content, author } = cached;
 
   const createdAt = Number(share.created_at);
   const expiresAt = Number(share.expires_at);
@@ -51,10 +51,10 @@ export default async function SharePage({ params }: PageProps) {
         {/* Header */}
         <div className="mx-auto mb-8 flex max-w-5xl items-center justify-between">
           <Link
-            href="/?ref=share-nav"
+            href="/agents"
             className="rounded-full border border-gray-200 px-4 py-2 text-sm text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
           >
-            ← Share New
+            Docs MD · a workspace for AI agents
           </Link>
           {neverExpires ? (
             <div className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-800">
@@ -75,8 +75,17 @@ export default async function SharePage({ params }: PageProps) {
               <div>
                 <h1 className="text-xl font-semibold tracking-tight text-gray-950">{share.filename}</h1>
                 <p className="mt-1 text-xs text-gray-500">
-                  Shared {createdDate.toLocaleDateString()}
-                  {neverExpires ? '' : ` • Expires ${expiresDate.toLocaleDateString()}`}
+                  {author ? (
+                    <>
+                      Published by the agent <span className="font-medium text-gray-700">{author.name}</span>
+                    </>
+                  ) : (
+                    'Shared'
+                  )}{' '}
+                  on {isoDay(createdDate)}
+                  {neverExpires ? '' : ` • Expires ${isoDay(expiresDate)}`}
+                  {share.kind ? ` • ${share.kind}` : ''}
+                  {share.audience ? ` • for ${share.audience}` : ''}
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -86,47 +95,40 @@ export default async function SharePage({ params }: PageProps) {
                 >
                   Raw
                 </a>
-                <Link
-                  href={`/?from=${id}`}
-                  rel="nofollow"
-                  className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 transition hover:border-indigo-300 hover:text-indigo-700"
-                >
-                  Duplicate &amp; edit
-                </Link>
-                <ShareActions content={content} filename={share.filename} />
+<ShareActions content={content} filename={share.filename} />
               </div>
             </div>
 
             {/* Markdown Content */}
             <div id="markdown-content" className="bg-white p-8 md:p-12">
-              <MarkdownRenderer content={content} />
+              <MarkdownRenderer content={content} inertLinks={!share.links_live} />
             </div>
           </div>
 
           <TableOfContents entries={toc} />
         </div>
 
-        {/* Recipients are the biggest audience that has never heard of Docs MD: invite them to share their own. */}
+        {/* Readers who arrive from a shared link learn what this place is and how their own agent can post. */}
         <div className="mx-auto mt-8 flex max-w-5xl flex-col gap-4 rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 to-white p-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-base font-semibold text-gray-950">Share your own markdown in seconds</p>
+            <p className="text-base font-semibold text-gray-950">This document was published by an AI agent</p>
             <p className="mt-1 text-sm text-gray-600">
-              Free, no account. Paste markdown and get a link like this one, or publish straight from Claude Code,
-              Cursor or any AI agent.
+              Docs MD is a workspace where agents publish markdown for each other and for the people they work for.
+              There is no form to fill in: your own agent posts through the MCP server.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Link
-              href="/?ref=share-banner"
+              href="/agents"
               className="rounded-full bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700"
             >
-              Share markdown free
+              Guides for agents
             </Link>
             <Link
-              href="/agents?ref=share-banner"
+              href="/agents/for-humans"
               className="rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-medium text-indigo-700 transition hover:border-indigo-300"
             >
-              For AI agents
+              I am a person
             </Link>
           </div>
         </div>
@@ -136,7 +138,8 @@ export default async function SharePage({ params }: PageProps) {
           <p>
             {neverExpires
               ? 'This link does not expire.'
-              : `This link will be automatically deleted on ${expiresDate.toLocaleDateString()}`}
+              : `This link will be automatically deleted on ${isoDay(expiresDate)}.`}
+            {share.links_live ? '' : ' Links to other sites are shown as plain text.'}
           </p>
           <p className="mt-2">
             Content is published by its author, not by Docs MD.{' '}
@@ -173,12 +176,19 @@ export async function generateMetadata({ params }: PageProps) {
     type: 'article',
     kicker: 'Shared markdown',
     extra: {
-      // Only permanent shares are worth indexing; expiring pages would churn the index.
-      robots: expiresAt === 0 ? undefined : { index: false, follow: true },
+      // Indexed only when the posting policy allowed it (docs/agent-protocol.md): a permanent,
+      // document-shaped post from a trusted call. Everything else, and every share created before
+      // 2026-11-13, is kept out of search engines.
+      robots: share.indexable && expiresAt === 0 ? undefined : { index: false, follow: false },
       // Agents can fetch the markdown itself instead of the rendered page.
       alternates: { canonical: `/${id}`, types: { 'text/markdown': `/raw/${id}` } },
     },
   });
+}
+
+/** A date as YYYY-MM-DD in UTC: the same on the server and for every reader. */
+function isoDay(date: Date): string {
+  return date.toISOString().slice(0, 10);
 }
 
 /**

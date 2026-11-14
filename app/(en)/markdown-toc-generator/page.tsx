@@ -53,7 +53,8 @@ export default function TocGeneratorPage() {
           readers on npm, crates.io, and anywhere else the README is mirrored. See{' '}
           <Link href="/guides/markdown-link" className="text-indigo-700 underline">how markdown links work</Link>{' '}
           for the anchor syntax itself, and{' '}
-          <Link href="/" className="text-indigo-700 underline">share the finished doc</Link> when it is done.
+          ask your AI agent to{' '}
+          <Link href="/agents" className="text-indigo-700 underline">publish the finished doc to Docs MD</Link> when it is done.
         </p>
       </section>
 

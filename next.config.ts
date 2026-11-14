@@ -19,8 +19,23 @@ const nextConfig: NextConfig = {
     // share-id shape) match first; only the share viewer's dynamic segment is overridden.
     const shareId = ":id([a-z]+-[a-z]+-[A-Za-z0-9]{5})";
     return {
-      beforeFiles: [],
+      // The MCP server's public address. /api/mcp keeps working (older client configs, the registry entry).
+      beforeFiles: [{ source: "/mcp", destination: "/api/mcp" }],
       afterFiles: [
+        // Guides for agents as markdown: /agents.md (the index), /agents/<slug>.md, and the HTML
+        // URLs when the request asks for markdown.
+        { source: "/agents.md", destination: "/agents-md/index" },
+        { source: "/agents/:slug([a-z0-9-]+).md", destination: "/agents-md/:slug" },
+        {
+          source: "/agents",
+          has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
+          destination: "/agents-md/index",
+        },
+        {
+          source: "/agents/:slug([a-z0-9-]+)",
+          has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
+          destination: "/agents-md/:slug",
+        },
         { source: `/${shareId}.md`, destination: "/raw/:id" },
         {
           source: `/${shareId}`,

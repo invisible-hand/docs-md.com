@@ -169,7 +169,7 @@ xychart-beta
       h2: 'Which platforms render a Mermaid bar chart?',
       paragraphs: [
         'The XY chart arrived in Mermaid 10.6.0, so it is younger than the pie chart or Gantt chart and fails on a renderer older than that. The optional parts matter more: data labels need 11.14.0, label rotation and per-point line labels need 11.16.0, and the `xychart` keyword without `-beta` needs 11.10.0. Write `xychart-beta` if the chart has to work on a platform whose version you do not control.',
-        'GitHub renders `mermaid` blocks in issues, pull requests, discussions, wikis and Markdown files, and its documentation suggests rendering the one-word `info` diagram to see which Mermaid version it runs; the [Mermaid in Markdown](/mermaid-in-markdown) page shows that check and how GitLab, Obsidian, Notion and VS Code differ. To publish a chart outside those platforms, paste the Markdown into the [Docs MD editor](/) and share the link, or [convert the document to PDF](/markdown-to-pdf).',
+        'GitHub renders `mermaid` blocks in issues, pull requests, discussions, wikis and Markdown files, and its documentation suggests rendering the one-word `info` diagram to see which Mermaid version it runs; the [Mermaid in Markdown](/mermaid-in-markdown) page shows that check and how GitLab, Obsidian, Notion and VS Code differ. To publish a chart outside those platforms, have your AI agent publish the Markdown to [Docs MD](/agents) and share the link, or [convert the document to PDF](/markdown-to-pdf).',
       ],
     },
     {

@@ -1,26 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { getClientIp, parseJsonBodyWithLimit, RequestBodyError } from '@/lib/security';
-import { deleteShare, ShareServiceError, updateShare } from '@/lib/share-service';
+import { MCP_URL } from '@/lib/mcp/tools';
+import { getClientIp, RequestBodyError } from '@/lib/security';
+import { deleteShare, ShareServiceError } from '@/lib/share-service';
 
-const MAX_SHARE_REQUEST_BYTES = Number(process.env.MAX_SHARE_REQUEST_BYTES ?? 200_000);
-const MAX_CONTENT_CHARS = Number(process.env.MAX_MARKDOWN_CHARS ?? 120_000);
 const RATE_LIMIT_WINDOW_MS = Number(process.env.RATE_LIMIT_WINDOW_MS ?? 60_000);
 const RATE_LIMIT_SHARE_PER_WINDOW = Number(process.env.RATE_LIMIT_SHARE_PER_WINDOW ?? 20);
 
 interface RouteContext {
   params: Promise<{ id: string }>;
 }
-
-const updateRequestSchema = z.object({
-  content: z
-    .string()
-    .trim()
-    .min(1, 'Content is required')
-    .max(MAX_CONTENT_CHARS, `Content exceeds ${MAX_CONTENT_CHARS} characters`),
-  filename: z.string().trim().max(120).optional(),
-});
 
 function getEditToken(request: NextRequest): string {
   return request.headers.get('x-edit-token')?.trim() ?? '';
@@ -58,31 +47,21 @@ function toErrorResponse(error: unknown): NextResponse {
   return NextResponse.json({ error: 'Internal error' }, { status: 500 });
 }
 
-export async function PATCH(request: NextRequest, context: RouteContext) {
-  try {
-    const rateLimited = checkMutationRateLimit(request);
-    if (rateLimited) {
-      return rateLimited;
-    }
-
-    const { id } = await context.params;
-    const body = await parseJsonBodyWithLimit<unknown>(request, MAX_SHARE_REQUEST_BYTES);
-    const parsed = updateRequestSchema.safeParse(body);
-
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: parsed.error.issues[0]?.message ?? 'Invalid request payload' },
-        { status: 400 }
-      );
-    }
-
-    const { url } = await updateShare(id, getEditToken(request), parsed.data.content, parsed.data.filename);
-    return NextResponse.json({ success: true, id, url });
-  } catch (error) {
-    return toErrorResponse(error);
-  }
+/** Updating over REST was retired with the rest of the write API on 2026-11-13 (see app/api/share/route.ts). */
+export function PATCH(): NextResponse {
+  return NextResponse.json(
+    {
+      error: 'gone',
+      message:
+        'PATCH /api/share/<id> was retired on 2026-11-13. Update the document with the MCP tool update_share (pass edit_token for a document created before that date).',
+      mcp: MCP_URL,
+      docs: 'https://docs-md.com/agents/changelog',
+    },
+    { status: 410 },
+  );
 }
 
+// DELETE with x-edit-token stays: it is how the author of a document created before agent keys withdraws it.
 export async function DELETE(request: NextRequest, context: RouteContext) {
   try {
     const rateLimited = checkMutationRateLimit(request);

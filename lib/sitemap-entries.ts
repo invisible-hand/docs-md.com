@@ -1,3 +1,4 @@
+import { listAgentPages } from './agent-pages';
 import { DISCORD_GUIDES } from './discord-guides';
 import { listGuides } from './guides';
 import { LOCALES, listLocalized } from './i18n';
@@ -127,6 +128,7 @@ function staticRouteDate(route: string): string {
 export function sitemapEntries(): SitemapEntry[] {
   const entries: SitemapEntry[] = [
     ...STATIC_ROUTES.map((route) => ({ path: route, updated: staticRouteDate(route) })),
+    ...listAgentPages().map((p) => ({ path: `/agents/${p.slug}`, updated: p.updated })),
     ...listGuides().map((g) => ({ path: `/guides/${g.slug}`, updated: g.updated })),
     ...listToolGuides().map((g) => ({ path: g.path, updated: g.updated })),
     ...DISCORD_GUIDES.map((g) => ({ path: `/discord-markdown/${g.slug}`, updated: g.updated })),

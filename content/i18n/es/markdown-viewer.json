@@ -5,7 +5,7 @@
   "title": "Abrir archivo MD online: visor de Markdown gratis",
   "description": "Abre y lee archivos .md en línea: arrástralos, pega el texto o cárgalos desde GitHub. Tablas, código y diagramas mermaid. Gratis, sin instalar nada.",
   "h1": "Visor de Markdown: abrir y leer archivos .md en línea",
-  "intro": "Para abrir un archivo md en línea, arrástralo al visor de abajo, pega su texto o cárgalo desde una URL de GitHub: se muestra al instante con formato: encabezados, tablas, código resaltado, listas de tareas, notas al pie y diagramas mermaid. Es gratis y funciona en tu navegador; el archivo no se sube. Ajusta el tamaño de letra, navega con el índice, imprime a PDF o publícalo como enlace.",
+  "intro": "Para abrir un archivo md en línea, arrástralo al visor de abajo, pega su texto o cárgalo desde una URL de GitHub: se muestra al instante con formato: encabezados, tablas, código resaltado, listas de tareas, notas al pie y diagramas mermaid. Es gratis y funciona en tu navegador; el archivo no se sube. Ajusta el tamaño de letra, navega con el índice, imprime a PDF o descarga el archivo.",
   "updated": "2026-10-20",
   "chrome": {
     "updated": "Actualizado",
@@ -22,7 +22,7 @@
     "loadExample": "Cargar ejemplo",
     "hideSource": "Ocultar código fuente",
     "editSource": "Editar código fuente",
-    "privacy": "Los archivos se abren en tu navegador con la File API y no se suben a ningún servidor. Las únicas solicitudes de red son la carga opcional desde URL y, si haces clic, Compartir como enlace.",
+    "privacy": "Los archivos se abren en tu navegador con la File API y no se suben a ningún servidor. La única solicitud de red es la carga opcional desde URL.",
     "openSourceBefore": "El visor es",
     "openSource": "de código abierto",
     "size": "Tamaño",
@@ -33,20 +33,15 @@
     "copy": "Copiar",
     "copied": "Copiado ✓",
     "download": "Descargar",
-    "share": "Compartir como enlace",
-    "sharing": "Compartiendo…",
-    "liveAt": "Publicado en",
-    "expires30": "(vence en 30 días)",
     "corsError": "No se pudo obtener esa URL desde el navegador: el servidor no permite lecturas de otro origen (CORS). Descarga el archivo y arrástralo aquí. Las URL raw de GitHub y de gists sí funcionan.",
     "loadError": "No se pudo cargar:",
     "exampleError": "No se pudo cargar ese ejemplo.",
-    "shareError": "No se pudo compartir. Vuelve a intentarlo.",
     "sourceAria": "Código fuente markdown",
     "sourcePlaceholder": "Pega aquí el markdown o arrastra un archivo .md a cualquier parte de este panel.",
     "outline": "Índice",
     "empty": "Todavía no hay nada que mostrar: pega markdown o abre un archivo."
   },
-  "starter": "# Visor de Markdown\n\nArrastra un archivo `.md` a esta página, pega texto markdown o carga un archivo desde una URL: aquí se ve con formato, con tablas, código resaltado, listas de tareas y diagramas mermaid.\n\n## Qué puedes hacer\n\n- [x] Leer un README sin clonar el repositorio\n- [x] Imprimirlo o guardarlo como PDF desde el navegador\n- [ ] Compartir la página renderizada como enlace (vence en 30 días)\n\n| Control | Efecto |\n| ------- | ------ |\n| Tamaño de letra | S / M / L |\n| Ancho | Angosto para leer, ancho para tablas |\n| Índice | Saltar entre encabezados |\n\n```mermaid\nflowchart LR\n  A[Archivo .md] --> B{Visor}\n  B --> C[Imprimir]\n  B --> D[Compartir enlace]\n```\n\n> Consejo: enlaza directamente a un archivo renderizado con `?url=https://raw.githubusercontent.com/...`\n",
+  "starter": "# Visor de Markdown\n\nArrastra un archivo `.md` a esta página, pega texto markdown o carga un archivo desde una URL: aquí se ve con formato, con tablas, código resaltado, listas de tareas y diagramas mermaid.\n\n## Qué puedes hacer\n\n- [x] Leer un README sin clonar el repositorio\n- [x] Imprimirlo o guardarlo como PDF desde el navegador\n- [ ] Obtener un enlace: pide a tu agente de IA que lo publique en Docs MD\n\n| Control | Efecto |\n| ------- | ------ |\n| Tamaño de letra | S / M / L |\n| Ancho | Angosto para leer, ancho para tablas |\n| Índice | Saltar entre encabezados |\n\n```mermaid\nflowchart LR\n  A[Archivo .md] --> B{Visor}\n  B --> C[Imprimir]\n  B --> D[Descargar .md]\n```\n\n> Consejo: enlaza directamente a un archivo renderizado con `?url=https://raw.githubusercontent.com/...`\n",
   "sections": [
     {
       "h2": "¿Cómo abrir un archivo md en línea?",
@@ -66,7 +61,7 @@
     },
     {
       "h2": "¿Qué editores muestran la vista previa de Markdown?",
-      "body": "Para un archivo ocasional, un visor de markdown en el navegador como este es lo más rápido: no instalas nada y el renderizado sigue las reglas de GitHub, así que un README se ve como se verá en GitHub. Si escribes markdown todos los días, te conviene un editor con vista previa en vivo:\n\n- **Visual Studio Code**: vista previa integrada, gratis, en Windows, macOS y Linux.\n- **Obsidian**: app de notas basada en archivos `.md`, con modo de lectura.\n- **Typora**: editor que muestra el formato mientras escribes.\n\nSi necesitas mandar el documento renderizado a alguien que no tiene ninguno de esos programas, compártelo como enlace: solo tiene que abrir una página web."
+      "body": "Para un archivo ocasional, un visor de markdown en el navegador como este es lo más rápido: no instalas nada y el renderizado sigue las reglas de GitHub, así que un README se ve como se verá en GitHub. Si escribes markdown todos los días, te conviene un editor con vista previa en vivo:\n\n- **Visual Studio Code**: vista previa integrada, gratis, en Windows, macOS y Linux.\n- **Obsidian**: app de notas basada en archivos `.md`, con modo de lectura.\n- **Typora**: editor que muestra el formato mientras escribes.\n\nSi necesitas mandar el documento renderizado a alguien que no tiene ninguno de esos programas, mándalo en PDF o pide a tu agente de IA que lo publique en Docs MD y comparte el enlace: solo tiene que abrir una página web."
     },
     {
       "h2": "¿Qué hace un visor de markdown que no hace un editor de texto?",
@@ -74,7 +69,7 @@
     },
     {
       "h2": "¿Cómo compartir un archivo markdown con formato?",
-      "body": "Haz clic en *Compartir como enlace*. El documento se publica en una URL corta que se ve exactamente como aquí, diagramas incluidos, y vence a los 30 días. El enlace es público para cualquiera que lo tenga, así que no compartas así información confidencial. Para otras opciones de vencimiento, tokens de edición, endpoints raw y un servidor MCP que comparte desde Cursor o Claude Code, usa la [página principal de Docs MD](/).\n\nTambién puedes enlazar directamente a un archivo renderizado: agrega `?url=` y la dirección del archivo raw a la URL de esta página. Para leer el README y la carpeta de documentación de un repositorio completo con los enlaces funcionando, usa el [visor de README de GitHub](/github-readme-viewer)."
+      "body": "El visor no publica nada. Para obtener un enlace, pide a tu agente de IA (Claude, ChatGPT, Cursor o Claude Code) que publique el documento en Docs MD a través del servidor MCP: recibe una URL corta que se ve como aquí, diagramas incluidos. El enlace es público para cualquiera que lo tenga, así que no publiques así información confidencial. Cómo conectar el agente: [Docs MD para agentes](/agents).\n\nTambién puedes enlazar directamente a un archivo renderizado: agrega `?url=` y la dirección del archivo raw a la URL de esta página. Para leer el README y la carpeta de documentación de un repositorio completo con los enlaces funcionando, usa el [visor de README de GitHub](/github-readme-viewer)."
     },
     {
       "h2": "¿Qué variante de Markdown se renderiza?",
@@ -88,7 +83,7 @@
     },
     {
       "q": "¿Este lector de archivos md es gratis y privado?",
-      "a": "Sí. Es gratis y no pide registro. El archivo que abres o arrastras lo lee tu navegador con la File API y no se envía a ningún servidor; solo el botón Compartir como enlace publica el documento."
+      "a": "Sí. Es gratis y no pide registro. El archivo que abres o arrastras lo lee tu navegador con la File API y no se envía a ningún servidor; el visor nunca lo publica."
     },
     {
       "q": "¿Con qué programa abro un archivo .md?",

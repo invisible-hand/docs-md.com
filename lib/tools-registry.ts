@@ -26,7 +26,7 @@ export const TOOL_CATEGORIES: { id: ToolCategory; label: string; blurb: string }
   { id: 'convert', label: 'Convert', blurb: 'Move documents between markdown and other formats.' },
   { id: 'generate', label: 'Generate', blurb: 'Build correct markdown from a form instead of by hand.' },
   { id: 'check', label: 'Check & compare', blurb: 'Find problems in a document before you publish it.' },
-  { id: 'edit', label: 'Edit & share', blurb: 'Write, preview, tidy, and publish.' },
+  { id: 'edit', label: 'Edit & share', blurb: 'Write, preview, and tidy; publish through your AI agent.' },
   { id: 'reference', label: 'Reference', blurb: 'Look up the syntax.' },
 ];
 
@@ -201,7 +201,7 @@ export const TOOLS: Tool[] = [
     metaDescription:
       'Build markdown tables visually: edit cells, set column alignment, paste CSV or TSV data, and copy clean padded markdown. Free, no signup, in your browser.',
     category: 'generate',
-    updated: '2026-09-01',
+    updated: '2026-11-13',
   },
   {
     slug: 'github-readme-viewer',
@@ -225,7 +225,7 @@ export const TOOLS: Tool[] = [
     metaDescription:
       'Generate a professional README.md: fill in a form, get badges, install instructions, usage examples, and license sections with a live preview. Free.',
     category: 'generate',
-    updated: '2026-09-01',
+    updated: '2026-11-13',
   },
   {
     slug: 'handoff-generator',
@@ -237,7 +237,7 @@ export const TOOLS: Tool[] = [
     metaDescription:
       'Generate a HANDOFF.md for passing work to a developer or AI coding agent: goal, state, commands, key files, decisions, next steps. Live preview, free.',
     category: 'generate',
-    updated: '2026-10-15',
+    updated: '2026-11-13',
   },
   {
     slug: 'markdown-toc-generator',
@@ -285,7 +285,7 @@ export const TOOLS: Tool[] = [
     metaDescription:
       'Generate a CHANGELOG.md in Keep a Changelog format: versions, dates, Added/Changed/Fixed sections, compare links. Paste a git log to group commits.',
     category: 'generate',
-    updated: '2026-09-03',
+    updated: '2026-11-13',
   },
   {
     slug: 'front-matter-generator',
@@ -356,12 +356,12 @@ export const TOOLS: Tool[] = [
     name: 'Markdown viewer',
     title: 'Markdown viewer',
     description:
-      'Open a .md file — drag it in, paste, or load from a URL — and read it rendered with tables, code highlighting, and mermaid diagrams. Print or share it.',
+      'Open a .md file — drag it in, paste, or load from a URL — and read it rendered with tables, code highlighting, and mermaid diagrams. Print or download it.',
     metaTitle: 'Markdown Viewer — MD File Viewer, Read .md Online',
     metaDescription:
       'Free md file viewer: open a .md file in your browser and read it rendered, with tables, highlighted code, and diagrams. Drag in, paste, or load a URL.',
     category: 'edit',
-    updated: '2026-11-08',
+    updated: '2026-11-13',
   },
   {
     slug: 'markdown-formatter',

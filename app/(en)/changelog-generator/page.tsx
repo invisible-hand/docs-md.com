@@ -29,7 +29,7 @@ export default function ChangelogGeneratorPage() {
         },
         {
           q: 'Is my changelog uploaded anywhere?',
-          a: 'No. Everything is generated in your browser. Only clicking "Share as link" publishes the markdown to a public URL — expiring in 7 or 30 days, or permanent, your choice.',
+          a: 'No. Everything is generated in your browser and nothing is uploaded. Copy the markdown or download CHANGELOG.md; to get a link, ask your AI agent to publish it to Docs MD.',
         },
       ]}
     >
@@ -66,17 +66,13 @@ export default function ChangelogGeneratorPage() {
         <p>
           Testers, customers, and the person writing the announcement will not open the repository.
           Draft the release in the form (or import the git log for the tag range), switch to{' '}
-          <em>Preview</em> to read it as they will, then click <em>Share as link</em>. Choose{' '}
-          <strong>7 days</strong> for a draft you want feedback on before the release goes out — the
-          link disappears on its own once the real notes are published — or{' '}
-          <strong>Permanent link</strong> for the notes of a shipped release that you will link from
-          the announcement or the GitHub release page. Either way the link is public to anyone who has
-          it, and the page renders the compare links and any code blocks. To revise a permanent share
-          later, publish it from the{' '}
-          <Link href="/" className="text-indigo-700 underline">
-            main editor
-          </Link>{' '}
-          instead, which returns an edit token for in-place updates.
+          <em>Preview</em> to read it as they will, then copy the markdown or download{' '}
+          <code className={CODE}>CHANGELOG.md</code>. For a link, ask your AI agent to{' '}
+          <Link href="/agents" className="text-indigo-700 underline">
+            publish the notes to Docs MD
+          </Link>
+          : the agent picks the expiry, and only that agent can update the document later. The link is public to anyone who has it, and the page renders the compare
+          links and any code blocks.
         </p>
       </section>
       <section className="space-y-3">

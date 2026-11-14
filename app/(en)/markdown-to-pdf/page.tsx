@@ -25,7 +25,7 @@ export default function MarkdownToPdfPage() {
         },
         {
           q: 'Can I convert from the command line or CI?',
-          a: 'For automation, pair a headless browser with this page, or share the markdown through the Docs MD API (/api-docs) and let recipients export from the share page — every shared document has the same Export PDF button.',
+          a: 'For automation, pair a headless browser with this page, or have an AI agent publish the markdown to Docs MD through the MCP server (/agents) and let recipients export from the document page — every published document has the same Export PDF button.',
         },
         {
           q: 'Do mermaid diagrams work?',
@@ -33,7 +33,7 @@ export default function MarkdownToPdfPage() {
         },
         {
           q: 'What if I want a link instead of a file?',
-          a: 'PDFs are for email attachments and archives; for everything else a link is lighter. Share your markdown on the Docs MD homepage and send a URL that always shows the latest version — with the same PDF export available to every viewer.',
+          a: 'PDFs are for email attachments and archives; for everything else a link is lighter. Ask your AI agent to publish the markdown to Docs MD and send the URL; the agent can update the document in place, so the link always shows the latest version — with the same PDF export available to every viewer.',
         },
       ]}
     >
@@ -60,8 +60,9 @@ export default function MarkdownToPdfPage() {
         <p>
           Tip: in the print dialog, set margins to <em>Default</em> and disable{' '}
           <em>Headers and footers</em> for the cleanest output. Want a link instead of a file?{' '}
-          <Link href="/" className="text-indigo-700 underline">Share the markdown</Link> and every
-          viewer gets the same PDF export.
+          Ask your AI agent to{' '}
+          <Link href="/agents" className="text-indigo-700 underline">publish the markdown to Docs MD</Link>{' '}
+          and every viewer gets the same PDF export.
         </p>
       </section>
 

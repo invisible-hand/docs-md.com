@@ -73,7 +73,7 @@ A Discord bot has no table to send. The closest structure is an embed with field
 When the grid stops doing its job. Typical signs: the table is wider than a phone shows, cells need links or formatting, people will want to sort or edit it, or it would not fit in one message.
 
 - **An image** keeps every column, color and merged cell exactly as designed. Build or paste the table in the [table generator](/markdown-table-generator), take a screenshot of its preview, and paste the image into the message. Add one line of text with the key numbers, because figures inside an image cannot be copied or searched as text, and a screen reader cannot read the cells of a picture.
-- **A link** suits anything people will act on. Share the spreadsheet, or use the table generator's **Share as link** button, which publishes the rendered table at a docs-md.com link that expires after 30 days.
+- **A link** suits anything people will act on. Share the spreadsheet, or ask your AI agent to [publish the table to Docs MD](/agents), which gives you a docs-md.com link to the rendered table.
 - **A Slack canvas** is the native option in Slack. Slack's [canvas help](https://slack.com/help/articles/203950418-Use-a-canvas-in-Slack) lists **Create a table** in the canvas toolbar, so the table lives next to the conversation and others can edit it.
 
 ## Why are the columns still out of line?

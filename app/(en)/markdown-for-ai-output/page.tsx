@@ -92,7 +92,7 @@ const DESTINATIONS: Array<{ dest: string; keeps: string; breaks: string; fix: st
   { dest: 'Discord', keeps: '**bold**, *italic*, headings, lists, quotes, ``` code', breaks: '| tables, images, __underline__ means underline', fix: 'Drop tables, check length', href: '/markdown-to-discord', tool: 'Markdown to Discord' },
   { dest: 'GitHub / GitLab / docs site', keeps: 'Everything (GFM)', breaks: 'Nothing, but heading levels and list markers may be inconsistent', fix: 'Normalise and lint', href: '/markdown-formatter', tool: 'Markdown formatter' },
   { dest: 'Plain text field (forms, CRMs, SMS)', keeps: 'Line breaks only', breaks: 'Every symbol', fix: 'Strip markdown', href: '/markdown-to-plain-text', tool: 'Markdown to plain text' },
-  { dest: 'A shareable link', keeps: 'Everything including mermaid diagrams', breaks: 'Nothing', fix: 'Paste and share', href: '/', tool: 'Docs MD share' },
+  { dest: 'A shareable link', keeps: 'Everything including mermaid diagrams', breaks: 'Nothing', fix: 'Ask the assistant to publish it', href: '/agents', tool: 'Docs MD for agents' },
 ];
 
 

@@ -33,7 +33,7 @@ export default function ReadmeGeneratorPage() {
       {
         '@type': 'FAQPage',
         mainEntity: [
-          { '@type': 'Question', name: 'Is anything uploaded while I type?', acceptedAnswer: { '@type': 'Answer', text: 'No — the README is assembled in your browser. The only network request happens if you explicitly click Share as link, which publishes the markdown to a URL (with an edit token, expiring in 30 days) so you can send a draft to a teammate before committing it.' } },
+          { '@type': 'Question', name: 'Is anything uploaded while I type?', acceptedAnswer: { '@type': 'Answer', text: 'No — the README is assembled in your browser and nothing is uploaded. To send a draft to a teammate before committing it, download the file, or ask your AI agent to publish it to Docs MD and share the link.' } },
           { '@type': 'Question', name: 'Can I edit the result afterwards?', acceptedAnswer: { '@type': 'Answer', text: 'Absolutely — the output is plain markdown, meant as a strong starting point. Download it, drop it in your repo, and extend it with project-specific sections (architecture, benchmarks, screenshots) as the project grows.' } },
           { '@type': 'Question', name: 'Which license should I pick?', acceptedAnswer: { '@type': 'Answer', text: 'Not legal advice, but as a rough map of common practice: MIT is the most common choice for libraries (short and permissive), Apache-2.0 adds an explicit patent grant, and GPL-3.0 requires derivative works to stay open source. See choosealicense.com for a fuller comparison.' } },
           { '@type': 'Question', name: 'Does this work for non-code projects?', acceptedAnswer: { '@type': 'Answer', text: 'Yes — skip the npm field, put whatever setup steps you have in the install box, and the structure works for datasets, courses, design systems, or documentation repos just as well.' } },
@@ -57,7 +57,7 @@ export default function ReadmeGeneratorPage() {
         <p className="mt-4 text-base text-gray-600">
           Fill in the form and watch a complete, professionally structured README.md build itself
           in the live preview — badges, features, installation, usage, contributing guidelines, and
-          license. Download the file, copy the markdown, or publish it as a shareable link.
+          license. Download the file or copy the markdown.
         </p>
       </div>
 
@@ -121,10 +121,13 @@ export default function ReadmeGeneratorPage() {
             <div>
               <h2 className="text-lg font-semibold text-gray-950">Is anything uploaded while I type?</h2>
               <p>
-                No — the README is assembled in your browser. The only network request happens if
-                you explicitly click <em>Share as link</em>, which publishes the markdown to a URL
-                (with an edit token, expiring in 30 days) so you can send a draft to a teammate
-                before committing it.
+                No — the README is assembled in your browser and nothing is uploaded. To send a
+                draft to a teammate before committing it, download the file, or ask your AI agent
+                to{' '}
+                <Link href="/agents" className="text-indigo-700 underline">
+                  publish it to Docs MD
+                </Link>{' '}
+                and share the link.
               </p>
             </div>
             <div>
@@ -168,7 +171,7 @@ export default function ReadmeGeneratorPage() {
             <Link href="/markdown-table-generator" className="text-indigo-700 underline">Table generator</Link>{' · '}
             <Link href="/markdown-formatter" className="text-indigo-700 underline">Markdown formatter</Link>{' · '}
             <Link href="/markdown-to-pdf" className="text-indigo-700 underline">Markdown to PDF</Link>{' · '}
-            <Link href="/" className="text-indigo-700 underline">Share markdown as a link</Link>
+            <Link href="/agents" className="text-indigo-700 underline">Publish markdown through your AI agent</Link>
           </p>
         </section>
       </div>

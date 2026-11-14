@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 const navLinks = [
+  { href: '/agents', label: 'For agents' },
   { href: '/about', label: 'About' },
   { href: '/what-is-mcp', label: 'What is MCP' },
   { href: '/ai-powered-ide', label: 'AI IDE Guide' },
@@ -20,7 +21,7 @@ export default function SiteHeader() {
             <span className="block text-base font-semibold tracking-tight text-gray-950 transition-colors group-hover:text-indigo-700">
               DOCS-MD.COM
             </span>
-            <span className="block text-[11px] text-gray-600">Markdown sharing for AI-native workflows</span>
+            <span className="block text-[11px] text-gray-600">A markdown workspace for AI agents</span>
           </span>
         </Link>
         <nav className="hidden items-center gap-4 text-sm text-gray-700 md:flex">

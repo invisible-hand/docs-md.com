@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import AgentPublishHint from '@/components/tools/AgentPublishHint';
 import { BTN_DARK, BTN_GHOST, downloadFile, useCopy } from '@/components/tools/toolkit';
 import { EMPTY_FIELDS, SAMPLE_FIELDS, buildHandoff, type HandoffFields, type KeyFile } from '@/lib/handoff';
 
@@ -60,9 +60,6 @@ export default function HandoffGenerator() {
   const [draftState, setDraftState] = useState<'loading' | 'sample' | 'restored' | 'saved'>('loading');
   const [view, setView] = useState<'preview' | 'markdown'>('preview');
   const [copied, copy] = useCopy();
-  const [shareState, setShareState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
-  const [shareUrl, setShareUrl] = useState('');
-  const [rawUrl, setRawUrl] = useState('');
 
   // Restore the draft after mount so the server-rendered sample never mismatches.
   useEffect(() => {
@@ -100,26 +97,6 @@ export default function HandoffGenerator() {
   const reset = (to: HandoffFields) => {
     setFields(to);
     setDraftState('saved');
-    setShareState('idle');
-  };
-
-  const handleShare = async () => {
-    setShareState('loading');
-    try {
-      const response = await fetch('/api/share', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ client: 'tool:handoff', content: markdown, filename: 'HANDOFF.md', expiry: '30d' }),
-      });
-      if (!response.ok) throw new Error('share failed');
-      const data = await response.json();
-      setShareUrl(data.url);
-      setRawUrl(data.rawUrl ?? '');
-      setShareState('done');
-    } catch (err) {
-      console.error(err);
-      setShareState('error');
-    }
   };
 
   return (
@@ -292,9 +269,6 @@ export default function HandoffGenerator() {
             <button onClick={() => downloadFile('HANDOFF.md', markdown, 'text/markdown')} className={BTN_GHOST}>
               Download HANDOFF.md
             </button>
-            <button onClick={handleShare} disabled={shareState === 'loading'} className={BTN_GHOST}>
-              {shareState === 'loading' ? 'Sharing…' : 'Share as link'}
-            </button>
           </div>
         </div>
         {view === 'preview' ? (
@@ -306,28 +280,9 @@ export default function HandoffGenerator() {
             <code>{markdown}</code>
           </pre>
         )}
-        {shareState === 'done' ? (
-          <p className="mt-2 text-sm text-gray-600">
-            Live at{' '}
-            <Link href={shareUrl} className="text-indigo-700 underline">
-              {shareUrl}
-            </Link>{' '}
-            (expires in 30 days).
-            {rawUrl ? (
-              <>
-                {' '}Raw markdown for agents:{' '}
-                <Link href={rawUrl} className="text-indigo-700 underline">
-                  {rawUrl}
-                </Link>
-              </>
-            ) : null}
-          </p>
-        ) : null}
-        {shareState === 'error' ? (
-          <p className="mt-2 text-sm text-red-600">Sharing failed. Copy or download the file instead.</p>
-        ) : null}
+        <AgentPublishHint className="mt-2" />
         <p className="mt-2 text-xs text-gray-500">
-          Nothing leaves your browser unless you click <em>Share as link</em>. The draft is kept in this browser&apos;s localStorage only.
+          Nothing leaves your browser. The draft is kept in this browser&apos;s localStorage only.
         </p>
       </div>
     </div>

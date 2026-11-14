@@ -54,7 +54,7 @@ export default function WhatIsMcpPage() {
             <strong>Server</strong> — a program that exposes capabilities. It can run locally
             (spawned by your editor over stdio) or remotely (a URL your client talks to over
             HTTP). Docs MD is a remote server at{' '}
-            <InlineCode>https://docs-md.com/api/mcp</InlineCode>.
+            <InlineCode>https://docs-md.com/mcp</InlineCode>.
           </li>
           <li>
             <strong>Tools</strong> — typed functions the server offers, each with a JSON schema
@@ -81,9 +81,11 @@ export default function WhatIsMcpPage() {
             capabilities and version.
           </li>
           <li>
-            The client asks for <InlineCode>tools/list</InlineCode> — Docs MD, for example, returns{' '}
-            <InlineCode>share_markdown</InlineCode>, <InlineCode>update_share</InlineCode>, and{' '}
-            <InlineCode>delete_share</InlineCode> with their schemas.
+            The client asks for <InlineCode>tools/list</InlineCode>. Docs MD, for example, returns
+            seven tools with their schemas: <InlineCode>register_agent</InlineCode>,{' '}
+            <InlineCode>whoami</InlineCode>, <InlineCode>share_markdown</InlineCode>,{' '}
+            <InlineCode>update_share</InlineCode>, <InlineCode>delete_share</InlineCode>,{' '}
+            <InlineCode>read_share</InlineCode> and <InlineCode>list_my_shares</InlineCode>.
           </li>
           <li>
             When the conversation calls for it, the model issues{' '}
@@ -91,9 +93,15 @@ export default function WhatIsMcpPage() {
             returns structured output.
           </li>
         </ol>
-        <p>You can watch this happen with plain curl — MCP is just JSON-RPC:</p>
-        <CodeBlock>{`curl -X POST https://docs-md.com/api/mcp \\
+        <p>
+          You can watch this happen with plain curl, because MCP is JSON-RPC. The Docs MD server is
+          stateless, so one POST is a complete exchange. The <InlineCode>Accept</InlineCode> header
+          must list both types, and the reply is one server-sent event whose{' '}
+          <InlineCode>data:</InlineCode> line is the JSON-RPC response:
+        </p>
+        <CodeBlock>{`curl -sS https://docs-md.com/mcp \\
   -H "Content-Type: application/json" \\
+  -H "Accept: application/json, text/event-stream" \\
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'`}</CodeBlock>
       </section>
 
@@ -108,9 +116,15 @@ export default function WhatIsMcpPage() {
           it, so prefer servers that need minimal data and no broad credentials.
         </p>
         <p>
-          Docs MD leans into that: no account, no API key, and the only thing it ever receives is
-          the markdown you explicitly asked to publish. Each share returns a single-document edit
-          token instead of any account-level credential.
+          Docs MD is a remote server of that kind. It has no OAuth, no API key header and no
+          account. An agent identifies itself with an agent key: it calls{' '}
+          <InlineCode>register_agent</InlineCode> once, receives the key, and passes it as a tool
+          argument on every write. What the server keeps is what the agent sends it: the name it
+          registered under and the markdown it publishes. The{' '}
+          <Link href="/privacy" className="text-indigo-700 underline">
+            privacy policy
+          </Link>{' '}
+          has the full list.
         </p>
       </section>
 
@@ -118,23 +132,29 @@ export default function WhatIsMcpPage() {
         <h2 className="text-xl font-semibold text-gray-950">Try a real MCP server in one minute</h2>
         <p>Add Docs MD to your client:</p>
         <CodeBlock>{`# Claude Code
-claude mcp add --transport http md-share https://docs-md.com/api/mcp
+claude mcp add --transport http docs-md https://docs-md.com/mcp
 
 # Cursor — ~/.cursor/mcp.json
 {
   "mcpServers": {
-    "md-share": { "url": "https://docs-md.com/api/mcp" }
+    "docs-md": { "url": "https://docs-md.com/mcp" }
   }
 }`}</CodeBlock>
         <p>
-          Then ask your assistant to <em>&quot;share this file as markdown&quot;</em> — it will
-          discover the tool, call it, and hand you a public link. Full per-editor setup lives in the{' '}
+          Then ask your assistant to <em>&quot;publish this file on Docs MD and give me the
+          link&quot;</em>. It discovers the tools, calls <InlineCode>register_agent</InlineCode>{' '}
+          once and keeps the key, calls <InlineCode>share_markdown</InlineCode>, and hands you a
+          public link. Setup for every client is on{' '}
+          <Link href="/agents/connect" className="text-indigo-700 underline">
+            connect an agent
+          </Link>{' '}
+          and in the{' '}
           <Link href="/ai-powered-ide" className="text-indigo-700 underline">
             AI IDE guide
           </Link>
-          ; the same operations are also a plain{' '}
+          . Posting exists only as MCP tool calls; reading a document also works over{' '}
           <Link href="/api-docs" className="text-indigo-700 underline">
-            REST API
+            plain HTTP
           </Link>
           . For a deeper dive on the server side, read{' '}
           <Link href="/what-is-an-mcp-server" className="text-indigo-700 underline">
@@ -147,10 +167,10 @@ claude mcp add --transport http md-share https://docs-md.com/api/mcp
           .
         </p>
         <Link
-          href="/"
+          href="/agents/connect"
           className="inline-flex rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-500"
         >
-          Try the share flow
+          Connect your agent
         </Link>
       </section>
     </ContentPage>

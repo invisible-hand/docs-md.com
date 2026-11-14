@@ -22,7 +22,7 @@
     "loadExample": "Mở ví dụ",
     "hideSource": "Ẩn mã nguồn",
     "editSource": "Sửa mã nguồn",
-    "privacy": "File được mở ngay trong trình duyệt bằng File API và không bị tải lên máy chủ. Yêu cầu mạng duy nhất là lệnh Tải từ URL (nếu bạn dùng) và, khi bạn bấm, Chia sẻ qua link.",
+    "privacy": "File được mở ngay trong trình duyệt bằng File API và không bị tải lên máy chủ. Yêu cầu mạng duy nhất là lệnh Tải từ URL (nếu bạn dùng).",
     "openSourceBefore": "Trình xem này là",
     "openSource": "mã nguồn mở",
     "size": "Cỡ chữ",
@@ -33,20 +33,15 @@
     "copy": "Sao chép",
     "copied": "Đã chép ✓",
     "download": "Tải xuống",
-    "share": "Chia sẻ qua link",
-    "sharing": "Đang chia sẻ…",
-    "liveAt": "Đã đăng tại",
-    "expires30": "(hết hạn sau 30 ngày)",
     "corsError": "Trình duyệt không lấy được URL này — máy chủ không cho phép đọc chéo nguồn (CORS). Hãy tải file về rồi thả vào đây. Link raw của GitHub và gist vẫn dùng được.",
     "loadError": "Không tải được:",
     "exampleError": "Không mở được ví dụ này.",
-    "shareError": "Chia sẻ thất bại — vui lòng thử lại.",
     "sourceAria": "Mã nguồn markdown",
     "sourcePlaceholder": "Dán markdown vào đây, hoặc thả file .md vào bất kỳ đâu trên khung này.",
     "outline": "Mục lục",
     "empty": "Chưa có gì để hiển thị — hãy dán markdown hoặc mở một file."
   },
-  "starter": "# Trình xem Markdown\n\nThả file `.md` vào trang này, dán markdown hoặc tải file từ URL — tài liệu hiển thị ngay với bảng, code tô màu, danh sách việc cần làm và sơ đồ mermaid.\n\n## Bạn có thể làm gì\n\n- [x] Đọc README mà không cần clone repo\n- [x] In hoặc lưu thành PDF ngay từ trình duyệt\n- [ ] Chia sẻ trang đã hiển thị qua link (hết hạn sau 30 ngày)\n\n| Điều khiển | Tác dụng |\n| ---------- | -------- |\n| Cỡ chữ | S / M / L |\n| Độ rộng | Hẹp để đọc, rộng cho bảng |\n| Mục lục | Nhảy giữa các tiêu đề |\n\n```mermaid\nflowchart LR\n  A[File .md] --> B{Trình xem}\n  B --> C[In]\n  B --> D[Chia sẻ link]\n```\n\n> Mẹo: dẫn link thẳng tới bản đã hiển thị bằng `?url=https://raw.githubusercontent.com/...`\n",
+  "starter": "# Trình xem Markdown\n\nThả file `.md` vào trang này, dán markdown hoặc tải file từ URL — tài liệu hiển thị ngay với bảng, code tô màu, danh sách việc cần làm và sơ đồ mermaid.\n\n## Bạn có thể làm gì\n\n- [x] Đọc README mà không cần clone repo\n- [x] In hoặc lưu thành PDF ngay từ trình duyệt\n- [ ] Lấy link: nhờ AI agent của bạn đăng tài liệu lên Docs MD\n\n| Điều khiển | Tác dụng |\n| ---------- | -------- |\n| Cỡ chữ | S / M / L |\n| Độ rộng | Hẹp để đọc, rộng cho bảng |\n| Mục lục | Nhảy giữa các tiêu đề |\n\n```mermaid\nflowchart LR\n  A[File .md] --> B{Trình xem}\n  B --> C[In]\n  B --> D[Tải .md]\n```\n\n> Mẹo: dẫn link thẳng tới bản đã hiển thị bằng `?url=https://raw.githubusercontent.com/...`\n",
   "sections": [
     {
       "h2": "Làm sao để đọc file md online?",
@@ -66,7 +61,7 @@
     },
     {
       "h2": "Phần mềm nào xem trước được markdown?",
-      "body": "Với một file chỉ cần đọc một lần, trình đọc md trên trình duyệt như trang này là nhanh nhất: không cài đặt, và cách hiển thị theo đúng quy tắc của GitHub nên README trông giống hệt khi đưa lên GitHub. Nếu bạn soạn markdown hằng ngày, một trình soạn thảo có xem trước trực tiếp sẽ hợp hơn:\n\n- **VS Code** — xem trước tích hợp sẵn: `Ctrl+Shift+V` mở bản xem trước, `Ctrl+K V` mở nó song song với mã nguồn.\n- **Obsidian** — ứng dụng ghi chú lưu mọi thứ thành file `.md` ngay trên máy.\n- **Typora** — soạn và xem kết quả trong cùng một khung.\n\nCòn khi cần gửi tài liệu đã định dạng cho người không dùng các công cụ trên, hãy chia sẻ nó dưới dạng link — người nhận chỉ việc mở một trang web."
+      "body": "Với một file chỉ cần đọc một lần, trình đọc md trên trình duyệt như trang này là nhanh nhất: không cài đặt, và cách hiển thị theo đúng quy tắc của GitHub nên README trông giống hệt khi đưa lên GitHub. Nếu bạn soạn markdown hằng ngày, một trình soạn thảo có xem trước trực tiếp sẽ hợp hơn:\n\n- **VS Code** — xem trước tích hợp sẵn: `Ctrl+Shift+V` mở bản xem trước, `Ctrl+K V` mở nó song song với mã nguồn.\n- **Obsidian** — ứng dụng ghi chú lưu mọi thứ thành file `.md` ngay trên máy.\n- **Typora** — soạn và xem kết quả trong cùng một khung.\n\nCòn khi cần gửi tài liệu đã định dạng cho người không dùng các công cụ trên, hãy gửi bản PDF, hoặc nhờ AI agent của bạn đăng nó lên Docs MD rồi gửi link — người nhận chỉ việc mở một trang web."
     },
     {
       "h2": "Làm sao đọc README trên GitHub mà không cần clone?",
@@ -74,7 +69,7 @@
     },
     {
       "h2": "Làm sao chia sẻ file markdown đã định dạng qua link?",
-      "body": "Bấm *Chia sẻ qua link*. Tài liệu được đăng lên một URL ngắn, hiển thị y hệt như ở đây — kể cả sơ đồ — và hết hạn sau 30 ngày. Ai có link cũng xem được, vì vậy đừng chia sẻ nội dung cần giữ kín. Nếu cần thời hạn khác, token chỉnh sửa, endpoint raw hoặc máy chủ MCP để chia sẻ thẳng từ Cursor hay Claude Code, hãy dùng [trang chia sẻ chính của Docs MD](/).\n\nKhi người nhận cần một file để lưu hoặc in, bấm *In / PDF* rồi chọn \"Lưu dưới dạng PDF\" trong hộp thoại in của trình duyệt — các nút điều khiển được ẩn đi, chỉ phần tài liệu được in. Cần thêm tùy chọn thiết lập trang thì dùng công cụ [chuyển Markdown sang PDF](/markdown-to-pdf)."
+      "body": "Bản thân trình xem không đăng tài liệu lên đâu cả. Muốn có link, hãy nhờ AI agent của bạn (Claude, ChatGPT, Cursor hay Claude Code) đăng tài liệu lên Docs MD qua máy chủ MCP: agent nhận về một URL ngắn, hiển thị y hệt như ở đây — kể cả sơ đồ. Ai có link cũng xem được, vì vậy đừng đăng nội dung cần giữ kín. Cách kết nối agent có ở trang [Docs MD cho agent](/agents).\n\nKhi người nhận cần một file để lưu hoặc in, bấm *In / PDF* rồi chọn \"Lưu dưới dạng PDF\" trong hộp thoại in của trình duyệt — các nút điều khiển được ẩn đi, chỉ phần tài liệu được in. Cần thêm tùy chọn thiết lập trang thì dùng công cụ [chuyển Markdown sang PDF](/markdown-to-pdf)."
     },
     {
       "h2": "Trình xem hiển thị loại markdown nào?",
@@ -88,7 +83,7 @@
     },
     {
       "q": "Trình đọc file md này có miễn phí và riêng tư không?",
-      "a": "Có. Công cụ miễn phí và không cần đăng ký. File bạn mở hoặc thả vào được trình duyệt đọc bằng File API và không gửi lên máy chủ; chỉ khi bấm Chia sẻ qua link thì tài liệu mới được đăng lên."
+      "a": "Có. Công cụ miễn phí và không cần đăng ký. File bạn mở hoặc thả vào được trình duyệt đọc bằng File API và không gửi lên máy chủ; trình xem không đăng tài liệu lên đâu cả."
     },
     {
       "q": "Có xem được README trên GitHub mà không cần clone không?",

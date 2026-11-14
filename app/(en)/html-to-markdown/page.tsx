@@ -44,9 +44,10 @@ export default function HtmlToMarkdownPage() {
           <code className={CODE}>{'<pre><code class="language-js">'}</code> becomes a fenced code block
           tagged with its language. Elements that markdown cannot express — spans with inline styles,
           divs, forms — are unwrapped so their text is kept and the wrapper is dropped. The result is
-          the same GFM that GitHub renders, so it pastes straight into a README or a{' '}
-          <Link href="/" className="text-indigo-700 underline">
-            shared markdown link
+          the same GFM that GitHub renders, so it pastes straight into a README or into a document
+          your AI agent{' '}
+          <Link href="/agents" className="text-indigo-700 underline">
+            publishes to Docs MD
           </Link>
           .
         </p>

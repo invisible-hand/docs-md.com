@@ -92,9 +92,8 @@ export default function MarkdownToHtmlPage() {
           </li>
           <li>
             <strong>Static pages</strong> — the full-document mode produces a self-contained
-            page you can host anywhere, including on{' '}
-            <Link href="/" className="text-indigo-700 underline">Docs MD</Link> if you keep it
-            as markdown instead.
+            page you can host anywhere. If you keep it as markdown instead, your AI agent can{' '}
+            <Link href="/agents" className="text-indigo-700 underline">publish it to Docs MD</Link>.
           </li>
           <li>
             <strong>Debugging renderers</strong> — when a markdown file renders oddly, looking

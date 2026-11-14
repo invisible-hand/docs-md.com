@@ -15,7 +15,7 @@ We shipped **three improvements** this week:
 
 | Endpoint | Latency (p95) |
 | -------- | ------------: |
-| /api/share | 84 ms |
+| /mcp | 84 ms |
 | /raw/:id | 12 ms |
 
 > Full changelog on the [releases page](https://example.com/releases).

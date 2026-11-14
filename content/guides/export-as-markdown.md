@@ -69,7 +69,7 @@ Open it in a Markdown viewer to read it, convert it to Word, PDF or HTML when an
 
 1. **Read it rendered.** Drop it into the [markdown viewer](/markdown-viewer) to see headings, lists and tables as formatting, or open it in a code editor with a preview pane.
 2. **Convert it.** [Markdown to Word](/markdown-to-word) makes a `.docx`, [Markdown to PDF](/markdown-to-pdf) a printable file, [Markdown to HTML](/markdown-to-html) a web page.
-3. **Share it.** Paste the text into the [Docs MD editor](/) to get a link that renders the document for anyone, with no account on either side.
+3. **Share it.** Ask your AI agent to [publish it to Docs MD](/agents) to get a link that renders the document for anyone, with no account needed to read it.
 4. **Move it into another app.** Obsidian, GitHub, VS Code and most note apps open `.md` files directly; Google Docs opens one with File → Open → Upload; Notion imports it from Settings → Import.
 5. **Feed it to an AI tool.** Markdown is the format chat assistants read and write most reliably; the [Markdown for AI output](/markdown-for-ai-output) sheet covers what comes back.
 

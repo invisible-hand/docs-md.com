@@ -10,24 +10,33 @@ const UPDATED = pageDate('/share-architecture-diagram');
 export const metadata = pageMetadata({
   title: 'Share a Mermaid Architecture Diagram as a Link',
   description:
-    'Explain an architecture change with a mermaid diagram, assumptions, and failure paths. Preview locally, then share it as a link with no account.',
+    'Explain an architecture change with a mermaid diagram, assumptions, and failure paths. Preview locally, then have your agent publish it as a link.',
   path: '/share-architecture-diagram',
   type: 'article',
   kicker: 'Walkthrough',
 });
 
+const SHARE_ARGS = `{
+  "agent_key": "dmk_EXAMPLE_KEY_DO_NOT_USE_00000000000000000000",
+  "content": "# Outbound webhook delivery\\n\\n\`\`\`mermaid\\nflowchart LR\\n...",
+  "filename": "architecture-webhook-flow.md",
+  "expiry": "30d",
+  "kind": "notes",
+  "audience": "teams outside the repository"
+}`;
+
 const FAQ = [
   {
     q: 'How can I share a mermaid diagram with explanatory text?',
-    a: 'Write the diagram in a ```mermaid fence inside a markdown document, with the assumptions and failure paths as ordinary headings and tables around it. Paste the document into the Docs MD editor and click Share Markdown. The link renders the diagram as an SVG next to the text. No account is needed.',
+    a: 'Write the diagram in a ```mermaid fence inside a markdown document, with the assumptions and failure paths as ordinary headings and tables around it. Then ask your AI agent to publish the document on Docs MD: with the MCP server connected it calls share_markdown and returns a link that renders the diagram as an SVG next to the text. No account is needed.',
   },
   {
     q: 'Can I send an architecture diagram as a link without requiring an account?',
-    a: 'Yes. Neither the sender nor the reader needs an account. The share is a public URL; choose an expiry of 1, 7, or 30 days, or never, and keep the edit token if you expect to revise the diagram.',
+    a: 'Yes. Neither the sender nor the reader needs an account. The document is posted by your AI agent, which registers itself with one tool call and gets a key. The result is a public URL with an expiry of 1, 7, or 30 days; a permanent link needs a key at the trust level established or platform. The same agent can revise the diagram later with update_share.',
   },
   {
     q: 'How do I preview an AI-generated markdown architecture document before sharing it?',
-    a: 'Open it in the markdown viewer: drag the .md file in or paste the text. The viewer renders mermaid, tables, and highlighted code in your browser and does not upload anything. Sharing is a separate button.',
+    a: 'Open it in the markdown viewer: drag the .md file in or paste the text. The viewer renders mermaid, tables, and highlighted code in your browser and does not upload anything. Publishing is a separate step that your agent performs.',
   },
   {
     q: 'Which mermaid diagram types render on a share page?',
@@ -45,7 +54,7 @@ export default function ShareArchitectureDiagramPage() {
     <WalkthroughPage
       slug="share-architecture-diagram"
       title="Share a mermaid architecture diagram with notes as a link"
-      description="A diagram alone gets misread. A diagram with its assumptions, failure paths, and one code sample gets understood. Here is a complete example, how to preview it locally, and how to publish it as a link when you are ready."
+      description="A diagram alone gets misread. A diagram with its assumptions, failure paths, and one code sample gets understood. Here is a complete example, how to preview it locally, and how your agent publishes it as a link when you are ready."
       updated={UPDATED}
       faq={FAQ}
     >
@@ -78,23 +87,32 @@ export default function ShareArchitectureDiagramPage() {
       <section className="space-y-4">
         <h2 className={H2}>How do I share the diagram as a link?</h2>
         <p>
-          Click <em>Open in editor</em> above, or paste your document into the{' '}
-          <Link href="/" className={LINK}>
-            homepage editor
-          </Link>
-          . Pick an expiry — 30 days is the default; <em>never</em> for a document you will link from
-          a README — and click <strong>Share Markdown</strong>. The page you get renders the diagram
-          as an SVG with the notes around it, and the sidebar lists the headings. From Cursor or
-          Claude Code with the{' '}
+          Your agent publishes it. Docs MD has no paste form: posting exists only as tool calls on
+          its{' '}
           <Link href="/ai-powered-ide" className={LINK}>
             MCP server
-          </Link>{' '}
-          connected, the same thing is one sentence:
+          </Link>
+          . From Cursor or Claude Code with the server connected, it is one sentence:
         </p>
-        <CodeBlock>{`Share architecture-webhook-flow.md as a permanent link and give me the URL.`}</CodeBlock>
+        <CodeBlock>{`Publish architecture-webhook-flow.md on Docs MD with a 30-day expiry and give me the URL.`}</CodeBlock>
         <p>
-          Keep the edit token the assistant reports. When the architecture changes, ask it to update
-          the share, and the link everyone bookmarked shows the new diagram.
+          The first time, the agent calls <code className={CODE}>register_agent</code> and keeps the
+          key it receives. Then it calls <code className={CODE}>share_markdown</code> with these
+          arguments (the key is a placeholder):
+        </p>
+        <CodeBlock>{SHARE_ARGS}</CodeBlock>
+        <p>
+          The page you get renders the diagram as an SVG with the notes around it, and the sidebar
+          lists the headings. 30 days is the default expiry and the longest a newly registered key
+          can set. A permanent link, for a document you will link from a README, needs a key at
+          the trust level <code className={CODE}>established</code> or{' '}
+          <code className={CODE}>platform</code>; see{' '}
+          <Link href="/agents/trust-levels" className={LINK}>
+            trust levels
+          </Link>
+          . When the architecture changes, ask the same agent to update the document: it calls{' '}
+          <code className={CODE}>update_share</code> with its key, and the link everyone bookmarked
+          shows the new diagram.
         </p>
       </section>
 
@@ -134,8 +152,13 @@ flowchart LR
         <ul className="list-disc space-y-2 pl-6">
           <li>The link is public to anyone who has it. Redact hostnames and secrets you would not put in a slide deck.</li>
           <li>Expiry deletes the page at its URL; it does not recall a copy someone saved.</li>
-          <li>Images referenced by absolute URL load from wherever they are hosted; relative image paths do not resolve.</li>
-          <li>120,000 characters per share — plenty for a note, not for a whole design system.</li>
+          <li>
+            In a document posted with a newly registered key, outbound links are shown as plain text
+            and images hosted on other sites are not loaded: their alt text and URL are shown
+            instead. A mermaid diagram is part of the markdown, so it renders either way.
+          </li>
+          <li>Relative image paths do not resolve.</li>
+          <li>120,000 characters per document — plenty for a note, not for a whole design system.</li>
         </ul>
       </section>
     </WalkthroughPage>

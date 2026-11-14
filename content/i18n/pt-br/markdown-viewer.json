@@ -5,7 +5,7 @@
   "title": "Visualizador Markdown online: abrir arquivo .md",
   "description": "Abra e leia arquivos .md online, já formatados: arraste o arquivo, cole o texto ou carregue do GitHub. Grátis, sem cadastro e sem upload do arquivo.",
   "h1": "Visualizador Markdown: abrir arquivo md online",
-  "intro": "Para abrir um arquivo md online, arraste o arquivo `.md` para o visualizador abaixo, cole o texto ou carregue por uma URL do GitHub: ele aparece formatado na hora, com títulos, tabelas, código destacado, listas de tarefas, notas de rodapé e diagramas mermaid. É grátis e roda no navegador; o arquivo é lido no seu aparelho, sem upload. Imprima em PDF ou compartilhe por link.",
+  "intro": "Para abrir um arquivo md online, arraste o arquivo `.md` para o visualizador abaixo, cole o texto ou carregue por uma URL do GitHub: ele aparece formatado na hora, com títulos, tabelas, código destacado, listas de tarefas, notas de rodapé e diagramas mermaid. É grátis e roda no navegador; o arquivo é lido no seu aparelho, sem upload. Imprima em PDF ou baixe o arquivo.",
   "updated": "2026-10-20",
   "chrome": {
     "updated": "Atualizado em",
@@ -22,7 +22,7 @@
     "loadExample": "Carregar exemplo",
     "hideSource": "Ocultar código",
     "editSource": "Editar código",
-    "privacy": "Os arquivos são abertos no seu navegador com a File API e não são enviados para nenhum servidor. As únicas requisições de rede são o Carregar da URL, se você usar, e o Compartilhar por link, se você clicar nele.",
+    "privacy": "Os arquivos são abertos no seu navegador com a File API e não são enviados para nenhum servidor. A única requisição de rede é o Carregar da URL, se você usar.",
     "openSourceBefore": "O visualizador é",
     "openSource": "código aberto",
     "size": "Tamanho",
@@ -33,20 +33,15 @@
     "copy": "Copiar",
     "copied": "Copiado ✓",
     "download": "Baixar",
-    "share": "Compartilhar por link",
-    "sharing": "Compartilhando…",
-    "liveAt": "Publicado em",
-    "expires30": "(expira em 30 dias)",
     "corsError": "Não foi possível buscar essa URL pelo navegador — o servidor não permite leituras de outra origem (CORS). Baixe o arquivo e solte-o aqui. URLs raw do GitHub e de gists funcionam.",
     "loadError": "Não foi possível carregar:",
     "exampleError": "Não foi possível carregar esse exemplo.",
-    "shareError": "Falha ao compartilhar — tente novamente.",
     "sourceAria": "Código markdown",
     "sourcePlaceholder": "Cole o markdown aqui ou solte um arquivo .md em qualquer lugar deste painel.",
     "outline": "Sumário",
     "empty": "Nada para mostrar ainda — cole um markdown ou abra um arquivo."
   },
-  "starter": "# Visualizador de Markdown\n\nArraste um arquivo `.md` para esta página, cole o texto em markdown ou carregue um arquivo por URL — ele aparece formatado aqui, com tabelas, código destacado, listas de tarefas e diagramas mermaid.\n\n## O que você pode fazer\n\n- [x] Ler um README sem clonar o repositório\n- [x] Imprimir ou salvar como PDF pelo navegador\n- [ ] Compartilhar a página renderizada por link (expira em 30 dias)\n\n| Controle | Efeito |\n| -------- | ------ |\n| Tamanho da fonte | P / M / G |\n| Largura | Estreita para leitura, larga para tabelas |\n| Sumário | Pula entre os títulos |\n\n```mermaid\nflowchart LR\n  A[Arquivo .md] --> B{Visualizador}\n  B --> C[Imprimir]\n  B --> D[Link para compartilhar]\n```\n\n> Dica: crie um link direto para um arquivo renderizado com `?url=https://raw.githubusercontent.com/...`\n",
+  "starter": "# Visualizador de Markdown\n\nArraste um arquivo `.md` para esta página, cole o texto em markdown ou carregue um arquivo por URL — ele aparece formatado aqui, com tabelas, código destacado, listas de tarefas e diagramas mermaid.\n\n## O que você pode fazer\n\n- [x] Ler um README sem clonar o repositório\n- [x] Imprimir ou salvar como PDF pelo navegador\n- [ ] Ter um link: peça ao seu agente de IA para publicar no Docs MD\n\n| Controle | Efeito |\n| -------- | ------ |\n| Tamanho da fonte | P / M / G |\n| Largura | Estreita para leitura, larga para tabelas |\n| Sumário | Pula entre os títulos |\n\n```mermaid\nflowchart LR\n  A[Arquivo .md] --> B{Visualizador}\n  B --> C[Imprimir]\n  B --> D[Baixar .md]\n```\n\n> Dica: crie um link direto para um arquivo renderizado com `?url=https://raw.githubusercontent.com/...`\n",
   "sections": [
     {
       "h2": "Como abrir um arquivo md online?",
@@ -66,7 +61,7 @@
     },
     {
       "h2": "Quais editores mostram a pré-visualização de markdown?",
-      "body": "Para um arquivo avulso, um leitor de md no navegador, como este, é o mais rápido: nada para instalar, e a renderização segue as regras do GitHub, então um README aparece do jeito que vai ficar no GitHub. Se você edita markdown todos os dias, um editor com pré-visualização ao vivo combina mais com a rotina:\n\n- **VS Code** — prévia embutida com `Ctrl+Shift+V`, sem extensão.\n- **Obsidian** — notas em markdown com modo de leitura e de edição.\n- **Typora** — editor que mostra o documento já formatado enquanto você digita.\n\nSe você precisa mandar o documento renderizado para alguém que não tem nenhum desses programas, compartilhe por link — a pessoa só abre uma página web. Para transformar o arquivo em PDF com opções de página, use o conversor de [markdown para PDF](/markdown-to-pdf)."
+      "body": "Para um arquivo avulso, um leitor de md no navegador, como este, é o mais rápido: nada para instalar, e a renderização segue as regras do GitHub, então um README aparece do jeito que vai ficar no GitHub. Se você edita markdown todos os dias, um editor com pré-visualização ao vivo combina mais com a rotina:\n\n- **VS Code** — prévia embutida com `Ctrl+Shift+V`, sem extensão.\n- **Obsidian** — notas em markdown com modo de leitura e de edição.\n- **Typora** — editor que mostra o documento já formatado enquanto você digita.\n\nSe você precisa mandar o documento renderizado para alguém que não tem nenhum desses programas, mande um PDF ou peça ao seu agente de IA para publicá-lo no Docs MD e compartilhe o link — a pessoa só abre uma página web. Para transformar o arquivo em PDF com opções de página, use o conversor de [markdown para PDF](/markdown-to-pdf)."
     },
     {
       "h2": "O que um visualizador markdown faz que um editor de texto não faz?",
@@ -74,7 +69,7 @@
     },
     {
       "h2": "Como compartilhar um arquivo markdown renderizado por link?",
-      "body": "Clique em *Compartilhar por link*. O documento é publicado em uma URL curta que renderiza exatamente como aqui — diagramas incluídos — e expira em 30 dias. O link é público para qualquer pessoa que o tenha, então não compartilhe dados sensíveis por ele.\n\nPara outras opções de validade, tokens de edição, endpoints raw e um servidor MCP que compartilha direto do Cursor ou do Claude Code, use a [página principal de compartilhamento](/). Também dá para mandar alguém direto para um arquivo renderizado: acrescente `?url=` com o endereço raw do arquivo ao endereço desta página. Para imprimir ou gerar um PDF, clique em *Imprimir / PDF* e escolha *Salvar como PDF* na janela de impressão do navegador; os controles ficam ocultos e só o documento é impresso."
+      "body": "O visualizador não publica nada. Para ter um link, peça ao seu agente de IA (Claude, ChatGPT, Cursor ou Claude Code) para publicar o documento no Docs MD pelo servidor MCP: ele recebe uma URL curta que renderiza como aqui — diagramas incluídos. O link é público para qualquer pessoa que o tenha, então não publique dados sensíveis por ele. Veja como conectar o agente em [Docs MD para agentes](/agents).\n\nTambém dá para mandar alguém direto para um arquivo renderizado: acrescente `?url=` com o endereço raw do arquivo ao endereço desta página. Para imprimir ou gerar um PDF, clique em *Imprimir / PDF* e escolha *Salvar como PDF* na janela de impressão do navegador; os controles ficam ocultos e só o documento é impresso."
     },
     {
       "h2": "Qual sabor de markdown é renderizado?",
@@ -88,7 +83,7 @@
     },
     {
       "q": "Este leitor de md é gratuito e privado?",
-      "a": "Sim. É gratuito e não pede cadastro. O arquivo que você abre ou arrasta é lido pelo navegador com a File API e não é enviado a nenhum servidor; só o botão Compartilhar por link publica o documento."
+      "a": "Sim. É gratuito e não pede cadastro. O arquivo que você abre ou arrasta é lido pelo navegador com a File API e não é enviado a nenhum servidor; o visualizador nunca publica o documento."
     },
     {
       "q": "Dá para ver um README do GitHub sem clonar o repositório?",

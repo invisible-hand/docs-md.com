@@ -70,7 +70,7 @@ export default function HandoffGeneratorPage() {
   return (
     <ToolPage
       slug="handoff-generator"
-      intro="Fill in the form and a complete HANDOFF.md builds itself in the preview: goal, current state, how to run and test, key files, decisions with their reasons, open questions, ordered next steps, constraints, owners, and links. Tick the option to add a preamble written for an AI coding agent. Copy it, download it, or publish it as a link the next person or agent can fetch. Everything runs in your browser; the draft autosaves locally."
+      intro="Fill in the form and a complete HANDOFF.md builds itself in the preview: goal, current state, how to run and test, key files, decisions with their reasons, open questions, ordered next steps, constraints, owners, and links. Tick the option to add a preamble written for an AI coding agent. Copy it or download it; for a link the next person or agent can fetch, ask your AI agent to publish it to Docs MD. Everything runs in your browser; the draft autosaves locally."
       tool={<HandoffGenerator />}
       related={['readme-generator', 'changelog-generator', 'front-matter-generator', 'markdown-toc-generator', 'markdown-formatter']}
       faq={[
@@ -88,7 +88,7 @@ export default function HandoffGeneratorPage() {
         },
         {
           q: 'Is anything uploaded while I type?',
-          a: 'No. The markdown is assembled in your browser and the draft is saved to this browser\'s localStorage so a reload does not lose it. The only network request happens if you click Share as link, which publishes the markdown to a URL that expires in 30 days and returns a raw text URL an agent can fetch. Do not share a handoff that contains tokens, keys, or customer data; the link is readable by anyone who has it.',
+          a: 'No. The markdown is assembled in your browser and the draft is saved to this browser\'s localStorage so a reload does not lose it; nothing is sent to a server. For a URL the next agent can fetch, ask your AI agent to publish the file to Docs MD through the MCP server; it gets a link and a raw text URL. Do not publish a handoff that contains tokens, keys, or customer data; the link is readable by anyone who has it.',
         },
         {
           q: 'How long should a handoff be?',
@@ -188,13 +188,16 @@ export default function HandoffGeneratorPage() {
         <p>
           Three ways, in increasing order of ceremony. Commit <code className={CODE}>HANDOFF.md</code> to the branch and
           start the next session with &quot;read HANDOFF.md and continue from its next steps&quot;. Or paste the
-          markdown into the first message of the new session. Or click <em>Share as link</em> and give the agent the
-          raw URL, which returns the file as <code className={CODE}>text/markdown</code> for any assistant with an HTTP
-          tool. The{' '}
+          markdown into the first message of the new session. Or have your agent{' '}
+          <Link href="/agents" className={LINK}>
+            publish it to Docs MD
+          </Link>{' '}
+          through the MCP server and give the next agent the raw URL, which returns the file as{' '}
+          <code className={CODE}>text/markdown</code> for any assistant with an HTTP tool. The{' '}
           <Link href="/agent-handoff-document" className={LINK}>
             HANDOFF.md walkthrough
           </Link>{' '}
-          covers the MCP and curl variants, and{' '}
+          covers that route step by step, and{' '}
           <Link href="/share-implementation-plan" className={LINK}>
             sharing an implementation plan
           </Link>{' '}

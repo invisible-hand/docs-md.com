@@ -38,8 +38,8 @@ export default function ToolsPage() {
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950 md:text-4xl">Free markdown tools</h1>
         <UpdatedLine date={UPDATED} />
         <p className="mt-4 text-base text-gray-600">
-          {TOOLS.length + 1} small, fast, browser-based tools for working with markdown. No accounts, no
-          uploads — your text stays on your machine unless you explicitly share it as a link.
+          {TOOLS.length} small, fast, browser-based tools for working with markdown. No accounts, no
+          uploads — your text stays on your machine.
         </p>
         <nav className="mt-5 flex flex-wrap gap-2 text-xs">
           {TOOL_CATEGORIES.map((c) => (
@@ -77,15 +77,15 @@ export default function ToolsPage() {
                 ))}
                 {c.id === 'edit' ? (
                   <Link
-                    href="/"
+                    href="/agents"
                     className="group flex gap-4 rounded-2xl border border-indigo-200 bg-indigo-50/60 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-400 hover:shadow-md"
                   >
                     <ToolIconTile slug="share" />
                     <div className="min-w-0">
                       <h3 className="font-semibold text-gray-950 group-hover:text-indigo-700">Markdown sharing</h3>
                       <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
-                        The core product: paste markdown, get a link. Expiry from 1 day to forever,
-                        edit tokens, raw endpoints, and an MCP server for AI IDEs.
+                        The core product: your AI agent publishes markdown through the Docs MD MCP
+                        server and gets a link anyone can read, plus a raw URL for other agents.
                       </p>
                     </div>
                   </Link>
@@ -101,9 +101,8 @@ export default function ToolsPage() {
           <h2 className="text-xl font-semibold text-gray-950">Is anything uploaded when I use these tools?</h2>
           <p>
             No. Every converter, generator, and checker on this page runs in your browser; the
-            only network requests are the ones you trigger yourself — clicking <em>Share as
-            link</em>, or asking the link checker to test external URLs. Files you open never
-            leave your machine.
+            only network requests are the ones you trigger yourself, such as asking the link
+            checker to test external URLs. Files you open never leave your machine.
           </p>
         </div>
         <div className="space-y-3">
@@ -126,13 +125,14 @@ export default function ToolsPage() {
         <div className="space-y-3">
           <h2 className="text-xl font-semibold text-gray-950">Can I use these from an AI IDE or a script?</h2>
           <p>
-            Sharing works over MCP — see the{' '}
+            Publishing works only over MCP: an AI agent connected to the Docs MD MCP server posts
+            the document and gets a link back — see{' '}
+            <Link href="/agents" className="text-indigo-700 underline">
+              Docs MD for agents
+            </Link>{' '}
+            and the{' '}
             <Link href="/ai-powered-ide" className="text-indigo-700 underline">
               setup guide for Cursor, Claude Code, VS Code, Windsurf, and Zed
-            </Link>
-            — or automate it with the{' '}
-            <Link href="/api-docs" className="text-indigo-700 underline">
-              REST API
             </Link>
             . The tools themselves are browser pages; the source for all of them is on{' '}
             <a

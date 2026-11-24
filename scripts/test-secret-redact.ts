@@ -45,12 +45,18 @@ const SAMPLES: Record<string, string> = {
   'Docs MD agent key': 'dmk' + '_' + body(43),
   'Docs MD room key': 'rmk' + '_' + body(43, 5),
   'Anthropic API key': 'sk-ant-' + 'api03-' + body(48),
+  'OpenRouter API key': 'sk-' + 'or-v1-' + body(64, 2),
   'OpenAI API key': 'sk-' + 'proj-' + body(48, 3),
   'GitHub token': 'gh' + 'p_' + body(36),
+  'GitLab token': 'gl' + 'pat-' + body(20, 4),
+  'npm token': 'np' + 'm_' + body(36, 6),
+  'Hugging Face token': 'h' + 'f_' + body(34, 8),
   'AWS access key id': 'AK' + 'IA' + 'Q7WX2RT9YL4PN8ZK',
+  'AWS secret access key': 'aws_secret' + '_access_key = ' + body(40, 10),
   'Slack token': 'xo' + 'xb-' + '2048' + '-' + body(24),
   'Google API key': 'AI' + 'za' + body(35),
   'Stripe live key': 'sk' + '_live_' + body(24),
+  'Stripe webhook secret': 'wh' + 'sec_' + body(32, 12),
 };
 
 /** Values the scanner must let through. */
@@ -95,24 +101,27 @@ for (const kind of SECRET_KINDS) {
     assert.equal(spans.length, 1, 'one span');
     assert.equal(spans[0].kind, kind);
     assert.equal(spans[0].line, 2);
-    assert.equal(text.slice(spans[0].start, spans[0].end), value);
+    // The AWS secret is recognised by its name, which stays in the text; only the value is the finding.
+    const named = kind === 'AWS secret access key' ? value.slice(0, value.length - 40) : '';
+    assert.equal(text.slice(spans[0].start, spans[0].end), value.slice(named.length));
 
     const redacted = redact(text, matches);
-    assert.equal(redacted, `first line\nbefore ${placeholderFor(kind)} after\nlast line`);
+    assert.equal(redacted, `first line\nbefore ${named}${placeholderFor(kind)} after\nlast line`);
     assert.deepEqual(findSecrets(redacted), []);
 
     const marks = flagged(text, matches);
     assert.equal(marks.length, 1);
-    assert.equal(marks[0].text, value);
+    assert.equal(marks[0].text, value.slice(named.length));
     assert.equal(rejoin(text, matches), text);
 
     if (kind !== 'private key block') {
-      const masked = maskSecret(value);
-      assert.equal(masked.slice(0, 4), value.slice(0, 4));
-      assert.equal(masked.slice(-4), value.slice(-4));
-      assert.ok(!masked.includes(value.slice(4, 12)), 'the middle of the value is shown');
-      assert.ok(masked.length <= value.length);
-      assert.notEqual(masked, value);
+      const secret = value.slice(named.length);
+      const masked = maskSecret(secret);
+      assert.equal(masked.slice(0, 4), secret.slice(0, 4));
+      assert.equal(masked.slice(-4), secret.slice(-4));
+      assert.ok(!masked.includes(secret.slice(4, 12)), 'the middle of the value is shown');
+      assert.ok(masked.length <= secret.length);
+      assert.notEqual(masked, value.slice(named.length));
     }
   });
 }
@@ -384,16 +393,20 @@ test('the sample: two findings, two placeholders that pass, one connection strin
 test('the limits stated on the page hold (if one fails, the scanner changed: update app/(en)/secret-scanner/page.tsx)', () => {
   const notDetected: Record<string, string> = {
     'a password in a connection string': ['postgres://app', 'correct-horse-battery@db.example.com:5432/orders'].join(':'),
-    'an AWS secret access key (no prefix)': `AWS_SECRET_ACCESS_KEY=${body(40)}`,
+    'an AWS secret access key under another name': `SECRET=${body(40)}`,
     'a JSON web token': ['ey' + 'J' + body(20), 'ey' + 'J' + body(40, 9), body(43, 17)].join('.'),
     'a Stripe test-mode key': 'sk' + '_test_' + body(24),
-    'a key right after an escaped line break': `{"output":"first line\\n${SAMPLES['Anthropic API key']}"}`,
-    'a key joined to the word before it': `TOKEN_${SAMPLES['GitHub token']}`,
+    'a key joined to a letter or digit before it': `token${SAMPLES['GitHub token']}`,
     'a key that contains a placeholder word': `${SAMPLES['Anthropic API key']}-EXAMPLE`,
     'a key split across two lines': `${SAMPLES['GitHub token'].slice(0, 20)}\n${SAMPLES['GitHub token'].slice(20)}`,
     'key material without its BEGIN line': [...KEY_LINES, KEY_FOOTER].join('\n'),
   };
   for (const [what, text] of Object.entries(notDetected)) assert.deepEqual(findSecrets(text), [], what);
+  // Found since 2026-11-24: after an underscore, after an escaped line break, and once per key.
+  assert.deepEqual(findSecrets(`TOKEN_${SAMPLES['GitHub token']}`).map((m) => m.kind), ['GitHub token']);
+  assert.deepEqual(findSecrets(`{"output":"first line\\n${SAMPLES['Anthropic API key']}"}`).map((m) => m.kind), ['Anthropic API key']);
+  assert.equal(findSecrets(SAMPLES['Anthropic API key']).length, 1);
+  assert.deepEqual(findSecrets(SAMPLES['OpenRouter API key']).map((m) => m.kind), ['OpenRouter API key']);
   // "The line that opens a private key is always flagged", even next to a placeholder word.
   assert.equal(findSecrets(`EXAMPLE ${KEY_HEADER} EXAMPLE`).length, 1);
 });

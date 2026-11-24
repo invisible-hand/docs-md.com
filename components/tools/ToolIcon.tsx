@@ -183,6 +183,28 @@ const GLYPHS: Record<string, ReactNode> = {
     </>
   ),
 
+  // agents & MCP
+  'mcp-config-generator': (
+    <>
+      <path d="M9 7V3.5M15 7V3.5" />
+      <path d="M6.5 7h11v4a5.5 5.5 0 0 1-11 0z" />
+      <path d="M12 16.5v4" />
+    </>
+  ),
+  'agents-md-generator': (
+    <>
+      <path d="M6 3.5h8.5L19 8v12.5H6z" />
+      <path d="M14 3.5V8h5" />
+      <path d="M9 12.5h6M9 16h4" />
+    </>
+  ),
+  'secret-scanner': (
+    <>
+      <circle cx="8.5" cy="12" r="3.5" />
+      <path d="M12 12h8.5M17 12v3M20 12v2.5" />
+    </>
+  ),
+
   // reference
   'markdown-cheat-sheet': (
     <>

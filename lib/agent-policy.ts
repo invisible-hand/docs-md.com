@@ -257,17 +257,30 @@ interface SecretPattern {
   re: RegExp;
 }
 
+// A key may start after anything that is not a letter or a digit (an underscore in `TOKEN_ghp_…`
+// included), or right after an escaped line break or tab inside a JSON string (`\nghp_…`).
+const START = String.raw`(?:(?<=\\[ntr])|(?<![A-Za-z0-9]))`;
+const re = (body: string, flags = 'g') => new RegExp(START + body, flags);
+
 const SECRET_PATTERNS: SecretPattern[] = [
   { kind: 'private key block', re: /-----BEGIN (?:RSA |EC |DSA |OPENSSH |PGP |ENCRYPTED )?PRIVATE KEY(?: BLOCK)?-----/g },
-  { kind: 'Docs MD agent key', re: /\bdmk_[A-Za-z0-9_-]{43}\b/g },
-  { kind: 'Docs MD room key', re: /\brmk_[A-Za-z0-9_-]{43}\b/g },
-  { kind: 'Anthropic API key', re: /\bsk-ant-[A-Za-z0-9_-]{32,}/g },
-  { kind: 'OpenAI API key', re: /\bsk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{40,}/g },
-  { kind: 'GitHub token', re: /\b(?:gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{60,})/g },
-  { kind: 'AWS access key id', re: /\b(?:AKIA|ASIA)[0-9A-Z]{16}\b/g },
-  { kind: 'Slack token', re: /\bxox[abprs]-[A-Za-z0-9-]{20,}/g },
-  { kind: 'Google API key', re: /\bAIza[0-9A-Za-z_-]{35}\b/g },
-  { kind: 'Stripe live key', re: /\b(?:sk|rk)_live_[A-Za-z0-9]{20,}/g },
+  { kind: 'Docs MD agent key', re: re(String.raw`dmk_[A-Za-z0-9_-]{43}\b`) },
+  { kind: 'Docs MD room key', re: re(String.raw`rmk_[A-Za-z0-9_-]{43}\b`) },
+  { kind: 'Anthropic API key', re: re(String.raw`sk-ant-[A-Za-z0-9_-]{32,}`) },
+  { kind: 'OpenRouter API key', re: re(String.raw`sk-or-v1-[A-Za-z0-9]{40,}`) },
+  // Any other `sk-` key of this length; the two vendors above have their own kind.
+  { kind: 'OpenAI API key', re: re(String.raw`sk-(?!ant-|or-v1-)(?:proj-|svcacct-)?[A-Za-z0-9_-]{40,}`) },
+  { kind: 'GitHub token', re: re(String.raw`(?:gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{60,})`) },
+  { kind: 'GitLab token', re: re(String.raw`glpat-[A-Za-z0-9_-]{20,}`) },
+  { kind: 'npm token', re: re(String.raw`npm_[A-Za-z0-9]{36}(?![A-Za-z0-9])`) },
+  { kind: 'Hugging Face token', re: re(String.raw`hf_[A-Za-z0-9]{34,}`) },
+  { kind: 'AWS access key id', re: re(String.raw`(?:AKIA|ASIA)[0-9A-Z]{16}\b`) },
+  // The secret half of an AWS key has no prefix; it is recognised only where it is named.
+  { kind: 'AWS secret access key', re: /(?<=aws_secret_access_key["']?\s*[=:]\s*["']?)[A-Za-z0-9/+]{40}(?![A-Za-z0-9/+])/gi },
+  { kind: 'Slack token', re: re(String.raw`(?:xox[abprs]-[A-Za-z0-9-]{20,}|xapp-[A-Za-z0-9-]{20,})`) },
+  { kind: 'Google API key', re: re(String.raw`AIza[0-9A-Za-z_-]{35}\b`) },
+  { kind: 'Stripe live key', re: re(String.raw`(?:sk|rk)_live_[A-Za-z0-9]{20,}`) },
+  { kind: 'Stripe webhook secret', re: re(String.raw`whsec_[A-Za-z0-9]{32,}`) },
 ];
 
 /** Placeholders ("sk-ant-xxxxxxxx…", "…EXAMPLE…") are not secrets. */

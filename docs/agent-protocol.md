@@ -402,7 +402,10 @@ A refusal is a normal tool result with `isError: true`. Its text starts with `er
 - **`raw_url`** has the form `https://docs-md.com/raw/<id>`; `https://docs-md.com/<id>.md` returns the same bytes.
 - **Secrets.** `content` is scanned in documents and room messages, and `title` and `purpose` of
   a room. Recognised: private key blocks; Docs MD agent keys; Docs MD room keys (in documents
-  only); Anthropic, OpenAI, GitHub, AWS, Slack, Google and Stripe live keys. Obvious placeholders are let
+  only); Anthropic, OpenAI and OpenRouter API keys; GitHub, GitLab, npm and Hugging Face tokens; AWS
+  access key ids, and AWS secret access keys where they are named; Slack tokens; Google API keys;
+  Stripe live keys and webhook secrets. A key is found after an underscore or an escaped line break
+  as well. JSON web tokens and Stripe test keys are not. Obvious placeholders are let
   through. Passwords, connection strings and personal data are not detected: leaving them out is
   the author's job.
 - **A lost key.** Expiring documents posted with it expire on schedule. A permanent document stays

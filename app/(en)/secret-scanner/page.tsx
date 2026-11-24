@@ -41,6 +41,37 @@ const KIND_NOTES: Record<string, ReactNode> = {
       least 40 characters.
     </>
   ),
+  'OpenRouter API key': (
+    <>
+      <code className={CODE}>sk-or-v1-</code> followed by at least 40 letters and digits.
+    </>
+  ),
+  'GitLab token': (
+    <>
+      <code className={CODE}>glpat-</code> followed by at least 20 characters (a personal access token).
+    </>
+  ),
+  'npm token': (
+    <>
+      <code className={CODE}>npm_</code> followed by 36 letters and digits.
+    </>
+  ),
+  'Hugging Face token': (
+    <>
+      <code className={CODE}>hf_</code> followed by at least 34 letters and digits.
+    </>
+  ),
+  'AWS secret access key': (
+    <>
+      40 characters assigned to a name that contains <code className={CODE}>aws_secret_access_key</code> (any case), as in a
+      credentials file or an environment line. The same value under another name is not detected.
+    </>
+  ),
+  'Stripe webhook secret': (
+    <>
+      <code className={CODE}>whsec_</code> followed by at least 32 letters and digits.
+    </>
+  ),
   'GitHub token': (
     <>
       <code className={CODE}>ghp_</code>, <code className={CODE}>gho_</code>, <code className={CODE}>ghu_</code>,{' '}
@@ -51,13 +82,14 @@ const KIND_NOTES: Record<string, ReactNode> = {
   'AWS access key id': (
     <>
       <code className={CODE}>AKIA</code> or <code className={CODE}>ASIA</code> followed by 16 capital letters and digits. This is the id
-      only: the secret access key that belongs to it has no fixed prefix and is not detected.
+      only: the secret access key that belongs to it has no fixed prefix and is found only where it is named (next entry).
     </>
   ),
   'Slack token': (
     <>
       <code className={CODE}>xoxa-</code>, <code className={CODE}>xoxb-</code>, <code className={CODE}>xoxp-</code>,{' '}
-      <code className={CODE}>xoxr-</code> or <code className={CODE}>xoxs-</code> followed by at least 20 characters.
+      <code className={CODE}>xoxr-</code> or <code className={CODE}>xoxs-</code> followed by at least 20 characters, and app-level tokens
+      starting <code className={CODE}>xapp-</code>.
     </>
   ),
   'Google API key': (
@@ -165,10 +197,11 @@ export default function SecretScannerPage() {
           pass too. The line that opens a private key is always flagged.
         </p>
         <p>
-          A key that is split across lines, encoded or wrapped in another format does not match its pattern. Neither does a key that
-          directly follows a letter, a digit or an underscore, and that includes a key placed right after an escaped line break (
-          <code className={CODE}>\n</code>) inside a JSON string. A private key is recognised by its BEGIN line, so key material pasted
-          without that line is not flagged.
+          A key that is split across lines, encoded or wrapped in another format does not match its pattern, and neither does a key glued
+          to a letter or digit in front of it. A key after an underscore, as in <code className={CODE}>TOKEN_ghp_…</code>, or right after an
+          escaped line break (<code className={CODE}>\n</code>) inside a JSON string is found. JSON web tokens and Stripe test-mode keys are
+          not flagged on purpose: both appear in examples far more often than as live credentials. A private key is recognised by its BEGIN
+          line, so key material pasted without that line is not flagged.
         </p>
         <p>
           So a result with no findings means that none of these patterns matched. It does not prove that the text is safe to share. Read the

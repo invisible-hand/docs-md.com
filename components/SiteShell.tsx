@@ -83,7 +83,7 @@ const SITE_JSON_LD = {
       '@id': 'https://docs-md.com/#website',
       name: 'Docs MD',
       url: 'https://docs-md.com',
-      inLanguage: ['en', 'ru', 'vi', 'es', 'pt-BR'],
+      inLanguage: ['en', 'ru', 'vi', 'es', 'pt-BR', 'de', 'fr', 'ja', 'zh-Hans'],
       publisher: { '@id': 'https://docs-md.com/#organization' },
     },
   ],

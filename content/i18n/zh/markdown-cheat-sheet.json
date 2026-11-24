@@ -1,0 +1,368 @@
+{
+  "locale": "zh",
+  "page": "markdown-cheat-sheet",
+  "slug": "markdown-yufa",
+  "title": "Markdown 语法速查表与教程（附示例）",
+  "description": "Markdown 语法速查表，每条语法都附有渲染效果：标题、粗体、列表、链接、图片、代码块、表格、任务列表、删除线、脚注和 mermaid 图表，示例可以直接复制。",
+  "h1": "Markdown 语法速查表：全部语法与示例",
+  "intro": "Markdown 是一种用简单符号给纯文本排版的写法：`#` 表示标题，`**` 表示粗体，`-` 表示列表。GitHub、README 文件、技术文档和很多笔记应用都在用它。这份 Markdown 语法速查表把全部语法集中在一页里，每个示例都能直接复制，旁边就是渲染后的效果，GitHub 的扩展语法（GFM）和 mermaid 图表也包括在内。刚开始学的话，也可以把它当作一份简明的 Markdown 教程来读。",
+  "updated": "2026-11-23",
+  "chrome": {
+    "updated": "更新于",
+    "faqTitle": "常见问题",
+    "otherLanguages": "其他语言版本",
+    "copy": "复制",
+    "copied": "✓ 已复制",
+    "glanceTitle": "Markdown 语法一览",
+    "glanceElement": "元素",
+    "glanceSyntax": "语法",
+    "glanceNote": "说明",
+    "sectionsTitle": "Markdown 语法详解与示例"
+  },
+  "glance": [
+    {
+      "element": "标题",
+      "syntax": "# H1  ## H2  ### H3",
+      "note": "最多六个 #，后面要加一个空格。"
+    },
+    {
+      "element": "粗体",
+      "syntax": "**粗体文字**"
+    },
+    {
+      "element": "斜体",
+      "syntax": "*斜体* 或 _斜体_"
+    },
+    {
+      "element": "粗斜体",
+      "syntax": "***粗斜体***"
+    },
+    {
+      "element": "删除线",
+      "syntax": "~~已删除~~",
+      "note": "GitHub Flavored Markdown（GFM）。"
+    },
+    {
+      "element": "行内代码",
+      "syntax": "`代码`"
+    },
+    {
+      "element": "代码块",
+      "syntax": "```js\n代码\n```",
+      "note": "反引号后面的单词用来指定语法高亮的语言。"
+    },
+    {
+      "element": "链接",
+      "syntax": "[文字](https://example.com)"
+    },
+    {
+      "element": "图片",
+      "syntax": "![替代文字](image.png)"
+    },
+    {
+      "element": "无序列表",
+      "syntax": "- 列表项",
+      "note": "也可以用 * 和 +。"
+    },
+    {
+      "element": "有序列表",
+      "syntax": "1. 列表项"
+    },
+    {
+      "element": "任务列表",
+      "syntax": "- [ ] 待办\n- [x] 已完成",
+      "note": "GFM。"
+    },
+    {
+      "element": "引用块",
+      "syntax": "> 引用的文字"
+    },
+    {
+      "element": "表格",
+      "syntax": "| A | B |\n| --- | --- |\n| 1 | 2 |",
+      "note": "GFM。第二行里的冒号用来设置对齐方式。"
+    },
+    {
+      "element": "分隔线",
+      "syntax": "---"
+    },
+    {
+      "element": "换行",
+      "syntax": "第一行\\\n第二行",
+      "note": "在行尾加一个反斜杠或两个空格。"
+    },
+    {
+      "element": "脚注",
+      "syntax": "正文[^1]\n\n[^1]: 脚注内容。",
+      "note": "GFM。"
+    },
+    {
+      "element": "转义字符",
+      "syntax": "\\*不是斜体\\*",
+      "note": "在任意 Markdown 符号前面加一个反斜杠。"
+    },
+    {
+      "element": "图表",
+      "syntax": "```mermaid\nflowchart LR\n  A --> B\n```",
+      "note": "在 GitHub、GitLab 和 Docs MD 上可以渲染。"
+    }
+  ],
+  "sections": [
+    {
+      "id": "headings",
+      "title": "标题",
+      "snippets": [
+        {
+          "label": "六级标题",
+          "syntax": "# H1：页面标题\n## H2：章节\n### H3：小节\n#### H4\n##### H5\n###### H6",
+          "note": "按惯例，一篇文档只用一个 H1。另一种“下划线”写法（=== / ---）只能表示 H1 和 H2，一般推荐用 # 的写法。"
+        }
+      ]
+    },
+    {
+      "id": "emphasis",
+      "title": "强调：粗体、斜体、删除线",
+      "snippets": [
+        {
+          "label": "粗体、斜体、粗斜体",
+          "syntax": "**粗体**、*斜体* 和 ***粗斜体***",
+          "note": "下划线也可以（__粗体__、_斜体_），不过星号在单词中间也能生效：fan**tas**tic。"
+        },
+        {
+          "label": "Markdown 删除线（GFM）",
+          "syntax": "~~划掉的文字~~"
+        }
+      ]
+    },
+    {
+      "id": "lists",
+      "title": "列表",
+      "snippets": [
+        {
+          "label": "无序列表",
+          "syntax": "- 第一项\n- 第二项\n  - 嵌套项（缩进 2 个空格）\n- 第三项"
+        },
+        {
+          "label": "有序列表",
+          "syntax": "1. 第一步\n2. 第二步\n1. 数字写成几都无所谓，渲染器会替你编号"
+        },
+        {
+          "label": "任务列表（GFM）",
+          "syntax": "- [x] 上线新功能\n- [ ] 写文档\n- [ ] 通知大家"
+        }
+      ]
+    },
+    {
+      "id": "links-images",
+      "title": "链接与图片",
+      "snippets": [
+        {
+          "label": "行内链接",
+          "syntax": "[链接文字](https://docs-md.com \"可选的悬停提示\")"
+        },
+        {
+          "label": "图片",
+          "syntax": "![描述图片内容的替代文字](https://docs-md.com/favicon.ico)",
+          "note": "图片就是前面多了一个 ! 的链接。替代文字很重要：屏幕阅读器会朗读它，图片加载失败时显示的也是它。"
+        },
+        {
+          "label": "自动链接（GFM）",
+          "syntax": "直接写出的网址 https://docs-md.com 会自动变成链接"
+        },
+        {
+          "label": "参考式链接",
+          "syntax": "长文档里用 [带名字的参考链接][docs] 读起来更清爽。\n\n[docs]: https://docs-md.com",
+          "note": "定义可以放在文件的任何位置，按惯例放在末尾。"
+        }
+      ]
+    },
+    {
+      "id": "anchor-links",
+      "title": "锚点链接",
+      "intro": "指向同一页面里某个标题的链接。链接目标是由标题文字生成的 slug：字母转成小写，空格换成连字符，标点去掉。",
+      "snippets": [
+        {
+          "label": "链接到标题",
+          "syntax": "## 快速开始\n\n跳转到 [快速开始](#快速开始) 或 [第 2 步：安装](#第-2-步安装)。",
+          "note": "GitHub 的 slug 规则：字母全部转成小写，去掉连字符和下划线以外的标点，空格变成连字符，重复的标题依次加上 -1、-2。中文字符会原样保留，所以“第 2 步：安装”对应 #第-2-步安装。"
+        },
+        {
+          "label": "用 HTML 自定义锚点",
+          "syntax": "<a id=\"custom-target\"></a>\n## 任意标题文字\n\n[跳到这里](#custom-target)",
+          "note": "如果标题文字以后可能会改，可以在标题上方放一个空的 <a> 标签，写上固定的 id。凡是允许行内 HTML 的地方都能用（GitHub、GitLab、大多数静态站点生成器）。",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "title": "代码",
+      "snippets": [
+        {
+          "label": "行内代码",
+          "syntax": "先运行 `npm install`，再运行 `npm run dev`。"
+        },
+        {
+          "label": "带语言标记的代码块",
+          "syntax": "```ts\nfunction greet(name: string) {\n  return `Hello, ${name}`;\n}\n```",
+          "note": "``` 后面的语言标记会开启语法高亮。常用的标记有：js、ts、python、bash、json、sql、diff。"
+        },
+        {
+          "label": "代码块里嵌套代码块",
+          "syntax": "````md\n要在代码块里展示另一个代码块，\n外层就多用几个反引号：\n```js\nconsole.log(\"嵌套\");\n```\n````",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "tables",
+      "title": "Markdown 表格（GFM）",
+      "snippets": [
+        {
+          "label": "带对齐方式的基础表格",
+          "syntax": "| 左对齐 | 居中 | 右对齐 |\n| :----- | :--: | -----: |\n| a      |  b   |      c |\n| d      |  e   |      f |",
+          "note": "分隔行里的冒号控制对齐方式。要在单元格里写竖线本身，就用 \\| 转义。"
+        }
+      ]
+    },
+    {
+      "id": "blockquotes",
+      "title": "引用块",
+      "snippets": [
+        {
+          "label": "引用与嵌套",
+          "syntax": "> 这是一段引用。\n>\n> > 引用还可以嵌套。\n>\n> 回到第一层：**引用里也能用格式**。",
+          "note": "每一行开头都加上 >（只写一个 > 的行可以把多个段落连成同一段引用）。GitHub 会把 > [!NOTE] / [!WARNING] 这样的引用渲染成彩色的提示框。"
+        }
+      ]
+    },
+    {
+      "id": "alerts",
+      "title": "提示框（GitHub Alerts）",
+      "intro": "第一行是 [!TYPE] 的引用块，在 GitHub 上会显示成彩色的提示框。一共五种类型：NOTE、TIP、IMPORTANT、WARNING、CAUTION。关键字要用英文。",
+      "snippets": [
+        {
+          "label": "五种提示框",
+          "syntax": "> [!NOTE]\n> 读者应该知道的有用信息。\n\n> [!TIP]\n> 帮你把事情做得更好的建议。\n\n> [!IMPORTANT]\n> 达成目标必须了解的关键信息。\n\n> [!WARNING]\n> 需要立即注意的紧急信息。\n\n> [!CAUTION]\n> 某个操作可能带来的负面后果。",
+          "note": "在 GitHub（README、issue、PR、讨论区）和 GitLab 上会渲染成带图标的彩色框。在其他地方（VS Code 预览、Slack、Discord、Notion、大多数静态站点生成器），“[!NOTE]”会作为普通文字出现在一个普通的引用块里，右侧的预览大致就是这种效果。",
+          "preview": "> **说明**\n> 读者应该知道的有用信息。\n\n> **提示**\n> 帮你把事情做得更好的建议。\n\n> **重要**\n> 达成目标必须了解的关键信息。\n\n> **警告**\n> 需要立即注意的紧急信息。\n\n> **注意**\n> 某个操作可能带来的负面后果。"
+        }
+      ]
+    },
+    {
+      "id": "structure",
+      "title": "结构与间距",
+      "snippets": [
+        {
+          "label": "分隔线",
+          "syntax": "分隔线上方。\n\n---\n\n分隔线下方。",
+          "note": "在单独的一行里写三个或更多连字符，上下各留一个空行（否则紧跟在文字下面的 --- 会把那行文字变成 H2）。"
+        },
+        {
+          "label": "换行与新段落",
+          "syntax": "在行尾加两个空格  \n就能在同一段里换行。\n\n空一行则开始一个新段落。",
+          "note": "在行尾加一个反斜杠同样可以强制换行，而且比行尾的空格更容易看出来。"
+        },
+        {
+          "label": "转义字符",
+          "syntax": "\\*不是斜体\\*，\\# 不是标题，\\| 也不是表格的竖线"
+        }
+      ]
+    },
+    {
+      "id": "footnotes",
+      "title": "脚注（GFM）",
+      "snippets": [
+        {
+          "label": "脚注的引用与定义",
+          "syntax": "Markdown 诞生于 2004 年。[^1]\n\n[^1]: 由 John Gruber 创建，Aaron Swartz 对语法也有贡献。",
+          "note": "GitHub 和大多数现代渲染器都支持；它不属于最初的 Markdown。"
+        }
+      ]
+    },
+    {
+      "id": "emoji",
+      "title": "Emoji 表情",
+      "snippets": [
+        {
+          "label": "短代码与直接输入的 emoji",
+          "syntax": "上线啦 :tada: :rocket: —— 也可以直接粘贴表情字符：🎉 🚀",
+          "note": "像 :tada: 这样的短代码并不属于 Markdown：GitHub、GitLab、Slack 和 Discord 会把它们转换成表情；CommonMark 渲染器、VS Code 预览和大多数静态站点生成器则会把冒号原样显示出来。直接粘贴 emoji 字符在哪里都能用。",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "mermaid",
+      "title": "mermaid 图表",
+      "snippets": [
+        {
+          "label": "用代码块画流程图",
+          "syntax": "```mermaid\ngraph LR\n  A[编写 Markdown] --> B{是否分享}\n  B -->|是| C[获取链接]\n  B -->|否| D[留在本地]\n```",
+          "note": "GitHub、GitLab 和 Docs MD 的分享页面都支持。还可以画时序图、甘特图和 ER 图。"
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "title": "行内 HTML",
+      "snippets": [
+        {
+          "label": "Markdown 不够用的时候",
+          "syntax": "Markdown 没有下划线语法，可以改用 <u>HTML</u>、<sub>下标</sub>、<sup>上标</sup> 或 <kbd>Ctrl</kbd>+<kbd>C</kbd>。",
+          "note": "大多数渲染器会让 HTML 原样通过（GitHub 会清除脚本和样式）。本页的预览会去掉原始 HTML，所以请到目标平台上确认实际效果。"
+        },
+        {
+          "label": "用 <kbd> 表示按键",
+          "syntax": "按 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> 打开命令面板。",
+          "note": "GitHub 会把 <kbd> 显示成一个小按键的样子。Markdown 本身没有表示按键的语法；反引号（`Ctrl`）是在哪里都能用的纯文本替代写法。",
+          "render": false
+        },
+        {
+          "label": "用 <details> 做折叠区块",
+          "syntax": "<details>\n<summary>点击展开</summary>\n\n隐藏的内容：只要在 summary 后面空一行，**这里也能用 Markdown**。\n\n</details>",
+          "note": "GitHub、GitLab 和大多数文档站点都支持。写成 <details open> 可以让它默认展开。Slack、Discord 和 Notion 不支持。",
+          "render": false
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "什么是 Markdown 语法速查表？",
+      "a": "它是一页式的参考资料，把每个 Markdown 元素的语法和渲染结果并排列出来，让你直接复制准确的字符，不用靠猜。这一份涵盖基础 Markdown、GitHub Flavored Markdown（表格、任务列表、删除线、脚注）和 mermaid 图表。"
+    },
+    {
+      "q": "Markdown 里怎么加粗、怎么写斜体？",
+      "a": "用两个星号把文字包起来是粗体（**粗体**），用一个星号或下划线包起来是斜体（*斜体* 或 _斜体_）。三个星号是粗斜体。在 GitHub 上，单词中间的下划线不会触发强调，所以用星号更稳妥。"
+    },
+    {
+      "q": "怎么插入链接或图片？",
+      "a": "链接写作 [文字](https://example.com)，图片的写法一样，只是前面多一个感叹号：![替代文字](image.png)。在 URL 后面加一个带引号的标题，就能显示悬停提示。参考式链接（[文字][id]，再另起一行写 [id]: url）能让长文档保持易读。"
+    },
+    {
+      "q": "代码块怎么写？",
+      "a": "把代码放在两行三个反引号之间。在开头的反引号后面紧跟语言名称（```js），就能开启语法高亮。行内代码则在两边各用一个反引号。"
+    },
+    {
+      "q": "Markdown 表格怎么写？",
+      "a": "用竖线分隔各列，并在表头行下面加一行连字符。这一行分隔线里的冒号用来设置对齐：:--- 左对齐，:---: 居中，---: 右对齐。表格是 GFM 的扩展语法，GitHub、GitLab 和大多数渲染器都支持。"
+    },
+    {
+      "q": "Markdown 和 GitHub Flavored Markdown 有什么区别？",
+      "a": "GitHub Flavored Markdown（GFM）是在原始 Markdown 的基础上增加了表格、任务列表、删除线、自动链接和脚注，并且有一份基于 CommonMark 的正式规范。几乎所有现代渲染器都支持 GFM，所以人们平时说的“Markdown”通常指的就是它。GitHub 自己还在 GFM 之上增加了提示框、emoji 短代码和 mermaid。"
+    },
+    {
+      "q": "Slack、Discord 和 Notion 支持哪些 Markdown 语法？",
+      "a": "三者用的是各不相同的变体。Discord 支持大部分基础语法（**粗体**、*斜体*、代码块、标题、引用），但没有表格和图片，并且用 __双下划线__ 来加下划线。Slack 用的根本不是 Markdown：*单个星号* 是粗体，_下划线_ 是斜体，~波浪线~ 是删除线，[文字](url) 这种链接只有在偏好设置里开启了标记（markup）格式后，才能在消息输入框里使用。Notion 会在你输入和粘贴时转换 Markdown，包括表格和任务列表。"
+    },
+    {
+      "q": "Markdown 里怎么换行？",
+      "a": "只按一次回车是不够的：两行会被合并到同一个段落里。在行尾加一个反斜杠或两个空格可以换行，空一行则开始一个新段落。"
+    },
+    {
+      "q": "用什么打开 .md 文件才能看到渲染效果？",
+      "a": "任何文本编辑器显示的都是没有格式的语法符号。想看渲染后的结果，可以用浏览器里的 Markdown 查看器（比如 Docs MD 的查看器）打开文件，或者使用 Visual Studio Code 这类编辑器的预览功能。"
+    }
+  ]
+}

@@ -1,0 +1,368 @@
+{
+  "locale": "de",
+  "page": "markdown-cheat-sheet",
+  "slug": "markdown-syntax-uebersicht",
+  "title": "Markdown Cheat Sheet: Syntax mit Beispielen",
+  "description": "Markdown-Syntax mit gerenderten Beispielen: Überschriften, Fettdruck, Listen, Links, Bilder, Code, Tabellen, Aufgabenlisten, Fußnoten und Mermaid.",
+  "h1": "Markdown Cheat Sheet: Syntax-Übersicht mit Beispielen",
+  "intro": "Markdown formatiert reinen Text mit einfachen Zeichen: `#` für Überschriften, `**` für Fettdruck, `-` für Listen. Verwendet wird es auf GitHub, in README-Dateien, in technischer Dokumentation und in vielen Notiz-Apps. Dieses Markdown Cheat Sheet fasst die gesamte Markdown-Syntax auf einer Seite zusammen, von der Überschrift bis zur Markdown-Tabelle: Beispiele zum Kopieren mit dem gerenderten Ergebnis daneben, einschließlich der GitHub-Erweiterungen (GFM) und der Mermaid-Diagramme.",
+  "updated": "2026-11-23",
+  "chrome": {
+    "updated": "Aktualisiert am",
+    "faqTitle": "Häufige Fragen",
+    "otherLanguages": "Auch in anderen Sprachen",
+    "copy": "Kopieren",
+    "copied": "✓ Kopiert",
+    "glanceTitle": "Markdown-Syntax auf einen Blick",
+    "glanceElement": "Element",
+    "glanceSyntax": "Syntax",
+    "glanceNote": "Hinweis",
+    "sectionsTitle": "Alle Markdown-Befehle mit Beispielen"
+  },
+  "glance": [
+    {
+      "element": "Überschrift",
+      "syntax": "# H1  ## H2  ### H3",
+      "note": "Bis zu sechs #; danach folgt ein Leerzeichen."
+    },
+    {
+      "element": "Fett",
+      "syntax": "**fetter Text**"
+    },
+    {
+      "element": "Kursiv",
+      "syntax": "*kursiv* oder _kursiv_"
+    },
+    {
+      "element": "Fett und kursiv",
+      "syntax": "***beides***"
+    },
+    {
+      "element": "Durchgestrichen",
+      "syntax": "~~gelöscht~~",
+      "note": "GitHub Flavored Markdown (GFM)."
+    },
+    {
+      "element": "Inline-Code",
+      "syntax": "`Code`"
+    },
+    {
+      "element": "Codeblock",
+      "syntax": "```js\nCode\n```",
+      "note": "Das Wort nach den Backticks legt die Sprache für das Syntax-Highlighting fest."
+    },
+    {
+      "element": "Link",
+      "syntax": "[Text](https://example.com)"
+    },
+    {
+      "element": "Bild",
+      "syntax": "![Alt-Text](bild.png)"
+    },
+    {
+      "element": "Aufzählung",
+      "syntax": "- Eintrag",
+      "note": "* und + funktionieren auch."
+    },
+    {
+      "element": "Nummerierte Liste",
+      "syntax": "1. Eintrag"
+    },
+    {
+      "element": "Aufgabenliste",
+      "syntax": "- [ ] offen\n- [x] erledigt",
+      "note": "GFM."
+    },
+    {
+      "element": "Zitat",
+      "syntax": "> zitierter Text"
+    },
+    {
+      "element": "Tabelle",
+      "syntax": "| A | B |\n| --- | --- |\n| 1 | 2 |",
+      "note": "GFM. Doppelpunkte in der zweiten Zeile legen die Ausrichtung fest."
+    },
+    {
+      "element": "Horizontale Linie",
+      "syntax": "---"
+    },
+    {
+      "element": "Zeilenumbruch",
+      "syntax": "Zeile eins\\\nZeile zwei",
+      "note": "Ein Backslash oder zwei Leerzeichen am Zeilenende."
+    },
+    {
+      "element": "Fußnote",
+      "syntax": "Text[^1]\n\n[^1]: Die Fußnote.",
+      "note": "GFM."
+    },
+    {
+      "element": "Zeichen maskieren",
+      "syntax": "\\*nicht kursiv\\*",
+      "note": "Ein Backslash vor einem beliebigen Markdown-Zeichen."
+    },
+    {
+      "element": "Diagramm",
+      "syntax": "```mermaid\nflowchart LR\n  A --> B\n```",
+      "note": "Wird auf GitHub, GitLab und Docs MD gerendert."
+    }
+  ],
+  "sections": [
+    {
+      "id": "headings",
+      "title": "Überschriften",
+      "snippets": [
+        {
+          "label": "Sechs Ebenen",
+          "syntax": "# H1 – Seitentitel\n## H2 – Abschnitt\n### H3 – Unterabschnitt\n#### H4\n##### H5\n###### H6",
+          "note": "Üblich ist eine einzige H1 pro Dokument. Die alternative „unterstrichene“ Schreibweise (=== / ---) gibt es nur für H1 und H2; bevorzugt wird die Form mit #."
+        }
+      ]
+    },
+    {
+      "id": "emphasis",
+      "title": "Hervorhebung",
+      "snippets": [
+        {
+          "label": "Fett, kursiv, beides",
+          "syntax": "**fett** und *kursiv* und ***fett und kursiv***",
+          "note": "Unterstriche funktionieren ebenfalls (__fett__, _kursiv_), Sternchen wirken aber auch mitten im Wort: fan**tas**tisch."
+        },
+        {
+          "label": "Durchgestrichen (GFM)",
+          "syntax": "~~durchgestrichen~~"
+        }
+      ]
+    },
+    {
+      "id": "lists",
+      "title": "Listen",
+      "snippets": [
+        {
+          "label": "Ungeordnete Liste",
+          "syntax": "- Erster Eintrag\n- Zweiter Eintrag\n  - Verschachtelt (2 Leerzeichen einrücken)\n- Dritter Eintrag"
+        },
+        {
+          "label": "Geordnete Liste",
+          "syntax": "1. Schritt eins\n2. Schritt zwei\n1. Welche Zahlen du tippst, ist egal: Der Renderer zählt für dich"
+        },
+        {
+          "label": "Aufgabenliste (GFM)",
+          "syntax": "- [x] Feature ausliefern\n- [ ] Doku schreiben\n- [ ] Jemandem Bescheid sagen"
+        }
+      ]
+    },
+    {
+      "id": "links-images",
+      "title": "Links und Bilder",
+      "snippets": [
+        {
+          "label": "Inline-Link",
+          "syntax": "[Linktext](https://docs-md.com \"optionaler Titel beim Hovern\")"
+        },
+        {
+          "label": "Bild",
+          "syntax": "![Alt-Text, der das Bild beschreibt](https://docs-md.com/favicon.ico)",
+          "note": "Ein Bild ist ein Link mit einem ! davor. Der Alt-Text ist wichtig: Screenreader lesen ihn vor, und er erscheint, wenn das Bild nicht lädt."
+        },
+        {
+          "label": "Autolink (GFM)",
+          "syntax": "Eine URL ohne weitere Auszeichnung wird zum Link: https://docs-md.com"
+        },
+        {
+          "label": "Referenz-Link",
+          "syntax": "Lange Dokumente lesen sich besser mit [benannten Referenzen][docs].\n\n[docs]: https://docs-md.com",
+          "note": "Die Definitionen können irgendwo in der Datei stehen; üblich ist das Dateiende."
+        }
+      ]
+    },
+    {
+      "id": "anchor-links",
+      "title": "Ankerlinks",
+      "intro": "Ein Link auf eine Überschrift derselben Seite. Das Ziel ist der Text der Überschrift als Slug: Kleinbuchstaben, Bindestriche statt Leerzeichen, keine Satzzeichen.",
+      "snippets": [
+        {
+          "label": "Auf eine Überschrift verlinken",
+          "syntax": "## Erste Schritte\n\nSpringe zu [Erste Schritte](#erste-schritte) oder zu [Schritt 2: Installieren](#schritt-2-installieren).",
+          "note": "Slug-Regeln auf GitHub: alles kleinschreiben, Satzzeichen außer Bindestrichen und Unterstrichen entfernen, Leerzeichen durch Bindestriche ersetzen und an doppelte Überschriften -1, -2 anhängen. Aus „Schritt 2: Installieren“ wird #schritt-2-installieren. Umlaute bleiben erhalten: Aus „Einführung“ wird #einführung."
+        },
+        {
+          "label": "Eigener Anker mit HTML",
+          "syntax": "<a id=\"eigenes-ziel\"></a>\n## Beliebiger Überschriftentext\n\n[Dorthin springen](#eigenes-ziel)",
+          "note": "Wenn sich der Text der Überschrift ändern kann, setze ein leeres <a>-Tag mit fester id darüber. Das funktioniert überall, wo Inline-HTML erlaubt ist (GitHub, GitLab, die meisten Static-Site-Generatoren).",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "title": "Code",
+      "snippets": [
+        {
+          "label": "Inline-Code",
+          "syntax": "Führe `npm install` vor `npm run dev` aus."
+        },
+        {
+          "label": "Codeblock mit Sprachangabe",
+          "syntax": "```ts\nfunction greet(name: string) {\n  return `Hello, ${name}`;\n}\n```",
+          "note": "Die Sprachangabe nach ``` schaltet das Syntax-Highlighting ein. Gängige Angaben: js, ts, python, bash, json, sql, diff."
+        },
+        {
+          "label": "Codeblock im Codeblock",
+          "syntax": "````md\nUm einen Codeblock in einem Codeblock zu zeigen,\nnimmst du außen mehr Backticks:\n```js\nconsole.log(\"verschachtelt\");\n```\n````",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "tables",
+      "title": "Tabellen (GFM)",
+      "snippets": [
+        {
+          "label": "Einfache Markdown-Tabelle mit Ausrichtung",
+          "syntax": "| Links | Mitte | Rechts |\n| :---- | :---: | -----: |\n| a     |   b   |      c |\n| d     |   e   |      f |",
+          "note": "Doppelpunkte in der Trennzeile steuern die Ausrichtung. Ein Pipe-Zeichen, das wörtlich in einer Zelle stehen soll, maskierst du als \\|."
+        }
+      ]
+    },
+    {
+      "id": "blockquotes",
+      "title": "Zitate",
+      "snippets": [
+        {
+          "label": "Zitat und Verschachtelung",
+          "syntax": "> Ein zitierter Absatz.\n>\n> > Verschachtelte Zitate funktionieren auch.\n>\n> Zurück auf der ersten Ebene: **Formatierung funktioniert auch hier**.",
+          "note": "Setze vor jede Zeile ein > (ein einzelnes > hält ein Zitat aus mehreren Absätzen zusammen). GitHub macht aus Zitaten mit > [!NOTE] / [!WARNING] farbige Alerts."
+        }
+      ]
+    },
+    {
+      "id": "alerts",
+      "title": "Alerts (GitHub)",
+      "intro": "Ein Zitat, dessen erste Zeile [!TYPE] lautet, erscheint auf GitHub als farbige Hinweisbox. Es gibt fünf Typen: NOTE, TIP, IMPORTANT, WARNING und CAUTION. Die Schlüsselwörter bleiben englisch.",
+      "snippets": [
+        {
+          "label": "Die fünf Alert-Typen",
+          "syntax": "> [!NOTE]\n> Nützliche Information, die Leser kennen sollten.\n\n> [!TIP]\n> Ein Rat, wie etwas besser geht.\n\n> [!IMPORTANT]\n> Zentrale Information, ohne die es nicht klappt.\n\n> [!WARNING]\n> Dringende Information, die sofort Aufmerksamkeit braucht.\n\n> [!CAUTION]\n> Negative Folgen einer Aktion.",
+          "note": "Auf GitHub (READMEs, Issues, Pull Requests, Discussions) und GitLab erscheinen sie als farbige Boxen mit Icons. Überall sonst (VS-Code-Vorschau, Slack, Discord, Notion, die meisten Static-Site-Generatoren) steht der Text „[!NOTE]“ wörtlich in einem gewöhnlichen Zitat; ungefähr das zeigt die Vorschau rechts.",
+          "preview": "> **Hinweis**\n> Nützliche Information, die Leser kennen sollten.\n\n> **Tipp**\n> Ein Rat, wie etwas besser geht.\n\n> **Wichtig**\n> Zentrale Information, ohne die es nicht klappt.\n\n> **Warnung**\n> Dringende Information, die sofort Aufmerksamkeit braucht.\n\n> **Vorsicht**\n> Negative Folgen einer Aktion."
+        }
+      ]
+    },
+    {
+      "id": "structure",
+      "title": "Struktur und Abstände",
+      "snippets": [
+        {
+          "label": "Horizontale Linie",
+          "syntax": "Über der Linie.\n\n---\n\nUnter der Linie.",
+          "note": "Drei oder mehr Bindestriche allein in einer Zeile, davor und danach eine Leerzeile (sonst macht ein --- direkt unter einem Text daraus eine H2)."
+        },
+        {
+          "label": "Zeilenumbruch oder neuer Absatz",
+          "syntax": "Beende eine Zeile mit zwei Leerzeichen  \nfür einen Zeilenumbruch im selben Absatz.\n\nEine Leerzeile beginnt einen neuen Absatz.",
+          "note": "Ein Backslash am Zeilenende erzwingt ebenfalls einen Umbruch und ist besser zu sehen als Leerzeichen am Zeilenende."
+        },
+        {
+          "label": "Zeichen maskieren",
+          "syntax": "\\*nicht kursiv\\* und \\# keine Überschrift und \\| kein Spaltentrenner"
+        }
+      ]
+    },
+    {
+      "id": "footnotes",
+      "title": "Fußnoten (GFM)",
+      "snippets": [
+        {
+          "label": "Fußnotenverweis und Definition",
+          "syntax": "Markdown entstand 2004.[^1]\n\n[^1]: Entwickelt von John Gruber; Aaron Swartz trug zur Syntax bei.",
+          "note": "Wird von GitHub und den meisten modernen Renderern unterstützt; im ursprünglichen Markdown nicht enthalten."
+        }
+      ]
+    },
+    {
+      "id": "emoji",
+      "title": "Emojis",
+      "snippets": [
+        {
+          "label": "Shortcodes und echte Emojis",
+          "syntax": "Bereit zum Release :tada: :rocket: – oder füge das Zeichen direkt ein: 🎉 🚀",
+          "note": "Shortcodes wie :tada: sind kein Markdown: GitHub, GitLab, Slack und Discord wandeln sie um; CommonMark-Renderer, die VS-Code-Vorschau und die meisten Static-Site-Generatoren geben die Doppelpunkte unverändert aus. Das Emoji direkt als Zeichen einzufügen funktioniert überall.",
+          "render": false
+        }
+      ]
+    },
+    {
+      "id": "mermaid",
+      "title": "Mermaid-Diagramme",
+      "snippets": [
+        {
+          "label": "Flussdiagramm aus einem Codeblock",
+          "syntax": "```mermaid\ngraph LR\n  A[Markdown schreiben] --> B{Teilen?}\n  B -->|ja| C[Link holen]\n  B -->|nein| D[Lokal behalten]\n```",
+          "note": "Wird von GitHub, GitLab und den geteilten Seiten von Docs MD unterstützt. Auch Sequenzdiagramme, Gantt-Diagramme und ER-Diagramme sind möglich."
+        }
+      ]
+    },
+    {
+      "id": "html",
+      "title": "Inline-HTML",
+      "snippets": [
+        {
+          "label": "Wenn Markdown nicht reicht",
+          "syntax": "Markdown kennt keine Unterstreichung, nimm dafür <u>HTML</u>, <sub>tiefgestellt</sub>, <sup>hochgestellt</sup> oder <kbd>Strg</kbd>+<kbd>C</kbd>.",
+          "note": "Die meisten Renderer lassen HTML durch (GitHub entfernt Skripte und Styles). Die Vorschau auf dieser Seite entfernt rohes HTML; prüfe das Ergebnis deshalb auf deiner Zielplattform."
+        },
+        {
+          "label": "Tasten mit <kbd>",
+          "syntax": "Drücke <kbd>Strg</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>, um die Befehlspalette zu öffnen.",
+          "note": "GitHub stellt <kbd> als kleine Taste dar. Markdown hat keine eigene Syntax für Tasten; Backticks (`Strg`) sind die Klartext-Alternative, die überall funktioniert.",
+          "render": false
+        },
+        {
+          "label": "Aufklappbarer Abschnitt mit <details>",
+          "syntax": "<details>\n<summary>Zum Aufklappen klicken</summary>\n\nVersteckter Inhalt: **Hier funktioniert Markdown**, wenn nach dem summary eine Leerzeile steht.\n\n</details>",
+          "note": "Wird von GitHub, GitLab und den meisten Doku-Websites unterstützt. Mit <details open> ist der Abschnitt von Anfang an aufgeklappt. In Slack, Discord und Notion funktioniert das nicht.",
+          "render": false
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Was ist ein Markdown Cheat Sheet?",
+      "a": "Eine einseitige Referenz aller Markdown-Elemente, bei der Syntax und gerendertes Ergebnis nebeneinanderstehen, damit du die exakten Zeichen kopieren kannst, statt zu raten. Dieses hier deckt das Kern-Markdown ab, dazu GitHub Flavored Markdown (Tabellen, Aufgabenlisten, Durchstreichungen, Fußnoten) und Mermaid-Diagramme."
+    },
+    {
+      "q": "Wie schreibe ich Text in Markdown fett oder kursiv?",
+      "a": "Setze den Text für Fettdruck zwischen doppelte Sternchen (**fett**) und für Kursivschrift zwischen einfache Sternchen oder Unterstriche (*kursiv* oder _kursiv_). Drei Sternchen ergeben fett und kursiv. Unterstriche innerhalb eines Wortes lösen auf GitHub keine Hervorhebung aus, Sternchen sind deshalb die sicherere Wahl."
+    },
+    {
+      "q": "Wie füge ich einen Link oder ein Bild ein?",
+      "a": "Ein Link ist [Text](https://example.com), ein Bild dasselbe mit einem Ausrufezeichen davor: ![Alt-Text](bild.png). Einen Tooltip bekommst du mit einem Titel in Anführungszeichen nach der URL. Referenz-Links ([Text][id] plus [id]: url in einer eigenen Zeile) halten lange Dokumente lesbar."
+    },
+    {
+      "q": "Wie schreibe ich einen Codeblock?",
+      "a": "Setze den Code zwischen zwei Zeilen mit je drei Backticks. Schreibe den Namen der Sprache direkt hinter die öffnenden Backticks (```js), um Syntax-Highlighting zu bekommen. Für Inline-Code reicht ein einzelner Backtick davor und dahinter."
+    },
+    {
+      "q": "Wie erstelle ich eine Markdown-Tabelle?",
+      "a": "Trenne die Spalten mit Pipe-Zeichen (|) und setze unter die Kopfzeile eine Zeile aus Bindestrichen. Doppelpunkte in dieser Trennzeile legen die Ausrichtung fest: :--- links, :---: zentriert, ---: rechts. Tabellen sind eine GFM-Erweiterung, die GitHub, GitLab und die meisten Renderer unterstützen."
+    },
+    {
+      "q": "Was ist der Unterschied zwischen Markdown und GitHub Flavored Markdown?",
+      "a": "GitHub Flavored Markdown (GFM) ist das ursprüngliche Markdown plus Tabellen, Aufgabenlisten, Durchstreichungen, Autolinks und Fußnoten, mit einer formalen Spezifikation auf Basis von CommonMark. Fast jeder moderne Renderer unterstützt GFM; meist ist also GFM gemeint, wenn von „Markdown“ die Rede ist. GitHub selbst ergänzt GFM noch um Alerts, Emoji-Shortcodes und Mermaid."
+    },
+    {
+      "q": "Welches Markdown funktioniert in Slack, Discord und Notion?",
+      "a": "Jede dieser Apps hat ihren eigenen Dialekt. Discord unterstützt die meisten Grundlagen (**fett**, *kursiv*, Codeblöcke, Überschriften, Zitate), kennt aber weder Tabellen noch Bilder und nutzt __Unterstriche__ zum Unterstreichen. Slack ist gar kein Markdown: *einfache Sternchen* bedeuten fett, _Unterstriche_ kursiv, ~Tilden~ durchgestrichen, und Links der Form [Text](url) funktionieren nur im Eingabefeld, wenn die Markup-Einstellung aktiviert ist. Notion wandelt Markdown beim Tippen und beim Einfügen um, einschließlich Tabellen und Aufgabenlisten."
+    },
+    {
+      "q": "Wie mache ich in Markdown einen Zeilenumbruch?",
+      "a": "Ein einfaches Enter reicht nicht: Die beiden Zeilen landen im selben Absatz. Beende die Zeile mit einem Backslash oder mit zwei Leerzeichen, um einen Zeilenumbruch zu erzwingen, oder lass eine Leerzeile, um einen neuen Absatz zu beginnen."
+    },
+    {
+      "q": "Womit öffne ich eine .md-Datei, um das Ergebnis zu sehen?",
+      "a": "Jeder Texteditor zeigt die Syntax unformatiert an. Für das gerenderte Ergebnis öffnest du die Datei in einem Markdown-Viewer im Browser, etwa dem von Docs MD, oder nutzt die Vorschau eines Editors wie Visual Studio Code."
+    }
+  ]
+}

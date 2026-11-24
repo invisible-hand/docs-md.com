@@ -6,7 +6,7 @@
   "description": "Abre y lee archivos .md en línea: arrástralos, pega el texto o cárgalos desde GitHub. Tablas, código y diagramas mermaid. Gratis, sin instalar nada.",
   "h1": "Visor de Markdown: abrir y leer archivos .md en línea",
   "intro": "Para abrir un archivo md en línea, arrástralo al visor de abajo, pega su texto o cárgalo desde una URL de GitHub: se muestra al instante con formato: encabezados, tablas, código resaltado, listas de tareas, notas al pie y diagramas mermaid. Es gratis y funciona en tu navegador; el archivo no se sube. Ajusta el tamaño de letra, navega con el índice, imprime a PDF o descarga el archivo.",
-  "updated": "2026-10-20",
+  "updated": "2026-11-23",
   "chrome": {
     "updated": "Actualizado",
     "faqTitle": "Preguntas frecuentes",
@@ -57,7 +57,7 @@
     },
     {
       "h2": "¿Cómo abrir un archivo md en Android o iPhone?",
-      "body": "En el celular no necesitas instalar ninguna app. Abre esta página en el navegador (Chrome en Android, Safari en iPhone o iPad), toca *Abrir archivo .md* y elige el archivo:\n\n- **Android**: el selector muestra tus descargas, Google Drive y las demás carpetas; el archivo suele estar en *Descargas* si te llegó por correo o WhatsApp.\n- **iPhone y iPad**: el selector abre la app *Archivos*, donde están iCloud Drive, *En mi iPhone* y los servicios en la nube que tengas conectados.\n\nEl documento se muestra con formato y se adapta a la pantalla. Usa el tamaño de letra L para leer cómodamente y el índice para moverte entre secciones. Si alguien te mandó un enlace a un archivo de GitHub, también puedes pegarlo en el campo de URL y cargarlo directamente."
+      "body": "En el celular no necesitas instalar ninguna app. Abre esta página en el navegador (Chrome en Android, Safari en iPhone o iPad), toca *Abrir archivo .md* y elige el archivo:\n\n- **Android**: el selector muestra tus descargas, Google Drive y las demás carpetas; el archivo suele estar en *Descargas* si te llegó por correo o WhatsApp.\n- **iPhone y iPad**: el selector abre la app *Archivos*, donde están iCloud Drive, *En mi iPhone* y los servicios en la nube que tengas conectados.\n\nEl documento se muestra con formato y se adapta a la pantalla. Usa el tamaño de letra L para leer cómodamente. Si alguien te mandó un enlace a un archivo de GitHub, también puedes pegarlo en el campo de URL y cargarlo directamente."
     },
     {
       "h2": "¿Qué editores muestran la vista previa de Markdown?",

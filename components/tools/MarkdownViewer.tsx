@@ -43,6 +43,9 @@ export const VIEWER_LABELS_EN = {
   privacy: 'Files open in your browser with the File API and are not uploaded. The only network request is the optional Load from URL fetch.',
   openSourceBefore: 'The viewer is',
   openSource: 'open source',
+  /** Between openSourceBefore and the link, and after it: languages without word spaces set '' and their own full stop. */
+  openSourceGap: ' ',
+  openSourceEnd: '.',
   size: 'Size',
   wide: 'Wide',
   paper: 'Paper',
@@ -216,11 +219,11 @@ export default function MarkdownViewer({ labels, starter = STARTER }: MarkdownVi
         </button>
       </div>
       <p className="mb-4 text-xs text-gray-500 print:hidden">
-        {L.privacy} {L.openSourceBefore}{' '}
+        {L.privacy} {L.openSourceBefore}{L.openSourceGap}
         <a href="https://github.com/invisible-hand/docs-md.com/blob/main/components/tools/MarkdownViewer.tsx" className="text-indigo-700 underline" target="_blank" rel="noopener noreferrer">
           {L.openSource}
         </a>
-        .
+        {L.openSourceEnd}
       </p>
 
       <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-gray-700 print:hidden">

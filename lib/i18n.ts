@@ -10,7 +10,7 @@ import type { GlanceRow } from '@/lib/cheat-sheet';
 // app/(l10n)/<locale>/[page] route built by makeLocaleRoute() and its own root layout
 // (lib/locale-layout.tsx) that sets <html lang>; pages add hreflang alternates.
 
-export const LOCALES = ['ru', 'vi', 'es', 'pt-br'] as const;
+export const LOCALES = ['ru', 'vi', 'es', 'pt-br', 'de', 'fr', 'ja', 'zh'] as const;
 export type Locale = (typeof LOCALES)[number];
 
 export type LocalizedPage = 'markdown-viewer' | 'markdown-cheat-sheet';
@@ -21,6 +21,10 @@ export const LOCALE_INFO: Record<Locale, { hreflang: string; dateLocale: string;
   vi: { hreflang: 'vi', dateLocale: 'vi-VN', name: 'Tiếng Việt', ogLocale: 'vi_VN' },
   es: { hreflang: 'es', dateLocale: 'es-ES', name: 'Español', ogLocale: 'es_ES' },
   'pt-br': { hreflang: 'pt-BR', dateLocale: 'pt-BR', name: 'Português (Brasil)', ogLocale: 'pt_BR' },
+  de: { hreflang: 'de', dateLocale: 'de-DE', name: 'Deutsch', ogLocale: 'de_DE' },
+  fr: { hreflang: 'fr', dateLocale: 'fr-FR', name: 'Français', ogLocale: 'fr_FR' },
+  ja: { hreflang: 'ja', dateLocale: 'ja-JP', name: '日本語', ogLocale: 'ja_JP' },
+  zh: { hreflang: 'zh-Hans', dateLocale: 'zh-CN', name: '简体中文', ogLocale: 'zh_CN' },
 };
 
 /** Native slug of each localized page. The English page lives at /<page>. */
@@ -30,12 +34,20 @@ export const LOCALIZED_SLUGS: Record<LocalizedPage, Record<Locale, string>> = {
     vi: 'doc-file-md-online',
     es: 'visor-md',
     'pt-br': 'visualizador-markdown',
+    de: 'md-datei-oeffnen',
+    fr: 'ouvrir-fichier-md',
+    ja: 'md-file-hirakikata',
+    zh: 'md-wenjian-dakai',
   },
   'markdown-cheat-sheet': {
     ru: 'shpargalka-markdown',
     vi: 'cu-phap-markdown',
     es: 'sintaxis-markdown',
     'pt-br': 'sintaxe-markdown',
+    de: 'markdown-syntax-uebersicht',
+    fr: 'syntaxe-markdown',
+    ja: 'markdown-kihou',
+    zh: 'markdown-yufa',
   },
 };
 

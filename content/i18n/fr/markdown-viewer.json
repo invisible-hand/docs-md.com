@@ -1,0 +1,109 @@
+{
+  "locale": "fr",
+  "page": "markdown-viewer",
+  "slug": "ouvrir-fichier-md",
+  "title": "Markdown viewer : ouvrir un fichier .md en ligne",
+  "description": "Pour lire un fichier .md en ligne, glissez-le, collez le texte ou chargez-le depuis GitHub. Tableaux, code, diagrammes Mermaid. Gratuit, sans installation.",
+  "h1": "Ouvrir un fichier .md en ligne : lecteur Markdown gratuit",
+  "intro": "Pour ouvrir un fichier .md en ligne, glissez-le dans le lecteur ci-dessous, collez son texte ou chargez-le depuis une URL GitHub. Il s'affiche aussitôt mis en forme : titres, tableaux, coloration syntaxique du code, listes de tâches, notes de bas de page et diagrammes Mermaid. Ce lecteur Markdown (ou « Markdown viewer ») est gratuit et fonctionne dans votre navigateur ; les fichiers ouverts sont lus en local, sans être envoyés sur un serveur. Réglez la taille du texte, naviguez grâce au sommaire, imprimez en PDF ou téléchargez le fichier.",
+  "updated": "2026-11-23",
+  "chrome": {
+    "updated": "Mis à jour le",
+    "faqTitle": "Questions fréquentes",
+    "otherLanguages": "Également disponible en ",
+    "copy": "Copier",
+    "copied": "✓ Copié"
+  },
+  "ui": {
+    "openFile": "Ouvrir un fichier .md",
+    "urlAria": "Charger du Markdown depuis une URL",
+    "loading": "Chargement…",
+    "loadFromUrl": "Charger depuis une URL",
+    "loadExample": "Charger un exemple",
+    "hideSource": "Masquer le code source",
+    "editSource": "Modifier le code source",
+    "privacy": "Les fichiers s'ouvrent dans votre navigateur avec l'API File et ne sont envoyés sur aucun serveur. La seule requête réseau est le chargement facultatif depuis une URL.",
+    "openSourceBefore": "Le lecteur est",
+    "openSource": "open source",
+    "size": "Taille",
+    "wide": "Large",
+    "paper": "Papier",
+    "words": "mots",
+    "print": "Imprimer / PDF",
+    "copy": "Copier",
+    "copied": "Copié ✓",
+    "download": "Télécharger",
+    "corsError": "Impossible de récupérer cette URL depuis le navigateur : le serveur n'autorise pas les lectures cross-origin (CORS). Téléchargez le fichier et déposez-le ici. Les URL raw de GitHub et des gists fonctionnent.",
+    "loadError": "Chargement impossible :",
+    "exampleError": "Impossible de charger cet exemple.",
+    "sourceAria": "Code source Markdown",
+    "sourcePlaceholder": "Collez du Markdown ici ou déposez un fichier .md n'importe où dans ce panneau.",
+    "outline": "Sommaire",
+    "empty": "Rien à afficher pour l'instant : collez du Markdown ou ouvrez un fichier."
+  },
+  "starter": "# Lecteur Markdown\n\nGlissez un fichier `.md` sur cette page, collez du Markdown ou chargez un fichier depuis une URL : il s'affiche ici mis en forme, avec tableaux, coloration syntaxique du code, listes de tâches et diagrammes Mermaid.\n\n## Ce que vous pouvez faire\n\n- [x] Lire un README sans cloner le dépôt\n- [x] L'imprimer ou l'enregistrer en PDF depuis le navigateur\n- [ ] Obtenir un lien : demandez à votre agent IA de le publier sur Docs MD\n\n| Réglage | Effet |\n| ------- | ----- |\n| Taille du texte | S / M / L |\n| Largeur | Étroite pour lire, large pour les tableaux |\n| Sommaire | Passer d'un titre à l'autre |\n\n```mermaid\nflowchart LR\n  A[Fichier .md] --> B{Lecteur}\n  B --> C[Imprimer]\n  B --> D[Télécharger le .md]\n```\n\n> Astuce : créez un lien direct vers un fichier mis en forme avec `?url=https://raw.githubusercontent.com/...`\n",
+  "sections": [
+    {
+      "h2": "Comment lire un fichier .md en ligne ?",
+      "body": "Ouvrez cette page et donnez le fichier au lecteur de la manière qui vous convient ; le document s'affiche mis en forme dès que le lecteur dispose du texte :\n\n1. **Glisser-déposer** : déposez le fichier `.md` n'importe où sur le panneau du lecteur, ou cliquez sur *Ouvrir un fichier .md* et sélectionnez-le.\n2. **Coller** : copiez le texte Markdown et collez-le dans l'éditeur.\n3. **Charger depuis une URL** : collez le lien d'un fichier GitHub ou n'importe quelle adresse de fichier brut (raw), puis cliquez sur *Charger depuis une URL*.\n\nCliquez ensuite sur *Masquer le code source* pour lire en pleine largeur, choisissez la taille du texte et la largeur, et servez-vous du sommaire pour passer d'un titre à l'autre. Rien à installer, aucun compte à créer, et tout fonctionne de la même façon sous Windows, macOS, Linux et sur Chromebook. Les fichiers `.markdown`, `.mdx` et `.txt` s'ouvrent de la même manière."
+    },
+    {
+      "h2": "Qu'est-ce qu'un fichier .md et pourquoi est-il plein de symboles ?",
+      "body": "Un fichier `.md` est un document écrit en Markdown, un format de texte brut qui indique la mise en forme avec des symboles simples : `#` pour les titres, `**` pour le gras, `-` pour les listes, `|` pour les tableaux et trois accents graves (backticks) pour les blocs de code. C'est le format des README de GitHub, de la documentation technique et de nombreuses applications de prise de notes.\n\nComme c'est du texte brut, n'importe quel éditeur l'ouvre, mais il affiche ces symboles tels quels : vous voyez le code source, pas le document. Cela ne veut pas dire que le fichier est endommagé. Pour le voir mis en forme, il faut un programme qui fait le *rendu* du Markdown, c'est-à-dire qui transforme `## Installation` en sous-titre et `| a | b |` en tableau. C'est exactement ce que fait un lecteur Markdown comme celui-ci. Pour savoir ce que signifie chaque symbole, consultez la [syntaxe Markdown](/fr/syntaxe-markdown)."
+    },
+    {
+      "h2": "Comment ouvrir un fichier .md sous Windows et sur Mac ?",
+      "body": "**Sous Windows**, faites un clic droit sur le fichier, choisissez *Ouvrir avec* puis sélectionnez le Bloc-notes : vous verrez le texte, mais sans mise en forme. Pour le lire mis en forme, ouvrez cette page dans Edge, Chrome ou Firefox et glissez le fichier dans le lecteur, ou cliquez sur *Ouvrir un fichier .md* et choisissez-le dans l'Explorateur de fichiers.\n\n**Sous macOS**, TextEdit ouvre le fichier comme du texte brut. Pour le voir mis en forme, glissez le fichier depuis le Finder sur cette page, ouverte dans Safari, Chrome ou Firefox.\n\nSi vous travaillez déjà dans [Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown), son aperçu intégré fait la même chose pour les fichiers locaux : `Ctrl+Maj+V` sous Windows et Linux, `Cmd+Maj+V` sur Mac. Pour ouvrir l'aperçu à côté du code, utilisez `Ctrl+K V` (`Cmd+K V` sur Mac)."
+    },
+    {
+      "h2": "Comment ouvrir un fichier .md sur Android ou iPhone ?",
+      "body": "Sur mobile, il n'y a aucune application à installer. Ouvrez cette page dans le navigateur (Chrome sur Android, Safari sur iPhone ou iPad), appuyez sur *Ouvrir un fichier .md* et choisissez le fichier :\n\n- **Android** : le sélecteur affiche vos téléchargements, Google Drive et les autres dossiers ; le fichier se trouve en général dans *Téléchargements* si vous l'avez reçu par e-mail ou par WhatsApp.\n- **iPhone et iPad** : le sélecteur ouvre l'app *Fichiers*, où se trouvent iCloud Drive, *Sur mon iPhone* et les services cloud que vous avez connectés.\n\nLe document s'affiche mis en forme et s'adapte à l'écran ; passez la taille du texte sur L pour lire confortablement. Si l'on vous a envoyé un lien vers un fichier GitHub, vous pouvez aussi le coller dans le champ d'URL et le charger directement."
+    },
+    {
+      "h2": "Quels éditeurs proposent un aperçu Markdown ?",
+      "body": "Pour un fichier occasionnel, un lecteur Markdown dans le navigateur comme celui-ci est la solution la plus rapide : rien à installer, et le rendu suit les règles de GitHub, si bien qu'un README s'affiche comme il s'affichera sur GitHub. Si vous écrivez du Markdown tous les jours, mieux vaut un éditeur avec aperçu en direct :\n\n- **Visual Studio Code** : aperçu intégré, gratuit, sous Windows, macOS et Linux.\n- **Obsidian** : application de prise de notes fondée sur des fichiers `.md`, avec un mode lecture.\n- **Typora** : éditeur qui affiche la mise en forme pendant la saisie.\n\nSi vous devez envoyer le document mis en forme à quelqu'un qui n'a aucun de ces logiciels, envoyez-le en PDF, ou demandez à votre agent IA de le publier sur Docs MD et partagez le lien : il lui suffira d'ouvrir une page web."
+    },
+    {
+      "h2": "Que fait un lecteur Markdown de plus qu'un éditeur de texte ?",
+      "body": "Il affiche le rendu du document au lieu du code source. Un README ouvert dans le Bloc-notes est un mur de `#`, de `|` et d'accents graves ; ici, le même fichier devient des titres, des tableaux et du code coloré, avec un sommaire cliquable. La lecture est plus rapide, et vous pouvez vérifier que le document s'affiche comme prévu avant le commit : un bloc de code non fermé ou un tableau cassé se voit tout de suite.\n\nPour convertir le document en PDF, cliquez sur *Imprimer / PDF* et choisissez *Enregistrer au format PDF* dans la boîte de dialogue d'impression du navigateur ; les commandes de l'interface sont masquées et seul le document est imprimé. Si vous avez besoin d'options de mise en page, utilisez le convertisseur [Markdown vers PDF](/markdown-to-pdf)."
+    },
+    {
+      "h2": "Comment partager un fichier Markdown mis en forme ?",
+      "body": "Le lecteur ne publie rien. Pour obtenir un lien, demandez à votre agent IA (Claude, ChatGPT, Cursor ou Claude Code) de publier le document sur Docs MD via le serveur MCP : l'agent reçoit une URL courte dont le rendu est le même qu'ici, diagrammes compris. Le lien est public pour toute personne qui le possède : ne publiez donc pas d'informations confidentielles de cette façon. Pour connecter votre agent, voyez [Docs MD pour les agents](/agents).\n\nVous pouvez aussi créer un lien direct vers un fichier mis en forme : ajoutez `?url=` suivi de l'adresse du fichier raw à l'URL de cette page. Pour lire le README et le dossier de documentation d'un dépôt entier, avec des liens qui fonctionnent, utilisez le [lecteur de README GitHub](/github-readme-viewer)."
+    },
+    {
+      "h2": "Quelle variante de Markdown est prise en charge ?",
+      "body": "GitHub Flavored Markdown (GFM) : CommonMark, plus les tableaux, les listes de tâches, le texte barré, les liens automatiques et les notes de bas de page, avec coloration syntaxique dans les blocs de code. Le rendu correspond à celui de GitHub, de GitLab et de la plupart des sites de documentation : ce que vous voyez ici, c'est ce que donnera un README une fois publié. Les blocs de code étiquetés `mermaid` sont dessinés sous forme de diagrammes SVG. Les applications de chat comme Slack ou Discord ont leurs propres variantes, avec des règles différentes. Pour vérifier un point de syntaxe pendant la lecture, gardez l'[aide-mémoire Markdown](/fr/syntaxe-markdown) sous la main."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Qu'est-ce qu'un lecteur de fichiers .md ?",
+      "a": "Un lecteur de fichiers .md (ou lecteur Markdown, « Markdown viewer » en anglais) est un outil qui ouvre un fichier Markdown et l'affiche mis en forme, avec titres, listes, tableaux, liens et code, au lieu d'un texte brut rempli de # et de *. Celui-ci fonctionne dans n'importe quel navigateur, sans rien installer."
+    },
+    {
+      "q": "Ce lecteur de fichiers .md est-il gratuit et privé ?",
+      "a": "Oui. Il est gratuit et ne demande aucune inscription. Le fichier que vous ouvrez ou déposez est lu par votre navigateur avec l'API File et n'est envoyé à aucun serveur ; le lecteur ne le publie jamais."
+    },
+    {
+      "q": "Avec quel logiciel ouvrir un fichier .md ?",
+      "a": "N'importe quel éditeur de texte, comme le Bloc-notes ou TextEdit, l'ouvre, mais il affiche les symboles sans mise en forme. Pour le lire mis en forme, utilisez un lecteur Markdown dans le navigateur, comme celui-ci, ou l'aperçu d'un éditeur comme Visual Studio Code."
+    },
+    {
+      "q": "Peut-on lire un README GitHub sans cloner le dépôt ?",
+      "a": "Oui. Collez l'URL du fichier sur GitHub (l'adresse github.com/.../blob/...) et cliquez sur « Charger depuis une URL » ; elle est convertie en adresse raw.githubusercontent.com, qui autorise les lectures cross-origin. Vous pouvez aussi créer un lien direct vers un fichier mis en forme en ajoutant ?url= à l'adresse de cette page."
+    },
+    {
+      "q": "Pourquoi le chargement échoue-t-il avec certaines URL ?",
+      "a": "La récupération du fichier se fait dans votre navigateur : le serveur distant doit donc autoriser les requêtes cross-origin (CORS). Les fichiers raw de GitHub et les gists l'autorisent ; beaucoup de wikis d'entreprise et d'exports de CMS ne l'autorisent pas. Dans ce cas, téléchargez le fichier et déposez-le dans le lecteur."
+    },
+    {
+      "q": "Comment convertir le Markdown en PDF ?",
+      "a": "Cliquez sur « Imprimer / PDF » et choisissez « Enregistrer au format PDF » dans la boîte de dialogue d'impression du navigateur ; les commandes de l'interface sont masquées et seul le document mis en forme est imprimé. Pour un convertisseur dédié, avec des options de mise en page, utilisez l'outil Markdown vers PDF."
+    },
+    {
+      "q": "Les diagrammes Mermaid sont-ils affichés ?",
+      "a": "Oui. Un bloc de code étiqueté mermaid est dessiné sous forme de diagramme SVG : diagrammes de flux, diagrammes de séquence, frises chronologiques et le reste du catalogue de Mermaid."
+    }
+  ]
+}

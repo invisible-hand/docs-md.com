@@ -1,0 +1,109 @@
+{
+  "locale": "de",
+  "page": "markdown-viewer",
+  "slug": "md-datei-oeffnen",
+  "title": "MD-Datei öffnen: Markdown Viewer online, kostenlos",
+  "description": "MD-Datei online öffnen: Datei hineinziehen, Text einfügen oder von GitHub laden. Mit Tabellen, Code und Mermaid-Diagrammen. Kostenlos, ohne Installation.",
+  "h1": "MD-Datei öffnen: Markdown Viewer direkt im Browser",
+  "intro": "Um eine MD-Datei zu öffnen, ziehe sie in den Markdown-Viewer unten, füge ihren Text ein oder lade sie über eine GitHub-URL. Sie wird sofort formatiert angezeigt: Überschriften, Tabellen, Code mit Syntax-Highlighting, Aufgabenlisten, Fußnoten und Mermaid-Diagramme. Der MD-Viewer ist kostenlos und läuft in deinem Browser; geöffnete Dateien werden lokal gelesen und nicht hochgeladen. Du kannst die Schriftgröße anpassen, über die Gliederung durchs Dokument springen, es als PDF drucken oder die Datei herunterladen.",
+  "updated": "2026-11-23",
+  "chrome": {
+    "updated": "Aktualisiert am",
+    "faqTitle": "Häufige Fragen",
+    "otherLanguages": "Auch in anderen Sprachen",
+    "copy": "Kopieren",
+    "copied": "✓ Kopiert"
+  },
+  "ui": {
+    "openFile": ".md-Datei öffnen",
+    "urlAria": "Markdown von einer URL laden",
+    "loading": "Lädt …",
+    "loadFromUrl": "Von URL laden",
+    "loadExample": "Beispiel laden",
+    "hideSource": "Quelltext ausblenden",
+    "editSource": "Quelltext bearbeiten",
+    "privacy": "Dateien werden mit der File API in deinem Browser geöffnet und nicht hochgeladen. Die einzige Netzwerkanfrage ist das optionale Laden von einer URL.",
+    "openSourceBefore": "Der Viewer ist",
+    "openSource": "Open Source",
+    "size": "Größe",
+    "wide": "Breit",
+    "paper": "Papier",
+    "words": "Wörter",
+    "print": "Drucken / PDF",
+    "copy": "Kopieren",
+    "copied": "Kopiert ✓",
+    "download": "Herunterladen",
+    "corsError": "Diese URL ließ sich vom Browser aus nicht abrufen: Der Server erlaubt keine Cross-Origin-Zugriffe (CORS). Lade die Datei herunter und ziehe sie stattdessen hierher. Raw-URLs von GitHub und Gists funktionieren.",
+    "loadError": "Laden fehlgeschlagen:",
+    "exampleError": "Das Beispiel konnte nicht geladen werden.",
+    "sourceAria": "Markdown-Quelltext",
+    "sourcePlaceholder": "Füge hier Markdown ein oder ziehe eine .md-Datei irgendwo auf diesen Bereich.",
+    "outline": "Gliederung",
+    "empty": "Noch nichts anzuzeigen – füge Markdown ein oder öffne eine Datei."
+  },
+  "starter": "# Markdown-Viewer\n\nZiehe eine `.md`-Datei auf diese Seite, füge Markdown-Text ein oder lade eine Datei von einer URL: Hier wird sie formatiert angezeigt, mit Tabellen, Code mit Syntax-Highlighting, Aufgabenlisten und Mermaid-Diagrammen.\n\n## Was du tun kannst\n\n- [x] Ein README lesen, ohne das Repository zu klonen\n- [x] Es drucken oder im Browser als PDF speichern\n- [ ] Einen Link bekommen: Bitte deinen KI-Agenten, es auf Docs MD zu veröffentlichen\n\n| Einstellung | Wirkung |\n| ----------- | ------- |\n| Schriftgröße | S / M / L |\n| Breite | Schmal zum Lesen, breit für Tabellen |\n| Gliederung | Zwischen Überschriften springen |\n\n```mermaid\nflowchart LR\n  A[.md-Datei] --> B{Viewer}\n  B --> C[Drucken]\n  B --> D[.md herunterladen]\n```\n\n> Tipp: Verlinke direkt auf eine gerenderte Datei mit `?url=https://raw.githubusercontent.com/...`\n",
+  "sections": [
+    {
+      "h2": "Wie öffne ich eine MD-Datei online?",
+      "body": "Öffne diese Seite und gib dem Viewer die Datei. Sobald er den Text hat, zeigt er das Dokument formatiert an. Nimm den Weg, der dir am bequemsten ist:\n\n1. **Drag-and-drop**: Ziehe die `.md`-Datei an eine beliebige Stelle des Viewers oder klicke auf *.md-Datei öffnen* und wähle sie aus.\n2. **Einfügen**: Kopiere den Markdown-Text und füge ihn in den Editor ein.\n3. **Von URL laden**: Füge den Link zu einer Datei auf GitHub oder eine beliebige Raw-Adresse ein und klicke auf *Von URL laden*.\n\nKlicke danach auf *Quelltext ausblenden*, um in voller Breite zu lesen, wähle Schriftgröße und Breite und springe über die Gliederung von Überschrift zu Überschrift. Du musst nichts installieren und kein Konto anlegen, und der Viewer funktioniert unter Windows, macOS, Linux und auf Chromebooks gleich. Dateien mit den Endungen `.markdown`, `.mdx` und `.txt` öffnest du genauso."
+    },
+    {
+      "h2": "Was ist eine MD-Datei, und warum ist sie voller Sonderzeichen?",
+      "body": "Eine `.md`-Datei ist ein Dokument in Markdown, einem reinen Textformat, das die Formatierung mit einfachen Zeichen kennzeichnet: `#` für Überschriften, `**` für Fettdruck, `-` für Listen, `|` für Tabellen und drei Backticks für Codeblöcke. In diesem Format sind die READMEs auf GitHub geschrieben, ebenso technische Dokumentation und die Notizen in vielen Notiz-Apps.\n\nWeil es reiner Text ist, öffnet jeder Editor die Datei. Er zeigt die Zeichen aber unverändert an: Du siehst den Quelltext, nicht das Dokument. Das heißt nicht, dass die Datei beschädigt ist. Für die formatierte Ansicht brauchst du ein Programm, das Markdown *rendert*, also aus `## Installation` eine Zwischenüberschrift und aus `| a | b |` eine Tabelle macht. Genau das tut ein Markdown-Viewer wie dieser. Was die einzelnen Zeichen bedeuten, zeigt die [Übersicht der Markdown-Syntax](/de/markdown-syntax-uebersicht)."
+    },
+    {
+      "h2": "Wie öffne ich eine MD-Datei unter Windows und auf dem Mac?",
+      "body": "**Unter Windows** klickst du mit der rechten Maustaste auf die Datei, wählst *Öffnen mit* und dann den Editor (Notepad): Du siehst den Text, aber ohne Formatierung. Für die formatierte Ansicht öffnest du diese Seite in Edge, Chrome oder Firefox und ziehst die Datei in den Viewer. Oder du klickst auf *.md-Datei öffnen* und suchst sie im Datei-Explorer.\n\n**Unter macOS** öffnet TextEdit die Datei als reinen Text. Für die formatierte Ansicht ziehst du die Datei aus dem Finder auf diese Seite in Safari, Chrome oder Firefox.\n\nWenn du ohnehin mit [Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown) arbeitest, erledigt die eingebaute Vorschau dasselbe für lokale Dateien: `Strg+Shift+V` unter Windows und Linux, `Cmd+Shift+V` auf dem Mac. Mit `Strg+K V` (`Cmd+K V` auf dem Mac) öffnest du die Vorschau neben dem Quelltext."
+    },
+    {
+      "h2": "Wie öffne ich eine MD-Datei auf Android oder dem iPhone?",
+      "body": "Auf dem Smartphone musst du keine App installieren. Öffne diese Seite im Browser (Chrome auf Android, Safari auf iPhone oder iPad), tippe auf *.md-Datei öffnen* und wähle die Datei aus:\n\n- **Android**: Die Dateiauswahl zeigt deine Downloads, Google Drive und die übrigen Ordner. Hast du die Datei per E-Mail oder WhatsApp bekommen, liegt sie meist unter *Downloads*.\n- **iPhone und iPad**: Die Dateiauswahl öffnet die App *Dateien* mit iCloud Drive, *Auf meinem iPhone* und den Cloud-Diensten, die du verbunden hast.\n\nDas Dokument wird formatiert angezeigt und passt sich dem Bildschirm an. Mit der Schriftgröße L liest es sich bequem. Hat dir jemand einen Link zu einer Datei auf GitHub geschickt, kannst du ihn auch in das URL-Feld einfügen und die Datei direkt laden."
+    },
+    {
+      "h2": "Welche Editoren zeigen eine Markdown-Vorschau?",
+      "body": "Für eine einzelne Datei zwischendurch ist ein Markdown-Viewer im Browser wie dieser der schnellste Weg: Du installierst nichts, und das Rendering folgt den Regeln von GitHub, ein README sieht also so aus wie später auf GitHub. Wenn du täglich Markdown schreibst, ist ein Editor mit Live-Vorschau die bessere Wahl:\n\n- **Visual Studio Code**: eingebaute Vorschau, kostenlos, für Windows, macOS und Linux.\n- **Obsidian**: Notiz-App auf Basis von `.md`-Dateien, mit Lesemodus.\n- **Typora**: Editor, der die Formatierung schon beim Schreiben anzeigt.\n\nWenn du das gerenderte Dokument jemandem schicken willst, der keines dieser Programme hat, schicke ein PDF. Oder bitte deinen KI-Agenten, es auf Docs MD zu veröffentlichen, und teile den Link: Die andere Person muss nur eine Webseite öffnen."
+    },
+    {
+      "h2": "Was kann ein Markdown-Viewer, was ein Texteditor nicht kann?",
+      "body": "Er zeigt das gerenderte Dokument statt des Quelltexts. Ein README im Windows-Editor ist eine Wand aus `#`, `|` und Backticks; dieselbe Datei besteht hier aus Überschriften, Tabellen und Code mit Syntax-Highlighting, dazu kommt eine anklickbare Gliederung. Das liest sich schneller, und du kannst vor dem Commit prüfen, ob das Dokument so gerendert wird, wie du es erwartest: Ein nicht geschlossener Codeblock oder eine kaputte Tabelle fällt sofort auf.\n\nUm aus dem Dokument ein PDF zu machen, klicke auf *Drucken / PDF* und wähle im Druckdialog des Browsers *Als PDF speichern*; die Bedienelemente werden ausgeblendet, gedruckt wird nur das Dokument. Wenn du Seiteneinstellungen brauchst, nimm den Konverter [Markdown zu PDF](/markdown-to-pdf)."
+    },
+    {
+      "h2": "Wie teile ich eine formatierte Markdown-Datei?",
+      "body": "Der Viewer selbst veröffentlicht nichts. Für einen Link bittest du deinen KI-Agenten (Claude, ChatGPT, Cursor oder Claude Code), das Dokument über den MCP-Server auf Docs MD zu veröffentlichen: Er bekommt eine kurze URL, unter der das Dokument so gerendert wird wie hier, Diagramme eingeschlossen, und dazu eine URL mit dem rohen Markdown. Der Link ist öffentlich für alle, die ihn haben; veröffentliche auf diesem Weg also nichts Vertrauliches. Wie du den Agenten anbindest, steht unter [Docs MD für Agenten](/agents).\n\nDu kannst auch direkt auf eine gerenderte Datei verlinken: Hänge `?url=` und die Raw-Adresse der Datei an die URL dieser Seite an. Um das README und den Doku-Ordner eines ganzen Repositorys mit funktionierenden Links zu lesen, nimm den [GitHub-README-Viewer](/github-readme-viewer)."
+    },
+    {
+      "h2": "Welche Markdown-Variante wird gerendert?",
+      "body": "GitHub Flavored Markdown (GFM): CommonMark plus Tabellen, Aufgabenlisten, Durchstreichungen, Autolinks und Fußnoten, mit Syntax-Highlighting in Codeblöcken. Das entspricht GitHub, GitLab und den meisten Doku-Websites; ein README sieht nach dem Push also so aus wie hier. Codeblöcke mit der Kennzeichnung `mermaid` werden als SVG-Diagramme gezeichnet. Chat-Apps wie Slack oder Discord nutzen eigene Varianten mit anderen Regeln. Für Syntaxfragen beim Lesen hältst du am besten das [Markdown Cheat Sheet](/de/markdown-syntax-uebersicht) offen."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Was ist ein MD-Viewer?",
+      "a": "Ein MD-Viewer (auch MD-Reader oder Markdown-Viewer) ist ein Tool, das eine Markdown-Datei öffnet und formatiert anzeigt, mit Überschriften, Listen, Tabellen, Links und Code statt als Rohtext voller # und *. Dieser hier läuft in jedem Browser, ohne Installation."
+    },
+    {
+      "q": "Ist dieser MD-Viewer kostenlos, und bleiben meine Dateien privat?",
+      "a": "Ja. Er ist kostenlos und kommt ohne Anmeldung aus. Eine Datei, die du öffnest oder hineinziehst, liest dein Browser mit der File API; sie wird an keinen Server gesendet, und der Viewer veröffentlicht sie nie."
+    },
+    {
+      "q": "Mit welchem Programm öffne ich eine .md-Datei?",
+      "a": "Jeder Texteditor öffnet sie, etwa der Windows-Editor oder TextEdit, zeigt die Zeichen aber unformatiert an. Für die formatierte Ansicht nimmst du einen Markdown-Viewer im Browser wie diesen oder die Vorschau eines Editors wie Visual Studio Code."
+    },
+    {
+      "q": "Kann ich ein README von GitHub ansehen, ohne das Repository zu klonen?",
+      "a": "Ja. Füge die GitHub-URL der Datei ein (die Adresse github.com/.../blob/...) und klicke auf Von URL laden; sie wird in die Adresse auf raw.githubusercontent.com umgeschrieben, die Cross-Origin-Zugriffe erlaubt. Du kannst auch direkt auf eine gerenderte Datei verlinken, indem du ?url= an die Adresse dieser Seite anhängst."
+    },
+    {
+      "q": "Warum schlägt das Laden von manchen URLs fehl?",
+      "a": "Der Abruf passiert in deinem Browser, deshalb muss der entfernte Server Cross-Origin-Anfragen (CORS) erlauben. Raw-Dateien von GitHub und Gists tun das, viele Firmen-Wikis und CMS-Exporte nicht. Lade die Datei in dem Fall herunter und ziehe sie in den Viewer."
+    },
+    {
+      "q": "Wie mache ich aus Markdown ein PDF?",
+      "a": "Klicke auf Drucken / PDF und wähle im Druckdialog des Browsers „Als PDF speichern“; die Bedienelemente werden ausgeblendet, gedruckt wird nur das gerenderte Dokument. Einen eigenen Konverter mit Seiteneinstellungen bietet das Tool Markdown zu PDF."
+    },
+    {
+      "q": "Werden Mermaid-Diagramme dargestellt?",
+      "a": "Ja. Ein Codeblock mit der Kennzeichnung mermaid wird als SVG-Diagramm gerendert: Flussdiagramme, Sequenzdiagramme, Zeitleisten und der Rest des Mermaid-Katalogs."
+    }
+  ]
+}

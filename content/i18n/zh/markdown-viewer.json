@@ -1,0 +1,111 @@
+{
+  "locale": "zh",
+  "page": "markdown-viewer",
+  "slug": "md-wenjian-dakai",
+  "title": "md 文件怎么打开？免费 Markdown 在线预览",
+  "description": "md 文件怎么打开？把 .md 文件拖进页面、粘贴文本或输入 GitHub 链接，就能在线预览 Markdown：表格、代码高亮和 mermaid 图表都能显示。免费，无需安装，文件不会上传。",
+  "h1": ".md 文件怎么打开？用在线 Markdown 查看器直接预览",
+  "intro": "想在线打开 md 文件，把它拖到下面的 Markdown 查看器里就行，也可以粘贴文本，或者输入 GitHub 链接来加载：文档会立刻显示成排版好的样子，标题、表格、代码高亮、任务列表、脚注和 mermaid 图表都能正常渲染。这个 Markdown 在线预览工具（也有人叫它 Markdown 阅读器）是免费的，直接在浏览器里运行，文件只在本地读取，不会上传。你可以调整字号、用大纲跳转、打印成 PDF，或者下载文件。",
+  "updated": "2026-11-23",
+  "chrome": {
+    "updated": "更新于",
+    "faqTitle": "常见问题",
+    "otherLanguages": "其他语言版本",
+    "copy": "复制",
+    "copied": "✓ 已复制"
+  },
+  "ui": {
+    "openFile": "打开 .md 文件",
+    "urlAria": "从 URL 加载 Markdown",
+    "loading": "加载中…",
+    "loadFromUrl": "从 URL 加载",
+    "loadExample": "加载示例",
+    "hideSource": "隐藏源码",
+    "editSource": "编辑源码",
+    "privacy": "文件通过 File API 在你的浏览器里打开，不会上传。只有使用“从 URL 加载”时才会发出网络请求。",
+    "openSourceBefore": "本查看器是",
+    "openSource": "开源的",
+    "openSourceGap": "",
+    "openSourceEnd": "。",
+    "size": "字号",
+    "wide": "加宽",
+    "paper": "纸张样式",
+    "words": "词",
+    "print": "打印 / PDF",
+    "copy": "复制",
+    "copied": "已复制 ✓",
+    "download": "下载",
+    "corsError": "浏览器无法获取这个 URL：对方服务器不允许跨域读取（CORS）。请先把文件下载下来，再拖到这里。GitHub 的 raw 链接和 gist 链接可以正常加载。",
+    "loadError": "加载失败：",
+    "exampleError": "示例加载失败。",
+    "sourceAria": "Markdown 源码",
+    "sourcePlaceholder": "在这里粘贴 Markdown，或者把 .md 文件拖到这个面板的任意位置。",
+    "outline": "大纲",
+    "empty": "这里还没有内容：粘贴一段 Markdown，或者打开一个文件。"
+  },
+  "starter": "# Markdown 查看器\n\n把 `.md` 文件拖到这个页面，粘贴 Markdown 文本，或者从 URL 加载文件，内容就会在这里渲染出来，表格、代码高亮、任务列表和 mermaid 图表都支持。\n\n## 可以用来做什么\n\n- [x] 不用克隆仓库就能阅读 README\n- [x] 直接在浏览器里打印，或者另存为 PDF\n- [ ] 获取链接：让你的 AI 智能体把文档发布到 Docs MD\n\n| 控件 | 作用 |\n| ---- | ---- |\n| 字号 | S / M / L |\n| 宽度 | 窄版适合阅读，宽版适合看表格 |\n| 大纲 | 在标题之间跳转 |\n\n```mermaid\nflowchart LR\n  A[.md 文件] --> B{查看器}\n  B --> C[打印]\n  B --> D[下载 .md]\n```\n\n> 提示：用 `?url=https://raw.githubusercontent.com/...` 可以直接链接到渲染后的文件\n",
+  "sections": [
+    {
+      "h2": "md 文件怎么在线打开？",
+      "body": "打开本页面，用你觉得最方便的方式把文件交给查看器，它一拿到文本就会显示出排版好的文档：\n\n1. **拖放**：把 `.md` 文件拖到查看器面板的任意位置，或者点击“打开 .md 文件”来选择文件。\n2. **粘贴**：复制 Markdown 文本，粘贴到编辑框里。\n3. **从 URL 加载**：粘贴 GitHub 上的文件链接，或者任意 raw 文件地址，然后点击“从 URL 加载”。\n\n然后点击“隐藏源码”，让文档占满整个面板来阅读；再选一下字号和宽度，用大纲在标题之间跳转。不需要安装任何东西，也不用注册账号，在 Windows、macOS、Linux 和 Chromebook 上用法完全一样。`.markdown`、`.mdx` 和 `.txt` 文件也可以用同样的方式打开。"
+    },
+    {
+      "h2": ".md 文件是什么？为什么打开后全是符号？",
+      "body": "`.md` 文件是用 Markdown 写成的文档。Markdown 是一种纯文本格式，用简单的符号来标记排版：`#` 表示标题，`**` 表示粗体，`-` 表示列表，`|` 用来画表格，三个反引号包住代码块。GitHub 上的 README、技术文档和很多笔记应用用的都是这种格式。\n\n因为是纯文本，任何文本编辑器都能打开它，但编辑器会把这些符号原样显示出来：你看到的是源码，而不是排版后的文档。这并不代表文件坏了。想看到带格式的效果，需要一个能“渲染”Markdown 的程序，也就是把 `## 安装` 变成小标题，把 `| a | b |` 变成表格。本页这样的 Markdown 查看器做的正是这件事。想弄清每个符号的含义，可以看 [Markdown 语法速查表](/zh/markdown-yufa)。"
+    },
+    {
+      "h2": "在 Windows 和 Mac 上怎么打开 .md 文件？",
+      "body": "**在 Windows 上**，右键点击文件，选择“打开方式”，再选“记事本”：能看到文字，但没有格式。想看排版后的效果，就在 Edge、Chrome 或 Firefox 里打开本页面，把文件拖进查看器，或者点击“打开 .md 文件”，在文件资源管理器里找到它。\n\n**在 macOS 上**，“文本编辑”（TextEdit）会把文件当作纯文本打开。想看带格式的效果，就把文件从“访达”（Finder）拖到 Safari、Chrome 或 Firefox 里打开的本页面上。\n\n如果你平时就在用 [Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown)，它内置的预览功能同样能把本地文件渲染出来：Windows 和 Linux 上按 `Ctrl+Shift+V`，Mac 上按 `Cmd+Shift+V`。想让预览显示在源码旁边，就按 `Ctrl+K V`（Mac 上是 `Cmd+K V`）。"
+    },
+    {
+      "h2": "手机上怎么打开 md 文件（Android 和 iPhone）？",
+      "body": "在手机上不需要安装任何应用。如果文件是邮件或聊天应用里的附件，先把它保存到手机上，再用浏览器打开本页面（Android 上用 Chrome，iPhone 或 iPad 上用 Safari），点击“打开 .md 文件”并选择文件：\n\n- **Android**：在系统的文件选择器里找到文件；下载的文件一般在“下载”文件夹里。\n- **iPhone 和 iPad**：文件选择器会打开“文件”应用，里面有 iCloud 云盘、“我的 iPhone”以及你已经连接的云服务。\n\n文档会以排版后的样子显示，并自动适应屏幕宽度。点击“隐藏源码”，渲染结果就会占满屏幕的宽度；觉得字太小，就把字号调到 L。如果别人发给你的是 GitHub 上的文件链接，也可以把它粘贴到 URL 输入框里直接加载。"
+    },
+    {
+      "h2": "哪些编辑器自带 Markdown 预览？",
+      "body": "偶尔看一个文件，用本页这样的浏览器端 Markdown 查看器最快：不用安装任何东西，渲染规则和 GitHub 一致，所以 README 在这里是什么样，放到 GitHub 上就是什么样。如果你每天都写 Markdown，带实时预览的编辑器更合适：\n\n- **Visual Studio Code**：内置预览，免费，支持 Windows、macOS 和 Linux。\n- **Obsidian**：基于 `.md` 文件的笔记应用，带阅读模式。\n- **Typora**：边写边显示排版效果的编辑器。\n\n如果要把渲染后的文档发给没装这些软件的人，可以发 PDF，或者让你的 AI 智能体把它发布到 Docs MD，再把链接分享出去：对方只需要打开一个网页。"
+    },
+    {
+      "h2": "Markdown 查看器和文本编辑器有什么不同？",
+      "body": "查看器显示的是渲染后的文档，而不是源码。用记事本打开 README，看到的是满屏的 `#`、`|` 和反引号；同一个文件在这里则是标题、表格和高亮的代码，还有可以点击的大纲。这样读起来更快，也能在提交（commit）之前确认文档的渲染效果是否符合预期：没闭合的代码块、写坏的表格，一眼就能看出来。\n\n要把文档转成 PDF，点击“打印 / PDF”，然后在浏览器的打印对话框里选择“另存为 PDF”；各种控件会自动隐藏，只打印文档本身。如果需要设置页面选项，可以用 [Markdown 转 PDF](/markdown-to-pdf) 工具。"
+    },
+    {
+      "h2": "怎么把渲染好的 Markdown 文件分享给别人？",
+      "body": "查看器本身不会发布任何内容。想得到一个链接，可以让你的 AI 智能体（Claude、ChatGPT、Cursor 或 Claude Code）通过 MCP 服务器把文档发布到 Docs MD：它会拿到一个短网址，打开后的显示效果和这里一样，图表也包括在内。这个链接是公开的，任何拿到它的人都能访问，所以不要用这种方式发布机密信息。智能体的接入方法见 [Docs MD 智能体指南](/agents)。\n\n你也可以直接链接到渲染后的文件：在本页网址后面加上 `?url=` 和 raw 文件的地址。如果想阅读整个仓库的 README 和文档目录，并且让其中的链接都能正常跳转，请使用 [GitHub README 查看器](/github-readme-viewer)。"
+    },
+    {
+      "h2": "Markdown 在线预览按哪种规范渲染？",
+      "body": "按 GitHub Flavored Markdown（GFM）渲染，也就是在 CommonMark 的基础上增加表格、任务列表、删除线、自动链接和脚注，代码块还带语法高亮。GitHub、GitLab 和大多数文档站点用的也是这套规则，所以你在这里看到的，就是 README 发布之后的样子。标记为 `mermaid` 的代码块会被画成 SVG 图表。Slack、Discord 这类聊天应用用的是各自的变体，规则不一样。阅读时如果对语法有疑问，可以随手查 [Markdown 语法速查表](/zh/markdown-yufa)。"
+    }
+  ],
+  "faq": [
+    {
+      "q": "什么是 md 文件查看器？",
+      "a": "md 文件查看器（也叫 Markdown 阅读器）是一种打开 Markdown 文件并按排版效果显示的工具：你看到的是标题、列表、表格、链接和代码，而不是满是 # 和 * 的纯文本。本页的查看器在任何浏览器里都能用，无需安装。"
+    },
+    {
+      "q": "这个 md 文件阅读器免费吗？文件会被上传吗？",
+      "a": "免费，也不需要注册。你打开或拖入的文件由浏览器通过 File API 读取，不会发送到任何服务器；查看器也不会发布它。"
+    },
+    {
+      "q": ".md 文件用什么软件打开？",
+      "a": "任何文本编辑器都能打开，比如 Windows 的记事本或 Mac 的“文本编辑”，但显示的是没有格式的符号。想看排版后的效果，可以用本页这样的浏览器端 Markdown 查看器，或者用 Visual Studio Code 这类编辑器的预览功能。"
+    },
+    {
+      "q": "不克隆仓库，能直接看 GitHub 上的 README 吗？",
+      "a": "可以。粘贴文件在 GitHub 上的地址（形如 github.com/.../blob/...），点击“从 URL 加载”；它会被转换成 raw.githubusercontent.com 的地址，这个地址允许跨域读取。你也可以在本页网址后面加上 ?url=，直接把渲染后的文件链接发给别人。"
+    },
+    {
+      "q": "为什么有些 URL 加载不了？",
+      "a": "文件是由你的浏览器去获取的，所以对方服务器必须允许跨域请求（CORS）。GitHub 的 raw 文件和 gist 允许；很多企业内部的 Wiki 和 CMS 导出的文件不允许。遇到这种情况，请先下载文件，再把它拖进查看器。"
+    },
+    {
+      "q": "怎么把 Markdown 转成 PDF？",
+      "a": "点击“打印 / PDF”，在浏览器的打印对话框里选择“另存为 PDF”；控件会被隐藏，只打印渲染后的文档。如果需要带页面设置选项的专用转换器，请使用 Markdown 转 PDF 工具。"
+    },
+    {
+      "q": "mermaid 图表能显示吗？",
+      "a": "能。标记为 mermaid 的代码块会被画成 SVG 图表：流程图、时序图、时间线，以及 mermaid 支持的其他图表类型。"
+    }
+  ]
+}

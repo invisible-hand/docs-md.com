@@ -17,8 +17,9 @@
     "check:guides": "node scripts/check-guides.mjs",
     "check:agent-pages": "node scripts/check-agent-pages.mjs",
     "check:llms": "node scripts/check-llms.mjs",
-    "test": "tsx scripts/test-agent-policy.ts && tsx scripts/test-url-safety.ts && tsx scripts/test-handoff.ts && tsx scripts/test-json-table.ts && tsx scripts/test-markdown-dialects.ts && tsx scripts/test-inert-links.tsx",
-    "test:e2e": "tsx scripts/test-agents-e2e.ts",
+    "test": "tsx scripts/test-agent-policy.ts && tsx scripts/test-url-safety.ts && tsx scripts/test-handoff.ts && tsx scripts/test-json-table.ts && tsx scripts/test-markdown-dialects.ts && tsx scripts/test-inert-links.tsx && tsx scripts/test-agents-md.ts && tsx scripts/test-mcp-clients.ts && tsx scripts/test-secret-redact.ts",
+    "test:e2e": "tsx scripts/test-agents-e2e.ts && tsx scripts/test-rooms-e2e.ts",
+    "db:migrate-rooms": "tsx scripts/migrate-rooms.ts",
     "db:migrate-agents": "tsx scripts/migrate-agents.ts",
     "test:conformance": "conformance server --url ${MCP_URL:-http://localhost:3000/mcp} --scenario server-initialize && conformance server --url ${MCP_URL:-http://localhost:3000/mcp} --scenario ping && conformance server --url ${MCP_URL:-http://localhost:3000/mcp} --scenario tools-list"
   },

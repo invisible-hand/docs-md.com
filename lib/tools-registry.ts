@@ -2,7 +2,7 @@
 // sitemap, tool page headers, JSON-LD and "more tools" cross-links all read
 // from here. Add a tool once and every surface picks it up.
 
-export type ToolCategory = 'convert' | 'generate' | 'check' | 'edit' | 'reference';
+export type ToolCategory = 'convert' | 'generate' | 'check' | 'edit' | 'agents' | 'reference';
 
 export interface Tool {
   /** URL path without the leading slash. */
@@ -27,6 +27,7 @@ export const TOOL_CATEGORIES: { id: ToolCategory; label: string; blurb: string }
   { id: 'generate', label: 'Generate', blurb: 'Build correct markdown from a form instead of by hand.' },
   { id: 'check', label: 'Check & compare', blurb: 'Find problems in a document before you publish it.' },
   { id: 'edit', label: 'Edit & share', blurb: 'Write, preview, and tidy; publish through your AI agent.' },
+  { id: 'agents', label: 'Agents & MCP', blurb: 'Connect agents to MCP servers and to each other.' },
   { id: 'reference', label: 'Reference', blurb: 'Look up the syntax.' },
 ];
 
@@ -374,6 +375,44 @@ export const TOOLS: Tool[] = [
       'Free md formatter: prettify markdown online — normalize list markers, emphasis style, table alignment and spacing. Semantic: rendered output never changes.',
     category: 'edit',
     updated: '2026-09-16',
+  },
+
+  // ---- agents --------------------------------------------------------------
+  {
+    slug: 'mcp-config-generator',
+    name: 'MCP config generator',
+    title: 'MCP config generator',
+    description:
+      'Enter an MCP server URL or command once and get the exact command or config block for each client: Claude Code, Codex, Cursor, VS Code, Gemini CLI and more.',
+    metaTitle: 'MCP Config Generator: Claude Code, Codex, Cursor',
+    metaDescription:
+      'Enter an MCP server URL or command and get the exact setup for Claude Code, Codex, Cursor, VS Code, Gemini CLI and more: commands, JSON and TOML to copy.',
+    category: 'agents',
+    updated: '2026-11-24',
+  },
+  {
+    slug: 'agents-md-generator',
+    name: 'AGENTS.md generator',
+    title: 'AGENTS.md generator',
+    description:
+      'Build an AGENTS.md from a form: commands, conventions, boundaries and how agents hand work to each other. Shows which instruction file each agent reads.',
+    metaTitle: 'AGENTS.md Generator: One File for Every Agent',
+    metaDescription:
+      'Build an AGENTS.md from a form: commands, conventions, boundaries, handoff rules. See which file each agent reads: CLAUDE.md, GEMINI.md, Cursor rules.',
+    category: 'agents',
+    updated: '2026-11-24',
+  },
+  {
+    slug: 'secret-scanner',
+    name: 'Secret scanner',
+    title: 'Secret scanner',
+    description:
+      'Paste text, a log or a config file and find API keys, tokens and private keys before you share it with a person or an agent. Runs in your browser.',
+    metaTitle: 'Secret Scanner: Find API Keys Before You Share',
+    metaDescription:
+      'Paste text, a log or a config and find API keys, tokens and private keys before you share it. Runs in your browser; nothing is uploaded.',
+    category: 'agents',
+    updated: '2026-11-24',
   },
 
   // ---- reference -----------------------------------------------------------

@@ -26,10 +26,16 @@ import { storageOperations } from '@/lib/storage';
 // Everything that changes a share goes through this module. Since 2026-11-13 the only caller is
 // the MCP server (lib/mcp/server.ts); the contract is docs/agent-protocol.md.
 
+// Links the server hands out. A preview deployment points at itself so a room invite created there
+// opens there; DOCS_MD_BASE_URL overrides everything (local runs on another port).
+const previewHost = process.env.VERCEL_ENV === 'preview' ? process.env.VERCEL_BRANCH_URL ?? process.env.VERCEL_URL : undefined;
 export const BASE_URL =
-  process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production'
-    ? 'https://docs-md.com'
-    : 'http://localhost:3000';
+  process.env.DOCS_MD_BASE_URL ??
+  (previewHost
+    ? `https://${previewHost}`
+    : process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production'
+      ? 'https://docs-md.com'
+      : 'http://localhost:3000');
 
 /** Kept for the legacy REST DELETE route, which maps `status` to the HTTP status. */
 export class ShareServiceError extends Error {
@@ -176,11 +182,22 @@ function parentDomains(host: string): string[] {
 }
 
 async function checkContent(content: string): Promise<Shape> {
-  const secret = findSecret(content);
+  await screenContent(content, 'document');
+  return classifyShape(content);
+}
+
+/**
+ * The checks every piece of posted text passes: no live credential, no link to a blocked domain.
+ * A room message may carry another room's invite (rooms link to each other); a public document may not.
+ */
+export async function screenContent(content: string, where: 'document' | 'message'): Promise<void> {
+  const secret = findSecret(content, where === 'message' ? { allow: ['Docs MD room key'] } : {});
   if (secret) {
     throw new AgentError(
       'secret_detected',
-      `Line ${secret.line} looks like a ${secret.kind}. Documents here are public: replace the value with a placeholder (for example the name of the environment variable) and send it again.`,
+      where === 'document'
+        ? `Line ${secret.line} looks like a ${secret.kind}. Documents here are public: replace the value with a placeholder (for example the name of the environment variable) and send it again.`
+        : `Line ${secret.line} looks like a ${secret.kind}. Everyone with the room link can read a message: replace the value with a placeholder (for example the name of the environment variable) and send it again.`,
     );
   }
   const hosts = linkedHosts(content);
@@ -188,10 +205,9 @@ async function checkContent(content: string): Promise<Shape> {
     const candidates = [...new Set(hosts.flatMap(parentDomains))];
     const blocked = await dbOperations.findBlockedDomains(candidates);
     if (blocked.length > 0) {
-      throw new AgentError('blocked_domain', `The document links to ${blocked[0]}, which is on the abuse blocklist. Remove the link and send it again.`);
+      throw new AgentError('blocked_domain', `The text links to ${blocked[0]}, which is on the abuse blocklist. Remove the link and send it again.`);
     }
   }
-  return classifyShape(content);
 }
 
 async function checkWriteRate(agent: Agent): Promise<void> {

@@ -1,11 +1,33 @@
 import { sql as vercelSql } from '@vercel/postgres';
 
 type SqlTag = typeof vercelSql;
-let sql: SqlTag = vercelSql;
+
+/**
+ * Local runs: `LOCAL_PG_URL=postgres://postgres@127.0.0.1:5432/docsmd_dev npm run dev` serves the
+ * site from a Postgres on this machine through node-postgres (the hosted driver speaks only to
+ * Neon). Accepted for a local host only, so a deployment can never be pointed away from its database.
+ */
+function localSql(url: string): SqlTag {
+  type Pool = { query: (text: string, params?: unknown[]) => Promise<unknown> };
+  let pool: Promise<Pool> | null = null;
+  const get = () => (pool ??= import('pg').then((m) => new m.default.Pool({ connectionString: url }) as unknown as Pool));
+  const tag = (strings: TemplateStringsArray, ...values: unknown[]) =>
+    get().then((p) => p.query(strings.reduce((text, part, i) => text + part + (i < values.length ? '$' + (i + 1) : ''), ''), values));
+  return Object.assign(tag, { query: (text: string, params?: unknown[]) => get().then((p) => p.query(text, params)) }) as unknown as SqlTag;
+}
+
+const LOCAL_PG_URL = process.env.LOCAL_PG_URL;
+const LOCAL_HOST = /@(127\.0\.0\.1|localhost)[:/]/;
+let sql: SqlTag = LOCAL_PG_URL && LOCAL_HOST.test(LOCAL_PG_URL) ? localSql(LOCAL_PG_URL) : vercelSql;
 
 /** Tests point the data layer at a local Postgres (test/agents-db.test.ts). Never called in production. */
 export function __setSqlForTests(tag: unknown): void {
   sql = tag as SqlTag;
+}
+
+/** The tag every data module uses, so tests can redirect all of them at once (lib/room-db.ts). */
+export function currentSql(): SqlTag {
+  return sql;
 }
 
 export interface Share {
@@ -90,6 +112,7 @@ export async function initDatabase() {
     await createQuotaAndReportTables();
     await addShareOriginColumns();
     await createAgentSchema();
+    await (await import('./room-db')).createRoomSchema();
   } catch (error) {
     console.error('Error initializing database:', error);
   }

@@ -36,6 +36,13 @@ const nextConfig: NextConfig = {
           has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
           destination: "/agents-md/:slug",
         },
+        // A room link fetched by an agent: how to join, or the thread when the key is sent as a header.
+        { source: `/r/${shareId}.md`, destination: "/room-md/:id" },
+        {
+          source: `/r/${shareId}`,
+          has: [{ type: "header", key: "accept", value: "(.*)text/markdown(.*)" }],
+          destination: "/room-md/:id",
+        },
         { source: `/${shareId}.md`, destination: "/raw/:id" },
         {
           source: `/${shareId}`,
@@ -48,6 +55,14 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      {
+        // Rooms are private: no index, no cache, no referrer (the page itself, its markdown twin).
+        source: "/r/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          { key: "Cache-Control", value: "private, no-store" },
+        ],
+      },
       {
         source: "/:path*",
         headers: [

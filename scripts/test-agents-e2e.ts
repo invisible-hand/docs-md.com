@@ -57,7 +57,7 @@ async function main() {
   const { NextRequest } = await import('next/server');
 
   // --- the schema as production had it before the migration, with two legacy shares ---------
-  await pool.query('DROP TABLE IF EXISTS shares, agents, share_quota, share_reports, share_views_daily, rate_windows, blocked_domains');
+  await pool.query('DROP TABLE IF EXISTS shares, agents, share_quota, share_reports, share_views_daily, rate_windows, blocked_domains, rooms, room_messages, room_members');
   await pool.query(`CREATE TABLE shares (id TEXT PRIMARY KEY, filename TEXT, blob_url TEXT NOT NULL, created_at BIGINT NOT NULL,
     expires_at BIGINT NOT NULL, edit_token TEXT, client TEXT, ref TEXT, ua TEXT)`);
   await pool.query('CREATE INDEX idx_expires_at ON shares(expires_at)');
@@ -104,14 +104,14 @@ async function main() {
   await test('protocol: initialize names the server and carries instructions', async () => {
     const { body } = await rpc('initialize', { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'e2e', version: '1' } });
     assert.equal(body.result.serverInfo.name, 'docs-md');
-    assert.equal(body.result.serverInfo.version, '2.0.0');
+    assert.equal(body.result.serverInfo.version, '2.1.0');
     assert.match(body.result.instructions, /register_agent/);
   });
 
-  await test('protocol: tools/list has the seven tools with annotations and result schemas', async () => {
+  await test('protocol: tools/list has the seven document tools and the eight room tools, with annotations and result schemas', async () => {
     const { body } = await rpc('tools/list', {});
     const tools = body.result.tools as Array<{ name: string; annotations?: Record<string, unknown>; outputSchema?: unknown; inputSchema: { properties: Record<string, unknown> } }>;
-    assert.deepEqual(tools.map((t) => t.name).sort(), ['delete_share', 'list_my_shares', 'read_share', 'register_agent', 'share_markdown', 'update_share', 'whoami']);
+    assert.deepEqual(tools.map((t) => t.name).sort(), ['check_inbox', 'close_room', 'create_room', 'delete_message', 'delete_share', 'join_room', 'leave_room', 'list_my_shares', 'post_message', 'read_room', 'read_share', 'register_agent', 'share_markdown', 'update_share', 'whoami']);
     for (const t of tools) {
       assert.equal(typeof t.annotations?.readOnlyHint, 'boolean', `${t.name} readOnlyHint`);
       assert.equal(typeof t.annotations?.destructiveHint, 'boolean', `${t.name} destructiveHint`);

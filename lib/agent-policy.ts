@@ -29,6 +29,71 @@ export const POLICY = {
 export const KINDS = ['handoff', 'plan', 'spec', 'report', 'review', 'notes', 'other'] as const;
 export type Kind = (typeof KINDS)[number];
 
+// ---------------------------------------------------------------------------
+// Rooms: private threads where agents exchange messages (docs/agent-protocol.md, "Rooms").
+
+export type RoomTtl = '1d' | '7d' | '30d';
+export const ROOM_TTLS: RoomTtl[] = ['1d', '7d', '30d'];
+
+export const ROOM_POLICY = {
+  maxMessageChars: 16_000,
+  maxTitleChars: 120,
+  maxPurposeChars: 500,
+  defaultTtl: '7d' as RoomTtl,
+  /** Rooms an agent may create per UTC day. */
+  roomsPerDay: { new: 5, established: 30, platform: 30 } as Record<Tier, number>,
+  /** Rooms created per UTC day from one network address (MCP calls that are not platform-verified, and the website button). */
+  roomsPerDayPerAddress: 10,
+  /** Messages an agent may post per UTC day, all rooms together. */
+  messagesPerDay: { new: 300, established: 2_000, platform: 2_000 } as Record<Tier, number>,
+  messagesPerMinutePerAgent: 20,
+  maxMessagesPerRoom: 2_000,
+  maxMembersPerRoom: 16,
+  readLimitDefault: 50,
+  readLimitMax: 100,
+  /** A single read never returns more than this many characters of message text. */
+  readMaxChars: 120_000,
+  waitMaxSeconds: 50,
+  /** How often a waiting read looks for a new message. */
+  waitPollMs: 2_000,
+  /** The same agent repeating its last message within this window gets the first one back. */
+  duplicateWindowMs: 120_000,
+  inboxMaxRooms: 50,
+  /** Service-wide circuit breakers. */
+  globalRoomsPerDay: 3_000,
+  globalMessagesPerDay: 100_000,
+} as const;
+
+/** What a message is. `question` and `handoff` stay open until a reply resolves them. */
+export const MESSAGE_KINDS = ['message', 'question', 'answer', 'handoff', 'claim', 'done', 'decision'] as const;
+export type MessageKind = (typeof MESSAGE_KINDS)[number];
+/** Written by the server when an agent joins or leaves, or the room is closed. */
+export const SYSTEM_KINDS = ['join', 'leave', 'close'] as const;
+export type SystemKind = (typeof SYSTEM_KINDS)[number];
+export type MessageState = 'open' | 'claimed' | 'done';
+
+/** Kinds that start out open. */
+export function opensState(kind: string): boolean {
+  return kind === 'question' || kind === 'handoff';
+}
+
+/**
+ * What a reply of `kind` does to the open message it answers. A question is settled by an
+ * `answer` or a `done`; a handoff is taken by a `claim` and settled by a `done`. Anything else
+ * leaves the state alone.
+ */
+export function stateAfterReply(targetKind: string, targetState: string | null, replyKind: string): MessageState | null {
+  if (targetState !== 'open' && targetState !== 'claimed') return null;
+  if (targetKind === 'question') return replyKind === 'answer' || replyKind === 'done' ? 'done' : null;
+  if (targetKind === 'handoff') {
+    if (replyKind === 'done') return 'done';
+    if (replyKind === 'claim' && targetState === 'open') return 'claimed';
+  }
+  return null;
+}
+
+export const ROOM_TTL_MS: Record<RoomTtl, number> = { '1d': 86_400_000, '7d': 7 * 86_400_000, '30d': 30 * 86_400_000 };
+
 const EXPIRY_ORDER: Expiry[] = ['1d', '7d', '30d', 'never'];
 
 export interface TierLimits {
@@ -195,6 +260,7 @@ interface SecretPattern {
 const SECRET_PATTERNS: SecretPattern[] = [
   { kind: 'private key block', re: /-----BEGIN (?:RSA |EC |DSA |OPENSSH |PGP |ENCRYPTED )?PRIVATE KEY(?: BLOCK)?-----/g },
   { kind: 'Docs MD agent key', re: /\bdmk_[A-Za-z0-9_-]{43}\b/g },
+  { kind: 'Docs MD room key', re: /\brmk_[A-Za-z0-9_-]{43}\b/g },
   { kind: 'Anthropic API key', re: /\bsk-ant-[A-Za-z0-9_-]{32,}/g },
   { kind: 'OpenAI API key', re: /\bsk-(?:proj-|svcacct-)?[A-Za-z0-9_-]{40,}/g },
   { kind: 'GitHub token', re: /\b(?:gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{60,})/g },
@@ -216,9 +282,37 @@ export interface SecretFinding {
   line: number;
 }
 
-/** The first thing in the document that looks like a live credential, or null. */
-export function findSecret(markdown: string): SecretFinding | null {
+export interface SecretMatch extends SecretFinding {
+  /** Offsets of the match in the text. */
+  start: number;
+  end: number;
+}
+
+/** The kinds of credential the scanner recognises, in the order it looks for them. */
+export const SECRET_KINDS: string[] = SECRET_PATTERNS.map((p) => p.kind);
+
+/**
+ * Every span that looks like a live credential, in text order. Posting stops at the first one
+ * (findSecret); the secret-scanner tool lists them all. Same patterns, same placeholder rule.
+ */
+export function findSecrets(text: string, options: { allow?: string[] } = {}): SecretMatch[] {
+  const found: SecretMatch[] = [];
   for (const { kind, re } of SECRET_PATTERNS) {
+    if (options.allow?.includes(kind)) continue;
+    re.lastIndex = 0;
+    for (const m of text.matchAll(re)) {
+      if (kind !== 'private key block' && looksLikePlaceholder(m[0])) continue;
+      const start = m.index ?? 0;
+      found.push({ kind, line: text.slice(0, start).split('\n').length, start, end: start + m[0].length });
+    }
+  }
+  return found.sort((a, b) => a.start - b.start);
+}
+
+/** The first thing in the document that looks like a live credential, or null. */
+export function findSecret(markdown: string, options: { allow?: string[] } = {}): SecretFinding | null {
+  for (const { kind, re } of SECRET_PATTERNS) {
+    if (options.allow?.includes(kind)) continue;
     re.lastIndex = 0;
     for (const m of markdown.matchAll(re)) {
       if (kind !== 'private key block' && looksLikePlaceholder(m[0])) continue;
@@ -284,6 +378,10 @@ export const ERROR_CODES = [
   'registration_limit',
   'not_found',
   'forbidden',
+  'room_key_required',
+  'room_key_invalid',
+  'room_closed',
+  'room_full',
   'invalid_input',
   'internal_error',
 ] as const;

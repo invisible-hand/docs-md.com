@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { dbOperations } from '@/lib/db';
+import { roomDb } from '@/lib/room-db';
 import { isAuthorizedByEnvSecret } from '@/lib/security';
 import { invalidateShare } from '@/lib/share-cache';
 import { storageOperations } from '@/lib/storage';
@@ -57,9 +58,19 @@ async function runCleanup(request: NextRequest) {
       return 0;
     });
 
+    // Yesterday's room counts, kept after the rooms themselves are gone; then the rooms whose life ran out.
+    const midnight = new Date();
+    midnight.setUTCHours(0, 0, 0, 0);
+    await roomDb.recordDailyStats(midnight.getTime() - 86_400_000).catch((error) => console.error('Error recording room stats:', error));
+    const deletedRooms = await roomDb.deleteExpiredRooms(Date.now()).catch((error) => {
+      console.error('Error deleting expired rooms:', error);
+      return 0;
+    });
+
     return NextResponse.json({
       success: failedCount === 0,
       deletedCount,
+      deletedRooms,
       failedCount,
       prunedQuotaRows,
       prunedRateWindows,

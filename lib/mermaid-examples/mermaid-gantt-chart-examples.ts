@@ -1,5 +1,15 @@
 import type { MermaidExamplesPage } from './types';
 
+/**
+ * Mermaid draws the today marker only while today is inside the chart, so the roadmap example is
+ * dated around the day the page is rendered: it starts on the 1st of the month five months back
+ * and runs about eleven months. The page revalidates monthly (see its page.tsx).
+ */
+function roadmapDate(monthsFromStart: number, dayOfMonth = 1): string {
+  const now = new Date();
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 5 + monthsFromStart, dayOfMonth)).toISOString().slice(0, 10);
+}
+
 export const PAGE: MermaidExamplesPage = {
   slug: 'mermaid-gantt-chart-examples',
   title: 'Mermaid Gantt Chart Examples — Copyable Code',
@@ -7,7 +17,7 @@ export const PAGE: MermaidExamplesPage = {
     'Mermaid Gantt chart syntax with copyable examples rendered live: dateFormat, sections, durations, after, milestones, crit and done, weekends, axisFormat.',
   h1: 'Mermaid Gantt chart examples',
   label: 'Gantt chart',
-  updated: '2026-11-03',
+  updated: '2026-11-23',
   answer:
     'A Mermaid Gantt chart starts with the `gantt` keyword, an optional `title` and a `dateFormat`, then one line per task: the task name, a colon, and comma-separated metadata such as tags, an ID, a start date or `after` another task, and a duration. Sections group the rows. Every example below is rendered live from its code.',
   examples: [
@@ -142,19 +152,19 @@ export const PAGE: MermaidExamplesPage = {
       id: 'today-marker',
       title: 'Roadmap with a styled today marker',
       intro:
-        'The today marker is a vertical line at the current date, drawn only while today falls inside the chart. Put CSS properties after `todayMarker` to restyle it; `axisFormat %b %Y` labels a long roadmap by month.',
+        'The today marker is a vertical line at the current date, drawn only while today falls inside the chart. Put CSS properties after `todayMarker` to restyle it; `axisFormat %b %Y` labels a long roadmap by month. The dates in this example move with the calendar, so the line is always in view.',
       code: `gantt
     title Product roadmap
     dateFormat YYYY-MM-DD
     axisFormat %b %Y
     todayMarker stroke-width:4px,stroke:#4f46e5,opacity:0.6
     section Product
-        Editor rewrite         :done, 2026-06-01, 120d
-        Team workspaces        :active, 2026-09-15, 150d
-        Offline mode           :2027-02-01, 90d
+        Editor rewrite         :done, ${roadmapDate(0)}, 120d
+        Team workspaces        :active, ${roadmapDate(3, 15)}, 150d
+        Offline mode           :${roadmapDate(8)}, 90d
     section Infrastructure
-        Database migration     :done, 2026-07-01, 60d
-        Multi-region hosting   :2026-10-01, 180d`,
+        Database migration     :done, ${roadmapDate(1)}, 60d
+        Multi-region hosting   :${roadmapDate(4)}, 180d`,
     },
   ],
   sections: [

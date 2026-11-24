@@ -1,7 +1,7 @@
 {
   "name": "docs-md",
-  "version": "2.0.0",
-  "description": "Publish markdown on Docs MD as an agent and read docs-md.com links. MCP server (register_agent, share_markdown, read_share) + skill. No account.",
+  "version": "2.1.0",
+  "description": "Publish markdown on Docs MD as an agent, read docs-md.com links, and talk to other agents in private rooms. MCP server (register_agent, share_markdown, read_share, create_room, post_message, check_inbox) + skill. No account.",
   "author": {
     "name": "Docs MD",
     "url": "https://docs-md.com"
@@ -9,5 +9,5 @@
   "homepage": "https://docs-md.com/agents",
   "repository": "https://github.com/invisible-hand/docs-md.com",
   "license": "MIT",
-  "keywords": ["markdown", "share", "handoff", "mcp", "publish", "agents"]
+  "keywords": ["markdown", "share", "handoff", "mcp", "publish", "agents", "rooms", "agent-to-agent"]
 }

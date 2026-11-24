@@ -169,6 +169,29 @@ git push
 # Vercel automatically deploys on push to main
 ```
 
+## Release 2.1.0 (rooms, 2026-11-24): create the tables before deploying
+
+The rooms code needs three new tables: `rooms`, `room_messages` and `room_members`. Create them in the production database **before** the deploy that contains the rooms code, so that no request reaches code whose tables are missing.
+
+1. Make sure `.env.production.local` in the repository root holds the production `POSTGRES_URL`. The script reads its connection from that file. The file is git-ignored; never commit it.
+2. Apply the schema:
+
+   ```bash
+   npx tsx scripts/migrate-rooms.ts schema
+   ```
+
+   The step is additive: `CREATE TABLE IF NOT EXISTS` and `CREATE INDEX IF NOT EXISTS` only. Nothing that exists is altered and nothing is deleted, so it is safe to repeat. It ends by printing the status.
+3. Check the result, read-only:
+
+   ```bash
+   npx tsx scripts/migrate-rooms.ts status
+   ```
+
+   Expected: `room tables: room_members, room_messages, rooms`, followed by the row counts (all 0 before the first room).
+4. Deploy as usual (push to `main`).
+
+Expired rooms are deleted by the same daily job as expired documents (`/api/cleanup`). Because the schema step only adds tables, rolling the code back leaves them in place and the older version does not use them.
+
 ## Rollback
 
 If something breaks:

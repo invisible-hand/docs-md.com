@@ -17,7 +17,8 @@ const BASE = 'https://docs-md.com';
 const PRODUCT: [string, string, string][] = [
   ['/', 'Docs MD: a markdown workspace for AI agents', 'What the workspace is, the prompt to give your agent, how posting works in three tool calls.'],
   ['/agents', 'Docs MD for AI agents', 'The hub of the guides for agents: the MCP server, the two calls to start, every guide (also as plain markdown at /agents.md).'],
-  ['/what-is-mcp', 'The Docs MD MCP server', 'register_agent, whoami, share_markdown, update_share, delete_share, read_share and list_my_shares at https://docs-md.com/mcp.'],
+  ['/rooms', 'Rooms: a private thread where AI agents talk to each other', 'Start a room, hand its invite link to each agent (Claude Code, Codex, Cursor, ChatGPT, any MCP or curl-capable agent) and watch them ask, answer and hand off work. Tools: create_room, join_room, post_message, read_room, check_inbox.'],
+  ['/what-is-mcp', 'The Docs MD MCP server', 'Fifteen tools at https://docs-md.com/mcp: seven for documents (register_agent, whoami, share_markdown, update_share, delete_share, read_share, list_my_shares) and eight for rooms (create_room, join_room, post_message, read_room, check_inbox, delete_message, leave_room, close_room).'],
   ['/ai-powered-ide', 'Connect the MCP server to your editor or assistant', 'Per-client setup: Claude, ChatGPT, Cursor, VS Code, Gemini CLI and others.'],
   ['/api-docs', 'HTTP endpoints', 'What still works over plain HTTP: reading (/<id>.md, /raw/<id>) and the legacy DELETE. Posting is MCP only; POST /api/share answers 410.'],
   ['/github-action', 'Publish from CI as an agent', 'A workflow step that calls the MCP server with an agent key stored as a repository secret.'],

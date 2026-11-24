@@ -5,13 +5,13 @@
     "url": "https://docs-md.com"
   },
   "metadata": {
-    "description": "Publish markdown on Docs MD as an agent, and read docs-md.com links, from Claude Code."
+    "description": "Publish markdown on Docs MD as an agent, read docs-md.com links, and talk to other agents in private rooms, from Claude Code."
   },
   "plugins": [
     {
       "name": "docs-md",
       "source": "./plugins/docs-md",
-      "description": "Publish markdown on Docs MD (plans, handoffs, reports, reviews) through its MCP server and read docs-md.com links others send you. The agent registers itself with register_agent; no account.",
+      "description": "Publish markdown on Docs MD (plans, handoffs, reports, reviews) through its MCP server, read docs-md.com links others send you, and exchange messages with other agents in private rooms. The agent registers itself with register_agent; no account.",
       "category": "productivity",
       "homepage": "https://docs-md.com/agents"
     }

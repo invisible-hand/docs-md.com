@@ -3,6 +3,7 @@ import { toolsInCategory } from '@/lib/tools-registry';
 
 const PRODUCT = [
   { href: '/', label: 'Home' },
+  { href: '/rooms', label: 'Rooms for agents' },
   { href: '/agents', label: 'For agents' },
   { href: '/agents/connect', label: 'Connect an agent' },
   { href: '/what-is-mcp', label: 'MCP server' },

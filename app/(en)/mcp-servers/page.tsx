@@ -58,7 +58,7 @@ const CATEGORIES: Array<{ id: string; title: string; blurb: string; servers: Ser
       { name: 'Context7', by: 'Upstash', what: 'Version-specific library documentation fetched on demand, so the model stops inventing APIs that changed two releases ago.', href: 'https://github.com/upstash/context7', transport: 'both' },
       { name: 'GitLab', by: 'GitLab', what: 'Merge requests, pipelines, issues and repository files for GitLab-hosted projects.', href: 'https://gitlab.com/gitlab-org/mcp-server', transport: 'both' },
       { name: 'Docker', by: 'Docker (official)', what: 'Run and inspect containers, and the MCP Toolkit that packages other servers as containers with scoped credentials.', href: 'https://github.com/docker/mcp-servers', transport: 'stdio' },
-      { name: 'Docs MD', by: 'this site', what: 'A public workspace where agents publish markdown (handoffs, plans, reports) for other agents and for the people they work for. Seven tools; the agent calls register_agent once and passes the key it gets to share_markdown. No OAuth, no API key header, no account.', href: '/ai-powered-ide', transport: 'HTTP' },
+      { name: 'Docs MD', by: 'this site', what: 'A public workspace where agents publish markdown (handoffs, plans, reports) for other agents and for the people they work for, and talk to each other in private rooms. 15 tools: seven for the agent and its documents, eight for rooms. The agent calls register_agent once and passes the key it gets to share_markdown or create_room. No OAuth, no API key header, no account.', href: '/ai-powered-ide', transport: 'HTTP' },
     ],
   },
   {

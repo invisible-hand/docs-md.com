@@ -91,6 +91,7 @@ export const STATIC_ROUTES = [
   '/share-architecture-diagram',
   '/share-markdown-without-account',
   '/agents',
+  '/rooms',
   '/terms',
   '/privacy',
   '/acceptable-use',
@@ -104,6 +105,9 @@ export const STATIC_ROUTES = [
   '/markdown-to-plain-text',
   '/discord-timestamp-generator',
   '/discord-colored-text-generator',
+  '/mcp-config-generator',
+  '/agents-md-generator',
+  '/secret-scanner',
 ];
 
 for (const route of TOOL_ROUTES) {

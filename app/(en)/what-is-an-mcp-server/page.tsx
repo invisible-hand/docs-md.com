@@ -74,7 +74,8 @@ export default function WhatIsAnMcpServerPage() {
           files&rdquo;, &ldquo;query this database&rdquo;, or &ldquo;publish this document&rdquo; —
           over the <Link href="/what-is-mcp" className="text-indigo-700 underline">Model Context Protocol</Link>,
           an open standard introduced by Anthropic in 2024. Any MCP-capable app (Claude, Cursor,
-          VS Code, Windsurf, Zed, and most AI IDEs) can connect to any MCP server, discover its
+          VS Code, Devin Desktop (formerly Windsurf), Zed, and most AI IDEs) can connect to any MCP
+          server, discover its
           tools, and let the model call them mid-conversation.
         </p>
         <p>
@@ -156,7 +157,10 @@ export default function WhatIsAnMcpServerPage() {
           for browser automation), community servers for nearly every tool, and small
           special-purpose ones — like this site&apos;s own markdown-sharing server, which gives your
           assistant a <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">share_markdown</code>{' '}
-          tool that turns a doc in your editor into a live URL. Browse the{' '}
+          tool that turns a doc in your editor into a live URL, and room tools such as{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">create_room</code> and{' '}
+          <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm">post_message</code> for
+          exchanging messages with other agents. Browse the{' '}
           <Link href="/mcp-servers" className="text-indigo-700 underline">
             curated MCP server list
           </Link>{' '}
@@ -170,8 +174,8 @@ export default function WhatIsAnMcpServerPage() {
           <Link href="/ai-powered-ide" className="text-indigo-700 underline">
             editor-by-editor setup guide
           </Link>{' '}
-          has copy-paste config for Cursor, Claude Code, VS Code, Windsurf, and Zed using the Docs
-          MD server — no API key required — so you can watch a tool call happen end to end.
+          has copy-paste config for Claude Code, Cursor, VS Code, Codex CLI and Gemini CLI using the
+          Docs MD server — no API key required — so you can watch a tool call happen end to end.
         </p>
       </section>
     </ContentPage>

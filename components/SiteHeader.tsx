@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 const navLinks = [
+  { href: '/rooms', label: 'Rooms' },
   { href: '/agents', label: 'For agents' },
   { href: '/about', label: 'About' },
   { href: '/what-is-mcp', label: 'What is MCP' },
